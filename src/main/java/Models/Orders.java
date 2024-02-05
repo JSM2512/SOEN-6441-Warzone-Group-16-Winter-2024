@@ -6,10 +6,10 @@ public class Orders {
     String d_targetName;
     Integer d_noOfArmiesToMove;
 
-    public Orders(String d_order, String d_targetName, Integer d_noOfArmiesToMove) {
-        this.d_order = d_order;
-        this.d_targetName = d_targetName;
-        this.d_noOfArmiesToMove = d_noOfArmiesToMove;
+    public Orders(String p_order, String p_targetName, Integer p_noOfArmiesToMove) {
+        this.d_order = p_order;
+        this.d_targetName = p_targetName;
+        this.d_noOfArmiesToMove = p_noOfArmiesToMove;
     }
 
     public String getD_order() {

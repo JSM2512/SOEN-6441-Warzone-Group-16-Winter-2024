@@ -12,24 +12,24 @@ public class Map {
         return d_mapName;
     }
 
-    public void setD_mapName(String d_mapName) {
-        this.d_mapName = d_mapName;
+    public void setD_mapName(String p_mapName) {
+        this.d_mapName = p_mapName;
     }
 
     public List<Country> getD_mapCountries() {
         return d_mapCountries;
     }
 
-    public void setD_mapCountries(List<Country> d_mapCountries) {
-        this.d_mapCountries = d_mapCountries;
+    public void setD_mapCountries(List<Country> p_mapCountries) {
+        this.d_mapCountries = p_mapCountries;
     }
 
     public List<Continent> getD_mapContinents() {
         return d_mapContinents;
     }
 
-    public void setD_mapContinents(List<Continent> d_mapContinents) {
-        this.d_mapContinents = d_mapContinents;
+    public void setD_mapContinents(List<Continent> p_mapContinents) {
+        this.d_mapContinents = p_mapContinents;
     }
     public Country getCountryByName(String p_countryName){
 
