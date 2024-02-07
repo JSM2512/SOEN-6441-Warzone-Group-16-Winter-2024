@@ -2,6 +2,8 @@ package Game;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.List;
+import java.util.Map;
 
 public class MainGameEngine {
 
@@ -17,6 +19,7 @@ public class MainGameEngine {
         while(l_flag){
             System.out.println("================================== MAIN MENU ===================================");
             System.out.println("1. Initiate the map : (Use: 'loadmap filename'.)");
+            System.out.println("2. Exit the game : (Use: 'exit'.)");
             System.out.println("");
             System.out.println("");
             System.out.print("Enter the command : ");
@@ -31,16 +34,22 @@ public class MainGameEngine {
 
     }
 
-    private void commandHandler(String p_inputCommand) {
+    private void commandHandler(String p_inputCommand){
         CommandHandler l_commandHandler = new CommandHandler(p_inputCommand);
         String l_mainCommand = l_commandHandler.getMainCommand();
 
         if(l_mainCommand.equals("loadmap")){
             loadMap(l_commandHandler);
         }
+        if("exit".equals(p_inputCommand)){
+            System.out.println("Closing Game....");
+            System.exit(0);
+        }
     }
 
-    private void loadMap(CommandHandler p_commandHandler) {
-        System.out.println("COMMAND RECIEVED SUCCESSFULLY");
+    private void loadMap(CommandHandler p_commandHandler){
+        List<Map<String,String>> l_listOfOperations = p_commandHandler.getListOfOperations();
+        System.out.println(l_listOfOperations);
+
     }
 }
