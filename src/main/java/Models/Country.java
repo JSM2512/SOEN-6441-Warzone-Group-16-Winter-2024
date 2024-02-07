@@ -1,9 +1,13 @@
 package Models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Country {
     Integer d_countryID;
     String d_countryName;
     Integer d_continentID;
+    List<Integer> d_neighbouringCountriesId;
 
     public Country(Integer p_countryID, String p_countryName, Integer p_continentID) {
         this.d_countryID = p_countryID;
@@ -33,5 +37,27 @@ public class Country {
 
     public void setD_continentID(Integer p_continentID) {
         this.d_continentID = p_continentID;
+    }
+    public List<Integer> getD_neighbouringCountriesId() {
+        if(d_neighbouringCountriesId == null) {
+            return new ArrayList<Integer>();
+        }
+        else {
+            return d_neighbouringCountriesId;
+        }
+    }
+
+    public void setD_neighbouringCountriesId(List<Integer> d_neighbouringCountriesId) {
+        this.d_neighbouringCountriesId = d_neighbouringCountriesId;
+    }
+
+    @Override
+    public String toString() {
+        return "Country{" +
+                "d_countryID=" + d_countryID +
+                ", d_countryName='" + d_countryName + '\'' +
+                ", d_continentID=" + d_continentID +
+                ", d_neighbouringCountriesId=" + d_neighbouringCountriesId +
+                '}';
     }
 }

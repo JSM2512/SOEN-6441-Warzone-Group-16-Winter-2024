@@ -31,6 +31,16 @@ public class Map {
     public void setD_mapContinents(List<Continent> p_mapContinents) {
         this.d_mapContinents = p_mapContinents;
     }
+
+    @Override
+    public String toString() {
+        return "Map{" +
+                "d_mapName='" + d_mapName + '\'' +
+                ", d_mapCountries=" + d_mapCountries +
+                ", d_mapContinents=" + d_mapContinents +
+                '}';
+    }
+
     public Country getCountryByName(String p_countryName){
 
         for(Country l_country : d_mapCountries){

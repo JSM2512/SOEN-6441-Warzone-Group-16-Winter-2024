@@ -47,6 +47,17 @@ public class Continent {
         this.d_countries = p_countries;
     }
 
+    @Override
+    public String toString() {
+        return "Continent{" +
+                "d_continentID=" + d_continentID +
+                ", d_continentName='" + d_continentName + '\'' +
+                ", d_continentValue=" + d_continentValue +
+                ", d_countries=" + d_countries +
+
+                '}';
+    }
+
     public void addCountry(Country p_countryObject){
         if(d_countries != null){
             d_countries.add(p_countryObject);
@@ -71,4 +82,13 @@ public class Continent {
         }
     }
 
+    public void setCountry(Country p_eachCountry) {
+        if(d_countries == null){
+            d_countries = new ArrayList<Country>();
+            d_countries.add(p_eachCountry);
+        }
+        else{
+            d_countries.add(p_eachCountry);
+        }
+    }
 }

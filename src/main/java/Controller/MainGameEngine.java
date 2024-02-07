@@ -63,7 +63,8 @@ public class MainGameEngine {
         {
             if(l_singleOperation.containsKey("Arguments") && l_singleOperation.get("Arguments")!=null)
             {
-                d_mapController.loadMap(d_currentState,l_singleOperation.get("Arguments"));
+                Models.Map l_map = d_mapController.loadMap(d_currentState,l_singleOperation.get("Arguments"));
+                System.out.println(l_map);
             }
         }
     }
