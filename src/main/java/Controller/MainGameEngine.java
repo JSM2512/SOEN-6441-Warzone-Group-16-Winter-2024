@@ -1,4 +1,6 @@
-package Game;
+package Controller;
+
+import Models.CurrentState;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -6,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 public class MainGameEngine {
+
+    MapController d_mapController=new MapController();
+    CurrentState d_currentState=new CurrentState();
 
     public static void main(String... args){
         MainGameEngine l_mainGameEngine = new MainGameEngine();
@@ -34,7 +39,7 @@ public class MainGameEngine {
 
     }
 
-    private void commandHandler(String p_inputCommand){
+    private void commandHandler(String p_inputCommand) throws Exception {
         CommandHandler l_commandHandler = new CommandHandler(p_inputCommand);
         String l_mainCommand = l_commandHandler.getMainCommand();
 
@@ -47,9 +52,19 @@ public class MainGameEngine {
         }
     }
 
-    private void loadMap(CommandHandler p_commandHandler){
+    private void loadMap(CommandHandler p_commandHandler) throws Exception {
         List<Map<String,String>> l_listOfOperations = p_commandHandler.getListOfOperations();
         System.out.println(l_listOfOperations);
-
+        if(l_listOfOperations.isEmpty())
+        {
+            throw new Exception("Invalid Command for load map");
+        }
+        for(Map<String,String> l_singleOperation : l_listOfOperations)
+        {
+            if(l_singleOperation.containsKey("Arguments") && l_singleOperation.get("Arguments")!=null)
+            {
+                d_mapController.loadMap(d_currentState,l_singleOperation.get("Arguments"));
+            }
+        }
     }
 }
