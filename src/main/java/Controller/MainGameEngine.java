@@ -61,7 +61,7 @@ public class MainGameEngine {
                 editCountry(l_commandHandler);
             }
         }
-        if(l_mainCommand.equals("editcontinent")){
+        else if(l_mainCommand.equals("editcontinent")){
             if(!l_mapAvilable){
                 System.out.println("Map not available. Please use editmap command first.");
             }
@@ -69,9 +69,38 @@ public class MainGameEngine {
                 editContinent(l_commandHandler);
             }
         }
+        else if (l_mainCommand.equals("validatemap")) {
+            if(!l_mapAvilable){
+                System.out.println("Map not available. Please use loadmap/editmap command first.");
+            }
+            else{
+                validateMap(l_commandHandler);
+            }
+        }
         if("exit".equals(p_inputCommand)){
             System.out.println("Closing Game....");
             System.exit(0);
+        }
+    }
+
+    private void validateMap(CommandHandler p_commandHandler) {
+        List<Map<String,String>> l_listOfOperations = p_commandHandler.getListOfOperations();
+        if(l_listOfOperations == null || l_listOfOperations.isEmpty()){
+            Models.Map l_map = d_currentState.getD_map();
+            if(l_map == null){
+                System.out.println("Map not Found!");
+            }
+            else {
+                if(l_map.validateMap()){
+                    System.out.println("Map is Valid");
+                }
+                else{
+                    System.out.println("Map is not Valid");
+                }
+            }
+        }
+        else {
+            System.out.println("Validate map command is not correct. Use 'validatemap' command.");
         }
     }
 
