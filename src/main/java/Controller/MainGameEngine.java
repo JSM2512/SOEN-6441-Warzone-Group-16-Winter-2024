@@ -1,6 +1,7 @@
 package Controller;
 
 import Models.CurrentState;
+import Views.MapView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -72,10 +73,20 @@ public class MainGameEngine {
         else if(l_mainCommand.equals("editneighbour")){
             if(!l_mapAvilable){
                 System.out.println("Map not available. Please use editmap command first.");
-            }else {
+            }
+            else {
                 editNeighbourCountry(l_commandHandler);
             }
-        }
+        } 
+        else if (l_mainCommand.equals("showmap")) {
+            if(!l_mapAvilable){
+                System.out.println("Map not available. Please use editmap command first.");
+            }
+            else {
+                MapView l_mapView = new MapView(d_currentState);
+                l_mapView.showMap();
+            }
+        } 
         else if (l_mainCommand.equals("validatemap")) {
             if (!l_mapAvilable) {
                 System.out.println("Map not available. Please use loadmap/editmap command first.");

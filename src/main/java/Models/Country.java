@@ -8,6 +8,7 @@ public class Country {
     String d_countryName;
     Integer d_continentID;
     List<Integer> d_neighbouringCountriesId;
+    Integer d_armies;
 
     public Country(Integer p_countryID, String p_countryName, Integer p_continentID) {
         this.d_countryID = p_countryID;
@@ -43,6 +44,15 @@ public class Country {
     public void setD_continentID(Integer p_continentID) {
         this.d_continentID = p_continentID;
     }
+
+    public Integer getD_armies() {
+        return d_armies;
+    }
+
+    public void setD_armies(Integer p_armies) {
+        this.d_armies = p_armies;
+    }
+
     public List<Integer> getD_neighbouringCountriesId() {
         if(d_neighbouringCountriesId == null) {
             return new ArrayList<Integer>();
