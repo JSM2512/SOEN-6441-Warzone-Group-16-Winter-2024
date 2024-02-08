@@ -1,8 +1,7 @@
 package Models;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+
 public class Map {
 
     String d_mapName;
@@ -178,4 +177,26 @@ public class Map {
         }
         return true;
     }
+
+    public void addContinent(String p_mapContinentName, Integer p_continentValue) {
+        if (d_mapContinents == null){
+            d_mapContinents = new ArrayList<>();
+            Continent l_newContinent = new Continent(1,p_mapContinentName,p_continentValue);
+            d_mapContinents.add(l_newContinent);
+        }
+        else{
+            for(Continent l_continent :d_mapContinents) {
+                if(l_continent.getD_continentName().equals(p_mapContinentName)){
+                    System.out.println("Continent : "+p_mapContinentName+" already exists.");
+                    return;
+                }
+            }
+            int l_mapContinentId = d_mapContinents.size() + 1;
+            Continent l_newContinent = new Continent(l_mapContinentId,p_mapContinentName,p_continentValue);
+            d_mapContinents.add(l_newContinent);
+            System.out.println(d_mapContinents);
+        }
+    }
+
+
 }

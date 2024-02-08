@@ -150,5 +150,36 @@ public class MapController {
     public void editCountry(CurrentState p_currentState, String p_operation, String p_argument) {
         System.out.println(p_operation);
         System.out.println(p_argument);
+
+    }
+
+    public void editContinent(CurrentState p_currentState, String p_operation, String p_arguments) {
+        String l_mapName = p_currentState.getD_map().getD_mapName();
+        Map l_map;
+        if(p_currentState.getD_map().getD_mapContinents() == null && p_currentState.getD_map().getD_mapCountries() == null ){
+            l_map = this.loadMap(p_currentState,l_mapName);
+        }
+        else {
+            l_map = p_currentState.getD_map();
+        }
+        if(l_map != null){
+            Map l_updatedMap = addRemoveContinents(l_map,p_operation,p_arguments);
+            p_currentState.setD_map((l_updatedMap));
+            p_currentState.getD_map().setD_mapName(l_mapName);
+        }
+    }
+
+    private Map addRemoveContinents(Map p_mapToUpdate, String p_operation, String p_arguments) {
+        if (p_operation.equals("add") && p_arguments.split(" ").length == 2){
+            p_mapToUpdate.addContinent(p_arguments.split(" ")[0], Integer.parseInt(p_arguments.split(" ")[1]));
+            System.out.println("Continent " + p_arguments.split(" ")[0]+" inserted Successfully!");
+        } else if (p_operation.equals("remove") && p_arguments.split(" ").length == 1){
+            p_mapToUpdate.removeContinent(p_arguments.split("")[0]);
+            System.out.println("Continent " +p_arguments.split(" ")[0]+" removed successfully!");
+        } else {
+
+            System.out.println("can not Add/remove continent.");
+        }
+        return  p_mapToUpdate;
     }
 }
