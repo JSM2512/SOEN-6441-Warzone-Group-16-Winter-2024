@@ -280,7 +280,7 @@ public class Map {
         d_mapCountries.add(l_newCountry);
         for(Continent l_continent : d_mapContinents){
             if(l_continent.getD_continentID() == p_continentId){
-                l_continent.d_countries.add(l_newCountry);
+                l_continent.addCountry(l_newCountry);
             }
         }
     }
