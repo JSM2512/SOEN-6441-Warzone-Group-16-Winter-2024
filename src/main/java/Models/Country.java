@@ -87,11 +87,20 @@ public class Country {
     }
 
     public void removeNeighbours(int p_neighbourID) {
-        if(d_neighbouringCountriesId == null){
+        if (d_neighbouringCountriesId == null) {
             System.out.println("No neighouring countries are present.");
+        } else {
+            d_neighbouringCountriesId.remove(p_neighbourID);
+        }
+    }
+    public void removeCountryNeighbourIfPresent(int p_removeCountryId) {
+        if(d_neighbouringCountriesId == null){
+            System.out.println("No neighbouring countries present.");
         }
         else{
-            d_neighbouringCountriesId.remove(p_neighbourID);
+            if(d_neighbouringCountriesId.contains(p_removeCountryId)){
+                d_neighbouringCountriesId.remove(p_removeCountryId);
+            }
         }
     }
 }

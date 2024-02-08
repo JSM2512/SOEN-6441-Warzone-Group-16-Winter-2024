@@ -170,7 +170,7 @@ public class MapController {
             p_mapToUpdate.addCountry(Integer.parseInt(p_arguments.split(" ")[0]), Integer.parseInt(p_arguments.split(" ")[1]));
             System.out.println("Country " + p_arguments.split(" ")[0]+" inserted Successfully!");
         } else if (p_operation.equals("remove") && p_arguments.split(" ").length == 1){
-            p_mapToUpdate.removeCountry(p_arguments);
+            p_mapToUpdate.removeCountry(Integer.parseInt(p_arguments));
             System.out.println("Country " +p_arguments.split(" ")[0]+" removed successfully!");
         } else {
             System.out.println("can not Add/remove country.");
