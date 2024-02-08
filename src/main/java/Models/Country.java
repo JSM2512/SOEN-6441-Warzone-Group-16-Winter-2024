@@ -8,10 +8,16 @@ public class Country {
     String d_countryName;
     Integer d_continentID;
     List<Integer> d_neighbouringCountriesId;
+    Integer d_armies;
 
     public Country(Integer p_countryID, String p_countryName, Integer p_continentID) {
         this.d_countryID = p_countryID;
         this.d_countryName = p_countryName;
+        this.d_continentID = p_continentID;
+    }
+
+    public Country(Integer p_countryID, Integer p_continentID) {
+        this.d_countryID = p_countryID;
         this.d_continentID = p_continentID;
     }
 
@@ -38,6 +44,15 @@ public class Country {
     public void setD_continentID(Integer p_continentID) {
         this.d_continentID = p_continentID;
     }
+
+    public Integer getD_armies() {
+        return d_armies;
+    }
+
+    public void setD_armies(Integer p_armies) {
+        this.d_armies = p_armies;
+    }
+
     public List<Integer> getD_neighbouringCountriesId() {
         if(d_neighbouringCountriesId == null) {
             return new ArrayList<Integer>();
@@ -59,5 +74,33 @@ public class Country {
                 ", d_continentID=" + d_continentID +
                 ", d_neighbouringCountriesId=" + d_neighbouringCountriesId +
                 '}';
+    }
+
+    public void addNeighbours(int p_neighbourID) {
+        if(d_neighbouringCountriesId == null){
+            d_neighbouringCountriesId = new ArrayList<>();
+            d_neighbouringCountriesId.add(p_neighbourID);
+        }
+        else{
+            d_neighbouringCountriesId.add(p_neighbourID);
+        }
+    }
+
+    public void removeNeighbours(int p_neighbourID) {
+        if (d_neighbouringCountriesId == null) {
+            System.out.println("No neighouring countries are present.");
+        } else {
+            d_neighbouringCountriesId.remove(p_neighbourID);
+        }
+    }
+    public void removeCountryNeighbourIfPresent(int p_removeCountryId) {
+        if(d_neighbouringCountriesId == null){
+            System.out.println("No neighbouring countries present.");
+        }
+        else{
+            if(d_neighbouringCountriesId.contains(p_removeCountryId)){
+                d_neighbouringCountriesId.remove(p_removeCountryId);
+            }
+        }
     }
 }

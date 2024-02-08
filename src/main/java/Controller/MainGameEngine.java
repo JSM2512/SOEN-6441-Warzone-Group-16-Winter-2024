@@ -1,6 +1,7 @@
 package Controller;
 
 import Models.CurrentState;
+import Views.MapView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -43,40 +44,115 @@ public class MainGameEngine {
     private void commandHandler(String p_inputCommand) throws Exception {
         CommandHandler l_commandHandler = new CommandHandler(p_inputCommand);
         String l_mainCommand = l_commandHandler.getMainCommand();
+        boolean l_mapAvilable = false;
 
-        boolean l_isMapPresent = d_currentState.getD_map() != null;
-
-
+        if(d_currentState.getD_map() != null){
+            l_mapAvilable = true;
+        }
         if(l_mainCommand.equals("loadmap")){
             loadMap(l_commandHandler);
         }
         else if(l_mainCommand.equals(("editmap"))){
             editMap(l_commandHandler);
         }
-        else if(l_mainCommand.equals("editCountry")){
-            if(!l_isMapPresent){
+        else if(l_mainCommand.equals("editcountry")) {
+            if (!l_mapAvilable) {
                 System.out.println("Cannot edit Country as map is not available. Please run editmap command");
-            }
-            else{
+            } else {
                 editCountry(l_commandHandler);
             }
         }
-        if("exit".equals(p_inputCommand)){
+        else if(l_mainCommand.equals("editcontinent")){
+            if(!l_mapAvilable){
+                System.out.println("Map not available. Please use editmap command first.");
+            }
+            else{
+                editContinent(l_commandHandler);
+            }
+        }
+        else if(l_mainCommand.equals("editneighbour")){
+            if(!l_mapAvilable){
+                System.out.println("Map not available. Please use editmap command first.");
+            }
+            else {
+                editNeighbourCountry(l_commandHandler);
+            }
+        } 
+        else if (l_mainCommand.equals("showmap")) {
+            if(!l_mapAvilable){
+                System.out.println("Map not available. Please use editmap command first.");
+            }
+            else {
+                MapView l_mapView = new MapView(d_currentState);
+                l_mapView.showMap();
+            }
+        } 
+        else if (l_mainCommand.equals("validatemap")) {
+            if (!l_mapAvilable) {
+                System.out.println("Map not available. Please use loadmap/editmap command first.");
+            } else {
+                validateMap(l_commandHandler);
+            }
+        }
+        else if("exit".equals(p_inputCommand)){
             System.out.println("Closing Game....");
             System.exit(0);
         }
     }
 
+    private void validateMap(CommandHandler p_commandHandler) {
+        List<Map<String, String>> l_listOfOperations = p_commandHandler.getListOfOperations();
+        if (l_listOfOperations == null || l_listOfOperations.isEmpty()) {
+            Models.Map l_map = d_currentState.getD_map();
+            if (l_map == null) {
+                System.out.println("Map not Found!");
+            } else {
+                if (l_map.validateMap()) {
+                    System.out.println("Map is Valid");
+                } else {
+                    System.out.println("Map is not Valid");
+                }
+            }
+        } else {
+            System.out.println("Validate map command is not correct. Use 'validatemap' command.");
+        }
+    }
+
+    private void editNeighbourCountry(CommandHandler p_CommandHandler) throws Exception {
+        List<Map<String,String>>  l_listOfOperations = p_CommandHandler.getListOfOperations();
+        if(l_listOfOperations == null || l_listOfOperations.isEmpty()){
+            throw new Exception("Invalid command entered for editmap.");
+        }else {
+            for (Map<String ,String > l_singleOperation : l_listOfOperations){
+                if(l_singleOperation.containsKey("Operation") && l_singleOperation.get("Operation")!=null && l_singleOperation.containsKey("Arguments") && l_singleOperation.get("Arguments")!=null){
+                    d_mapController.editNeighbourCountry(d_currentState,l_singleOperation.get("Operation"),l_singleOperation.get("Arguments"));
+                }
+            }
+        }
+    }
+
+    private void editContinent(CommandHandler p_commandHandler) throws Exception {
+        List<Map<String,String>> l_listOfOperations = p_commandHandler.getListOfOperations();
+        if(l_listOfOperations == null || l_listOfOperations.isEmpty()){
+            throw new Exception("Invalid command entered for editmap.");
+        }
+        else{
+            for(Map<String,String> l_singleOperation : l_listOfOperations){
+                if(l_singleOperation.containsKey("Operation") && l_singleOperation.get("Operation")!=null && l_singleOperation.containsKey("Arguments") && l_singleOperation.get("Arguments")!=null){
+                    d_mapController.editContinent(d_currentState, l_singleOperation.get("Operation"), l_singleOperation.get("Arguments"));
+                }
+            }
+        }
+    }
+
     private void loadMap(CommandHandler p_commandHandler) throws Exception {
         List<Map<String,String>> l_listOfOperations = p_commandHandler.getListOfOperations();
-        if(l_listOfOperations.isEmpty())
-        {
+        System.out.println(l_listOfOperations);
+        if(l_listOfOperations == null || l_listOfOperations.isEmpty()) {
             throw new Exception("Invalid Command for load map");
         }
-        for(Map<String,String> l_singleOperation : l_listOfOperations)
-        {
-            if(l_singleOperation.containsKey("Arguments") && l_singleOperation.get("Arguments")!=null)
-            {
+        for(Map<String,String> l_singleOperation : l_listOfOperations) {
+            if(l_singleOperation.containsKey("Arguments") && l_singleOperation.get("Arguments")!=null) {
                 Models.Map l_map = d_mapController.loadMap(d_currentState,l_singleOperation.get("Arguments"));
                 System.out.println(l_map);
                 if(l_map.validateMap()){
