@@ -3,6 +3,7 @@ package Controller;
 import Models.CurrentState;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +26,7 @@ public class MainGameEngine {
             System.out.println("================================== MAIN MENU ===================================");
             System.out.println("1. Initiate the map : (Use: 'loadmap filename'.)");
             System.out.println("2. Exit the game : (Use: 'exit'.)");
-            System.out.println("");
+            System.out.println("3. Edit the Map : (Use: 'editmap filename')");
             System.out.println("");
             System.out.print("Enter the command : ");
             try{
@@ -43,8 +44,22 @@ public class MainGameEngine {
         CommandHandler l_commandHandler = new CommandHandler(p_inputCommand);
         String l_mainCommand = l_commandHandler.getMainCommand();
 
+        boolean l_isMapPresent = d_currentState.getD_map() != null;
+
+
         if(l_mainCommand.equals("loadmap")){
             loadMap(l_commandHandler);
+        }
+        else if(l_mainCommand.equals(("editmap"))){
+            editMap(l_commandHandler);
+        }
+        else if(l_mainCommand.equals("editCountry")){
+            if(!l_isMapPresent){
+                System.out.println("Cannot edit Country as map is not available. Please run editmap command");
+            }
+            else{
+                editCountry(l_commandHandler);
+            }
         }
         if("exit".equals(p_inputCommand)){
             System.out.println("Closing Game....");
@@ -54,7 +69,6 @@ public class MainGameEngine {
 
     private void loadMap(CommandHandler p_commandHandler) throws Exception {
         List<Map<String,String>> l_listOfOperations = p_commandHandler.getListOfOperations();
-        System.out.println(l_listOfOperations);
         if(l_listOfOperations.isEmpty())
         {
             throw new Exception("Invalid Command for load map");
@@ -70,6 +84,40 @@ public class MainGameEngine {
                 }
                 else{
                     System.out.println("Map is not valid.");
+                }
+            }
+        }
+    }
+
+    private void editMap(CommandHandler p_commandHandler) throws Exception {
+        List<Map<String,String>> l_listOfOperations = p_commandHandler.getListOfOperations();
+        System.out.println(l_listOfOperations);
+        if(l_listOfOperations == null || l_listOfOperations.isEmpty())
+        {
+            throw new Exception("Invalid Command for edit map");
+        }
+        else{
+            for(Map<String, String> l_singleOperation : l_listOfOperations){
+                if(p_commandHandler.checkRequiredKey("Arguments", l_singleOperation)){
+                    d_mapController.editMap(d_currentState, l_singleOperation.get("Arguments"));
+                }
+                else{
+                    throw new Exception("Invalid Command for edit map operation");
+                }
+            }
+        }
+    }
+
+    private void editCountry(CommandHandler p_commandHandler) throws Exception {
+        List<Map<String,String>> l_listOfOperations = p_commandHandler.getListOfOperations();
+        if(l_listOfOperations.isEmpty())
+        {
+            throw new Exception("Invalid Command for edit Country");
+        }
+        else{
+            for(Map<String, String> l_singleOperation: l_listOfOperations){
+                if(p_commandHandler.checkRequiredKey("Arguments", l_singleOperation) && p_commandHandler.checkRequiredKey("Operation", l_singleOperation)){
+                    d_mapController.editCountry(d_currentState, l_singleOperation.get("Operation"), l_singleOperation.get("Arguments"));
                 }
             }
         }

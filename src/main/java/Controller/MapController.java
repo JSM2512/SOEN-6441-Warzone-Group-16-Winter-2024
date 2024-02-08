@@ -131,6 +131,24 @@ public class MapController {
     }
 
 
+    public void editMap(CurrentState p_currentState, String p_editFileName) throws IOException {
+        String l_fileLocation = getFilePath(p_editFileName);
+        File l_fileToEdit = new File(l_fileLocation);
+        if(l_fileToEdit.createNewFile() == true){
+            System.out.println("File has been created");
+            Map l_map=new Map();
+            l_map.setD_mapName(p_editFileName);
+            p_currentState.setD_map(l_map);
+        }
+        else{
+            System.out.println("File already exists");
+            p_currentState.setD_map(this.loadMap( p_currentState , p_editFileName ));
+            p_currentState.getD_map().setD_mapName(p_editFileName);
+        }
+    }
 
-
+    public void editCountry(CurrentState p_currentState, String p_operation, String p_argument) {
+        System.out.println(p_operation);
+        System.out.println(p_argument);
+    }
 }
