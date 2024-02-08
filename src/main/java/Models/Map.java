@@ -192,14 +192,23 @@ public class Map {
                     return;
                 }
             }
-            int l_mapContinentId = d_mapContinents.size() + 1;
+            int l_mapContinentId = getMaxContinentID() + 1;
             Continent l_newContinent = new Continent(l_mapContinentId,p_mapContinentName,p_continentValue);
             d_mapContinents.add(l_newContinent);
-            System.out.println(d_mapContinents);
         }
     }
+
+    private int getMaxContinentID() {
+        int l_max = Integer.MIN_VALUE;
+        for(Continent l_eachContinent : d_mapContinents){
+            if(l_max < l_eachContinent.getD_continentID()){
+                l_max = l_eachContinent.getD_continentID();
+            }
+        }
+        return l_max;
+    }
+
     public void removeContinent(String p_mapContinentName) {
-        System.out.println(p_mapContinentName);
         if(d_mapContinents == null && d_mapContinents.isEmpty()){
             System.out.println("Continent : "+p_mapContinentName+" does not exists.");
         }
