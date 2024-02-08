@@ -15,6 +15,11 @@ public class Country {
         this.d_continentID = p_continentID;
     }
 
+    public Country(Integer p_countryID, Integer p_continentID) {
+        this.d_countryID = p_countryID;
+        this.d_continentID = p_continentID;
+    }
+
     public Integer getD_countryID() {
         return d_countryID;
     }

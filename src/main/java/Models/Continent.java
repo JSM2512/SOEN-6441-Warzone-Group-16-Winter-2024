@@ -15,6 +15,11 @@ public class Continent {
         this.d_continentValue = p_continentValue;
     }
 
+    public Continent(Integer p_continentID, Integer p_continentValue) {
+        this.d_continentID = p_continentID;
+        this.d_continentValue = p_continentValue;
+    }
+
     public Integer getD_continentID() {
         return d_continentID;
     }
