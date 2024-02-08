@@ -67,6 +67,7 @@ public class MainGameEngine {
             }
             else{
                 editContinent(l_commandHandler);
+                System.out.println(d_currentState.getD_map().getD_mapContinents());
             }
         }
         if("exit".equals(p_inputCommand)){

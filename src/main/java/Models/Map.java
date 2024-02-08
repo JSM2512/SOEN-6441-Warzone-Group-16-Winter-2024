@@ -32,6 +32,7 @@ public class Map {
         this.d_mapContinents = p_mapContinents;
     }
 
+
     @Override
     public String toString() {
         return "Map{" +
@@ -197,6 +198,44 @@ public class Map {
             System.out.println(d_mapContinents);
         }
     }
+    public void removeContinent(String p_mapContinentName) {
+        System.out.println(p_mapContinentName);
+        if(d_mapContinents == null && d_mapContinents.isEmpty()){
+            System.out.println("Continent : "+p_mapContinentName+" does not exists.");
+        }
+        else{
+            boolean l_isPresent = false;
+            for(Continent l_continent : d_mapContinents){
+                if(l_continent.getD_continentName().equals(p_mapContinentName)){
+                    l_isPresent = true;
+                }
+            }
+            if(l_isPresent){
+                for(Country l_country : getContinent(p_mapContinentName).getD_countries()){
+                    removeAllCountryNeighbours(l_country);
+                    d_mapCountries.remove(l_country);
+                }
+                d_mapContinents.remove(getContinent(p_mapContinentName));
+            }
+        }
+    }
 
+    private Continent getContinent(String p_mapContinentName) {
+        for(Continent l_eachContinent : d_mapContinents){
+            if(l_eachContinent.getD_continentName().equals(p_mapContinentName)){
+                return l_eachContinent;
+            }
+        }
+        return null;
+    }
+
+    private void removeAllCountryNeighbours(Country p_country) {
+        p_country.getD_neighbouringCountriesId().clear();
+        for(Country l_eachCountry : d_mapCountries){
+            if(l_eachCountry.getD_neighbouringCountriesId().contains(p_country.getD_countryID())){
+                l_eachCountry.getD_neighbouringCountriesId().remove(p_country.getD_countryID());
+            }
+        }
+    }
 
 }

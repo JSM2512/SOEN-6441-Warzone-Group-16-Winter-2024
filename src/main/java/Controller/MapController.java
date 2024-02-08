@@ -174,7 +174,7 @@ public class MapController {
             p_mapToUpdate.addContinent(p_arguments.split(" ")[0], Integer.parseInt(p_arguments.split(" ")[1]));
             System.out.println("Continent " + p_arguments.split(" ")[0]+" inserted Successfully!");
         } else if (p_operation.equals("remove") && p_arguments.split(" ").length == 1){
-            p_mapToUpdate.removeContinent(p_arguments.split("")[0]);
+            p_mapToUpdate.removeContinent(p_arguments);
             System.out.println("Continent " +p_arguments.split(" ")[0]+" removed successfully!");
         } else {
 
