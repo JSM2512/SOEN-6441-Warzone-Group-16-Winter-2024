@@ -264,6 +264,7 @@ public class Map {
         }
     }
 
+
     public void addCountry(int p_countryId, int p_continentId) {
         if (d_mapCountries == null){
             d_mapCountries = new ArrayList<>();
@@ -286,6 +287,34 @@ public class Map {
     }
 
     public void removeCountry(String pArguments) {
+    }
+    public void addNeighbour(int p_countryID, int p_neighbourID) {
+        if(d_mapCountries == null){
+            System.out.println("No country in Map.");
+        } else if (getCountry(p_countryID) == null || getCountry(p_neighbourID) == null) {
+            if(getCountry(p_countryID) == null){
+                System.out.println("Country with ID : "+p_countryID+" does not exists in the Map.");
+            }
+            else{
+                System.out.println("Country with ID : "+p_neighbourID+" does not exists in the Map.");
+            }
+        } else{
+            getCountry(p_countryID).addNeighbours(p_neighbourID);
+        }
+    }
 
+    public void removeNeighbour(int p_countryID, int p_neighbourID) {
+        if(d_mapCountries == null){
+            System.out.println("No country in Map.");
+        } else if (getCountry(p_countryID) == null || getCountry(p_neighbourID) == null) {
+            if(getCountry(p_countryID) == null){
+                System.out.println("Country with ID : "+p_countryID+" does not exists in the Map.");
+            }
+            else{
+                System.out.println("Country with ID : "+p_neighbourID+" does not exists in the Map.");
+            }
+        } else{
+            getCountry(p_countryID).removeNeighbours(p_neighbourID);
+        }
     }
 }

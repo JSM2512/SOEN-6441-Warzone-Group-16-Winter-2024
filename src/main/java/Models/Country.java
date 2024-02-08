@@ -65,4 +65,23 @@ public class Country {
                 ", d_neighbouringCountriesId=" + d_neighbouringCountriesId +
                 '}';
     }
+
+    public void addNeighbours(int p_neighbourID) {
+        if(d_neighbouringCountriesId == null){
+            d_neighbouringCountriesId = new ArrayList<>();
+            d_neighbouringCountriesId.add(p_neighbourID);
+        }
+        else{
+            d_neighbouringCountriesId.add(p_neighbourID);
+        }
+    }
+
+    public void removeNeighbours(int p_neighbourID) {
+        if(d_neighbouringCountriesId == null){
+            System.out.println("No neighouring countries are present.");
+        }
+        else{
+            d_neighbouringCountriesId.remove(p_neighbourID);
+        }
+    }
 }

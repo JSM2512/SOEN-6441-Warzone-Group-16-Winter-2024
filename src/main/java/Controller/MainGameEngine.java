@@ -69,38 +69,54 @@ public class MainGameEngine {
                 editContinent(l_commandHandler);
             }
         }
-        else if (l_mainCommand.equals("validatemap")) {
+        else if(l_mainCommand.equals("editneighbour")){
             if(!l_mapAvilable){
-                System.out.println("Map not available. Please use loadmap/editmap command first.");
+                System.out.println("Map not available. Please use editmap command first.");
+            }else {
+                editNeighbourCountry(l_commandHandler);
             }
-            else{
+        }
+        else if (l_mainCommand.equals("validatemap")) {
+            if (!l_mapAvilable) {
+                System.out.println("Map not available. Please use loadmap/editmap command first.");
+            } else {
                 validateMap(l_commandHandler);
             }
         }
-        if("exit".equals(p_inputCommand)){
+        else if("exit".equals(p_inputCommand)){
             System.out.println("Closing Game....");
             System.exit(0);
         }
     }
 
     private void validateMap(CommandHandler p_commandHandler) {
-        List<Map<String,String>> l_listOfOperations = p_commandHandler.getListOfOperations();
-        if(l_listOfOperations == null || l_listOfOperations.isEmpty()){
+        List<Map<String, String>> l_listOfOperations = p_commandHandler.getListOfOperations();
+        if (l_listOfOperations == null || l_listOfOperations.isEmpty()) {
             Models.Map l_map = d_currentState.getD_map();
-            if(l_map == null){
+            if (l_map == null) {
                 System.out.println("Map not Found!");
-            }
-            else {
-                if(l_map.validateMap()){
+            } else {
+                if (l_map.validateMap()) {
                     System.out.println("Map is Valid");
-                }
-                else{
+                } else {
                     System.out.println("Map is not Valid");
                 }
             }
-        }
-        else {
+        } else {
             System.out.println("Validate map command is not correct. Use 'validatemap' command.");
+        }
+    }
+
+    private void editNeighbourCountry(CommandHandler p_CommandHandler) throws Exception {
+        List<Map<String,String>>  l_listOfOperations = p_CommandHandler.getListOfOperations();
+        if(l_listOfOperations == null || l_listOfOperations.isEmpty()){
+            throw new Exception("Invalid command entered for editmap.");
+        }else {
+            for (Map<String ,String > l_singleOperation : l_listOfOperations){
+                if(l_singleOperation.containsKey("Operation") && l_singleOperation.get("Operation")!=null && l_singleOperation.containsKey("Arguments") && l_singleOperation.get("Arguments")!=null){
+                    d_mapController.editNeighbourCountry(d_currentState,l_singleOperation.get("Operation"),l_singleOperation.get("Arguments"));
+                }
+            }
         }
     }
 
