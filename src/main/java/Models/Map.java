@@ -361,21 +361,21 @@ public class Map {
             getCountry(p_countryID).removeNeighbours(p_neighbourID);
         }
     }
-    public void removeCountry(int p_removeCountryId) {
+    public void removeCountry(String p_removeCountryName) {
         if(d_mapCountries == null || d_mapCountries.isEmpty()){
-            System.out.println("Country with country ID : " + p_removeCountryId + " does not exist.");
+            System.out.println("Country : " + p_removeCountryName + " does not exist.");
         }
 
-        if(getCountry(p_removeCountryId) != null){
+        if(getCountryByName(p_removeCountryName) != null){
             for(Continent l_eachContinent : d_mapContinents){
-                if(l_eachContinent.getD_continentID().equals(getCountry(p_removeCountryId).getD_continentID())){
-                    l_eachContinent.removeCountry(getCountry(p_removeCountryId));
+                if(l_eachContinent.getD_continentID().equals(getCountryByName(p_removeCountryName).getD_continentID())){
+                    l_eachContinent.removeCountry(getCountryByName(p_removeCountryName));
                 }
             }
 
-            removeAllCountryNeighbours(getCountry(p_removeCountryId));
+            removeAllCountryNeighbours(getCountryByName(p_removeCountryName));
 
-            d_mapCountries.remove(getCountry(p_removeCountryId));
+            d_mapCountries.remove(getCountryByName(p_removeCountryName));
             System.out.println(d_mapCountries);
             System.out.println(d_mapContinents);
 
