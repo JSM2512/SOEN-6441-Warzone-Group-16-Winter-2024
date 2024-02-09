@@ -344,7 +344,8 @@ public class Map {
                 System.out.println("Country with ID : "+p_neighbourID+" does not exists in the Map.");
             }
         } else{
-            getCountry(p_countryID).addNeighbours(p_neighbourID);
+            getCountry(p_countryID).addCountryNeighbour(p_neighbourID);
+            getCountry(p_neighbourID).addCountryNeighbour(p_countryID);
         }
     }
 
@@ -358,7 +359,8 @@ public class Map {
                 System.out.println("Country with ID : " + p_neighbourID + " does not exists in the Map.");
             }
         } else {
-            getCountry(p_countryID).removeNeighbours(p_neighbourID);
+            getCountry(p_countryID).removeCountryNeighbourIfPresent(p_neighbourID);
+            getCountry(p_neighbourID).removeCountryNeighbourIfPresent(p_countryID);
         }
     }
     public void removeCountry(String p_removeCountryName) {
