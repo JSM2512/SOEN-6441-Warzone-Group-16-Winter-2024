@@ -179,55 +179,80 @@ public class Map {
         return true;
     }
 
-    public void addContinent(Integer p_mapContinentID, Integer p_continentValue) {
+    public void addContinent(String p_mapContinentName, Integer p_continentValue) {
         if (d_mapContinents == null){
             d_mapContinents = new ArrayList<>();
-            Continent l_newContinent = new Continent(p_mapContinentID,p_continentValue);
+            Continent l_newContinent = new Continent(1,p_mapContinentName,p_continentValue);
             d_mapContinents.add(l_newContinent);
         }
         else{
-            for(Continent l_continent : d_mapContinents) {
-                if(l_continent.getD_continentID() == p_mapContinentID){
-                    System.out.println("Continent : "+l_continent.getD_continentName()+" with ID : "+p_mapContinentID+" already exists.");
+            for(Continent l_continent :d_mapContinents) {
+                if(l_continent.getD_continentName().equals(p_mapContinentName)){
+                    System.out.println("Continent : "+p_mapContinentName+" already exists.");
                     return;
                 }
             }
-            Continent l_newContinent = new Continent(p_mapContinentID,p_continentValue);
+            int l_mapContinentId = getMaxContinentID() + 1;
+            Continent l_newContinent = new Continent(l_mapContinentId,p_mapContinentName,p_continentValue);
             d_mapContinents.add(l_newContinent);
             System.out.println(d_mapContinents);
         }
     }
 
-    private int getMaxContinentID() {
-        int l_max = Integer.MIN_VALUE;
-        for(Continent l_eachContinent : d_mapContinents){
-            if(l_max < l_eachContinent.getD_continentID()){
-                l_max = l_eachContinent.getD_continentID();
-            }
+    private int getMaxCountryID() {
+        if(d_mapCountries == null){
+            d_mapCountries = new ArrayList<>();
+            return 0;
+        } else if (d_mapCountries.isEmpty()) {
+            return 0;
         }
-        return l_max;
+        else {
+            int l_max = Integer.MIN_VALUE;
+            for (Country l_eachCountry : d_mapCountries) {
+                if (l_max < l_eachCountry.getD_countryID()) {
+                    l_max = l_eachCountry.getD_countryID();
+                }
+            }
+            return l_max;
+        }
     }
 
-    public void removeContinent(int p_mapContinentID) {
-        if(d_mapContinents == null || d_mapContinents.isEmpty()){
-            System.out.println("Continent with continent ID : "+p_mapContinentID+" does not exists.");
+    private int getMaxContinentID() {
+        if(d_mapContinents == null){
+            d_mapContinents = new ArrayList<>();
+            return 0;
+        } else if (d_mapContinents.isEmpty()) {
+            return 0;
+        }
+        else {
+            int l_max = Integer.MIN_VALUE;
+            for (Continent l_eachContinent : d_mapContinents) {
+                if (l_max < l_eachContinent.getD_continentID()) {
+                    l_max = l_eachContinent.getD_continentID();
+                }
+            }
+            return l_max;
+        }
+    }
+
+    public void removeContinent(String p_mapContinentName) {
+        System.out.println(p_mapContinentName);
+        if(d_mapContinents == null && d_mapContinents.isEmpty()){
+            System.out.println("Continent : "+p_mapContinentName+" does not exists.");
         }
         else{
             boolean l_isPresent = false;
             for(Continent l_continent : d_mapContinents){
-                if(l_continent.getD_continentID().equals(p_mapContinentID)){
+                if(l_continent.getD_continentName().equals(p_mapContinentName)){
                     l_isPresent = true;
                 }
             }
             if(l_isPresent){
-                if(getContinent(p_mapContinentID).getD_countries() != null && !getContinent(p_mapContinentID).getD_countries().isEmpty()){
-                    for(Country l_country : getContinent(p_mapContinentID).getD_countries()){
-                        removeAllCountryNeighbours(l_country);
-                        d_mapCountries.remove(l_country);
-                    }
+                for(Country l_country : getContinentByName(p_mapContinentName).getD_countries()){
+                    removeAllCountryNeighbours(l_country);
+                    d_mapCountries.remove(l_country);
                 }
-                d_mapContinents.remove(getContinent(p_mapContinentID));
-                System.out.println(d_mapContinents);
+                d_mapContinents.remove(getContinentByName(p_mapContinentName));
             }
         }
     }
@@ -265,29 +290,49 @@ public class Map {
     }
 
 
-    public void addCountry(int p_countryId, int p_continentId) {
+    public void addCountry(String p_countryName, String p_continentName) {
         if (d_mapCountries == null){
             d_mapCountries = new ArrayList<>();
         }
         else{
             for(Country l_country : d_mapCountries) {
-                if(l_country.getD_countryID().equals(p_countryId)){
-                    System.out.println("Country : "+p_countryId+" already exists.");
+                if(l_country.getD_countryName().equals(p_countryName)){
+                    System.out.println("Country : "+p_countryName+" already exists.");
                     return;
                 }
             }
         }
-        Country l_newCountry = new Country(p_countryId, p_continentId);
-        d_mapCountries.add(l_newCountry);
-        for(Continent l_continent : d_mapContinents){
-            if(l_continent.getD_continentID() == p_continentId){
-                l_continent.addCountry(l_newCountry);
+        int l_countryID = getMaxCountryID() + 1;
+        int l_continentID = getContinentIDByName(p_continentName);
+        if(l_continentID != -1) {
+            Country l_newCountry = new Country(l_countryID, p_countryName, l_continentID);
+            d_mapCountries.add(l_newCountry);
+            for (Continent l_continent : d_mapContinents) {
+                if (l_continent.getD_continentID() == l_continentID) {
+                    l_continent.addCountry(l_newCountry);
+                }
             }
+        }
+        else{
+            System.out.println("Continent does'nt exist.");
         }
     }
 
-    public void removeCountry(String pArguments) {
+    private int getContinentIDByName(String p_continentName) {
+        if(d_mapContinents == null){
+            System.out.println("No Continents in Map.");
+            return -1;
+        }
+        else{
+            for(Continent l_eachContinent : d_mapContinents){
+                if(l_eachContinent.getD_continentName().equals(p_continentName)){
+                    return l_eachContinent.getD_continentID();
+                }
+            }
+        }
+        return -1;
     }
+
     public void addNeighbour(int p_countryID, int p_neighbourID) {
         if(d_mapCountries == null){
             System.out.println("No country in Map.");

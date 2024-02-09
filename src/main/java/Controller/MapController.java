@@ -167,7 +167,7 @@ public class MapController {
 
     private Map addRemoveCountry(Map p_mapToUpdate, String p_operation, String p_arguments) {
         if (p_operation.equals("add") && p_arguments.split(" ").length == 2){
-            p_mapToUpdate.addCountry(Integer.parseInt(p_arguments.split(" ")[0]), Integer.parseInt(p_arguments.split(" ")[1]));
+            p_mapToUpdate.addCountry(p_arguments.split(" ")[0], p_arguments.split(" ")[1]);
             System.out.println("Country " + p_arguments.split(" ")[0]+" inserted Successfully!");
         } else if (p_operation.equals("remove") && p_arguments.split(" ").length == 1){
             p_mapToUpdate.removeCountry(Integer.parseInt(p_arguments));
@@ -226,10 +226,10 @@ public class MapController {
 
     private Map addRemoveContinents(Map p_mapToUpdate, String p_operation, String p_arguments) {
         if (p_operation.equals("add") && p_arguments.split(" ").length == 2){
-            p_mapToUpdate.addContinent(Integer.parseInt(p_arguments.split(" ")[0]), Integer.parseInt(p_arguments.split(" ")[1]));
+            p_mapToUpdate.addContinent(p_arguments.split(" ")[0], Integer.parseInt(p_arguments.split(" ")[1]));
             System.out.println("Continent " + p_arguments.split(" ")[0]+" inserted Successfully!");
         } else if (p_operation.equals("remove") && p_arguments.split(" ").length == 1){
-            p_mapToUpdate.removeContinent(Integer.parseInt(p_arguments));
+            p_mapToUpdate.removeContinent(p_arguments);
             System.out.println("Continent " +p_arguments.split(" ")[0]+" removed successfully!");
         } else {
             System.out.println("Can not Add/remove continent.");
