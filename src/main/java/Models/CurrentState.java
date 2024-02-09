@@ -30,4 +30,8 @@ public class CurrentState {
     public void setD_map(Map d_map) {
         this.d_map = d_map;
     }
+
+    public void addOrRemoveGamePlayers(String operation, String arguments) {
+        System.out.println("current state player class");
+    }
 }
