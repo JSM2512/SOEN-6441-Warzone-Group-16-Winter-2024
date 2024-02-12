@@ -76,30 +76,35 @@ public class Country {
                 '}';
     }
 
-    public void addNeighbours(int p_neighbourID) {
+    public void addCountryNeighbour(int p_neighbourID) {
         if(d_neighbouringCountriesId == null){
             d_neighbouringCountriesId = new ArrayList<>();
             d_neighbouringCountriesId.add(p_neighbourID);
         }
         else{
-            d_neighbouringCountriesId.add(p_neighbourID);
+            if(!d_neighbouringCountriesId.contains(p_neighbourID)) {
+                d_neighbouringCountriesId.add(p_neighbourID);
+            }
+            else {
+                System.out.println("Neighbour already exists.");
+            }
         }
     }
 
-    public void removeNeighbours(int p_neighbourID) {
-        if (d_neighbouringCountriesId == null) {
-            System.out.println("No neighouring countries are present.");
-        } else {
-            d_neighbouringCountriesId.remove(p_neighbourID);
-        }
-    }
     public void removeCountryNeighbourIfPresent(int p_removeCountryId) {
         if(d_neighbouringCountriesId == null){
             System.out.println("No neighbouring countries present.");
         }
         else{
             if(d_neighbouringCountriesId.contains(p_removeCountryId)){
-                d_neighbouringCountriesId.remove(p_removeCountryId);
+                for(int i=0; i<d_neighbouringCountriesId.size(); i++){
+                    if(d_neighbouringCountriesId.get(i) == p_removeCountryId){
+                        d_neighbouringCountriesId.remove(i);
+                    }
+                }
+            }
+            else {
+                System.out.println("Country ID : "+p_removeCountryId+" is not a neighbour in the first place.");
             }
         }
     }

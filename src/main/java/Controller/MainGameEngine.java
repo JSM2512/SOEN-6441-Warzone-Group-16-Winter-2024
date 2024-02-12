@@ -86,7 +86,16 @@ public class MainGameEngine {
                 MapView l_mapView = new MapView(d_currentState);
                 l_mapView.showMap();
             }
-        } 
+        } else if (l_mainCommand.equals("gameplayer")) {
+            if (!l_mapAvilable) {
+                System.out.println("Map is not available, can not add players. Please first load the map using 'loadmap' command.");
+            }
+            else {
+                gamePlayer(l_commandHandler);
+            }
+        }
+
+
         else if (l_mainCommand.equals("validatemap")) {
             if (!l_mapAvilable) {
                 System.out.println("Map not available. Please use loadmap/editmap command first.");
@@ -94,9 +103,47 @@ public class MainGameEngine {
                 validateMap(l_commandHandler);
             }
         }
+        else if (l_mainCommand.equals("savemap")) {
+            if (!l_mapAvilable) {
+                System.out.println("Map not available. Please use loadmap/editmap command first.");
+            } else {
+                saveMap(l_commandHandler);
+            }
+        }
         else if("exit".equals(p_inputCommand)){
             System.out.println("Closing Game....");
             System.exit(0);
+        }
+    }
+
+
+    private void gamePlayer(CommandHandler p_commandHandler) {
+        List<Map<String, String>> l_listOfOperations = p_commandHandler.getListOfOperations();
+        if (l_listOfOperations == null || l_listOfOperations.isEmpty()) {
+            System.out.println("Wrong command entered, Please enter the correct 'gameplayer' command.");
+        }
+        else {
+            for (Map<String, String> l_eachMap : l_listOfOperations) {
+                if (l_eachMap.containsKey("Operation") && l_eachMap.containsKey("Arguments")) {
+                    d_currentState.addOrRemoveGamePlayers(l_eachMap.get("Operation"), l_eachMap.get("Arguments"));
+                }
+            }
+        }
+    }
+
+    private void saveMap(CommandHandler p_commandHandler) {
+        List<Map<String, String>> l_listOfOperations = p_commandHandler.getListOfOperations();
+        if (l_listOfOperations == null || l_listOfOperations.isEmpty()) {
+            System.out.println("Save map command is not correct. Use 'savemap filename' command.");
+        } else {
+            for(Map<String,String> l_singleOperation : l_listOfOperations){
+                if(l_singleOperation.containsKey("Arguments") && l_singleOperation.get("Arguments")!=null){
+                    d_mapController.saveMap(d_currentState, l_singleOperation.get("Arguments"));
+                }
+                else {
+                    System.out.println("Save map command is not correct. Use 'savemap filename' command.");
+                }
+            }
         }
     }
 
