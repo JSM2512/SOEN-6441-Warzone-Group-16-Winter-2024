@@ -6,6 +6,8 @@ import Models.CurrentState;
 import Models.Map;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -126,7 +128,7 @@ public class MapController {
 
     private String getFilePath(String p_fileName) {
         String l_absolutePath=new File("").getAbsolutePath();
-        l_absolutePath= l_absolutePath + File.separator + "src" + File.separator + "main" + File.separator + "maps" + File.separator + p_fileName;
+        l_absolutePath = l_absolutePath + File.separator + "src" + File.separator + "main" + File.separator + "maps" + File.separator + p_fileName;
         return l_absolutePath;
     }
 
@@ -238,7 +240,78 @@ public class MapController {
     }
 
 
-    public void saveMap(CurrentState dCurrentState, String arguments) {
-        System.out.println("save map state");
+    public boolean saveMap(CurrentState p_currentState, String p_arguments){
+        try {
+            Map l_map = p_currentState.getD_map();
+            if (l_map != null && l_map.validateMap()) {
+
+                if (!l_map.getD_mapName().equals(p_arguments)) {
+                    System.out.println("Name of the file must be same which you loaded in the first place i.e. : " + l_map.getD_mapName());
+                }
+
+                FileOutputStream l_writer = new FileOutputStream(getFilePath(p_arguments), false);
+                l_writer.write("".getBytes());
+
+                if (l_map.getD_mapContinents() != null || !l_map.getD_mapContinents().isEmpty()) {
+                    saveContinentsOnMap(l_writer, p_currentState);
+                } else {
+                    System.out.println("No Continents in this map. Can't save an incorrect map.");
+                }
+                if (l_map.getD_mapCountries() != null || !l_map.getD_mapCountries().isEmpty()) {
+                    saveCountriesOnMap(l_writer, p_currentState);
+                    saveCountryBordersOnMap(l_writer, p_currentState);
+                } else {
+                    System.out.println("No Countries in this map. Can't save an incorrect map.");
+                }
+                l_writer.close();
+            }
+            else {
+                System.out.println("Either map is not present or Map is not valid.");
+                return false;
+            }
+            return true;
+        }
+        catch (IOException p_exception){
+            System.out.println(p_exception.getMessage());
+            return false;
+        }
+    }
+
+    private void saveContinentsOnMap(FileOutputStream p_writer, CurrentState p_currentState) throws IOException {
+        p_writer.write((System.lineSeparator() + "[continents]" + System.lineSeparator()).getBytes());
+        for(Continent l_eachContinent : p_currentState.getD_map().getD_mapContinents()){
+            String l_content = l_eachContinent.getD_continentName() + " " + l_eachContinent.getD_continentValue();
+            p_writer.write((l_content + System.lineSeparator()).getBytes());
+        }
+    }
+
+    private void saveCountriesOnMap(FileOutputStream p_writer, CurrentState p_currentState) throws IOException {
+        p_writer.write((System.lineSeparator() + "[countries]" + System.lineSeparator()).getBytes());
+        for(Country l_eachCountry : p_currentState.getD_map().getD_mapCountries()){
+            String l_content = l_eachCountry.getD_countryID() + " " + l_eachCountry.getD_countryName() + " " + l_eachCountry.getD_continentID();
+            p_writer.write((l_content + System.lineSeparator()).getBytes());
+        }
+    }
+
+    private void saveCountryBordersOnMap(FileOutputStream p_writer, CurrentState p_currentState) throws IOException {
+        p_writer.write((System.lineSeparator() + "[borders]" + System.lineSeparator()).getBytes());
+        List<String> l_borders = new ArrayList<>();
+        for(Country l_eachCountry : p_currentState.getD_map().getD_mapCountries()){
+            if(l_eachCountry.getD_neighbouringCountriesId() != null && !l_eachCountry.getD_neighbouringCountriesId().isEmpty()){
+                String l_eachCountryBorderEntry = l_eachCountry.getD_countryID().toString();
+                for(Integer l_neighbour : l_eachCountry.getD_neighbouringCountriesId()){
+                    l_eachCountryBorderEntry = l_eachCountryBorderEntry + " " + l_neighbour;
+                }
+                l_borders.add(l_eachCountryBorderEntry);
+            }
+        }
+        if(l_borders.isEmpty()){
+            System.out.println("Border are not present. This is not a connected graph.");
+        }
+        else {
+            for (String l_borderEntry : l_borders) {
+                p_writer.write((l_borderEntry + System.lineSeparator()).getBytes());
+            }
+        }
     }
 }
