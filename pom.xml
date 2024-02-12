@@ -14,7 +14,7 @@
                 <!--https://maven.apache.org/plugins/maven-checkstyle-plugin/-->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.11.7</version>
+                <version>3.3.1</version>
                 <configuration>
                     <configLocation>checkstyle-checker.xml</configLocation>
                     <encoding>UTF-8</encoding>
