@@ -1,5 +1,6 @@
 ### IntelliJ IDEA ###
 out/
+/target/
 
 ### Eclipse ###
 .apt_generated
@@ -16,7 +17,6 @@ out/
 /dist/
 /nbdist/
 /.nb-gradle/
-/target
 
 ### Mac OS ###
 .DS_Store

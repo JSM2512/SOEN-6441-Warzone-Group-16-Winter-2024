@@ -238,4 +238,7 @@ public class MapController {
     }
 
 
+    public void saveMap(CurrentState dCurrentState, String arguments) {
+        System.out.println("save map state");
+    }
 }
