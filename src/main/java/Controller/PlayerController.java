@@ -41,10 +41,9 @@ public class PlayerController {
         List<Country> l_unallocatedCountries = new ArrayList<>(p_countryList);
         if (l_unallocatedCountries.isEmpty()){
             System.out.println("No Countries in Map.");
+            return;
         }
         for(Player l_eachPlayer : p_players){
-            if (l_unallocatedCountries.isEmpty())
-                break;
             for (int i = 1 ; i <= p_noOfCountiesToEachPlayer ; i++){
                 Random l_randomNumber = new Random();
                 int l_randomIndex = l_randomNumber.nextInt(l_unallocatedCountries.size());

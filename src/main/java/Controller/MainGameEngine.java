@@ -127,10 +127,6 @@ public class MainGameEngine {
         if (l_listOfOperations == null || l_listOfOperations.isEmpty()) {
             d_gamePlayerController.assignCountries(d_currentState);
         }
-        else {
-
-        }
-
     }
 
 
