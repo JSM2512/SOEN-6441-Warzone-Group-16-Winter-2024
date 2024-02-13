@@ -1,5 +1,11 @@
 package Models;
 
+import Controller.CommandHandler;
+import Controller.PlayerController;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,6 +79,19 @@ public class Player {
             }
             else{
                 System.out.println("Continent : "+p_continent.getD_continentName()+" already assigned to Player : "+d_name);
+            }
+        }
+    }
+
+    public void issueOrder() throws IOException {
+        BufferedReader l_bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Please Enter command to deploy armies on the Map for player : "+d_name);
+        String l_command = l_bufferedReader.readLine();
+        CommandHandler l_commandHandler = new CommandHandler(l_command);
+        if(l_commandHandler.getMainCommand().equals("deploy")){
+            if(l_command.split(" ").length == 3){
+                PlayerController l_gamePlayerController = new PlayerController();
+                l_gamePlayerController.createDeployOrder(l_command, this);
             }
         }
     }

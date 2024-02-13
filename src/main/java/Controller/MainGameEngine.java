@@ -1,6 +1,7 @@
 package Controller;
 
 import Models.CurrentState;
+import Models.Player;
 import Views.MapView;
 
 import java.io.BufferedReader;
@@ -122,11 +123,25 @@ public class MainGameEngine {
         }
     }
 
-    private void assignCountries(CommandHandler p_commandHandler) {
+    private void assignCountries(CommandHandler p_commandHandler) throws IOException {
         List<Map<String, String>> l_listOfOperations = p_commandHandler.getListOfOperations();
         if (l_listOfOperations == null || l_listOfOperations.isEmpty()) {
             d_gamePlayerController.assignCountries(d_currentState);
             d_gamePlayerController.assignArmies(d_currentState);
+            startGame();
+        }
+    }
+
+    private void startGame() throws IOException {
+        while(d_currentState.getD_players() != null && !d_currentState.getD_players().isEmpty()){
+
+            while(d_gamePlayerController.isUnallocatedArmiesExist(d_currentState)){
+                for(Player l_eachPlayer : d_currentState.getD_players()){
+                    if(l_eachPlayer.getD_unallocatedArmies() > 0){
+                        l_eachPlayer.issueOrder();
+                    }
+                }
+            }
         }
     }
 

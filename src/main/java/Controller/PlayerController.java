@@ -67,7 +67,8 @@ public class PlayerController {
     public void assignArmies(CurrentState p_currentState) {
         for(Player l_eachPlayer : p_currentState.getD_players()){
             int l_countOfArmiesOfEachPlayer = getNoOfArmies(l_eachPlayer);
-            System.out.println(l_countOfArmiesOfEachPlayer);
+            l_eachPlayer.setD_unallocatedArmies(l_countOfArmiesOfEachPlayer);
+            System.out.println("Player : "+l_eachPlayer.getD_name()+" got assigned : "+ l_countOfArmiesOfEachPlayer + " Armies.");
         }
     }
 
@@ -84,5 +85,17 @@ public class PlayerController {
             l_currentArmySize += l_totalContinentValue;
         }
         return l_currentArmySize;
+    }
+
+    public boolean isUnallocatedArmiesExist(CurrentState p_currentState) {
+        int l_totalCount = 0;
+        for(Player l_eachPlayer : p_currentState.getD_players()){
+            l_totalCount += l_eachPlayer.getD_unallocatedArmies();
+        }
+        return l_totalCount != 0;
+    }
+
+    public void createDeployOrder(String p_command, Player p_player) {
+
     }
 }
