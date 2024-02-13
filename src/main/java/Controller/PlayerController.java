@@ -14,10 +14,22 @@ public class PlayerController {
         int l_noOfPlayers = l_players.size();
         int l_noOfCountries = l_countryList.size();
         int l_noOfCountiesToEachPlayer = Math.floorDiv(l_noOfCountries, l_noOfPlayers);
-
         assignRandomCountriesToPlayers(l_players,l_countryList,l_noOfCountiesToEachPlayer);
+        displayAssignedCountries(l_players);
         assignContinentToPlayers(l_players,p_currentState.getD_map().getD_mapContinents());
     }
+
+    private void displayAssignedCountries(List<Player> p_players) {
+        for(Player l_currentPlayer : p_players)
+        {
+            System.out.print("Player "+l_currentPlayer.getD_name()+" has these countries: ");
+            for(Country l_currentCountry : l_currentPlayer.getD_currentCountries()){
+                System.out.print(l_currentCountry.getD_countryName()+ " ");
+            }
+            System.out.println();
+        }
+    }
+
 
     private void assignContinentToPlayers(List<Player> p_players, List<Continent> p_mapContinents) {
         for (Player l_eachPlayer : p_players){
