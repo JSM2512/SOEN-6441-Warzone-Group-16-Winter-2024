@@ -1,5 +1,6 @@
 package Controller;
 
+import Models.Continent;
 import Models.Country;
 import Models.CurrentState;
 import Models.Player;
@@ -12,11 +13,28 @@ public class PlayerController {
     public void assignCountries(CurrentState p_currentState) {
         List<Player> l_players = p_currentState.getD_players();
         List<Country> l_countryList = p_currentState.getD_map().getD_mapCountries();
+
         int l_noOfPlayers = l_players.size();
         int l_noOfCountries = l_countryList.size();
         int l_noOfCountiesToEachPlayer = Math.floorDiv(l_noOfCountries, l_noOfPlayers);
-        System.out.println(l_noOfCountiesToEachPlayer);
+
         assignRandomCountriesToPlayers(l_players,l_countryList,l_noOfCountiesToEachPlayer);
+        assignContinentToPlayers(l_players,p_currentState.getD_map().getD_mapContinents());
+    }
+
+    private void assignContinentToPlayers(List<Player> p_players, List<Continent> p_mapContinents) {
+        for (Player l_eachPlayer : p_players){
+            List<Country> l_countriesOwnedByPlayer = l_eachPlayer.getD_currentCountries();
+
+            if (l_eachPlayer.getD_currentCountries() != null && !l_eachPlayer.getD_currentCountries().isEmpty()){
+                for(Continent l_eachContinent : p_mapContinents){
+                    boolean l_isContinentOwned = l_countriesOwnedByPlayer.containsAll(l_eachContinent.getD_countries());
+                    if(l_isContinentOwned){
+                        l_eachPlayer.setContinent(l_eachContinent);
+                    }
+                }
+            }
+        }
     }
 
     private void assignRandomCountriesToPlayers(List<Player> p_players, List<Country> p_countryList, int p_noOfCountiesToEachPlayer) {
@@ -37,11 +55,9 @@ public class PlayerController {
                 l_eachPlayer.getD_currentCountries().add(l_unallocatedCountries.get(l_randomIndex));
                 l_unallocatedCountries.remove(l_randomIndex);
             }
-            System.out.println(l_eachPlayer.getD_currentCountries());
         }
 
         if (!l_unallocatedCountries.isEmpty()) {
-            // Recursively call the function to distribute one country to each player.
             assignRandomCountriesToPlayers(p_players, l_unallocatedCountries,1);
         }
     }

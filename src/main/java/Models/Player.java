@@ -56,4 +56,24 @@ public class Player {
         this.d_orders = p_orders;
     }
 
+    public void setContinent(Continent p_continent) {
+        if(d_currentContinents == null){
+            d_currentContinents = new ArrayList<>();
+            d_currentContinents.add(p_continent);
+        }
+        else{
+            boolean isPresent = false;
+            for(Continent l_eachContinent : d_currentContinents){
+                if(l_eachContinent.getD_continentName().equals(p_continent.getD_continentName())){
+                    isPresent = true;
+                }
+            }
+            if(!isPresent){
+                d_currentContinents.add(p_continent);
+            }
+            else{
+                System.out.println("Continent : "+p_continent.getD_continentName()+" already assigned to Player : "+d_name);
+            }
+        }
+    }
 }
