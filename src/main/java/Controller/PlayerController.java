@@ -45,6 +45,9 @@ public class PlayerController {
         }
         for(Player l_eachPlayer : p_players){
             for (int i = 1 ; i <= p_noOfCountiesToEachPlayer ; i++){
+                if(l_unallocatedCountries.isEmpty()){
+                    break;
+                }
                 Random l_randomNumber = new Random();
                 int l_randomIndex = l_randomNumber.nextInt(l_unallocatedCountries.size());
 
