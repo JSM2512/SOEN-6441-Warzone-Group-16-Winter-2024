@@ -126,9 +126,9 @@ public class MainGameEngine {
         List<Map<String, String>> l_listOfOperations = p_commandHandler.getListOfOperations();
         if (l_listOfOperations == null || l_listOfOperations.isEmpty()) {
             d_gamePlayerController.assignCountries(d_currentState);
+            d_gamePlayerController.assignArmies(d_currentState);
         }
     }
-
 
     private void gamePlayer(CommandHandler p_commandHandler) {
         List<Map<String, String>> l_listOfOperations = p_commandHandler.getListOfOperations();

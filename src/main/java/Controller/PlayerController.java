@@ -60,4 +60,26 @@ public class PlayerController {
             assignRandomCountriesToPlayers(p_players, l_unallocatedCountries,1);
         }
     }
+
+    public void assignArmies(CurrentState p_currentState) {
+        for(Player l_eachPlayer : p_currentState.getD_players()){
+            int l_countOfArmiesOfEachPlayer = getNoOfArmies(l_eachPlayer);
+            System.out.println(l_countOfArmiesOfEachPlayer);
+        }
+    }
+
+    private int getNoOfArmies(Player p_eachPlayer) {
+        int l_currentArmySize = 0;
+        if(p_eachPlayer.getD_currentCountries() != null && !p_eachPlayer.getD_currentCountries().isEmpty()){
+            l_currentArmySize = Math.max(3, Math.round((float)(p_eachPlayer.getD_currentCountries().size() / 3)));
+        }
+        if(p_eachPlayer.getD_currentContinents() != null && !p_eachPlayer.getD_currentContinents().isEmpty()){
+            int l_totalContinentValue = 0;
+            for(Continent l_eachContinent : p_eachPlayer.getD_currentContinents()){
+                l_totalContinentValue += l_eachContinent.getD_continentValue();
+            }
+            l_currentArmySize += l_totalContinentValue;
+        }
+        return l_currentArmySize;
+    }
 }
