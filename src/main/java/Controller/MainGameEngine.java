@@ -11,8 +11,9 @@ import java.util.Map;
 
 public class MainGameEngine {
 
-    MapController d_mapController=new MapController();
-    CurrentState d_currentState=new CurrentState();
+    MapController d_mapController = new MapController();
+    CurrentState d_currentState = new CurrentState();
+    PlayerController d_gamePlayerController = new PlayerController();
 
     public static void main(String... args){
         MainGameEngine l_mainGameEngine = new MainGameEngine();
@@ -93,9 +94,14 @@ public class MainGameEngine {
             else {
                 gamePlayer(l_commandHandler);
             }
+        }else if (l_mainCommand.equals("assigncountries")) {
+            if (!l_mapAvilable) {
+                System.out.println("Map is not available, can not assign country. Please first load the map using 'loadmap' command.");
+            }
+            else {
+                assignCountries(l_commandHandler);
+            }
         }
-
-
         else if (l_mainCommand.equals("validatemap")) {
             if (!l_mapAvilable) {
                 System.out.println("Map not available. Please use loadmap/editmap command first.");
@@ -114,6 +120,17 @@ public class MainGameEngine {
             System.out.println("Closing Game....");
             System.exit(0);
         }
+    }
+
+    private void assignCountries(CommandHandler p_commandHandler) {
+        List<Map<String, String>> l_listOfOperations = p_commandHandler.getListOfOperations();
+        if (l_listOfOperations == null || l_listOfOperations.isEmpty()) {
+            d_gamePlayerController.assignCountries(d_currentState);
+        }
+        else {
+
+        }
+
     }
 
 
