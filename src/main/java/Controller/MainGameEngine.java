@@ -28,11 +28,19 @@ public class MainGameEngine {
 
         while(l_flag){
             System.out.println("================================== MAIN MENU ===================================");
-            System.out.println("1. Initiate the map : (Use: 'loadmap filename'.)");
-            System.out.println("2. Exit the game : (Use: 'exit'.)");
-            System.out.println("3. Edit the Map : (Use: 'editmap filename')");
+            System.out.println("1. Initiate the map: (Usage: 'loadmap <your_filename(.map)>')");
+            System.out.println("2. Edit the Map: (Usage: 'editmap <filename>(.map)')");
+            System.out.println("3. Validate the Map: (Usage: 'validatemap')");
+            System.out.println("4. Show the Map: (Usage: 'showmap')");
+            System.out.println("5. Save the Map: (Usage: 'savemap <file_name_same_used_in_loadmap')");
+            System.out.println("6. Edit the Continent: (Usage: 'editcontinent -add/-remove <continent_name>')");
+            System.out.println("7. Edit the Country: (Usage: 'editcountry -add/-remove <country_name>')");
+            System.out.println("8. Edit the Neighbour: (Usage: 'editneighbour -add/-remove <country_id_1> <country_id_2>')");
+            System.out.println("9. Add a player: (Usage: 'gameplayer -add/-remove <player_name>')");
+            System.out.println("10. Assign countries and allocate armies to players: (Usage: 'assigncountries')");
+            System.out.println("11. Exit the game: (Usage: 'exit')");
             System.out.println("");
-            System.out.print("Enter the command : ");
+            System.out.print("Enter your command: ");
             try{
                 String l_inputCommand = l_bufferedReader.readLine();
                 commandHandler(l_inputCommand);
@@ -139,6 +147,7 @@ public class MainGameEngine {
             return;
         }
 
+        System.out.println("-------> Deploy armies to countries for each player: (Usage: 'deploy <country_name> <number_of_armies_to_deploy>')");
 
             while(d_gamePlayerController.isUnallocatedArmiesExist(d_currentState)){
                 for(Player l_eachPlayer : d_currentState.getD_players()){
