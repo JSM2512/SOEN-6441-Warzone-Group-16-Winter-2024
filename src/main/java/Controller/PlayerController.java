@@ -100,7 +100,7 @@ public class PlayerController {
         for (Player l_eachPlayer : p_currentState.getD_players()) {
             l_totalCount += l_eachPlayer.getD_unallocatedArmies();
         }
-        return l_totalCount != 0;
+        return l_totalCount > 0;
     }
 
     public void createDeployOrder(String p_command, Player p_player) {
@@ -148,4 +148,11 @@ public class PlayerController {
         return false;
     }
 
+    public boolean isUnexecutedOrdersExist(CurrentState p_currentState) {
+        int l_totalCountOfUnexecutedOrders = 0;
+        for(Player l_eachPlayer : p_currentState.getD_players()){
+            l_totalCountOfUnexecutedOrders += l_eachPlayer.getD_orders().size();
+        }
+        return l_totalCountOfUnexecutedOrders > 0;
+    }
 }

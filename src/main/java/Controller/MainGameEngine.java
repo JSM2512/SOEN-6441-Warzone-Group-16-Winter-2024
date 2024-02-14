@@ -1,6 +1,7 @@
 package Controller;
 
 import Models.CurrentState;
+import Models.Orders;
 import Models.Player;
 import Views.MapView;
 
@@ -133,7 +134,7 @@ public class MainGameEngine {
     }
 
     private void startGame() throws IOException {
-        while(d_currentState.getD_players() != null && !d_currentState.getD_players().isEmpty()){
+
 
             while(d_gamePlayerController.isUnallocatedArmiesExist(d_currentState)){
                 for(Player l_eachPlayer : d_currentState.getD_players()){
@@ -142,8 +143,16 @@ public class MainGameEngine {
                     }
                 }
             }
+            while(d_gamePlayerController.isUnexecutedOrdersExist(d_currentState)){
+                for(Player l_eachPlayer : d_currentState.getD_players()){
+                    Orders l_orderToExecute = l_eachPlayer.getNextOrder();
+                    if(l_orderToExecute != null){
+                        l_orderToExecute.executeDeployOrder(l_eachPlayer);
+                    }
+                }
+            }
         }
-    }
+//    }
 
     private void gamePlayer(CommandHandler p_commandHandler) {
         List<Map<String, String>> l_listOfOperations = p_commandHandler.getListOfOperations();
