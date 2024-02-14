@@ -1,9 +1,6 @@
 package Controller;
 
-import Models.Continent;
-import Models.Country;
-import Models.CurrentState;
-import Models.Player;
+import Models.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,6 +93,10 @@ public class PlayerController {
     }
 
     public void createDeployOrder(String p_command, Player p_player) {
-
+        String l_countryName = p_command.split(" ")[1];
+        String l_noOfArmiesToDeploy = p_command.split(" ")[2];
+        System.out.println(l_countryName);
+        System.out.println(l_noOfArmiesToDeploy);
     }
+
 }
