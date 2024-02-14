@@ -44,7 +44,7 @@ public class Orders {
         this.d_noOfArmiesToMove = p_noOfArmiesToMove;
     }
 
-    public void executeDeployOrder(Player p_eachPlayer) {
+    public void execute(Player p_eachPlayer) {
         if(d_order.equals("deploy")){
             for(Country l_eachCountry : p_eachPlayer.getD_currentCountries()){
                 if(l_eachCountry.getD_countryName().equals(this.d_targetName)){

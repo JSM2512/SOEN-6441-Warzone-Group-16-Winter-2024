@@ -97,7 +97,7 @@ public class Player {
         }
     }
 
-    public Orders getNextOrder() {
+    public Orders nextOrder() {
         if(d_orders == null || d_orders.isEmpty()){
             return null;
         }

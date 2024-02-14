@@ -145,9 +145,9 @@ public class MainGameEngine {
             }
             while(d_gamePlayerController.isUnexecutedOrdersExist(d_currentState)){
                 for(Player l_eachPlayer : d_currentState.getD_players()){
-                    Orders l_orderToExecute = l_eachPlayer.getNextOrder();
+                    Orders l_orderToExecute = l_eachPlayer.nextOrder();
                     if(l_orderToExecute != null){
-                        l_orderToExecute.executeDeployOrder(l_eachPlayer);
+                        l_orderToExecute.execute(l_eachPlayer);
                     }
                 }
             }
