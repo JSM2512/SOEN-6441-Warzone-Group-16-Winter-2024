@@ -93,10 +93,28 @@ public class PlayerController {
     }
 
     public void createDeployOrder(String p_command, Player p_player) {
+        List<Orders> l_orders;
+        if(p_player.getD_orders() == null || p_player.getD_orders().isEmpty()){
+            l_orders = new ArrayList<>();
+        }
+        else{
+            l_orders = p_player.getD_orders();
+        }
         String l_countryName = p_command.split(" ")[1];
         String l_noOfArmiesToDeploy = p_command.split(" ")[2];
         if(validateDeployArmiesOrder(p_player, l_noOfArmiesToDeploy)){
             System.out.println("Given deploy order can't be executed as armies in deploy order is more than players unallocated armies");
+        }
+        else{
+            Orders l_order = new Orders(p_command.split(" ")[0], l_countryName, Integer.parseInt(l_noOfArmiesToDeploy));
+            l_orders.add(l_order);
+
+            p_player.setD_orders(l_orders);
+
+            Integer l_unallocatedArmies = p_player.getD_unallocatedArmies() - Integer.parseInt(l_noOfArmiesToDeploy);
+            p_player.setD_unallocatedArmies(l_unallocatedArmies);
+
+            System.out.println("Order has been added to queue for execution");
         }
     }
 
