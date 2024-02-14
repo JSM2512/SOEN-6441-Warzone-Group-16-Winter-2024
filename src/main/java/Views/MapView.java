@@ -27,13 +27,13 @@ public class MapView {
                 System.out.println("****************************************************************************************************************************");
                 System.out.println("| Continent ID : " + l_eachContinent.getD_continentID() +". Continent Name : " + l_eachContinent.getD_continentName());
                 System.out.println("****************************************************************************************************************************");
-                System.out.println("| Country ID.     | Country Name                                 | Connections                                           ");
+                System.out.println("| Country ID.     | Country Name                | Armies                          | Connections                                           ");
                 System.out.println("****************************************************************************************************************************");
 
                 List<Country> l_countriesOfContinent = l_eachContinent.getD_countries();
                 if (l_countriesOfContinent != null) {
                     for (Country l_eachCountry : l_countriesOfContinent) {
-                        System.out.print("| " + l_eachCountry.getD_countryID() + "               | " + l_eachCountry.getD_countryName() + "                                      | ");
+                        System.out.print("| " + l_eachCountry.getD_countryID() + "               | " + l_eachCountry.getD_countryName() + "                     |  " + l_eachCountry.getD_armies()  +  "                              | ");
                         String l_neighbourCountryNames = "";
                         for (Integer l_neighbourID : l_eachCountry.getD_neighbouringCountriesId()) {
                             l_neighbourCountryNames += getCountryByID(l_neighbourID) + ", ";
