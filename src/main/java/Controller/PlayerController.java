@@ -95,8 +95,16 @@ public class PlayerController {
     public void createDeployOrder(String p_command, Player p_player) {
         String l_countryName = p_command.split(" ")[1];
         String l_noOfArmiesToDeploy = p_command.split(" ")[2];
-        System.out.println(l_countryName);
-        System.out.println(l_noOfArmiesToDeploy);
+        if(validateDeployArmiesOrder(p_player, l_noOfArmiesToDeploy)){
+            System.out.println("Given deploy order can't be executed as armies in deploy order is more than players unallocated armies");
+        }
+    }
+
+    private boolean validateDeployArmiesOrder(Player p_player, String p_noOfDeployArmies){
+        if(p_player.getD_unallocatedArmies() < Integer.parseInt(p_noOfDeployArmies)){
+            return true;
+        }
+        return false;
     }
 
 }
