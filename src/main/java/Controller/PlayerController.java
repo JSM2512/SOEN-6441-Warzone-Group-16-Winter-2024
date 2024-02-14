@@ -8,6 +8,10 @@ import java.util.Random;
 
 public class PlayerController {
     public void assignCountries(CurrentState p_currentState) {
+        if(p_currentState.getD_players() == null || p_currentState.getD_players().isEmpty()){
+            System.out.println("No players exist in the game. Please add players using 'gameplayer -add' command first.");
+            return;
+        }
         List<Player> l_players = p_currentState.getD_players();
         List<Country> l_countryList = p_currentState.getD_map().getD_mapCountries();
 
@@ -73,6 +77,10 @@ public class PlayerController {
     }
 
     public void assignArmies(CurrentState p_currentState) {
+        if(p_currentState.getD_players() == null || p_currentState.getD_players().isEmpty()){
+            System.out.println("Currently, No players are present in the game so, add players using 'gameplayer -add' command first.");
+            return;
+        }
         for (Player l_eachPlayer : p_currentState.getD_players()) {
             int l_countOfArmiesOfEachPlayer = getNoOfArmies(l_eachPlayer);
             l_eachPlayer.setD_unallocatedArmies(l_countOfArmiesOfEachPlayer);
