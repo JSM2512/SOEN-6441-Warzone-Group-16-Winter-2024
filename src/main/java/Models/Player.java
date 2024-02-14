@@ -85,7 +85,7 @@ public class Player {
 
     public void issueOrder() throws IOException {
         BufferedReader l_bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Please Enter command to deploy armies on the Map for player : "+d_name);
+        System.out.println("Please Enter command to deploy armies on the Map for -------------->Player : "+d_name+" Armies left:"+d_unallocatedArmies);
         String l_command = l_bufferedReader.readLine();
         CommandHandler l_commandHandler = new CommandHandler(l_command);
         if(l_commandHandler.getMainCommand().equals("deploy")){
