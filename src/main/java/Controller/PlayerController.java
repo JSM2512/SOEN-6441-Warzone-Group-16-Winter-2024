@@ -34,7 +34,7 @@ public class PlayerController {
     }
 
 
-    private void assignContinentToPlayers(List<Player> p_players, List<Continent> p_mapContinents) {
+    public void assignContinentToPlayers(List<Player> p_players, List<Continent> p_mapContinents) {
         for (Player l_eachPlayer : p_players) {
             List<Country> l_countriesOwnedByPlayer = l_eachPlayer.getD_currentCountries();
 
@@ -49,7 +49,7 @@ public class PlayerController {
         }
     }
 
-    private void assignRandomCountriesToPlayers(List<Player> p_players, List<Country> p_countryList, int p_noOfCountiesToEachPlayer) {
+    public void assignRandomCountriesToPlayers(List<Player> p_players, List<Country> p_countryList, int p_noOfCountiesToEachPlayer) {
         List<Country> l_unallocatedCountries = new ArrayList<>(p_countryList);
         if (l_unallocatedCountries.isEmpty()) {
             System.out.println("No Countries in Map.");
@@ -88,7 +88,7 @@ public class PlayerController {
         }
     }
 
-    private int getNoOfArmies(Player p_eachPlayer) {
+    public int getNoOfArmies(Player p_eachPlayer) {
         int l_currentArmySize = 0;
         if (p_eachPlayer.getD_currentCountries() != null && !p_eachPlayer.getD_currentCountries().isEmpty()) {
             l_currentArmySize = Math.max(3, Math.round((float) (p_eachPlayer.getD_currentCountries().size() / 3)));
