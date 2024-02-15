@@ -29,7 +29,7 @@ public class ContinentTest {
     }
 
     @Test
-    public void testRemoveCountry() {
+    public void RemoveCountry() {
         d_map.addCountry("Pakistan", "Asia");
         d_map.addCountry("Nepal", "Asia");
         d_map.removeCountry("Pakistan");
