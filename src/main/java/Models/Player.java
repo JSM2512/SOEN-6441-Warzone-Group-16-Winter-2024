@@ -1,5 +1,11 @@
 package Models;
 
+import Controller.CommandHandler;
+import Controller.PlayerController;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,4 +62,47 @@ public class Player {
         this.d_orders = p_orders;
     }
 
+    public void setContinent(Continent p_continent) {
+        if(d_currentContinents == null){
+            d_currentContinents = new ArrayList<>();
+            d_currentContinents.add(p_continent);
+        }
+        else{
+            boolean isPresent = false;
+            for(Continent l_eachContinent : d_currentContinents){
+                if(l_eachContinent.getD_continentName().equals(p_continent.getD_continentName())){
+                    isPresent = true;
+                }
+            }
+            if(!isPresent){
+                d_currentContinents.add(p_continent);
+            }
+            else{
+                System.out.println("Continent : "+p_continent.getD_continentName()+" already assigned to Player : "+d_name);
+            }
+        }
+    }
+
+    public void issueOrder() throws IOException {
+        BufferedReader l_bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Please Enter command to deploy armies on the Map  for ----------->  Player : " + d_name + "   Armies left : "+d_unallocatedArmies);
+
+        String l_command = l_bufferedReader.readLine();
+        CommandHandler l_commandHandler = new CommandHandler(l_command);
+        if(l_commandHandler.getMainCommand().equals("deploy")){
+            if(l_command.split(" ").length == 3){
+                PlayerController l_gamePlayerController = new PlayerController();
+                l_gamePlayerController.createDeployOrder(l_command, this);
+            }
+        }
+    }
+
+    public Orders nextOrder() {
+        if(d_orders == null || d_orders.isEmpty()){
+            return null;
+        }
+        Orders l_latestOrder = d_orders.get(0);
+        d_orders.remove(l_latestOrder);
+        return l_latestOrder;
+    }
 }

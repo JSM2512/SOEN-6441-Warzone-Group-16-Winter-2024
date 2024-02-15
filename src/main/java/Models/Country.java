@@ -8,7 +8,7 @@ public class Country {
     String d_countryName;
     Integer d_continentID;
     List<Integer> d_neighbouringCountriesId;
-    Integer d_armies;
+    Integer d_armies = 0;
 
     public Country(Integer p_countryID, String p_countryName, Integer p_continentID) {
         this.d_countryID = p_countryID;

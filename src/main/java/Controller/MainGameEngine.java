@@ -1,6 +1,8 @@
 package Controller;
 
 import Models.CurrentState;
+import Models.Orders;
+import Models.Player;
 import Views.MapView;
 
 import java.io.BufferedReader;
@@ -11,8 +13,9 @@ import java.util.Map;
 
 public class MainGameEngine {
 
-    MapController d_mapController=new MapController();
-    CurrentState d_currentState=new CurrentState();
+    MapController d_mapController = new MapController();
+    CurrentState d_currentState = new CurrentState();
+    PlayerController d_gamePlayerController = new PlayerController();
 
     public static void main(String... args){
         MainGameEngine l_mainGameEngine = new MainGameEngine();
@@ -25,11 +28,19 @@ public class MainGameEngine {
 
         while(l_flag){
             System.out.println("================================== MAIN MENU ===================================");
-            System.out.println("1. Initiate the map : (Use: 'loadmap filename'.)");
-            System.out.println("2. Exit the game : (Use: 'exit'.)");
-            System.out.println("3. Edit the Map : (Use: 'editmap filename')");
+            System.out.println("1. Initiate the map: (Usage: 'loadmap <your_filename(.map)>')");
+            System.out.println("2. Edit the Map: (Usage: 'editmap <filename>(.map)')");
+            System.out.println("3. Validate the Map: (Usage: 'validatemap')");
+            System.out.println("4. Show the Map: (Usage: 'showmap')");
+            System.out.println("5. Save the Map: (Usage: 'savemap <file_name_same_used_in_loadmap')");
+            System.out.println("6. Edit the Continent: (Usage: 'editcontinent -add/-remove <continent_name>')");
+            System.out.println("7. Edit the Country: (Usage: 'editcountry -add/-remove <country_name>')");
+            System.out.println("8. Edit the Neighbour: (Usage: 'editneighbour -add/-remove <country_id_1> <country_id_2>')");
+            System.out.println("9. Add a player: (Usage: 'gameplayer -add/-remove <player_name>')");
+            System.out.println("10. Assign countries and allocate armies to players: (Usage: 'assigncountries')");
+            System.out.println("11. Exit the game: (Usage: 'exit')");
             System.out.println("");
-            System.out.print("Enter the command : ");
+            System.out.print("Enter your command: ");
             try{
                 String l_inputCommand = l_bufferedReader.readLine();
                 commandHandler(l_inputCommand);
@@ -93,9 +104,14 @@ public class MainGameEngine {
             else {
                 gamePlayer(l_commandHandler);
             }
+        }else if (l_mainCommand.equals("assigncountries")) {
+            if (!l_mapAvilable) {
+                System.out.println("Map is not available, can not assign country. Please first load the map using 'loadmap' command.");
+            }
+            else {
+                assignCountries(l_commandHandler);
+            }
         }
-
-
         else if (l_mainCommand.equals("validatemap")) {
             if (!l_mapAvilable) {
                 System.out.println("Map not available. Please use loadmap/editmap command first.");
@@ -116,6 +132,40 @@ public class MainGameEngine {
         }
     }
 
+    private void assignCountries(CommandHandler p_commandHandler) throws IOException {
+        List<Map<String, String>> l_listOfOperations = p_commandHandler.getListOfOperations();
+        if (l_listOfOperations == null || l_listOfOperations.isEmpty()) {
+            d_gamePlayerController.assignCountries(d_currentState);
+            d_gamePlayerController.assignArmies(d_currentState);
+            startGame();
+        }
+    }
+
+    private void startGame() throws IOException {
+        if(d_currentState.getD_players() == null || d_currentState.getD_players().isEmpty()){
+            System.out.println("No players in the game.");
+            return;
+        }
+
+        System.out.println("-------> Deploy armies to countries for each player: (Usage: 'deploy <country_name> <number_of_armies_to_deploy>')");
+
+            while(d_gamePlayerController.isUnallocatedArmiesExist(d_currentState)){
+                for(Player l_eachPlayer : d_currentState.getD_players()){
+                    if(l_eachPlayer.getD_unallocatedArmies() > 0){
+                        l_eachPlayer.issueOrder();
+                    }
+                }
+            }
+            while(d_gamePlayerController.isUnexecutedOrdersExist(d_currentState)){
+                for(Player l_eachPlayer : d_currentState.getD_players()){
+                    Orders l_orderToExecute = l_eachPlayer.nextOrder();
+                    if(l_orderToExecute != null){
+                        l_orderToExecute.execute(l_eachPlayer);
+                    }
+                }
+            }
+        }
+//    }
 
     private void gamePlayer(CommandHandler p_commandHandler) {
         List<Map<String, String>> l_listOfOperations = p_commandHandler.getListOfOperations();
@@ -131,14 +181,20 @@ public class MainGameEngine {
         }
     }
 
-    private void saveMap(CommandHandler p_commandHandler) {
+    private void saveMap(CommandHandler p_commandHandler) throws IOException {
         List<Map<String, String>> l_listOfOperations = p_commandHandler.getListOfOperations();
         if (l_listOfOperations == null || l_listOfOperations.isEmpty()) {
             System.out.println("Save map command is not correct. Use 'savemap filename' command.");
         } else {
             for(Map<String,String> l_singleOperation : l_listOfOperations){
                 if(l_singleOperation.containsKey("Arguments") && l_singleOperation.get("Arguments")!=null){
-                    d_mapController.saveMap(d_currentState, l_singleOperation.get("Arguments"));
+                    boolean l_isMapSaved = d_mapController.saveMap(d_currentState, l_singleOperation.get("Arguments"));
+                    if(l_isMapSaved){
+                        System.out.println("Map : "+d_currentState.getD_map().getD_mapName()+" saved successfully.");
+                    }
+                    else{
+                        System.out.println("An error occured while saving the map.");
+                    }
                 }
                 else {
                     System.out.println("Save map command is not correct. Use 'savemap filename' command.");

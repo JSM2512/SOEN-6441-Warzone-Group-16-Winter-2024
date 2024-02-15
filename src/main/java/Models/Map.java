@@ -159,7 +159,7 @@ public class Map {
         }
     }
 
-    private boolean validateCountriesAndContinents() {
+    public boolean validateCountriesAndContinents() {
         if(d_mapContinents == null || d_mapContinents.isEmpty()){
             System.out.println("Map does not have Continents");
             return false;
