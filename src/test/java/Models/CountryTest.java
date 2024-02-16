@@ -6,13 +6,31 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+/**
+ * The type Country test.
+ */
 public class CountryTest {
 
+    /**
+     * The D map.
+     */
     Map d_map;
+    /**
+     * The D map name.
+     */
     String d_mapName;
+    /**
+     * The D current state.
+     */
     CurrentState d_currentState;
+    /**
+     * The D map controller.
+     */
     MapController d_mapController;
 
+    /**
+     * Sets .
+     */
     @Before
     public void setup() {
         d_currentState = new CurrentState();
@@ -22,6 +40,9 @@ public class CountryTest {
     }
 
 
+    /**
+     * Remove country neighbour if present.
+     */
     @Test
     public void removeCountryNeighbourIfPresent() {
         Country l_country = d_map.getCountryByName("India");

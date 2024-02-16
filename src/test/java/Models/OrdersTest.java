@@ -6,13 +6,34 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+/**
+ * The type Orders test.
+ */
 public class OrdersTest {
+    /**
+     * The D player.
+     */
     Player d_player;
+    /**
+     * The D map.
+     */
     Map d_map;
+    /**
+     * The D map controller.
+     */
     MapController d_mapController;
+    /**
+     * The D current state.
+     */
     CurrentState d_currentState;
+    /**
+     * The D map name.
+     */
     String d_mapName;
 
+    /**
+     * Sets .
+     */
     @Before
     public void setup() {
         d_currentState = new CurrentState();
@@ -22,6 +43,9 @@ public class OrdersTest {
         d_map = d_mapController.loadMap(d_currentState,d_mapName);
     }
 
+    /**
+     * Execute.
+     */
     @Test
     public void execute() {
         d_player.setD_currentCountries(d_map.getD_mapCountries());

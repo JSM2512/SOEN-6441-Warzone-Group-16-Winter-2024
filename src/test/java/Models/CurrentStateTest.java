@@ -8,13 +8,31 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
+/**
+ * The type Current state test.
+ */
 public class CurrentStateTest {
+    /**
+     * The D map.
+     */
     Map d_map;
+    /**
+     * The D map controller.
+     */
     MapController d_mapController;
+    /**
+     * The D current state.
+     */
     CurrentState d_currentState;
+    /**
+     * The D map name.
+     */
     String d_mapName;
 
 
+    /**
+     * Sets .
+     */
     @Before
     public void setup() {
         d_mapController = new MapController();
@@ -24,6 +42,9 @@ public class CurrentStateTest {
         d_map = d_mapController.loadMap(d_currentState, d_mapName);
     }
 
+    /**
+     * Add or remove game players.
+     */
     @Test
     public void addOrRemoveGamePlayers() {
         d_currentState.setD_players(new ArrayList<>());

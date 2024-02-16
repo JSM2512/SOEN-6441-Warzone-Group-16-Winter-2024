@@ -12,16 +12,46 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+/**
+ * The type Player controller test.
+ */
 public class PlayerControllerTest {
+    /**
+     * The D map.
+     */
     Map d_map;
+    /**
+     * The D map controller.
+     */
     MapController d_mapController;
+    /**
+     * The D current state.
+     */
     CurrentState d_currentState;
+    /**
+     * The D player 1.
+     */
     Player d_player1;
+    /**
+     * The D player 2.
+     */
     Player d_player2;
+    /**
+     * The D map name.
+     */
     String d_mapName;
+    /**
+     * The D player controller.
+     */
     PlayerController d_playerController;
+    /**
+     * The L player list.
+     */
     List<Player> l_playerList = new ArrayList<>();
 
+    /**
+     * Setup.
+     */
     @Before
     public void setup(){
         d_currentState = new CurrentState();
@@ -33,6 +63,9 @@ public class PlayerControllerTest {
         d_player2 = new Player("Player2");
     }
 
+    /**
+     * Assign countries.
+     */
     @Test
     public void assignCountries() {
         l_playerList.add(d_player1);
@@ -43,6 +76,9 @@ public class PlayerControllerTest {
         assertEquals(2, d_player2.getD_currentCountries().size());
     }
 
+    /**
+     * Assign continent to players.
+     */
     @Test
     public void assignContinentToPlayers() {
         l_playerList.add(d_player1);
@@ -56,6 +92,9 @@ public class PlayerControllerTest {
         assertEquals(1, d_player1.getD_currentContinents().size());
     }
 
+    /**
+     * Assign random countries to players.
+     */
     @Test
     public void assignRandomCountriesToPlayers(){
         l_playerList.add(d_player1);
@@ -69,6 +108,9 @@ public class PlayerControllerTest {
         assertEquals(1, d_player1.getD_currentCountries().size());
     }
 
+    /**
+     * Gets no of armies.
+     */
     @Test
     public void getNoOfArmies() {
         List<Country> l_countryList = new ArrayList<>();
@@ -104,6 +146,9 @@ public class PlayerControllerTest {
 
     }
 
+    /**
+     * Create deploy order.
+     */
     @Test
     public void createDeployOrder() {
         l_playerList.add(d_player1);
@@ -117,6 +162,9 @@ public class PlayerControllerTest {
         assertEquals(2, d_player1.getD_orders().size());
     }
 
+    /**
+     * Validate invalid deploy order.
+     */
     @Test
     public void validateInvalidDeployOrder() {
         l_playerList.add(d_player1);

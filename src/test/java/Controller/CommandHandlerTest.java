@@ -10,14 +10,35 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+/**
+ * The type Command handler test.
+ */
 public class CommandHandlerTest {
 
+    /**
+     * The D current state.
+     */
     CurrentState d_currentState;
+    /**
+     * The D map controller.
+     */
     MapController d_mapController;
+    /**
+     * The D command handler.
+     */
     CommandHandler d_commandHandler;
+    /**
+     * The D map name.
+     */
     String d_mapName;
+    /**
+     * The D map.
+     */
     Map d_map;
 
+    /**
+     * Setup.
+     */
     @Before
     public void setup(){
         d_currentState = new CurrentState();
@@ -26,6 +47,9 @@ public class CommandHandlerTest {
         d_map = d_mapController.loadMap(d_currentState, d_mapName);
     }
 
+    /**
+     * Gets main command.
+     */
     @Test
     public void getMainCommand() {
         d_commandHandler = new CommandHandler("loadmap test.map");
@@ -36,6 +60,9 @@ public class CommandHandlerTest {
         assertEquals("assigncountries",d_commandHandler.getMainCommand());
     }
 
+    /**
+     * Gets list of operations.
+     */
     @Test
     public void getListOfOperations() {
         d_commandHandler = new CommandHandler("loadmap test.map");
@@ -45,6 +72,9 @@ public class CommandHandlerTest {
         assertEquals("add", d_commandHandler.getListOfOperations().get(0).get("Operation"));
     }
 
+    /**
+     * Check required key.
+     */
     @Test
     public void checkRequiredKey() {
         d_commandHandler = new CommandHandler("editcountry -add India Africa");
