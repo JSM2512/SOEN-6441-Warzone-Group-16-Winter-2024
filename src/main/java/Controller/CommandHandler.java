@@ -2,18 +2,39 @@ package Controller;
 
 import java.util.*;
 
+/**
+ * The type Command handler.
+ */
 public class CommandHandler {
+    /**
+     * The D command.
+     */
     String d_command;
 
+    /**
+     * Instantiates a new Command handler.
+     *
+     * @param p_command the p command
+     */
     public CommandHandler(String p_command) {
         this.d_command = p_command;
     }
 
+    /**
+     * Get main command string.
+     *
+     * @return the string
+     */
     public String getMainCommand(){
         String[] l_command = d_command.split(" ");
         return l_command[0];
     }
 
+    /**
+     * Gets list of operations.
+     *
+     * @return the list of operations
+     */
     public List<Map<String, String>> getListOfOperations() {
         String l_mainCommand = this.getMainCommand();
         String l_remainingString = d_command.replace(l_mainCommand,"").trim();
@@ -36,6 +57,12 @@ public class CommandHandler {
         return l_listOfOperations;
     }
 
+    /**
+     * Gets operations map.
+     *
+     * @param p_singleOperation the p single operation
+     * @return the operations map
+     */
     private Map<String, String> getOperationsMap(String p_singleOperation) {
         Map<String,String> l_operationMap = new HashMap<String,String>();
         String[] l_splitSingleOperation = p_singleOperation.split(" ");
@@ -51,6 +78,13 @@ public class CommandHandler {
         return l_operationMap;
     }
 
+    /**
+     * Check required key boolean.
+     *
+     * @param l_arguments       the l arguments
+     * @param l_singleOperation the l single operation
+     * @return the boolean
+     */
     public boolean checkRequiredKey(String l_arguments, Map<String, String> l_singleOperation) {
         if(l_singleOperation.containsKey((l_arguments)) && l_singleOperation.get(l_arguments) != null && !l_singleOperation.get(l_arguments).isEmpty()){
             return true;

@@ -11,17 +11,37 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The type Main game engine.
+ */
 public class MainGameEngine {
 
+    /**
+     * The D map controller.
+     */
     MapController d_mapController = new MapController();
+    /**
+     * The D current state.
+     */
     CurrentState d_currentState = new CurrentState();
+    /**
+     * The D game player controller.
+     */
     PlayerController d_gamePlayerController = new PlayerController();
 
+    /**
+     * Main.
+     *
+     * @param args the args
+     */
     public static void main(String... args){
         MainGameEngine l_mainGameEngine = new MainGameEngine();
         l_mainGameEngine.start();
     }
 
+    /**
+     * Start.
+     */
     private void start() {
         BufferedReader l_bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         boolean l_flag = true;
@@ -52,6 +72,12 @@ public class MainGameEngine {
 
     }
 
+    /**
+     * Command handler.
+     *
+     * @param p_inputCommand the p input command
+     * @throws Exception the exception
+     */
     private void commandHandler(String p_inputCommand) throws Exception {
         CommandHandler l_commandHandler = new CommandHandler(p_inputCommand);
         String l_mainCommand = l_commandHandler.getMainCommand();
@@ -132,6 +158,12 @@ public class MainGameEngine {
         }
     }
 
+    /**
+     * Assign countries.
+     *
+     * @param p_commandHandler the p command handler
+     * @throws IOException the io exception
+     */
     private void assignCountries(CommandHandler p_commandHandler) throws IOException {
         List<Map<String, String>> l_listOfOperations = p_commandHandler.getListOfOperations();
         if (l_listOfOperations == null || l_listOfOperations.isEmpty()) {
@@ -141,6 +173,11 @@ public class MainGameEngine {
         }
     }
 
+    /**
+     * Start game.
+     *
+     * @throws IOException the io exception
+     */
     private void startGame() throws IOException {
         if(d_currentState.getD_players() == null || d_currentState.getD_players().isEmpty()){
             System.out.println("No players in the game.");
@@ -167,6 +204,11 @@ public class MainGameEngine {
         }
 //    }
 
+    /**
+     * Game player.
+     *
+     * @param p_commandHandler the p command handler
+     */
     private void gamePlayer(CommandHandler p_commandHandler) {
         List<Map<String, String>> l_listOfOperations = p_commandHandler.getListOfOperations();
         if (l_listOfOperations == null || l_listOfOperations.isEmpty()) {
@@ -181,6 +223,12 @@ public class MainGameEngine {
         }
     }
 
+    /**
+     * Save map.
+     *
+     * @param p_commandHandler the p command handler
+     * @throws IOException the io exception
+     */
     private void saveMap(CommandHandler p_commandHandler) throws IOException {
         List<Map<String, String>> l_listOfOperations = p_commandHandler.getListOfOperations();
         if (l_listOfOperations == null || l_listOfOperations.isEmpty()) {
@@ -203,6 +251,11 @@ public class MainGameEngine {
         }
     }
 
+    /**
+     * Validate map.
+     *
+     * @param p_commandHandler the p command handler
+     */
     private void validateMap(CommandHandler p_commandHandler) {
         List<Map<String, String>> l_listOfOperations = p_commandHandler.getListOfOperations();
         if (l_listOfOperations == null || l_listOfOperations.isEmpty()) {
@@ -221,6 +274,12 @@ public class MainGameEngine {
         }
     }
 
+    /**
+     * Edit neighbour country.
+     *
+     * @param p_CommandHandler the p command handler
+     * @throws Exception the exception
+     */
     private void editNeighbourCountry(CommandHandler p_CommandHandler) throws Exception {
         List<Map<String,String>>  l_listOfOperations = p_CommandHandler.getListOfOperations();
         if(l_listOfOperations == null || l_listOfOperations.isEmpty()){
@@ -234,6 +293,12 @@ public class MainGameEngine {
         }
     }
 
+    /**
+     * Edit continent.
+     *
+     * @param p_commandHandler the p command handler
+     * @throws Exception the exception
+     */
     private void editContinent(CommandHandler p_commandHandler) throws Exception {
         List<Map<String,String>> l_listOfOperations = p_commandHandler.getListOfOperations();
         if(l_listOfOperations == null || l_listOfOperations.isEmpty()){
@@ -248,6 +313,12 @@ public class MainGameEngine {
         }
     }
 
+    /**
+     * Load map.
+     *
+     * @param p_commandHandler the p command handler
+     * @throws Exception the exception
+     */
     private void loadMap(CommandHandler p_commandHandler) throws Exception {
         List<Map<String,String>> l_listOfOperations = p_commandHandler.getListOfOperations();
         System.out.println(l_listOfOperations);
@@ -268,6 +339,12 @@ public class MainGameEngine {
         }
     }
 
+    /**
+     * Edit map.
+     *
+     * @param p_commandHandler the p command handler
+     * @throws Exception the exception
+     */
     private void editMap(CommandHandler p_commandHandler) throws Exception {
         List<Map<String,String>> l_listOfOperations = p_commandHandler.getListOfOperations();
         System.out.println(l_listOfOperations);
@@ -287,6 +364,12 @@ public class MainGameEngine {
         }
     }
 
+    /**
+     * Edit country.
+     *
+     * @param p_commandHandler the p command handler
+     * @throws Exception the exception
+     */
     private void editCountry(CommandHandler p_commandHandler) throws Exception {
         List<Map<String,String>> l_listOfOperations = p_commandHandler.getListOfOperations();
         if(l_listOfOperations.isEmpty())
