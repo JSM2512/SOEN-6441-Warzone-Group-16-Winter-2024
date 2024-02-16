@@ -17,3 +17,5 @@ jobs:
           java-version: 21
       - name: Maven Clean Install
         run: mvn clean install
+      - name: Maven Test
+        run: mvn test
