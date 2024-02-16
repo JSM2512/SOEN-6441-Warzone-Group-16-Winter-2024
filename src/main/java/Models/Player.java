@@ -1,6 +1,6 @@
 package Models;
 
-import Controller.CommandHandler;
+import Utils.CommandHandler;
 import Controller.PlayerController;
 
 import java.io.BufferedReader;

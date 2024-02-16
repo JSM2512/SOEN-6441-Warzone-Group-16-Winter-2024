@@ -2,10 +2,10 @@ package Controller;
 
 import Models.CurrentState;
 import Models.Map;
+import Utils.CommandHandler;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.Assert.*;
