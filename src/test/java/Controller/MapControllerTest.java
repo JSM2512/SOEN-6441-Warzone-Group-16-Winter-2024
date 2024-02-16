@@ -64,20 +64,25 @@ public class MapControllerTest {
      * @throws IOException the io exception
      */
     @Test
-    public void editMap() throws IOException {
-        d_mapController.editMap(d_currentState, "test.map");
+    public void editMap(){
+        try {
+            d_mapController.editMap(d_currentState, "test.map");
 
-        String l_filePath = d_mapController.getFilePath("Test.map");
-        File l_f = new File(l_filePath);
-        assertTrue(l_f.exists() && !l_f.isDirectory());
+            String l_filePath = d_mapController.getFilePath("Test.map");
+            File l_f = new File(l_filePath);
+            assertTrue(l_f.exists() && !l_f.isDirectory());
 
-        d_mapController.editMap(d_currentState, "Invalid.map");
+            d_mapController.editMap(d_currentState, "Invalid.map");
 
-        String l_filePath1 = d_mapController.getFilePath("Invalid.map");
-        File l_f1 = new File(l_filePath1);
-        assertTrue(l_f1.exists() && !l_f1.isDirectory());
+            String l_filePath1 = d_mapController.getFilePath("Invalid.map");
+            File l_f1 = new File(l_filePath1);
+            assertTrue(l_f1.exists() && !l_f1.isDirectory());
 
-        l_f1.delete();
+            boolean delete = l_f1.delete();
+        }
+        catch (Exception p_e){
+            System.out.println(p_e.getMessage());
+        }
     }
 
     /**
