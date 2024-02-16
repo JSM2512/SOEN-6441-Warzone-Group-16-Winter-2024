@@ -3,26 +3,61 @@ package Models;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Model Class Current state.
+ */
 public class CurrentState {
+    /**
+     * The D players.
+     */
     List<Player> d_players;
+    /**
+     * The D map.
+     */
     Map d_map;
 
+    /**
+     * Gets d players.
+     *
+     * @return the d players
+     */
     public List<Player> getD_players() {
         return d_players;
     }
 
+    /**
+     * Sets d players.
+     *
+     * @param p_players the p players
+     */
     public void setD_players(List<Player> p_players) {
         this.d_players = p_players;
     }
 
+    /**
+     * Gets d map.
+     *
+     * @return the d map
+     */
     public Map getD_map() {
         return d_map;
     }
 
+    /**
+     * Sets d map.
+     *
+     * @param d_map the d map
+     */
     public void setD_map(Map d_map) {
         this.d_map = d_map;
     }
 
+    /**
+     * Add or remove game players.
+     *
+     * @param p_operation the p operation
+     * @param p_arguments the p arguments
+     */
     public void addOrRemoveGamePlayers(String p_operation, String p_arguments) {
         if(p_operation.equals("add")){
             addGamePlayer(p_arguments);
@@ -35,6 +70,11 @@ public class CurrentState {
         }
     }
 
+    /**
+     * Remove game player.
+     *
+     * @param p_arguments the p arguments
+     */
     private void removeGamePlayer(String p_arguments) {
         if (p_arguments.split(" ").length == 1) {
             String l_playerName = p_arguments.split(" ")[0];
@@ -59,6 +99,12 @@ public class CurrentState {
         }
     }
 
+    /**
+     * Gets player from name.
+     *
+     * @param p_playerName the p player name
+     * @return the player from name
+     */
     private Player getPlayerFromName(String p_playerName) {
         for(Player l_eachPlayer : d_players){
             if(l_eachPlayer.getD_name().equals(p_playerName)){
@@ -68,6 +114,11 @@ public class CurrentState {
         return null;
     }
 
+    /**
+     * Add game player.
+     *
+     * @param p_arguments the p arguments
+     */
     public void addGamePlayer(String p_arguments){
         if (p_arguments.split(" ").length == 1) {
             String l_playerName = p_arguments.split(" ")[0];

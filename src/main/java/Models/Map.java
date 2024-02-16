@@ -2,37 +2,84 @@ package Models;
 
 import java.util.*;
 
+/**
+ * Model Class Map.
+ */
 public class Map {
 
+    /**
+     * The D map name.
+     */
     String d_mapName;
+    /**
+     * The D map countries.
+     */
     List<Country> d_mapCountries;
+    /**
+     * The D map continents.
+     */
     List<Continent> d_mapContinents;
 
+    /**
+     * Gets d map name.
+     *
+     * @return the d map name
+     */
     public String getD_mapName() {
         return d_mapName;
     }
 
+    /**
+     * Sets d map name.
+     *
+     * @param p_mapName the p map name
+     */
     public void setD_mapName(String p_mapName) {
         this.d_mapName = p_mapName;
     }
 
+    /**
+     * Gets d map countries.
+     *
+     * @return the d map countries
+     */
     public List<Country> getD_mapCountries() {
         return d_mapCountries;
     }
 
+    /**
+     * Sets d map countries.
+     *
+     * @param p_mapCountries the p map countries
+     */
     public void setD_mapCountries(List<Country> p_mapCountries) {
         this.d_mapCountries = p_mapCountries;
     }
 
+    /**
+     * Gets d map continents.
+     *
+     * @return the d map continents
+     */
     public List<Continent> getD_mapContinents() {
         return d_mapContinents;
     }
 
+    /**
+     * Sets d map continents.
+     *
+     * @param p_mapContinents the p map continents
+     */
     public void setD_mapContinents(List<Continent> p_mapContinents) {
         this.d_mapContinents = p_mapContinents;
     }
 
 
+    /**
+     * To string string.
+     *
+     * @return the string
+     */
     @Override
     public String toString() {
         return "Map{" +
@@ -42,6 +89,12 @@ public class Map {
                 '}';
     }
 
+    /**
+     * Get country by name country.
+     *
+     * @param p_countryName the p country name
+     * @return the country
+     */
     public Country getCountryByName(String p_countryName){
 
         for(Country l_country : d_mapCountries){
@@ -52,6 +105,13 @@ public class Map {
         System.out.println("The entered country is not present.");
         return null;
     }
+
+    /**
+     * Get continent by name continent.
+     *
+     * @param p_continentName the p continent name
+     * @return the continent
+     */
     public Continent getContinentByName(String p_continentName){
 
         for(Continent l_continent : d_mapContinents){
@@ -63,6 +123,11 @@ public class Map {
         return null;
     }
 
+    /**
+     * Validate map boolean.
+     *
+     * @return the boolean
+     */
     public boolean validateMap() {
         if(validateCountriesAndContinents() && validateContinentSubgraph() && validateCountryConnections()){
             return true;
@@ -70,6 +135,11 @@ public class Map {
         return false;
     }
 
+    /**
+     * Validate country connections boolean.
+     *
+     * @return the boolean
+     */
     public boolean validateCountryConnections() {
         if(d_mapCountries == null || d_mapCountries.isEmpty()){
             return false;
@@ -88,6 +158,12 @@ public class Map {
         return !l_visited.containsValue(false);
     }
 
+    /**
+     * Dfs country.
+     *
+     * @param p_country the p country
+     * @param p_visited the p visited
+     */
     private void dfsCountry(Country p_country, HashMap<Integer, Boolean> p_visited) {
         p_visited.put(p_country.getD_countryID(),true);
         for(Country l_eachCountry : getAdjacentCountries(p_country)){
@@ -97,6 +173,12 @@ public class Map {
         }
     }
 
+    /**
+     * Gets adjacent countries.
+     *
+     * @param p_country the p country
+     * @return the adjacent countries
+     */
     private List<Country> getAdjacentCountries(Country p_country) {
         List<Country> l_adjacentCountries = new ArrayList<>();
         if(!p_country.getD_neighbouringCountriesId().isEmpty()){
@@ -107,6 +189,11 @@ public class Map {
         return l_adjacentCountries;
     }
 
+    /**
+     * Validate continent subgraph boolean.
+     *
+     * @return the boolean
+     */
     public boolean validateContinentSubgraph() {
         for(Continent l_eachContinent : d_mapContinents){
             if(l_eachContinent.d_countries == null || l_eachContinent.d_countries.isEmpty()){
@@ -122,6 +209,12 @@ public class Map {
         return true;
     }
 
+    /**
+     * Connectivity of countries in continent boolean.
+     *
+     * @param p_EachContinent the p each continent
+     * @return the boolean
+     */
     private boolean connectivityOfCountriesInContinent(Continent p_EachContinent) {
         HashMap<Integer,Boolean> l_visited = new HashMap<>();
         for(Country l_eachCountry : p_EachContinent.d_countries){
@@ -138,6 +231,12 @@ public class Map {
         return !l_visited.containsValue(false);
     }
 
+    /**
+     * Gets country.
+     *
+     * @param p_countryID the p country id
+     * @return the country
+     */
     private Country getCountry(Integer p_countryID) {
         for(Country l_country : d_mapCountries){
             if(l_country.getD_countryID().equals(p_countryID)){
@@ -148,6 +247,13 @@ public class Map {
     }
 
 
+    /**
+     * Dfs subgraph.
+     *
+     * @param p_country   the p country
+     * @param p_visited   the p visited
+     * @param p_continent the p continent
+     */
     private void dfsSubgraph(Country p_country, HashMap<Integer, Boolean> p_visited, Continent p_continent) {
         p_visited.put(p_country.d_countryID, true);
         for(Country l_eachConnectedCountry : p_continent.getD_countries()){
@@ -159,6 +265,11 @@ public class Map {
         }
     }
 
+    /**
+     * Validate countries and continents boolean.
+     *
+     * @return the boolean
+     */
     public boolean validateCountriesAndContinents() {
         if(d_mapContinents == null || d_mapContinents.isEmpty()){
             System.out.println("Map does not have Continents");
@@ -179,6 +290,12 @@ public class Map {
         return true;
     }
 
+    /**
+     * Add continent.
+     *
+     * @param p_mapContinentName the p map continent name
+     * @param p_continentValue   the p continent value
+     */
     public void addContinent(String p_mapContinentName, Integer p_continentValue) {
         if (d_mapContinents == null){
             d_mapContinents = new ArrayList<>();
@@ -199,6 +316,11 @@ public class Map {
         }
     }
 
+    /**
+     * Gets max country id.
+     *
+     * @return the max country id
+     */
     private int getMaxCountryID() {
         if(d_mapCountries == null){
             d_mapCountries = new ArrayList<>();
@@ -217,6 +339,11 @@ public class Map {
         }
     }
 
+    /**
+     * Gets max continent id.
+     *
+     * @return the max continent id
+     */
     private int getMaxContinentID() {
         if(d_mapContinents == null){
             d_mapContinents = new ArrayList<>();
@@ -235,6 +362,11 @@ public class Map {
         }
     }
 
+    /**
+     * Remove continent.
+     *
+     * @param p_mapContinentName the p map continent name
+     */
     public void removeContinent(String p_mapContinentName) {
         System.out.println(p_mapContinentName);
         if(d_mapContinents == null && d_mapContinents.isEmpty()){
@@ -257,6 +389,12 @@ public class Map {
         }
     }
 
+    /**
+     * Gets continent name by id.
+     *
+     * @param p_mapContinentID the p map continent id
+     * @return the continent name by id
+     */
     private String getContinentNameById(int p_mapContinentID) {
         if(d_mapContinents == null || d_mapContinents.isEmpty()){
             System.out.println("Continent with ID : " + p_mapContinentID + " does not exist.");
@@ -271,6 +409,12 @@ public class Map {
         return "";
     }
 
+    /**
+     * Gets continent.
+     *
+     * @param p_mapContinentID the p map continent id
+     * @return the continent
+     */
     private Continent getContinent(int p_mapContinentID) {
         for(Continent l_eachContinent : d_mapContinents){
             if(l_eachContinent.getD_continentID().equals(p_mapContinentID)){
@@ -280,6 +424,11 @@ public class Map {
         return null;
     }
 
+    /**
+     * Remove all country neighbours.
+     *
+     * @param p_country the p country
+     */
     private void removeAllCountryNeighbours(Country p_country) {
         p_country.getD_neighbouringCountriesId().clear();
         for(Country l_eachCountry : d_mapCountries){
@@ -290,6 +439,12 @@ public class Map {
     }
 
 
+    /**
+     * Add country.
+     *
+     * @param p_countryName   the p country name
+     * @param p_continentName the p continent name
+     */
     public void addCountry(String p_countryName, String p_continentName) {
         if (d_mapCountries == null){
             d_mapCountries = new ArrayList<>();
@@ -318,6 +473,12 @@ public class Map {
         }
     }
 
+    /**
+     * Gets continent id by name.
+     *
+     * @param p_continentName the p continent name
+     * @return the continent id by name
+     */
     private int getContinentIDByName(String p_continentName) {
         if(d_mapContinents == null){
             System.out.println("No Continents in Map.");
@@ -333,6 +494,12 @@ public class Map {
         return -1;
     }
 
+    /**
+     * Add neighbour.
+     *
+     * @param p_countryID   the p country id
+     * @param p_neighbourID the p neighbour id
+     */
     public void addNeighbour(int p_countryID, int p_neighbourID) {
         if(d_mapCountries == null){
             System.out.println("No country in Map.");
@@ -349,6 +516,12 @@ public class Map {
         }
     }
 
+    /**
+     * Remove neighbour.
+     *
+     * @param p_countryID   the p country id
+     * @param p_neighbourID the p neighbour id
+     */
     public void removeNeighbour(int p_countryID, int p_neighbourID) {
         if (d_mapCountries == null) {
             System.out.println("No country in Map.");
@@ -363,6 +536,12 @@ public class Map {
             getCountry(p_neighbourID).removeCountryNeighbourIfPresent(p_countryID);
         }
     }
+
+    /**
+     * Remove country.
+     *
+     * @param p_removeCountryName the p remove country name
+     */
     public void removeCountry(String p_removeCountryName) {
         if(d_mapCountries == null || d_mapCountries.isEmpty()){
             System.out.println("Country : " + p_removeCountryName + " does not exist.");
