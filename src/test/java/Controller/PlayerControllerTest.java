@@ -71,10 +71,37 @@ public class PlayerControllerTest {
 
     @Test
     public void getNoOfArmies() {
-        d_player1.setD_currentCountries(d_map.getD_mapCountries());
+        List<Country> l_countryList = new ArrayList<>();
+        l_countryList.add(d_map.getCountryByName("India"));
+        l_countryList.add(d_map.getCountryByName("China"));
+        d_player1.setD_currentCountries(l_countryList);
+
+        l_countryList = new ArrayList<>();
+        l_countryList.add(d_map.getCountryByName("Morocco"));
+        l_countryList.add(d_map.getCountryByName("Nigeria"));
+        d_player2.setD_currentCountries(l_countryList);
+
         l_playerList.add(d_player1);
+        l_playerList.add(d_player2);
+        d_currentState.setD_players(l_playerList);
         d_playerController.assignContinentToPlayers(l_playerList, d_map.getD_mapContinents());
-        assertEquals(28, d_playerController.getNoOfArmies(d_player1));
+        d_playerController.assignArmies(d_currentState);
+
+        assertEquals(18, d_playerController.getNoOfArmies(d_player1));
+        assertEquals(13, d_playerController.getNoOfArmies(d_player2));
+
+        d_playerController.createDeployOrder("deploy India 10", d_player1);
+        assertEquals(8, d_player1.getD_unallocatedArmies().intValue());
+
+        d_playerController.createDeployOrder("deploy Morocco 8", d_player2);
+        assertEquals(5, d_player2.getD_unallocatedArmies().intValue());
+
+        d_playerController.createDeployOrder("deploy China 8", d_player1);
+        assertEquals(0, d_player1.getD_unallocatedArmies().intValue());
+
+        d_playerController.createDeployOrder("deploy Nigeria 5", d_player2);
+        assertEquals(0, d_player2.getD_unallocatedArmies().intValue());
+
     }
 
     @Test
@@ -88,5 +115,18 @@ public class PlayerControllerTest {
         d_playerController.createDeployOrder("deploy China 8", d_player1);
         assertEquals(10, d_player1.getD_unallocatedArmies().intValue());
         assertEquals(2, d_player1.getD_orders().size());
+    }
+
+    @Test
+    public void validateInvalidDeployOrder() {
+        l_playerList.add(d_player1);
+        d_currentState.setD_players(l_playerList);
+        d_player1.setD_currentCountries(d_map.getD_mapCountries());
+        d_playerController.assignCountries(d_currentState);
+        d_playerController.assignArmies(d_currentState);
+        d_playerController.createDeployOrder("deploy India 10", d_player1);
+        assertEquals(18, d_player1.getD_unallocatedArmies().intValue());
+        d_playerController.createDeployOrder("deploy China 20", d_player1);
+        assertEquals(18, d_player1.getD_unallocatedArmies().intValue());
     }
 }

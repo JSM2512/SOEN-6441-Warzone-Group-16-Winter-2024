@@ -107,4 +107,19 @@ public class MapTest {
         d_map.removeCountry("India");
         assertEquals("China",d_map.getD_mapCountries().get(0).getD_countryName());
     }
+
+    @Test
+    public void validateContinentSubgraphConnectivity(){
+        assertTrue(d_map.validateContinentSubgraph());
+        d_map.removeNeighbour(1,2);
+        assertFalse(d_map.validateContinentSubgraph());
+    }
+
+    @Test
+    public void validateMapIsAConnectedGraphOfCountries(){
+        assertTrue(d_map.validateCountryConnections());
+        d_map.removeNeighbour(3,2);
+        d_map.removeNeighbour(3,4);
+        assertFalse(d_map.validateCountryConnections());
+    }
 }

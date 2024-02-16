@@ -70,7 +70,7 @@ public class Map {
         return false;
     }
 
-    private boolean validateCountryConnections() {
+    public boolean validateCountryConnections() {
         if(d_mapCountries == null || d_mapCountries.isEmpty()){
             return false;
         }
@@ -107,7 +107,7 @@ public class Map {
         return l_adjacentCountries;
     }
 
-    private boolean validateContinentSubgraph() {
+    public boolean validateContinentSubgraph() {
         for(Continent l_eachContinent : d_mapContinents){
             if(l_eachContinent.d_countries == null || l_eachContinent.d_countries.isEmpty()){
                 System.out.println("Continent: "+l_eachContinent.getD_continentName()+" has no countries.");
