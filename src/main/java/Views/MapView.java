@@ -4,13 +4,36 @@ import Models.*;
 
 import java.util.List;
 
+/**
+ * The type Map view.
+ */
 public class MapView {
+    /**
+     * The D map.
+     */
     Map d_map;
+    /**
+     * The D countries.
+     */
     List<Country> d_countries;
+    /**
+     * The D continents.
+     */
     List<Continent> d_continents;
+    /**
+     * The D players.
+     */
     List<Player> d_players;
+    /**
+     * The D current state.
+     */
     CurrentState d_currentState;
 
+    /**
+     * Instantiates a new Map view.
+     *
+     * @param p_currentState the p current state
+     */
     public MapView(CurrentState p_currentState) {
         this.d_currentState = p_currentState;
         this.d_map = p_currentState.getD_map();
@@ -18,6 +41,9 @@ public class MapView {
         this.d_continents = p_currentState.getD_map().getD_mapContinents();
     }
 
+    /**
+     * Show map.
+     */
     public void showMap() {
         if (d_continents != null) {
             System.out.println("************************************************************************************************************************");
