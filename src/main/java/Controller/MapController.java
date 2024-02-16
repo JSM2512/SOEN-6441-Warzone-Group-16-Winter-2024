@@ -126,7 +126,7 @@ public class MapController {
         return l_fileLines;
     }
 
-    private String getFilePath(String p_fileName) {
+    public String getFilePath(String p_fileName) {
         String l_absolutePath=new File("").getAbsolutePath();
         l_absolutePath = l_absolutePath + File.separator + "src" + File.separator + "main" + File.separator + "maps" + File.separator + p_fileName;
         return l_absolutePath;

@@ -380,9 +380,11 @@ public class Map {
                 }
             }
             if(l_isPresent){
-                for(Country l_country : getContinentByName(p_mapContinentName).getD_countries()){
-                    removeAllCountryNeighbours(l_country);
-                    d_mapCountries.remove(l_country);
+                if(getContinentByName(p_mapContinentName).getD_countries() != null && !getContinentByName(p_mapContinentName).getD_countries().isEmpty()) {
+                    for (Country l_country : getContinentByName(p_mapContinentName).getD_countries()) {
+                        removeAllCountryNeighbours(l_country);
+                        d_mapCountries.remove(l_country);
+                    }
                 }
                 d_mapContinents.remove(getContinentByName(p_mapContinentName));
             }
