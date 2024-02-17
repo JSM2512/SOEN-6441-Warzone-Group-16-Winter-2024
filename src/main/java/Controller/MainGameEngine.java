@@ -82,10 +82,10 @@ public class MainGameEngine {
     private void commandHandler(String p_inputCommand) throws Exception {
         CommandHandler l_commandHandler = new CommandHandler(p_inputCommand);
         String l_mainCommand = l_commandHandler.getMainCommand();
-        boolean l_mapAvilable = false;
+        boolean l_mapAvailable = false;
 
         if(d_currentState.getD_map() != null){
-            l_mapAvilable = true;
+            l_mapAvailable = true;
         }
         if(l_mainCommand.equals("loadmap")){
             loadMap(l_commandHandler);
@@ -94,14 +94,14 @@ public class MainGameEngine {
             editMap(l_commandHandler);
         }
         else if(l_mainCommand.equals("editcountry")) {
-            if (!l_mapAvilable) {
+            if (!l_mapAvailable) {
                 System.out.println("Cannot edit Country as map is not available. Please run editmap command");
             } else {
                 editCountry(l_commandHandler);
             }
         }
         else if(l_mainCommand.equals("editcontinent")){
-            if(!l_mapAvilable){
+            if(!l_mapAvailable){
                 System.out.println("Map not available. Please use editmap command first.");
             }
             else{
@@ -109,7 +109,7 @@ public class MainGameEngine {
             }
         }
         else if(l_mainCommand.equals("editneighbour")){
-            if(!l_mapAvilable){
+            if(!l_mapAvailable){
                 System.out.println("Map not available. Please use editmap command first.");
             }
             else {
@@ -117,7 +117,7 @@ public class MainGameEngine {
             }
         } 
         else if (l_mainCommand.equals("showmap")) {
-            if(!l_mapAvilable){
+            if(!l_mapAvailable){
                 System.out.println("Map not available. Please use editmap command first.");
             }
             else {
@@ -125,14 +125,14 @@ public class MainGameEngine {
                 l_mapView.showMap();
             }
         } else if (l_mainCommand.equals("gameplayer")) {
-            if (!l_mapAvilable) {
+            if (!l_mapAvailable) {
                 System.out.println("Map is not available, can not add players. Please first load the map using 'loadmap' command.");
             }
             else {
                 gamePlayer(l_commandHandler);
             }
         }else if (l_mainCommand.equals("assigncountries")) {
-            if (!l_mapAvilable) {
+            if (!l_mapAvailable) {
                 System.out.println("Map is not available, can not assign country. Please first load the map using 'loadmap' command.");
             }
             else {
@@ -140,14 +140,14 @@ public class MainGameEngine {
             }
         }
         else if (l_mainCommand.equals("validatemap")) {
-            if (!l_mapAvilable) {
+            if (!l_mapAvailable) {
                 System.out.println("Map not available. Please use loadmap/editmap command first.");
             } else {
                 validateMap(l_commandHandler);
             }
         }
         else if (l_mainCommand.equals("savemap")) {
-            if (!l_mapAvilable) {
+            if (!l_mapAvailable) {
                 System.out.println("Map not available. Please use loadmap/editmap command first.");
             } else {
                 saveMap(l_commandHandler);
