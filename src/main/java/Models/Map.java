@@ -1,6 +1,8 @@
 package Models;
 
-import java.util.*;
+import java.util.List;
+import java.util.HashMap;
+import java.util.ArrayList;
 
 /**
  * Model Class Map.
@@ -389,41 +391,6 @@ public class Map {
                 d_mapContinents.remove(getContinentByName(p_mapContinentName));
             }
         }
-    }
-
-    /**
-     * Gets continent name by id.
-     *
-     * @param p_mapContinentID the p map continent id
-     * @return the continent name by id
-     */
-    private String getContinentNameById(int p_mapContinentID) {
-        if(d_mapContinents == null || d_mapContinents.isEmpty()){
-            System.out.println("Continent with ID : " + p_mapContinentID + " does not exist.");
-        }
-        else{
-            for(Continent l_eachContinent : d_mapContinents){
-                if(l_eachContinent.getD_continentID() == p_mapContinentID){
-                    return l_eachContinent.getD_continentName();
-                }
-            }
-        }
-        return "";
-    }
-
-    /**
-     * Gets continent.
-     *
-     * @param p_mapContinentID the p map continent id
-     * @return the continent
-     */
-    private Continent getContinent(int p_mapContinentID) {
-        for(Continent l_eachContinent : d_mapContinents){
-            if(l_eachContinent.getD_continentID().equals(p_mapContinentID)){
-                return l_eachContinent;
-            }
-        }
-        return null;
     }
 
     /**
