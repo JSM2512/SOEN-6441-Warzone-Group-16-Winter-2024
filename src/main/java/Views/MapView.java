@@ -58,7 +58,7 @@ public class MapView {
                         System.out.printf("| %-15s| %-40s| %-30s| ", l_eachCountry.getD_countryID(), l_eachCountry.getD_countryName(), l_eachCountry.getD_armies());
                         String l_neighbourCountryNames = "";
                         for (Integer l_neighbourID : l_eachCountry.getD_neighbouringCountriesId()) {
-                            l_neighbourCountryNames += getCountryByID(l_neighbourID) + ", ";
+                            l_neighbourCountryNames += d_map.getCountryNameByID(l_neighbourID) + ", ";
                         }
                         System.out.println(l_neighbourCountryNames);
                     }
@@ -69,14 +69,5 @@ public class MapView {
             System.out.println();
             System.out.println();
         }
-    }
-
-    private String getCountryByID(Integer p_neighbourID) {
-        for(Country l_eachCountry : d_map.getD_mapCountries()){
-            if(l_eachCountry.getD_countryID().equals(p_neighbourID)){
-                return l_eachCountry.getD_countryName();
-            }
-        }
-        return "null";
     }
 }

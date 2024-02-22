@@ -1,5 +1,6 @@
-package Controller;
+package Utils;
 
+import Controller.MapController;
 import Models.CurrentState;
 import Models.Map;
 import Utils.CommandHandler;
