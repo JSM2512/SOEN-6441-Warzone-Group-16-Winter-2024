@@ -21,10 +21,6 @@ public class MapView {
      */
     List<Continent> d_continents;
     /**
-     * The D players.
-     */
-    List<Player> d_players;
-    /**
      * The D current state.
      */
     CurrentState d_currentState;
