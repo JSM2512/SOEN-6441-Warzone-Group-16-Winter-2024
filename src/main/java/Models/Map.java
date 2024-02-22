@@ -531,4 +531,13 @@ public class Map {
 
         }
     }
+
+    public String getCountryNameByID(Integer p_neighbourID) {
+        for(Country l_eachCountry : d_mapCountries){
+            if(l_eachCountry.getD_countryID().equals(p_neighbourID)){
+                return l_eachCountry.getD_countryName();
+            }
+        }
+        return "null";
+    }
 }
