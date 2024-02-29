@@ -16,7 +16,10 @@ public class ModelLogger extends Observable {
         return d_message;
     }
 
-    public void setD_message(String p_message) {
+    public void setD_message(String p_message, String p_messageType) {
         this.d_message = p_message;
+        setChanged();
+        notifyObservers();
+
     }
 }

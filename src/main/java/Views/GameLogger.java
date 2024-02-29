@@ -15,6 +15,7 @@ public class GameLogger implements Observer {
 
     @Override
     public void update(Observable p_observable, Object p_arg) {
+        System.out.println("logger -called");
         d_modelLogger = (ModelLogger) p_observable;
         File l_loggerFile = new File("GameLogs.txt");
         String l_logMessage = d_modelLogger.getD_message();

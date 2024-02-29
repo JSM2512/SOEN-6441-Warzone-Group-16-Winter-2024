@@ -47,6 +47,7 @@ public class MainGameEngine {
      */
     private void start() {
         BufferedReader l_bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        d_currentState.getD_modelLogger().setD_message("---------------Game Session Started---------------","Type3");
 
         while(true){
             System.out.println("================================== MAIN MENU ===================================");
@@ -90,6 +91,7 @@ public class MainGameEngine {
         }
         if(l_mainCommand.equals("loadmap")){
             loadMap(l_commandHandler);
+            d_currentState.getD_modelLogger().setD_message("Map Loaded Success", "type-1");
         }
         else if(l_mainCommand.equals(("editmap"))){
             editMap(l_commandHandler);
@@ -155,7 +157,7 @@ public class MainGameEngine {
             }
         }
         else if("exit".equals(p_inputCommand)){
-
+            d_currentState.getD_modelLogger().setD_message("---------------Game Session Closed---------------","Type3");
             System.out.println("Closing Game....");
             System.exit(0);
         }

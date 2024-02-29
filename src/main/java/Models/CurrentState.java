@@ -57,6 +57,17 @@ public class CurrentState {
         this.d_map = d_map;
     }
 
+    public ModelLogger getD_modelLogger(){
+        return  this.d_modelLogger;
+    }
+    public String getD_modelLoggerMessage() {
+        return d_modelLogger.getD_message();
+    }
+
+    public void setLogMessage(String p_modelLoggerMessage, String p_messageType) {
+        d_modelLogger.setD_message(p_modelLoggerMessage, p_messageType);
+    }
+
     /**
      * Add or remove game players.
      *
