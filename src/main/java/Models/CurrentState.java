@@ -19,6 +19,8 @@ public class CurrentState {
      */
     Map d_map;
 
+    ModelLogger d_modelLogger = new ModelLogger();
+
     /**
      * Gets d players.
      *
