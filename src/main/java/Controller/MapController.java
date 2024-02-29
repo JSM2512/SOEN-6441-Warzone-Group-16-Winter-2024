@@ -1,5 +1,6 @@
 package Controller;
 
+import Constants.ProjectConstants;
 import Models.Continent;
 import Models.Country;
 import Models.CurrentState;
@@ -177,9 +178,9 @@ public class MapController {
             l_fileLines = l_reader.lines().collect(Collectors.toList());
             l_reader.close();
         } catch (FileNotFoundException l_e) {
-            System.out.println("File not Found!");
+            System.out.println(ProjectConstants.FILE_NOT_FOUND);
         } catch (IOException l_e) {
-            System.out.println("File not Found or corrupted file!");
+            System.out.println(ProjectConstants.CORRUPTED_FILE);
         }
         return l_fileLines;
     }
@@ -208,13 +209,13 @@ public class MapController {
         String l_fileLocation = getFilePath(p_editFileName);
         File l_fileToEdit = new File(l_fileLocation);
         if(l_fileToEdit.createNewFile() == true){
-            System.out.println("File has been created");
+            System.out.println(ProjectConstants.FILE_CREATED_SUCCESS);
             Map l_map=new Map();
             l_map.setD_mapName(p_editFileName);
             p_currentState.setD_map(l_map);
         }
         else{
-            System.out.println("File already exists");
+            System.out.println(ProjectConstants.FILE_ALREADY_EXISTS);
             p_currentState.setD_map(this.loadMap( p_currentState , p_editFileName ));
             p_currentState.getD_map().setD_mapName(p_editFileName);
         }
@@ -256,12 +257,10 @@ public class MapController {
     private Map addRemoveCountry(Map p_mapToUpdate, String p_operation, String p_arguments) {
         if (p_operation.equals("add") && p_arguments.split(" ").length == 2){
             p_mapToUpdate.addCountry(p_arguments.split(" ")[0], p_arguments.split(" ")[1]);
-            System.out.println("Country " + p_arguments.split(" ")[0]+" inserted Successfully!");
         } else if (p_operation.equals("remove") && p_arguments.split(" ").length == 1){
             p_mapToUpdate.removeCountry(p_arguments);
-            System.out.println("Country " +p_arguments.split(" ")[0]+" removed successfully!");
         } else {
-            System.out.println("can not Add/remove country.");
+            System.out.println(ProjectConstants.CANNOT_ADD_REMOVE_COUNTRY);
         }
         return  p_mapToUpdate;
     }
@@ -324,13 +323,10 @@ public class MapController {
     private Map addRemoveNeighbour(Map p_mapToUpdate, String p_operation, String p_arguments) {
         if (p_operation.equals("add") && p_arguments.split(" ").length == 2){
             p_mapToUpdate.addNeighbour(Integer.parseInt(p_arguments.split(" ")[0]), Integer.parseInt(p_arguments.split(" ")[1]));
-            System.out.println("Country " + p_arguments.split(" ")[1] + " added as neighbor to " + p_arguments.split(" ")[0]);
-        } else if (p_operation.equals("remove") && p_arguments.split(" ").length == 2
-        ){
+        } else if (p_operation.equals("remove") && p_arguments.split(" ").length == 2){
             p_mapToUpdate.removeNeighbour(Integer.parseInt(p_arguments.split(" ")[0]), Integer.parseInt(p_arguments.split(" ")[1]));
-            System.out.println("Country " +p_arguments.split(" ")[0]+" removed successfully!");
         } else {
-            System.out.println("Can not Add/remove Neighbour.");
+            System.out.println(ProjectConstants.CANNOT_ADD_REMOVE_NEIGHBOUR);
         }
         return  p_mapToUpdate;
     }
@@ -346,12 +342,10 @@ public class MapController {
     private Map addRemoveContinents(Map p_mapToUpdate, String p_operation, String p_arguments) {
         if (p_operation.equals("add") && p_arguments.split(" ").length == 2){
             p_mapToUpdate.addContinent(p_arguments.split(" ")[0], Integer.parseInt(p_arguments.split(" ")[1]));
-            System.out.println("Continent " + p_arguments.split(" ")[0]+" inserted Successfully!");
         } else if (p_operation.equals("remove") && p_arguments.split(" ").length == 1){
             p_mapToUpdate.removeContinent(p_arguments);
-            System.out.println("Continent " +p_arguments.split(" ")[0]+" removed successfully!");
         } else {
-            System.out.println("Can not Add/remove continent.");
+            System.out.println(ProjectConstants.CANNOT_ADD_REMOVE_CONTINENT);
         }
         return  p_mapToUpdate;
     }
@@ -379,18 +373,18 @@ public class MapController {
                 if (l_map.getD_mapContinents() != null || !l_map.getD_mapContinents().isEmpty()) {
                     saveContinentsOnMap(l_writer, p_currentState);
                 } else {
-                    System.out.println("No Continents in this map. Can't save an incorrect map.");
+                    System.out.println(ProjectConstants.NO_CONTINENT_IN_MAP);
                 }
                 if (l_map.getD_mapCountries() != null || !l_map.getD_mapCountries().isEmpty()) {
                     saveCountriesOnMap(l_writer, p_currentState);
                     saveCountryBordersOnMap(l_writer, p_currentState);
                 } else {
-                    System.out.println("No Countries in this map. Can't save an incorrect map.");
+                    System.out.println(ProjectConstants.NO_COUNTRY_IN_MAP);
                 }
                 l_writer.close();
             }
             else {
-                System.out.println("Either map is not present or Map is not valid.");
+                System.out.println(ProjectConstants.INVALID_MAP);
                 return false;
             }
             return true;
@@ -451,7 +445,7 @@ public class MapController {
             }
         }
         if(l_borders.isEmpty()){
-            System.out.println("Border are not present. This is not a connected graph.");
+            System.out.println(ProjectConstants.NO_BORDER_IN_MAP);
         }
         else {
             for (String l_borderEntry : l_borders) {

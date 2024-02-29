@@ -183,7 +183,7 @@ public class MainGameEngine {
      */
     private void startGame() throws IOException {
         if(d_currentState.getD_players() == null || d_currentState.getD_players().isEmpty()){
-            System.out.println(ProjectConstants.NO_PLAYERS);
+            System.out.println(ProjectConstants.NO_PLAYER_IN_GAME);
             return;
         }
 

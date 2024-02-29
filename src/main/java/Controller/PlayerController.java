@@ -1,5 +1,6 @@
 package Controller;
 
+import Constants.ProjectConstants;
 import Models.CurrentState;
 import Models.Player;
 import Models.Continent;
@@ -21,7 +22,7 @@ public class PlayerController {
      */
     public void assignCountries(CurrentState p_currentState) {
         if(p_currentState.getD_players() == null || p_currentState.getD_players().isEmpty()){
-            System.out.println("No players exist in the game. Please add players using 'gameplayer -add' command first.");
+            System.out.println(ProjectConstants.NO_PLAYER_IN_GAME);
             return;
         }
         List<Player> l_players = p_currentState.getD_players();
@@ -82,7 +83,7 @@ public class PlayerController {
     public void assignRandomCountriesToPlayers(List<Player> p_players, List<Country> p_countryList, int p_noOfCountiesToEachPlayer) {
         List<Country> l_unallocatedCountries = new ArrayList<>(p_countryList);
         if (l_unallocatedCountries.isEmpty()) {
-            System.out.println("No Countries in Map.");
+            System.out.println(ProjectConstants.NO_COUNTRY_IN_MAP);
             return;
         }
         for (Player l_eachPlayer : p_players) {
@@ -113,7 +114,7 @@ public class PlayerController {
      */
     public void assignArmies(CurrentState p_currentState) {
         if(p_currentState.getD_players() == null || p_currentState.getD_players().isEmpty()){
-            System.out.println("Currently, No players are present in the game so, add players using 'gameplayer -add' command first.");
+            System.out.println(ProjectConstants.NO_PLAYER_IN_GAME);
             return;
         }
         for (Player l_eachPlayer : p_currentState.getD_players()) {
@@ -179,7 +180,7 @@ public class PlayerController {
             System.out.println("The country " + l_countryName + " does not belong to this player.");
         }
         else if (validateNoOfArmiesToDeploy(p_player, l_noOfArmiesToDeploy)) {
-            System.out.println("Given deploy order can't be executed as armies in deploy order is more than players unallocated armies");
+            System.out.println(ProjectConstants.INVALID_NO_OF_ARMIES);
         }
         else {
             Orders l_order = new Orders(p_command.split(" ")[0], l_countryName, l_noOfArmiesToDeploy);
@@ -190,7 +191,7 @@ public class PlayerController {
             Integer l_unallocatedArmies = p_player.getD_unallocatedArmies() - l_noOfArmiesToDeploy;
             p_player.setD_unallocatedArmies(l_unallocatedArmies);
 
-            System.out.println("Order has been added to queue for execution");
+            System.out.println(ProjectConstants.ORDER_ADDED);
         }
     }
 

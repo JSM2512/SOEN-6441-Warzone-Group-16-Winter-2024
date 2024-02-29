@@ -1,5 +1,7 @@
 package Models;
 
+import Constants.ProjectConstants;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -177,7 +179,7 @@ public class Country {
                 d_neighbouringCountriesId.add(p_neighbourID);
             }
             else {
-                System.out.println("Neighbour already exists.");
+                System.out.println(ProjectConstants.NEIGHBOUR_ALREADY_EXISTS);
             }
         }
     }
@@ -189,7 +191,7 @@ public class Country {
      */
     public void removeCountryNeighbourIfPresent(int p_removeCountryId) {
         if(d_neighbouringCountriesId == null){
-            System.out.println("No neighbouring countries present.");
+            System.out.println(ProjectConstants.NO_NEIGHBOUR_PRESENT);
         }
         else{
             if(d_neighbouringCountriesId.contains(p_removeCountryId)){

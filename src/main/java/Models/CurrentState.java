@@ -1,5 +1,8 @@
 package Models;
 
+import Constants.ProjectConstants;
+import Exceptions.CommandValidationException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +69,11 @@ public class CurrentState {
             removeGamePlayer(p_arguments);
         }
         else {
-            System.out.println("Wrong command entered. Use either '-add playerName' or '-remove playerName' in command.");
+            try {
+                throw new CommandValidationException("Wrong command entered. Use either '-add playerName' or '-remove playerName' in command.");
+            } catch (CommandValidationException p_e) {
+                System.out.println(p_e.getMessage());
+            }
         }
     }
 
@@ -79,7 +86,7 @@ public class CurrentState {
         if (p_arguments.split(" ").length == 1) {
             String l_playerName = p_arguments.split(" ")[0];
             if(d_players == null || d_players.isEmpty()){
-                System.out.println("No Player exist in the game yet.");
+                System.out.println(ProjectConstants.NO_PLAYER_IN_GAME);
             }
             else {
                 boolean l_isPresent = false;
@@ -131,7 +138,7 @@ public class CurrentState {
                 for(Player l_eachPlayer : d_players){
                     if(l_eachPlayer.getD_name().equals(l_playerName))
                     {
-                        System.out.println("Name already exist, try some other name!");
+                        System.out.println(ProjectConstants.NAME_ALREADY_EXISTS);
                         return;
                     }
                 }
