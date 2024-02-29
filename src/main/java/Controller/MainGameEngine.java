@@ -1,5 +1,7 @@
 package Controller;
 
+import Constants.ProjectConstants;
+import Exceptions.CommandValidationException;
 import Models.CurrentState;
 import Models.Orders;
 import Models.Player;
@@ -45,9 +47,8 @@ public class MainGameEngine {
      */
     private void start() {
         BufferedReader l_bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        boolean l_flag = true;
 
-        while(l_flag){
+        while(true){
             System.out.println("================================== MAIN MENU ===================================");
             System.out.println("1. Initiate the map: (Usage: 'loadmap <your_filename(.map)>')");
             System.out.println("2. Edit the Map: (Usage: 'editmap <filename>(.map)')");
@@ -95,14 +96,14 @@ public class MainGameEngine {
         }
         else if(l_mainCommand.equals("editcountry")) {
             if (!l_mapAvailable) {
-                System.out.println("Cannot edit Country as map is not available. Please run editmap command");
+                System.out.println(ProjectConstants.MAP_NOT_AVAILABLE_EDIT_COUNTRY);
             } else {
                 editCountry(l_commandHandler);
             }
         }
         else if(l_mainCommand.equals("editcontinent")){
             if(!l_mapAvailable){
-                System.out.println("Map not available. Please use editmap command first.");
+                System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
             }
             else{
                 editContinent(l_commandHandler);
@@ -110,7 +111,7 @@ public class MainGameEngine {
         }
         else if(l_mainCommand.equals("editneighbour")){
             if(!l_mapAvailable){
-                System.out.println("Map not available. Please use editmap command first.");
+                System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
             }
             else {
                 editNeighbourCountry(l_commandHandler);
@@ -118,7 +119,7 @@ public class MainGameEngine {
         } 
         else if (l_mainCommand.equals("showmap")) {
             if(!l_mapAvailable){
-                System.out.println("Map not available. Please use editmap command first.");
+                System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
             }
             else {
                 MapView l_mapView = new MapView(d_currentState);
@@ -126,14 +127,14 @@ public class MainGameEngine {
             }
         } else if (l_mainCommand.equals("gameplayer")) {
             if (!l_mapAvailable) {
-                System.out.println("Map is not available, can not add players. Please first load the map using 'loadmap' command.");
+                System.out.println(ProjectConstants.MAP_NOT_AVAILABLE_PLAYERS);
             }
             else {
                 gamePlayer(l_commandHandler);
             }
         }else if (l_mainCommand.equals("assigncountries")) {
             if (!l_mapAvailable) {
-                System.out.println("Map is not available, can not assign country. Please first load the map using 'loadmap' command.");
+                System.out.println(ProjectConstants.MAP_NOT_AVAILABLE_ASSIGN_COUNTRIES);
             }
             else {
                 assignCountries(l_commandHandler);
@@ -141,19 +142,20 @@ public class MainGameEngine {
         }
         else if (l_mainCommand.equals("validatemap")) {
             if (!l_mapAvailable) {
-                System.out.println("Map not available. Please use loadmap/editmap command first.");
+                System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
             } else {
                 validateMap(l_commandHandler);
             }
         }
         else if (l_mainCommand.equals("savemap")) {
             if (!l_mapAvailable) {
-                System.out.println("Map not available. Please use loadmap/editmap command first.");
+                System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
             } else {
                 saveMap(l_commandHandler);
             }
         }
         else if("exit".equals(p_inputCommand)){
+
             System.out.println("Closing Game....");
             System.exit(0);
         }
@@ -181,11 +183,11 @@ public class MainGameEngine {
      */
     private void startGame() throws IOException {
         if(d_currentState.getD_players() == null || d_currentState.getD_players().isEmpty()){
-            System.out.println("No players in the game.");
+            System.out.println(ProjectConstants.NO_PLAYERS);
             return;
         }
 
-        System.out.println("-------> Deploy armies to countries for each player: (Usage: 'deploy <country_name> <number_of_armies_to_deploy>')");
+        System.out.println(ProjectConstants.DEPLOY_ARMIES_MESSAGE);
 
             while(d_gamePlayerController.isUnallocatedArmiesExist(d_currentState)){
                 for(Player l_eachPlayer : d_currentState.getD_players()){
@@ -213,7 +215,7 @@ public class MainGameEngine {
     private void gamePlayer(CommandHandler p_commandHandler) {
         List<Map<String, String>> l_listOfOperations = p_commandHandler.getListOfOperations();
         if (l_listOfOperations == null || l_listOfOperations.isEmpty()) {
-            System.out.println("Wrong command entered, Please enter the correct 'gameplayer' command.");
+            System.out.println(ProjectConstants.INVALID_GAMEPLAYER_COMMAND);
         }
         else {
             for (Map<String, String> l_eachMap : l_listOfOperations) {
@@ -233,7 +235,7 @@ public class MainGameEngine {
     private void saveMap(CommandHandler p_commandHandler) throws IOException {
         List<Map<String, String>> l_listOfOperations = p_commandHandler.getListOfOperations();
         if (l_listOfOperations == null || l_listOfOperations.isEmpty()) {
-            System.out.println("Save map command is not correct. Use 'savemap filename' command.");
+            System.out.println(ProjectConstants.INVALID_SAVEMAP_COMMAND);
         } else {
             for(Map<String,String> l_singleOperation : l_listOfOperations){
                 if(l_singleOperation.containsKey("Arguments") && l_singleOperation.get("Arguments")!=null){
@@ -242,11 +244,11 @@ public class MainGameEngine {
                         System.out.println("Map : "+d_currentState.getD_map().getD_mapName()+" saved successfully.");
                     }
                     else{
-                        System.out.println("An error occured while saving the map.");
+                        System.out.println(ProjectConstants.SAVEMAP_FAILURE_MESSAGE);
                     }
                 }
                 else {
-                    System.out.println("Save map command is not correct. Use 'savemap filename' command.");
+                    System.out.println(ProjectConstants.INVALID_SAVEMAP_COMMAND);
                 }
             }
         }
@@ -262,16 +264,16 @@ public class MainGameEngine {
         if (l_listOfOperations == null || l_listOfOperations.isEmpty()) {
             Models.Map l_map = d_currentState.getD_map();
             if (l_map == null) {
-                System.out.println("Map not Found!");
+                System.out.println(ProjectConstants.MAP_NOT_FOUND);
             } else {
                 if (l_map.validateMap()) {
-                    System.out.println("Map is Valid");
+                    System.out.println(ProjectConstants.VALID_MAP);
                 } else {
-                    System.out.println("Map is not Valid");
+                    System.out.println(ProjectConstants.INVALID_MAP);
                 }
             }
         } else {
-            System.out.println("Validate map command is not correct. Use 'validatemap' command.");
+            System.out.println(ProjectConstants.INVALID_VALIDATE_COMMAND);
         }
     }
 
@@ -284,7 +286,7 @@ public class MainGameEngine {
     private void editNeighbourCountry(CommandHandler p_CommandHandler) throws Exception {
         List<Map<String,String>>  l_listOfOperations = p_CommandHandler.getListOfOperations();
         if(l_listOfOperations == null || l_listOfOperations.isEmpty()){
-            throw new Exception("Invalid command entered for editmap.");
+            throw new CommandValidationException("Invalid Command For editNeighbour");
         }else {
             for (Map<String ,String > l_singleOperation : l_listOfOperations){
                 if(l_singleOperation.containsKey("Operation") && l_singleOperation.get("Operation")!=null && l_singleOperation.containsKey("Arguments") && l_singleOperation.get("Arguments")!=null){
@@ -303,7 +305,7 @@ public class MainGameEngine {
     private void editContinent(CommandHandler p_commandHandler) throws Exception {
         List<Map<String,String>> l_listOfOperations = p_commandHandler.getListOfOperations();
         if(l_listOfOperations == null || l_listOfOperations.isEmpty()){
-            throw new Exception("Invalid command entered for editmap.");
+            throw new CommandValidationException("Invalid command entered for editmap.");
         }
         else{
             for(Map<String,String> l_singleOperation : l_listOfOperations){
@@ -324,17 +326,16 @@ public class MainGameEngine {
         List<Map<String,String>> l_listOfOperations = p_commandHandler.getListOfOperations();
         System.out.println(l_listOfOperations);
         if(l_listOfOperations == null || l_listOfOperations.isEmpty()) {
-            throw new Exception("Invalid Command for load map");
+            throw new CommandValidationException("Invalid Command for load map");
         }
         for(Map<String,String> l_singleOperation : l_listOfOperations) {
             if(l_singleOperation.containsKey("Arguments") && l_singleOperation.get("Arguments")!=null) {
                 Models.Map l_map = d_mapController.loadMap(d_currentState,l_singleOperation.get("Arguments"));
-                System.out.println(l_map);
                 if(l_map.validateMap()){
-                    System.out.println("Map is valid.");
+                    System.out.println(ProjectConstants.VALID_MAP);
                 }
                 else{
-                    System.out.println("Map is not valid.");
+                    System.out.println(ProjectConstants.INVALID_MAP);
                 }
             }
         }
@@ -349,9 +350,8 @@ public class MainGameEngine {
     private void editMap(CommandHandler p_commandHandler) throws Exception {
         List<Map<String,String>> l_listOfOperations = p_commandHandler.getListOfOperations();
         System.out.println(l_listOfOperations);
-        if(l_listOfOperations == null || l_listOfOperations.isEmpty())
-        {
-            throw new Exception("Invalid Command for edit map");
+        if(l_listOfOperations == null || l_listOfOperations.isEmpty()){
+            throw new CommandValidationException("Invalid Command for edit map");
         }
         else{
             for(Map<String, String> l_singleOperation : l_listOfOperations){
@@ -359,7 +359,7 @@ public class MainGameEngine {
                     d_mapController.editMap(d_currentState, l_singleOperation.get("Arguments"));
                 }
                 else{
-                    throw new Exception("Invalid Command for edit map operation");
+                    throw new CommandValidationException("Invalid Command for edit map operation");
                 }
             }
         }
@@ -375,7 +375,7 @@ public class MainGameEngine {
         List<Map<String,String>> l_listOfOperations = p_commandHandler.getListOfOperations();
         if(l_listOfOperations.isEmpty())
         {
-            throw new Exception("Invalid Command for edit Country");
+            throw new CommandValidationException("Invalid Command for edit Country");
         }
         else{
             for(Map<String, String> l_singleOperation: l_listOfOperations){
