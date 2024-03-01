@@ -15,6 +15,8 @@ import java.util.Random;
  * The type Player controller.
  */
 public class PlayerController {
+
+    CurrentState d_currentState = new CurrentState();
     /**
      * Assign countries.
      *
@@ -23,6 +25,7 @@ public class PlayerController {
     public void assignCountries(CurrentState p_currentState) {
         if(p_currentState.getD_players() == null || p_currentState.getD_players().isEmpty()){
             System.out.println(ProjectConstants.NO_PLAYER_IN_GAME);
+            d_currentState.getD_modelLogger().setD_message(ProjectConstants.NO_PLAYER_IN_GAME,"Type 1");
             return;
         }
         List<Player> l_players = p_currentState.getD_players();
@@ -84,6 +87,7 @@ public class PlayerController {
         List<Country> l_unallocatedCountries = new ArrayList<>(p_countryList);
         if (l_unallocatedCountries.isEmpty()) {
             System.out.println(ProjectConstants.NO_COUNTRY_IN_MAP);
+            d_currentState.getD_modelLogger().setD_message(ProjectConstants.NO_COUNTRY_IN_MAP,"Type 1");
             return;
         }
         for (Player l_eachPlayer : p_players) {
@@ -115,6 +119,7 @@ public class PlayerController {
     public void assignArmies(CurrentState p_currentState) {
         if(p_currentState.getD_players() == null || p_currentState.getD_players().isEmpty()){
             System.out.println(ProjectConstants.NO_PLAYER_IN_GAME);
+            d_currentState.getD_modelLogger().setD_message(ProjectConstants.NO_PLAYER_IN_GAME,"Type 1");
             return;
         }
         for (Player l_eachPlayer : p_currentState.getD_players()) {
@@ -181,6 +186,7 @@ public class PlayerController {
         }
         else if (validateNoOfArmiesToDeploy(p_player, l_noOfArmiesToDeploy)) {
             System.out.println(ProjectConstants.INVALID_NO_OF_ARMIES);
+            d_currentState.getD_modelLogger().setD_message(ProjectConstants.INVALID_NO_OF_ARMIES,"Type 1");
         }
         else {
             Orders l_order = new Orders(p_command.split(" ")[0], l_countryName, l_noOfArmiesToDeploy);
@@ -192,6 +198,8 @@ public class PlayerController {
             p_player.setD_unallocatedArmies(l_unallocatedArmies);
 
             System.out.println(ProjectConstants.ORDER_ADDED);
+            d_currentState.getD_modelLogger().setD_message(ProjectConstants.ORDER_ADDED,"Type 1");
+
         }
     }
 
