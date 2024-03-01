@@ -165,11 +165,6 @@ public class PlayerController {
     }
 
 
-
-
-
-
-
     /**
      * Is unexecuted orders exist boolean.
      *
@@ -184,6 +179,12 @@ public class PlayerController {
         return l_totalCountOfUnexecutedOrders > 0;
     }
 
+    /**
+     * Check for more orders boolean.
+     *
+     * @param p_players the p players
+     * @return the boolean
+     */
     public boolean checkForMoreOrders(List<Player> p_players) {
         for(Player l_eachPlayer : p_players){
             if(l_eachPlayer.hasMoreOrders()){

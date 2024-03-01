@@ -64,6 +64,12 @@ public class StartupPhase extends Phase{
         }
     }
 
+    /**
+     * Advance.
+     *
+     * @param p_inputCommand the p input command
+     * @param p_player       the p player
+     */
     @Override
     protected void advance(String p_inputCommand, Player p_player) {
         printInvalidCommandInPhase();

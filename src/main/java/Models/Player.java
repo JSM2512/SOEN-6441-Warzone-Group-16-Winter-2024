@@ -35,6 +35,9 @@ public class Player {
      */
     List<Orders> d_orders;
 
+    /**
+     * The D more orders.
+     */
     boolean d_moreOrders;
 
     /**
@@ -139,10 +142,20 @@ public class Player {
         this.d_orders = p_orders;
     }
 
+    /**
+     * Has more orders boolean.
+     *
+     * @return the boolean
+     */
     public boolean hasMoreOrders() {
         return d_moreOrders;
     }
 
+    /**
+     * Sets more orders.
+     *
+     * @param p_moreOrders the p more orders
+     */
     public void setMoreOrders(boolean p_moreOrders) {
         this.d_moreOrders = p_moreOrders;
     }
@@ -232,7 +245,7 @@ public class Player {
 //            d_currentState.getD_modelLogger().setD_message(ProjectConstants.INVALID_NO_OF_ARMIES,"Type 1");
         }
         else {
-            Orders l_order = new Deploy(p_command.split(" ")[0], l_countryName, l_noOfArmiesToDeploy);
+            Orders l_order = new Deploy(this, l_countryName, l_noOfArmiesToDeploy);
             d_orders.add(l_order);
 
             Integer l_unallocatedArmies = this.getD_unallocatedArmies() - l_noOfArmiesToDeploy;
@@ -274,6 +287,9 @@ public class Player {
         return false;
     }
 
+    /**
+     * Check for more order.
+     */
     public void checkForMoreOrder() {
         BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Do you still want to give order for player : " + this.getD_name() + " in the next turn?");
@@ -293,6 +309,12 @@ public class Player {
 
     }
 
+    /**
+     * Create advance order.
+     *
+     * @param p_inputCommand the p input command
+     * @param p_currentState the p current state
+     */
     public void createAdvanceOrder(String p_inputCommand, CurrentState p_currentState) {
         String l_sourceCountry = p_inputCommand.split(" ")[1];
         String l_targetCountry = p_inputCommand.split(" ")[2];
@@ -309,6 +331,14 @@ public class Player {
         }
     }
 
+    /**
+     * Check adjacent country boolean.
+     *
+     * @param p_sourceCountry the p source country
+     * @param p_targetCountry the p target country
+     * @param p_currentState  the p current state
+     * @return the boolean
+     */
     private boolean checkAdjacentCountry(String p_sourceCountry, String p_targetCountry, CurrentState p_currentState) {
         Country l_sourceCountry = p_currentState.getD_map().getCountryByName(p_sourceCountry);
         Country l_targetCountry = p_currentState.getD_map().getCountryByName(p_targetCountry);
@@ -320,6 +350,13 @@ public class Player {
 
     }
 
+    /**
+     * Check country present boolean.
+     *
+     * @param p_countryName  the p country name
+     * @param p_currentState the p current state
+     * @return the boolean
+     */
     public boolean checkCountryPresent(String p_countryName, CurrentState p_currentState){
         if(p_currentState.getD_map().getCountryByName(p_countryName) == null){
             System.out.println(ProjectConstants.NO_COUNTRY_IN_MAP);

@@ -44,6 +44,15 @@ public class MainGameEngine {
     }
 
     /**
+     * Set order execution phase.
+     */
+    public void setOrderExecutionPhase(){
+        this.d_currentState.getD_modelLogger().setD_message("----------------------Order Execution Phase--------------------","Phase-3");
+        this.d_currentPhase = new OrderExecutionPhase(d_currentState, this);
+        d_currentPhase.initPhase();
+    }
+
+    /**
      * Main.
      *
      * @param args the args

@@ -3,6 +3,7 @@ package Models;
 import Constants.ProjectConstants;
 import Controller.MainGameEngine;
 import Controller.MapController;
+import Controller.PlayerController;
 import Exceptions.CommandValidationException;
 import Utils.CommandHandler;
 
@@ -22,6 +23,10 @@ public abstract class Phase {
      * The D map controller.
      */
     MapController d_mapController = new MapController();
+    /**
+     * The D gameplay controller.
+     */
+    PlayerController d_gameplayController = new PlayerController();
 
     /**
      * The D main game engine.
@@ -195,6 +200,12 @@ public abstract class Phase {
         }
     }
 
+    /**
+     * Advance.
+     *
+     * @param p_inputCommand the p input command
+     * @param p_player       the p player
+     */
     protected abstract void advance(String p_inputCommand, Player p_player);
 
     /**

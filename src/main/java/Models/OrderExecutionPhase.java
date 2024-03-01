@@ -1,32 +1,24 @@
 package Models;
 
-import Constants.ProjectConstants;
 import Controller.MainGameEngine;
-import Controller.PlayerController;
 import Exceptions.CommandValidationException;
 import Utils.CommandHandler;
+import Views.MapView;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 /**
- * The type Issue order phase.
+ * The type Order execution phase.
  */
-public class IssueOrderPhase extends Phase{
+public class OrderExecutionPhase extends Phase{
 
     /**
-     * The D game player controller.
-     */
-    PlayerController d_gamePlayerController = new PlayerController();
-
-    /**
-     * Instantiates a new Issue order phase.
+     * Instantiates a new Phase.
      *
      * @param p_currentState   the p current state
      * @param p_mainGameEngine the p main game engine
      */
-    public IssueOrderPhase(CurrentState p_currentState, MainGameEngine p_mainGameEngine) {
+    public OrderExecutionPhase(CurrentState p_currentState, MainGameEngine p_mainGameEngine) {
         super(p_currentState, p_mainGameEngine);
     }
 
@@ -35,14 +27,31 @@ public class IssueOrderPhase extends Phase{
      */
     @Override
     public void initPhase() {
-        while(d_mainGameEngine.getD_currentPhase() instanceof IssueOrderPhase){
-            try {
-                issueOrder();
-            } catch (Exception p_e) {
-                d_currentState.getD_modelLogger().setD_message(p_e.getMessage(),"Error");
-            }
+        if(d_mainGameEngine.getD_currentPhase() instanceof OrderExecutionPhase){
+            executeOrders();
         }
+    }
 
+    /**
+     * Advance.
+     *
+     * @param p_inputCommand the p input command
+     * @param p_player       the p player
+     */
+    @Override
+    protected void advance(String p_inputCommand, Player p_player) {
+        printInvalidCommandInPhase();
+    }
+
+    /**
+     * Deploy.
+     *
+     * @param p_inputCommand the p input command
+     * @param p_player       the p player
+     */
+    @Override
+    protected void deploy(String p_inputCommand, Player p_player) {
+        printInvalidCommandInPhase();
     }
 
     /**
@@ -108,7 +117,8 @@ public class IssueOrderPhase extends Phase{
      */
     @Override
     protected void showMap() throws CommandValidationException {
-
+        MapView l_mapView = new MapView(d_currentState);
+        l_mapView.showMap();
     }
 
     /**
@@ -157,70 +167,15 @@ public class IssueOrderPhase extends Phase{
     }
 
     /**
-     * Issue order.
-     *
-     * @throws Exception the exception
+     * Execute orders.
      */
-    private void issueOrder() throws Exception {
-        do {
-            for (Player l_eachPlayer : d_currentState.getD_players()) {
-                if(l_eachPlayer.hasMoreOrders()) {
-                    l_eachPlayer.issueOrder(this);
+    private void executeOrders() {
+        while(d_gameplayController.isUnexecutedOrdersExist(d_currentState)){
+            for(Player l_eachPlayer : d_currentState.getD_players()){
+                Orders l_orderToExecute = l_eachPlayer.nextOrder();
+                if(l_orderToExecute != null){
+                    l_orderToExecute.execute(d_currentState);
                 }
-            }
-        }while(d_gamePlayerController.checkForMoreOrders(d_currentState.getD_players()));
-
-        d_mainGameEngine.setOrderExecutionPhase();
-    }
-
-    /**
-     * Ask for orders.
-     *
-     * @param p_player the p player
-     * @throws Exception the exception
-     */
-    public void askForOrders(Player p_player) throws Exception {
-        BufferedReader l_bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Please Enter command for Player : " + p_player.getD_name() + "   Armies left : " + p_player.getD_unallocatedArmies());
-        System.out.println("1. Deploy Order Command : 'deploy <countryName> <noOfArmies>'");
-        System.out.println("2. Advance Order Command : 'advance <countryFromName> <countryToName> <noOfArmies>");
-        System.out.println();
-        System.out.print("Enter your command: ");
-        String l_commandEntered = l_bufferedReader.readLine();
-        d_currentState.getD_modelLogger().setD_message("Player : " + p_player.getD_name() + " has entered command : " + l_commandEntered ,"Order-1");
-        handleCommand(l_commandEntered, p_player);
-    }
-
-    /**
-     * Deploy.
-     *
-     * @param p_inputCommand the p input command
-     * @param p_player       the p player
-     */
-    @Override
-    protected void deploy(String p_inputCommand, Player p_player) {
-        CommandHandler l_commandHandler = new CommandHandler(p_inputCommand);
-        if(l_commandHandler.getMainCommand().equals("deploy")){
-            if(p_inputCommand.split(" ").length == 3){
-                p_player.createDeployOrder(p_inputCommand);
-                p_player.checkForMoreOrder();
-            }
-        }
-    }
-
-    /**
-     * Advance.
-     *
-     * @param p_inputCommand the p input command
-     * @param p_player       the p player
-     */
-    @Override
-    protected void advance(String p_inputCommand, Player p_player) {
-        CommandHandler l_commandHandler = new CommandHandler(p_inputCommand);
-        if(l_commandHandler.getMainCommand().equals("advance")){
-            if(p_inputCommand.split(" ").length == 4){
-                p_player.createAdvanceOrder(p_inputCommand, d_currentState);
-                p_player.checkForMoreOrder();
             }
         }
     }
