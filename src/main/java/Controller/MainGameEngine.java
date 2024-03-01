@@ -11,10 +11,36 @@ public class MainGameEngine {
      * The D current state.
      */
     CurrentState d_currentState = new CurrentState();
+    /**
+     * The D current phase.
+     */
     Phase d_currentPhase = new StartupPhase(d_currentState, this);
 
+    /**
+     * Gets d current phase.
+     *
+     * @return the d current phase
+     */
     public Phase getD_currentPhase() {
         return d_currentPhase;
+    }
+
+    /**
+     * Sets d current phase.
+     *
+     * @param d_currentPhase the d current phase
+     */
+    public void setD_currentPhase(Phase d_currentPhase) {
+        this.d_currentPhase = d_currentPhase;
+    }
+
+    /**
+     * Set issue order phase.
+     */
+    public void setIssueOrderPhase(){
+        this.d_currentState.getD_modelLogger().setD_message("----------------------Issue Order Phase--------------------","Phase-2");
+        this.d_currentPhase = new IssueOrderPhase(d_currentState, this);
+        d_currentPhase.initPhase();
     }
 
     /**
@@ -31,7 +57,7 @@ public class MainGameEngine {
      * Start.
      */
     private void start() {
-        d_currentState.getD_modelLogger().setD_message("---------------Game Session Started---------------","Type3");
+        d_currentState.getD_modelLogger().setD_message("-------------------Game Session Started-----------------","Phase-1");
         MainGameEngine l_mainGameEngine = new MainGameEngine();
         l_mainGameEngine.getD_currentPhase().initPhase();
     }

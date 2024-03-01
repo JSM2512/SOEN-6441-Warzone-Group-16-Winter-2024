@@ -8,19 +8,40 @@ import Utils.CommandHandler;
 
 import java.io.IOException;
 
+/**
+ * The type Phase.
+ */
 public abstract class Phase {
 
+    /**
+     * The D current state.
+     */
     CurrentState d_currentState;
 
+    /**
+     * The D map controller.
+     */
     MapController d_mapController = new MapController();
 
+    /**
+     * The D main game engine.
+     */
     MainGameEngine d_mainGameEngine;
 
+    /**
+     * Instantiates a new Phase.
+     *
+     * @param p_currentState   the p current state
+     * @param p_mainGameEngine the p main game engine
+     */
     public Phase(CurrentState p_currentState, MainGameEngine p_mainGameEngine) {
         this.d_currentState = p_currentState;
         this.d_mainGameEngine = p_mainGameEngine;
     }
 
+    /**
+     * Init phase.
+     */
     public abstract void initPhase();
 
     /**
@@ -131,24 +152,92 @@ public abstract class Phase {
         }
     }
 
+    /**
+     * Load map.
+     *
+     * @param lCommandHandler the l command handler
+     * @throws CommandValidationException the command validation exception
+     */
     protected abstract void loadMap(CommandHandler lCommandHandler) throws CommandValidationException;
 
+    /**
+     * Edit map.
+     *
+     * @param lCommandHandler the l command handler
+     * @throws CommandValidationException the command validation exception
+     * @throws IOException                the io exception
+     */
     protected abstract void editMap(CommandHandler lCommandHandler) throws CommandValidationException, IOException;
 
+    /**
+     * Edit country.
+     *
+     * @param lCommandHandler the l command handler
+     * @throws CommandValidationException the command validation exception
+     */
     protected abstract void editCountry(CommandHandler lCommandHandler) throws CommandValidationException;
 
+    /**
+     * Edit continent.
+     *
+     * @param lCommandHandler the l command handler
+     * @throws CommandValidationException the command validation exception
+     */
     protected abstract void editContinent(CommandHandler lCommandHandler) throws CommandValidationException;
 
+    /**
+     * Edit neighbour country.
+     *
+     * @param lCommandHandler the l command handler
+     * @throws CommandValidationException the command validation exception
+     */
     protected abstract void editNeighbourCountry(CommandHandler lCommandHandler) throws CommandValidationException;
 
+    /**
+     * Show map.
+     *
+     * @throws CommandValidationException the command validation exception
+     */
     protected abstract void showMap() throws CommandValidationException;
 
+    /**
+     * Game player.
+     *
+     * @param lCommandHandler the l command handler
+     * @throws CommandValidationException the command validation exception
+     */
     protected abstract void gamePlayer(CommandHandler lCommandHandler) throws CommandValidationException;
 
+    /**
+     * Assign countries.
+     *
+     * @param lCommandHandler the l command handler
+     * @throws CommandValidationException the command validation exception
+     * @throws IOException                the io exception
+     */
     protected abstract void assignCountries(CommandHandler lCommandHandler) throws CommandValidationException, IOException;
 
+    /**
+     * Validate map.
+     *
+     * @param lCommandHandler the l command handler
+     * @throws CommandValidationException the command validation exception
+     */
     protected abstract void validateMap(CommandHandler lCommandHandler) throws CommandValidationException;
 
+    /**
+     * Save map.
+     *
+     * @param lCommandHandler the l command handler
+     * @throws CommandValidationException the command validation exception
+     */
     protected abstract void saveMap(CommandHandler lCommandHandler) throws CommandValidationException;
+
+    /**
+     * Print invalid command in phase.
+     */
+    public void printInvalidCommandInPhase(){
+        d_currentState.getD_modelLogger().setD_message("Invalid Command entered for this phase.","Type-1");
+    }
 
 }

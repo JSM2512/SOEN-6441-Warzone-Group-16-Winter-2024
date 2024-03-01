@@ -12,13 +12,28 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
+/**
+ * The type Startup phase.
+ */
 public class StartupPhase extends Phase{
+    /**
+     * The D game player controller.
+     */
     PlayerController d_gamePlayerController = new PlayerController();
 
+    /**
+     * Instantiates a new Startup phase.
+     *
+     * @param p_currentState   the p current state
+     * @param p_mainGameEngine the p main game engine
+     */
     public StartupPhase(CurrentState p_currentState, MainGameEngine p_mainGameEngine) {
         super(p_currentState, p_mainGameEngine);
     }
 
+    /**
+     * Init phase.
+     */
     @Override
     public void initPhase() {
         BufferedReader l_bufferedReader = new BufferedReader(new InputStreamReader(System.in));
@@ -49,6 +64,12 @@ public class StartupPhase extends Phase{
         }
     }
 
+    /**
+     * Load map.
+     *
+     * @param p_commandHandler the p command handler
+     * @throws CommandValidationException the command validation exception
+     */
     protected void loadMap(CommandHandler p_commandHandler) throws CommandValidationException {
         List<java.util.Map<String,String>> l_listOfOperations = p_commandHandler.getListOfOperations();
         System.out.println(l_listOfOperations);
@@ -68,6 +89,13 @@ public class StartupPhase extends Phase{
         }
     }
 
+    /**
+     * Edit map.
+     *
+     * @param p_commandHandler the p command handler
+     * @throws CommandValidationException the command validation exception
+     * @throws IOException                the io exception
+     */
     @Override
     protected void editMap(CommandHandler p_commandHandler) throws CommandValidationException, IOException {
         List<java.util.Map<String,String>> l_listOfOperations = p_commandHandler.getListOfOperations();
@@ -87,6 +115,12 @@ public class StartupPhase extends Phase{
         }
     }
 
+    /**
+     * Edit country.
+     *
+     * @param p_commandHandler the p command handler
+     * @throws CommandValidationException the command validation exception
+     */
     @Override
     protected void editCountry(CommandHandler p_commandHandler) throws CommandValidationException {
         List<java.util.Map<String,String>> l_listOfOperations = p_commandHandler.getListOfOperations();
@@ -103,6 +137,12 @@ public class StartupPhase extends Phase{
         }
     }
 
+    /**
+     * Edit continent.
+     *
+     * @param p_commandHandler the p command handler
+     * @throws CommandValidationException the command validation exception
+     */
     @Override
     protected void editContinent(CommandHandler p_commandHandler) throws CommandValidationException {
         List<java.util.Map<String,String>> l_listOfOperations = p_commandHandler.getListOfOperations();
@@ -118,6 +158,12 @@ public class StartupPhase extends Phase{
         }
     }
 
+    /**
+     * Edit neighbour country.
+     *
+     * @param p_CommandHandler the p command handler
+     * @throws CommandValidationException the command validation exception
+     */
     @Override
     protected void editNeighbourCountry(CommandHandler p_CommandHandler) throws CommandValidationException {
         List<java.util.Map<String,String>>  l_listOfOperations = p_CommandHandler.getListOfOperations();
@@ -132,12 +178,23 @@ public class StartupPhase extends Phase{
         }
     }
 
+    /**
+     * Show map.
+     *
+     * @throws CommandValidationException the command validation exception
+     */
     @Override
     protected void showMap() throws CommandValidationException {
         MapView l_mapView = new MapView(d_currentState);
         l_mapView.showMap();
     }
 
+    /**
+     * Game player.
+     *
+     * @param p_commandHandler the p command handler
+     * @throws CommandValidationException the command validation exception
+     */
     @Override
     protected void gamePlayer(CommandHandler p_commandHandler) throws CommandValidationException {
         List<java.util.Map<String, String>> l_listOfOperations = p_commandHandler.getListOfOperations();
@@ -153,16 +210,29 @@ public class StartupPhase extends Phase{
         }
     }
 
+    /**
+     * Assign countries.
+     *
+     * @param p_commandHandler the p command handler
+     * @throws CommandValidationException the command validation exception
+     * @throws IOException                the io exception
+     */
     @Override
     protected void assignCountries(CommandHandler p_commandHandler) throws CommandValidationException, IOException {
         List<java.util.Map<String, String>> l_listOfOperations = p_commandHandler.getListOfOperations();
         if (l_listOfOperations == null || l_listOfOperations.isEmpty()) {
             d_gamePlayerController.assignCountries(d_currentState);
             d_gamePlayerController.assignArmies(d_currentState);
-            startGame();
+            d_mainGameEngine.setIssueOrderPhase();
         }
     }
 
+    /**
+     * Validate map.
+     *
+     * @param p_commandHandler the p command handler
+     * @throws CommandValidationException the command validation exception
+     */
     @Override
     protected void validateMap(CommandHandler p_commandHandler) throws CommandValidationException {
         List<java.util.Map<String, String>> l_listOfOperations = p_commandHandler.getListOfOperations();
@@ -182,52 +252,30 @@ public class StartupPhase extends Phase{
         }
     }
 
+    /**
+     * Save map.
+     *
+     * @param p_commandHandler the p command handler
+     * @throws CommandValidationException the command validation exception
+     */
     @Override
     protected void saveMap(CommandHandler p_commandHandler) throws CommandValidationException {
         List<java.util.Map<String, String>> l_listOfOperations = p_commandHandler.getListOfOperations();
         if (l_listOfOperations == null || l_listOfOperations.isEmpty()) {
             System.out.println(ProjectConstants.INVALID_SAVEMAP_COMMAND);
         } else {
-            for(java.util.Map<String,String> l_singleOperation : l_listOfOperations){
-                if(l_singleOperation.containsKey("Arguments") && l_singleOperation.get("Arguments")!=null){
+            for (java.util.Map<String, String> l_singleOperation : l_listOfOperations) {
+                if (l_singleOperation.containsKey("Arguments") && l_singleOperation.get("Arguments") != null) {
                     boolean l_isMapSaved = d_mapController.saveMap(d_currentState, l_singleOperation.get("Arguments"));
-                    if(l_isMapSaved){
-                        System.out.println("Map : "+d_currentState.getD_map().getD_mapName()+" saved successfully.");
-                    }
-                    else{
+                    if (l_isMapSaved) {
+                        System.out.println("Map : " + d_currentState.getD_map().getD_mapName() + " saved successfully.");
+                    } else {
                         System.out.println(ProjectConstants.SAVEMAP_FAILURE_MESSAGE);
                     }
-                }
-                else {
+                } else {
                     System.out.println(ProjectConstants.INVALID_SAVEMAP_COMMAND);
                 }
             }
         }
     }
-
-    private void startGame() throws IOException {
-        if(d_currentState.getD_players() == null || d_currentState.getD_players().isEmpty()){
-            System.out.println(ProjectConstants.NO_PLAYER_IN_GAME);
-            return;
-        }
-
-        System.out.println(ProjectConstants.DEPLOY_ARMIES_MESSAGE);
-
-        while(d_gamePlayerController.isUnallocatedArmiesExist(d_currentState)){
-            for(Player l_eachPlayer : d_currentState.getD_players()){
-                if(l_eachPlayer.getD_unallocatedArmies() > 0){
-                    l_eachPlayer.issueOrder();
-                }
-            }
-        }
-        while(d_gamePlayerController.isUnexecutedOrdersExist(d_currentState)){
-            for(Player l_eachPlayer : d_currentState.getD_players()){
-                Orders l_orderToExecute = l_eachPlayer.nextOrder();
-                if(l_orderToExecute != null){
-                    l_orderToExecute.execute(l_eachPlayer);
-                }
-            }
-        }
-    }
-
 }
