@@ -301,8 +301,12 @@ public class Player {
             checkCountryPresent(l_targetCountry, p_currentState) &&
             l_noOfArmies > 0 &&
             checkAdjacentCountry(l_sourceCountry,l_targetCountry,p_currentState)){
+            this.d_orders.add(new Advance(l_sourceCountry, l_targetCountry, l_noOfArmies, this));
+            System.out.println("Advance order is added for execution for player " + this.getD_name());
         }
-
+        else{
+            System.out.println("Invalid Arguments passed for advance order.");
+        }
     }
 
     private boolean checkAdjacentCountry(String p_sourceCountry, String p_targetCountry, CurrentState p_currentState) {
