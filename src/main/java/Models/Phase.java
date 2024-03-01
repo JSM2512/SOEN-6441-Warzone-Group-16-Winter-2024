@@ -45,12 +45,37 @@ public abstract class Phase {
     public abstract void initPhase();
 
     /**
+     * Handle command.
+     *
+     * @param p_inputCommand the p input command
+     * @throws CommandValidationException the command validation exception
+     * @throws IOException                the io exception
+     */
+    public void handleCommand(String p_inputCommand) throws CommandValidationException, IOException {
+        commandHandler(p_inputCommand, null);
+    }
+
+    /**
+     * Handle command.
+     *
+     * @param p_inputCommand the p input command
+     * @param p_player       the p player
+     * @throws CommandValidationException the command validation exception
+     * @throws IOException                the io exception
+     */
+    public void handleCommand(String p_inputCommand, Player p_player) throws CommandValidationException, IOException {
+        commandHandler(p_inputCommand, p_player);
+    }
+
+    /**
      * Command handler.
      *
      * @param p_inputCommand the p input command
-     * @throws Exception the exception
+     * @param p_player       the p player
+     * @throws CommandValidationException the command validation exception
+     * @throws IOException                the io exception
      */
-    public void commandHandler(String p_inputCommand) throws Exception {
+    public void commandHandler(String p_inputCommand, Player p_player) throws CommandValidationException, IOException {
         CommandHandler l_commandHandler = new CommandHandler(p_inputCommand);
         String l_mainCommand = l_commandHandler.getMainCommand();
         boolean l_mapAvailable = false;
@@ -143,6 +168,15 @@ public abstract class Phase {
                     d_currentState.getD_modelLogger().setD_message("Entered command: savemap. savemap executed successfully. ","type-1");
                 }
                 break;
+            case "deploy":
+                if (!l_mapAvailable) {
+                    System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
+                    d_currentState.getD_modelLogger().setD_message("Entered command: deploy. Map is not available. ","type-1");
+                } else {
+                    deploy(p_inputCommand, p_player);
+                    d_currentState.getD_modelLogger().setD_message("Entered command: deploy. deploy executed successfully. ","type-1");
+                }
+                break;
             case "exit":
                 d_currentState.getD_modelLogger().setD_message("Entered command: exit. Exited successfully.","Type3");
                 d_currentState.getD_modelLogger().setD_message("---------------Game Session Closed---------------","Type3");
@@ -151,6 +185,15 @@ public abstract class Phase {
                 break;
         }
     }
+
+    /**
+     * Deploy.
+     *
+     * @param p_inputCommand the p input command
+     * @param p_player       the p player
+     */
+    protected abstract void deploy(String p_inputCommand, Player p_player);
+
 
     /**
      * Load map.

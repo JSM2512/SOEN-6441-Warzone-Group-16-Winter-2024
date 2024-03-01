@@ -164,9 +164,11 @@ public class Player {
     /**
      * Issue order.
      *
-     * @throws IOException the io exception
+     * @param p_issueOrderPhase the p issue order phase
+     * @throws Exception the exception
      */
-    public void issueOrder() throws IOException {
+    public void issueOrder(IssueOrderPhase p_issueOrderPhase) throws Exception {
+        p_issueOrderPhase.askForOrders(this);
         BufferedReader l_bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Please Enter command to deploy armies on the Map  for ----------->  Player : " + d_name + "   Armies left : "+d_unallocatedArmies);
 
@@ -179,6 +181,7 @@ public class Player {
             }
         }
     }
+
 
     /**
      * Next order orders.

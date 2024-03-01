@@ -6,7 +6,9 @@ import Controller.PlayerController;
 import Exceptions.CommandValidationException;
 import Utils.CommandHandler;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * The type Issue order phase.
@@ -36,7 +38,7 @@ public class IssueOrderPhase extends Phase{
         if(d_mainGameEngine.getD_currentPhase() instanceof IssueOrderPhase){
             try {
                 issueOrder();
-            } catch (IOException p_e) {
+            } catch (Exception p_e) {
                 d_currentState.getD_modelLogger().setD_message(p_e.getMessage(),"Error");
             }
         }
@@ -157,29 +159,44 @@ public class IssueOrderPhase extends Phase{
     /**
      * Issue order.
      *
-     * @throws IOException the io exception
+     * @throws Exception the exception
      */
-    private void issueOrder() throws IOException {
-        if(d_currentState.getD_players() == null || d_currentState.getD_players().isEmpty()){
-            System.out.println(ProjectConstants.NO_PLAYER_IN_GAME);
-            return;
+    private void issueOrder() throws Exception {
+        for(Player l_eachPlayer : d_currentState.getD_players()) {
+            l_eachPlayer.issueOrder(this);
         }
+    }
 
-        System.out.println(ProjectConstants.DEPLOY_ARMIES_MESSAGE);
+    /**
+     * Ask for orders.
+     *
+     * @param p_player the p player
+     * @throws Exception the exception
+     */
+    public void askForOrders(Player p_player) throws Exception {
+        BufferedReader l_bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Please Enter command for Player : " + p_player.getD_name() + "   Armies left : " + p_player.getD_unallocatedArmies());
+        System.out.println("1. Deploy Order Command : 'deploy <countryName> <noOfArmies>'");
+        System.out.println("");
+        System.out.print("Enter your command: ");
+        String l_commandEntered = l_bufferedReader.readLine();
+        d_currentState.getD_modelLogger().setD_message("Player : " + p_player.getD_name() + " has entered command : " + l_commandEntered ,"Order-1");
+        handleCommand(l_commandEntered, p_player);
+    }
 
-        while(d_gamePlayerController.isUnallocatedArmiesExist(d_currentState)){
-            for(Player l_eachPlayer : d_currentState.getD_players()){
-                if(l_eachPlayer.getD_unallocatedArmies() > 0){
-                    l_eachPlayer.issueOrder();
-                }
-            }
-        }
-        while(d_gamePlayerController.isUnexecutedOrdersExist(d_currentState)){
-            for(Player l_eachPlayer : d_currentState.getD_players()){
-                Orders l_orderToExecute = l_eachPlayer.nextOrder();
-                if(l_orderToExecute != null){
-                    l_orderToExecute.execute(l_eachPlayer);
-                }
+    /**
+     * Deploy.
+     *
+     * @param p_inputCommand the p input command
+     * @param p_player       the p player
+     */
+    @Override
+    protected void deploy(String p_inputCommand, Player p_player) {
+        CommandHandler l_commandHandler = new CommandHandler(p_inputCommand);
+        if(l_commandHandler.getMainCommand().equals("deploy")){
+            if(p_inputCommand.split(" ").length == 3){
+                PlayerController l_gamePlayerController = new PlayerController();
+                l_gamePlayerController.createDeployOrder(p_inputCommand, p_player);
             }
         }
     }

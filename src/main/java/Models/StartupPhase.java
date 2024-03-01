@@ -56,7 +56,7 @@ public class StartupPhase extends Phase{
             System.out.print("Enter your command: ");
             try{
                 String l_inputCommand = l_bufferedReader.readLine();
-                commandHandler(l_inputCommand);
+                handleCommand(l_inputCommand);
             }
             catch (Exception e){
                 throw new RuntimeException(e);
@@ -277,5 +277,16 @@ public class StartupPhase extends Phase{
                 }
             }
         }
+    }
+
+    /**
+     * Deploy.
+     *
+     * @param p_inputCommand the p input command
+     * @param p_player       the p player
+     */
+    @Override
+    protected void deploy(String p_inputCommand, Player p_player) {
+        printInvalidCommandInPhase();
     }
 }
