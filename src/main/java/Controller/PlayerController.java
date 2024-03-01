@@ -16,7 +16,11 @@ import java.util.Random;
  */
 public class PlayerController {
 
+    /**
+     * The D current state.
+     */
     CurrentState d_currentState = new CurrentState();
+
     /**
      * Assign countries.
      *

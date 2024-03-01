@@ -535,6 +535,12 @@ public class Map {
         }
     }
 
+    /**
+     * Gets country name by id.
+     *
+     * @param p_neighbourID the p neighbour id
+     * @return the country name by id
+     */
     public String getCountryNameByID(Integer p_neighbourID) {
         for(Country l_eachCountry : d_mapCountries){
             if(l_eachCountry.getD_countryID().equals(p_neighbourID)){

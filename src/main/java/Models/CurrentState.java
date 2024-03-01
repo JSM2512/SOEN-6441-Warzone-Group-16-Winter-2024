@@ -19,6 +19,9 @@ public class CurrentState {
      */
     Map d_map;
 
+    /**
+     * The D model logger.
+     */
     ModelLogger d_modelLogger = new ModelLogger();
 
     /**
@@ -57,13 +60,30 @@ public class CurrentState {
         this.d_map = d_map;
     }
 
+    /**
+     * Get d model logger model logger.
+     *
+     * @return the model logger
+     */
     public ModelLogger getD_modelLogger(){
         return  this.d_modelLogger;
     }
+
+    /**
+     * Gets d model logger message.
+     *
+     * @return the d model logger message
+     */
     public String getD_modelLoggerMessage() {
         return d_modelLogger.getD_message();
     }
 
+    /**
+     * Sets log message.
+     *
+     * @param p_modelLoggerMessage the p model logger message
+     * @param p_messageType        the p message type
+     */
     public void setLogMessage(String p_modelLoggerMessage, String p_messageType) {
         d_modelLogger.setD_message(p_modelLoggerMessage, p_messageType);
     }

@@ -17,6 +17,9 @@ import java.util.stream.Collectors;
  * The type Map controller.
  */
 public class MapController {
+    /**
+     * The D current state.
+     */
     CurrentState d_currentState = new CurrentState();
 
     /**
