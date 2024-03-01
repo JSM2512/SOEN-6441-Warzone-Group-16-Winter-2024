@@ -181,7 +181,7 @@ public class IssueOrderPhase extends Phase{
         BufferedReader l_bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Please Enter command for Player : " + p_player.getD_name() + "   Armies left : " + p_player.getD_unallocatedArmies());
         System.out.println("1. Deploy Order Command : 'deploy <countryName> <noOfArmies>'");
-        System.out.println("2. ");
+        System.out.println("2. Advance Order Command : 'advance <countryFromName> <countryToName> <noOfArmies>");
         System.out.println();
         System.out.print("Enter your command: ");
         String l_commandEntered = l_bufferedReader.readLine();
@@ -201,6 +201,17 @@ public class IssueOrderPhase extends Phase{
         if(l_commandHandler.getMainCommand().equals("deploy")){
             if(p_inputCommand.split(" ").length == 3){
                 p_player.createDeployOrder(p_inputCommand);
+                p_player.checkForMoreOrder();
+            }
+        }
+    }
+
+    @Override
+    protected void advance(String p_inputCommand, Player p_player) {
+        CommandHandler l_commandHandler = new CommandHandler(p_inputCommand);
+        if(l_commandHandler.getMainCommand().equals("advance")){
+            if(p_inputCommand.split(" ").length == 4){
+                p_player.createAdvanceOrder(p_inputCommand, d_currentState);
                 p_player.checkForMoreOrder();
             }
         }

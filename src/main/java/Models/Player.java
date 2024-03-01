@@ -292,4 +292,35 @@ public class Player {
         }
 
     }
+
+    public void createAdvanceOrder(String p_inputCommand, CurrentState p_currentState) {
+        String l_sourceCountry = p_inputCommand.split(" ")[1];
+        String l_targetCountry = p_inputCommand.split(" ")[2];
+        Integer l_noOfArmies = Integer.valueOf(p_inputCommand.split(" ")[3]);
+        if(checkCountryPresent(l_sourceCountry, p_currentState) &&
+            checkCountryPresent(l_targetCountry, p_currentState) &&
+            l_noOfArmies > 0 &&
+            checkAdjacentCountry(l_sourceCountry,l_targetCountry,p_currentState)){
+        }
+
+    }
+
+    private boolean checkAdjacentCountry(String p_sourceCountry, String p_targetCountry, CurrentState p_currentState) {
+        Country l_sourceCountry = p_currentState.getD_map().getCountryByName(p_sourceCountry);
+        Country l_targetCountry = p_currentState.getD_map().getCountryByName(p_targetCountry);
+
+        if(!l_sourceCountry.getD_neighbouringCountriesId().contains(l_targetCountry.getD_countryID())){
+            return false;
+        }
+        return true;
+
+    }
+
+    public boolean checkCountryPresent(String p_countryName, CurrentState p_currentState){
+        if(p_currentState.getD_map().getCountryByName(p_countryName) == null){
+            System.out.println(ProjectConstants.NO_COUNTRY_IN_MAP);
+            return false;
+        }
+        return true;
+    }
 }
