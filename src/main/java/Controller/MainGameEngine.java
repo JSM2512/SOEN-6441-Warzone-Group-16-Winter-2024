@@ -95,68 +95,93 @@ public class MainGameEngine {
         }
         else if(l_mainCommand.equals(("editmap"))){
             editMap(l_commandHandler);
+            d_currentState.getD_modelLogger().setD_message("Editmap command executed successfully", "type-1");
         }
         else if(l_mainCommand.equals("editcountry")) {
             if (!l_mapAvailable) {
                 System.out.println(ProjectConstants.MAP_NOT_AVAILABLE_EDIT_COUNTRY);
+                d_currentState.getD_modelLogger().setD_message("Entered command: editCountry. Map is not available. ","type-1");
             } else {
                 editCountry(l_commandHandler);
+                d_currentState.getD_modelLogger().setD_message("Entered command: editcountry. Country edited successfully","");
             }
         }
         else if(l_mainCommand.equals("editcontinent")){
             if(!l_mapAvailable){
                 System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
+                d_currentState.getD_modelLogger().setD_message("Entered command: editcontinent. Map is not available. ","type-1");
             }
             else{
                 editContinent(l_commandHandler);
+                d_currentState.getD_modelLogger().setD_message("Entered command: editcontinent. Continent edited successfully. ","type-1");
+
             }
         }
         else if(l_mainCommand.equals("editneighbour")){
             if(!l_mapAvailable){
                 System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
+                d_currentState.getD_modelLogger().setD_message("Entered command: editneighbour. Map is not available. ","type-1");
             }
             else {
                 editNeighbourCountry(l_commandHandler);
+                d_currentState.getD_modelLogger().setD_message("Entered command: editneighbour. Neighbour edited successfully. ","type-1");
+
             }
         } 
         else if (l_mainCommand.equals("showmap")) {
             if(!l_mapAvailable){
                 System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
+                d_currentState.getD_modelLogger().setD_message("Entered command: showmap. Map is not available. ","type-1");
             }
             else {
                 MapView l_mapView = new MapView(d_currentState);
                 l_mapView.showMap();
+                d_currentState.getD_modelLogger().setD_message("Entered command: showmap. showmap executed successfully. ","type-1");
+
             }
         } else if (l_mainCommand.equals("gameplayer")) {
             if (!l_mapAvailable) {
                 System.out.println(ProjectConstants.MAP_NOT_AVAILABLE_PLAYERS);
+                d_currentState.getD_modelLogger().setD_message("Entered command: gameplayer. Map is not available. ","type-1");
             }
             else {
                 gamePlayer(l_commandHandler);
+                d_currentState.getD_modelLogger().setD_message("Entered command: gameplayer. gameplayer executed successfully. ","type-1");
+
             }
         }else if (l_mainCommand.equals("assigncountries")) {
             if (!l_mapAvailable) {
                 System.out.println(ProjectConstants.MAP_NOT_AVAILABLE_ASSIGN_COUNTRIES);
+                d_currentState.getD_modelLogger().setD_message("Entered command: assigncountries. Map is not available. ","type-1");
             }
             else {
                 assignCountries(l_commandHandler);
+                d_currentState.getD_modelLogger().setD_message("Entered command: assigncountries. assigncountries executed successfully. ","type-1");
+
             }
         }
         else if (l_mainCommand.equals("validatemap")) {
             if (!l_mapAvailable) {
                 System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
+                d_currentState.getD_modelLogger().setD_message("Entered command: validatemap. Map is not available. ","type-1");
             } else {
                 validateMap(l_commandHandler);
+                d_currentState.getD_modelLogger().setD_message("Entered command: validatemap. validatemap executed successfully. ","type-1");
+
             }
         }
         else if (l_mainCommand.equals("savemap")) {
             if (!l_mapAvailable) {
                 System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
+                d_currentState.getD_modelLogger().setD_message("Entered command: savemap. Map is not available. ","type-1");
             } else {
                 saveMap(l_commandHandler);
+                d_currentState.getD_modelLogger().setD_message("Entered command: savemap. savemap executed successfully. ","type-1");
+
             }
         }
         else if("exit".equals(p_inputCommand)){
+            d_currentState.getD_modelLogger().setD_message("Entered command: exit. Exited successfully.","Type3");
             d_currentState.getD_modelLogger().setD_message("---------------Game Session Closed---------------","Type3");
             System.out.println("Closing Game....");
             System.exit(0);
