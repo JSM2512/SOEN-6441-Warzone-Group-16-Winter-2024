@@ -1,5 +1,6 @@
 package Models;
 
+import Constants.ProjectConstants;
 import Utils.CommandHandler;
 import Controller.PlayerController;
 
@@ -34,6 +35,8 @@ public class Player {
      */
     List<Orders> d_orders;
 
+    boolean d_moreOrders;
+
     /**
      * Instantiates a new Player.
      *
@@ -43,6 +46,7 @@ public class Player {
         this.d_name = p_name;
         this.d_unallocatedArmies = 0;
         this.d_orders = new ArrayList<Orders>();
+        this.d_moreOrders = true;
     }
 
     /**
@@ -135,6 +139,14 @@ public class Player {
         this.d_orders = p_orders;
     }
 
+    public boolean hasMoreOrders() {
+        return d_moreOrders;
+    }
+
+    public void setMoreOrders(boolean p_moreOrders) {
+        this.d_moreOrders = p_moreOrders;
+    }
+
     /**
      * Sets continent.
      *
@@ -169,17 +181,17 @@ public class Player {
      */
     public void issueOrder(IssueOrderPhase p_issueOrderPhase) throws Exception {
         p_issueOrderPhase.askForOrders(this);
-        BufferedReader l_bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Please Enter command to deploy armies on the Map  for ----------->  Player : " + d_name + "   Armies left : "+d_unallocatedArmies);
-
-        String l_command = l_bufferedReader.readLine();
-        CommandHandler l_commandHandler = new CommandHandler(l_command);
-        if(l_commandHandler.getMainCommand().equals("deploy")){
-            if(l_command.split(" ").length == 3){
-                PlayerController l_gamePlayerController = new PlayerController();
-                l_gamePlayerController.createDeployOrder(l_command, this);
-            }
-        }
+//        BufferedReader l_bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+//        System.out.println("Please Enter command to deploy armies on the Map  for ----------->  Player : " + d_name + "   Armies left : "+d_unallocatedArmies);
+//
+//        String l_command = l_bufferedReader.readLine();
+//        CommandHandler l_commandHandler = new CommandHandler(l_command);
+//        if(l_commandHandler.getMainCommand().equals("deploy")){
+//            if(l_command.split(" ").length == 3){
+//                PlayerController l_gamePlayerController = new PlayerController();
+//                l_gamePlayerController.createDeployOrder(l_command, this);
+//            }
+//        }
     }
 
 
@@ -195,5 +207,89 @@ public class Player {
         Orders l_latestOrder = d_orders.get(0);
         d_orders.remove(l_latestOrder);
         return l_latestOrder;
+    }
+
+    /**
+     * Create deploy order.
+     *
+     * @param p_command the p command
+     */
+    public void createDeployOrder(String p_command) {
+        if (this.getD_orders() == null || this.getD_orders().isEmpty()) {
+            d_orders = new ArrayList<>();
+        } else {
+            d_orders = this.getD_orders();
+        }
+
+        String l_countryName = p_command.split(" ")[1];
+        int l_noOfArmiesToDeploy = Integer.parseInt(p_command.split(" ")[2]);
+
+        if (!validateCountryBelongstoPlayer(this, l_countryName)) {
+            System.out.println("The country " + l_countryName + " does not belong to this player.");
+        }
+        else if (validateNoOfArmiesToDeploy(this, l_noOfArmiesToDeploy)) {
+            System.out.println(ProjectConstants.INVALID_NO_OF_ARMIES);
+//            d_currentState.getD_modelLogger().setD_message(ProjectConstants.INVALID_NO_OF_ARMIES,"Type 1");
+        }
+        else {
+            Orders l_order = new Deploy(p_command.split(" ")[0], l_countryName, l_noOfArmiesToDeploy);
+            d_orders.add(l_order);
+
+            Integer l_unallocatedArmies = this.getD_unallocatedArmies() - l_noOfArmiesToDeploy;
+            this.setD_unallocatedArmies(l_unallocatedArmies);
+
+            System.out.println(ProjectConstants.ORDER_ADDED);
+//            d_currentState.getD_modelLogger().setD_message(ProjectConstants.ORDER_ADDED,"Type 1");
+
+        }
+    }
+
+    /**
+     * Validate country belongsto player boolean.
+     *
+     * @param p_player      the p player
+     * @param p_countryName the p country name
+     * @return the boolean
+     */
+    private boolean validateCountryBelongstoPlayer(Player p_player, String p_countryName) {
+        for (Country l_eachCountry : p_player.getD_currentCountries()) {
+            if (l_eachCountry.getD_countryName().equals(p_countryName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Validate no of armies to deploy boolean.
+     *
+     * @param p_player           the p player
+     * @param p_noOfDeployArmies the p no of deploy armies
+     * @return the boolean
+     */
+    private boolean validateNoOfArmiesToDeploy(Player p_player, int p_noOfDeployArmies){
+        if(p_player.getD_unallocatedArmies() < p_noOfDeployArmies){
+            return true;
+        }
+        return false;
+    }
+
+    public void checkForMoreOrder() {
+        BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Do you still want to give order for player : " + this.getD_name() + " in the next turn?");
+        System.out.println("Press Y for Yes and N for No");
+        try {
+            String l_check = l_reader.readLine();
+            if(l_check.equalsIgnoreCase("Y") || l_check.equalsIgnoreCase("N")){
+                this.setMoreOrders(l_check.equalsIgnoreCase("Y"));
+            }
+            else{
+                System.err.println("Invalid Input Entered");
+                this.checkForMoreOrder();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }

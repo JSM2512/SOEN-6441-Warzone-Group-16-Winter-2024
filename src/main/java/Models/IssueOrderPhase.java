@@ -162,9 +162,13 @@ public class IssueOrderPhase extends Phase{
      * @throws Exception the exception
      */
     private void issueOrder() throws Exception {
-        for(Player l_eachPlayer : d_currentState.getD_players()) {
-            l_eachPlayer.issueOrder(this);
-        }
+        do {
+            for (Player l_eachPlayer : d_currentState.getD_players()) {
+                if(l_eachPlayer.hasMoreOrders()) {
+                    l_eachPlayer.issueOrder(this);
+                }
+            }
+        }while(d_gamePlayerController.checkForMoreOrders(d_currentState.getD_players()));
     }
 
     /**
@@ -177,7 +181,8 @@ public class IssueOrderPhase extends Phase{
         BufferedReader l_bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Please Enter command for Player : " + p_player.getD_name() + "   Armies left : " + p_player.getD_unallocatedArmies());
         System.out.println("1. Deploy Order Command : 'deploy <countryName> <noOfArmies>'");
-        System.out.println("");
+        System.out.println("2. ");
+        System.out.println();
         System.out.print("Enter your command: ");
         String l_commandEntered = l_bufferedReader.readLine();
         d_currentState.getD_modelLogger().setD_message("Player : " + p_player.getD_name() + " has entered command : " + l_commandEntered ,"Order-1");
@@ -195,8 +200,8 @@ public class IssueOrderPhase extends Phase{
         CommandHandler l_commandHandler = new CommandHandler(p_inputCommand);
         if(l_commandHandler.getMainCommand().equals("deploy")){
             if(p_inputCommand.split(" ").length == 3){
-                PlayerController l_gamePlayerController = new PlayerController();
-                l_gamePlayerController.createDeployOrder(p_inputCommand, p_player);
+                p_player.createDeployOrder(p_inputCommand);
+                p_player.checkForMoreOrder();
             }
         }
     }

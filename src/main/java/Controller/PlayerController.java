@@ -1,11 +1,7 @@
 package Controller;
 
 import Constants.ProjectConstants;
-import Models.CurrentState;
-import Models.Player;
-import Models.Continent;
-import Models.Country;
-import Models.Orders;
+import Models.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -168,74 +164,11 @@ public class PlayerController {
         return l_totalCount > 0;
     }
 
-    /**
-     * Create deploy order.
-     *
-     * @param p_command the p command
-     * @param p_player  the p player
-     */
-    public void createDeployOrder(String p_command, Player p_player) {
-        List<Orders> l_orders;
-        if (p_player.getD_orders() == null || p_player.getD_orders().isEmpty()) {
-            l_orders = new ArrayList<>();
-        } else {
-            l_orders = p_player.getD_orders();
-        }
 
-        String l_countryName = p_command.split(" ")[1];
-        int l_noOfArmiesToDeploy = Integer.parseInt(p_command.split(" ")[2]);
 
-        if (!validateCountryBelongstoPlayer(p_player, l_countryName)) {
-            System.out.println("The country " + l_countryName + " does not belong to this player.");
-        }
-        else if (validateNoOfArmiesToDeploy(p_player, l_noOfArmiesToDeploy)) {
-            System.out.println(ProjectConstants.INVALID_NO_OF_ARMIES);
-            d_currentState.getD_modelLogger().setD_message(ProjectConstants.INVALID_NO_OF_ARMIES,"Type 1");
-        }
-        else {
-            Orders l_order = new Orders(p_command.split(" ")[0], l_countryName, l_noOfArmiesToDeploy);
-            l_orders.add(l_order);
 
-            p_player.setD_orders(l_orders);
 
-            Integer l_unallocatedArmies = p_player.getD_unallocatedArmies() - l_noOfArmiesToDeploy;
-            p_player.setD_unallocatedArmies(l_unallocatedArmies);
 
-            System.out.println(ProjectConstants.ORDER_ADDED);
-            d_currentState.getD_modelLogger().setD_message(ProjectConstants.ORDER_ADDED,"Type 1");
-
-        }
-    }
-
-    /**
-     * Validate country belongsto player boolean.
-     *
-     * @param p_player      the p player
-     * @param p_countryName the p country name
-     * @return the boolean
-     */
-    private boolean validateCountryBelongstoPlayer(Player p_player, String p_countryName) {
-        for (Country l_eachCountry : p_player.getD_currentCountries()) {
-            if (l_eachCountry.getD_countryName().equals(p_countryName)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Validate no of armies to deploy boolean.
-     *
-     * @param p_player           the p player
-     * @param p_noOfDeployArmies the p no of deploy armies
-     * @return the boolean
-     */
-    private boolean validateNoOfArmiesToDeploy(Player p_player, int p_noOfDeployArmies){
-        if(p_player.getD_unallocatedArmies() < p_noOfDeployArmies){
-            return true;
-        }
-        return false;
-    }
 
     /**
      * Is unexecuted orders exist boolean.
@@ -249,5 +182,14 @@ public class PlayerController {
             l_totalCountOfUnexecutedOrders += l_eachPlayer.getD_orders().size();
         }
         return l_totalCountOfUnexecutedOrders > 0;
+    }
+
+    public boolean checkForMoreOrders(List<Player> p_players) {
+        for(Player l_eachPlayer : p_players){
+            if(l_eachPlayer.hasMoreOrders()){
+                return true;
+            }
+        }
+        return false;
     }
 }
