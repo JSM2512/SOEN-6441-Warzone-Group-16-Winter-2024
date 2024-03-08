@@ -368,6 +368,16 @@ public class Player {
     }
 
     public void handleCardCommand(String p_inputCommand, CurrentState p_currentState){
+        switch (p_inputCommand.split(" ")[0]){
+            case "bomb":
+                Card l_bombOrder = new CardBomb(this, p_inputCommand.split(" ")[1]);
+                if(l_bombOrder.validOrderCheck(p_currentState)){
+                    this.d_orders.add(l_bombOrder);
+                    // Logger Info needed
+                    // Current State Log Needed
+                }
+                break;
+        }
 
     }
 }

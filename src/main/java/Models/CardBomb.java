@@ -5,6 +5,11 @@ public class CardBomb implements Card{
     Player d_cardOwner;
     String d_targetCountryName;
 
+    public CardBomb(Player p_cardOwner, String p_targetCountryName) {
+        this.d_cardOwner = p_cardOwner;
+        this.d_targetCountryName = p_targetCountryName;
+    }
+
     @Override
     public void execute(CurrentState p_currentState) {
         if(valid(p_currentState)){
