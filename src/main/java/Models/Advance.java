@@ -54,15 +54,98 @@ public class Advance implements Orders{
             Player l_playerOfTargetCountry = getplayerOfTargetCounrty(p_currentState);
             Country l_sourceCountry = p_currentState.getD_map().getCountryByName(d_sourceCountry);
             Country l_targetCountry = p_currentState.getD_map().getCountryByName(d_targetCountry);
-            Integer l_armiesToUpadte = l_sourceCountry.getD_armies() - this.d_noOfArmiesToPlace;
-            l_sourceCountry.setD_armies(l_armiesToUpadte);
+            Integer l_armiesToUpdate = l_sourceCountry.getD_armies() - this.d_noOfArmiesToPlace;
+            l_sourceCountry.setD_armies(l_armiesToUpdate);
             if(l_playerOfTargetCountry.getD_name().equalsIgnoreCase(this.d_intitiatingPlayer.getD_name())){
                 deployArmiesToTarget(l_targetCountry);
             }
             else if(l_targetCountry.getD_armies() == 0){
                 conquerTargetCountry(p_currentState, l_playerOfTargetCountry, l_targetCountry);
             }
+            else{
+                battleOrderResult(p_currentState, l_playerOfTargetCountry, l_sourceCountry, l_targetCountry);
+            }
         }
+        else{
+            // Logger info needed
+        }
+    }
+
+    private void battleOrderResult(CurrentState p_currentState, Player p_playerOfTargetCountry, Country p_sourceCountry, Country p_targetCountry) {
+        int l_armiesInAttack = 0;
+        if(d_noOfArmiesToPlace < p_targetCountry.getD_armies()){
+            l_armiesInAttack = d_noOfArmiesToPlace;
+        }
+        else{
+            l_armiesInAttack = p_targetCountry.getD_armies();
+        }
+        List<Integer> l_defenderArmies = generateRandomArmyUnits(l_armiesInAttack, "defender");
+        List<Integer> l_attackerArmies = generateRandomArmyUnits(l_armiesInAttack, "attacker");
+        this.produceBattleResult(p_sourceCountry, p_targetCountry, l_attackerArmies, l_defenderArmies, p_playerOfTargetCountry);
+        // Logger Info needed
+        updateContinents(d_intitiatingPlayer, p_playerOfTargetCountry, p_currentState);
+    }
+
+    private void produceBattleResult(Country p_sourceCountry, Country p_targetCountry, List<Integer> p_attackerArmies, List<Integer> p_defenderArmies, Player p_playerOfTargetCountry) {
+        Integer l_attackerArmiesLeft = 0;
+        Integer l_defenderArmiesLeft = 0;
+        if(d_noOfArmiesToPlace > p_targetCountry.getD_armies()){
+            l_attackerArmiesLeft = d_noOfArmiesToPlace - p_targetCountry.getD_armies();
+        }
+        else{
+            l_attackerArmiesLeft = 0;
+        }
+        if(d_noOfArmiesToPlace < p_targetCountry.getD_armies()){
+            l_defenderArmiesLeft = p_targetCountry.getD_armies() - d_noOfArmiesToPlace;
+        }
+        else{
+            l_defenderArmiesLeft = 0;
+        }
+        for(int i=0 ; i<p_attackerArmies.size(); i++){
+            if(p_attackerArmies.get(i) > p_defenderArmies.get(i)){
+                l_attackerArmiesLeft++;
+            }
+            else{
+                l_defenderArmiesLeft++;
+            }
+        }
+        handleSurvivingArmies(l_attackerArmiesLeft, l_defenderArmiesLeft, p_sourceCountry, p_targetCountry, p_playerOfTargetCountry);
+    }
+
+    private void handleSurvivingArmies(Integer p_attackerArmiesLeft, Integer p_defenderArmiesLeft, Country p_sourceCountry, Country p_targetCountry, Player p_playerOfTargetCountry) {
+        if(p_defenderArmiesLeft == 0) {
+            p_playerOfTargetCountry.getD_currentCountries().remove(p_targetCountry);
+            p_targetCountry.setD_armies(p_attackerArmiesLeft);
+            d_intitiatingPlayer.getD_currentCountries().add(p_targetCountry);
+            // Logger Info needed
+        }
+        else{
+            p_targetCountry.setD_armies(p_defenderArmiesLeft);
+            Integer l_sourceArmiesToUpdate = p_sourceCountry.getD_armies() + p_attackerArmiesLeft;
+            p_sourceCountry.setD_armies(l_sourceArmiesToUpdate);
+            // Logger Info needed
+        }
+    }
+
+    private List<Integer> generateRandomArmyUnits(int p_armiesInAttack, String p_role) {
+        List<Integer> l_armyList = new ArrayList<>();
+        double l_probability = 0.0;
+        if(p_role.equals("attacker")){
+            l_probability = 0.7;
+        }
+        else{
+            l_probability = 0.5;
+        }
+        for(int i = 0; i < p_armiesInAttack; i++) {
+           int l_randomNumber = getRandomInteger(1,10);
+           Integer l_armyUnit = (int) Math.round(l_randomNumber * l_probability);
+           l_armyList.add(l_armyUnit);
+        }
+        return l_armyList;
+    }
+
+    private int getRandomInteger(int p_min, int p_max) {
+        return ((int) (Math.random() * (p_max - p_min))) + p_min;
     }
 
     /**
