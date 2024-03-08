@@ -39,6 +39,7 @@ public class Player {
      * The D more orders.
      */
     boolean d_moreOrders;
+    List<String> d_cardsOwnedByPlayer = new ArrayList<>();
 
     /**
      * Instantiates a new Player.
@@ -186,6 +187,14 @@ public class Player {
         }
     }
 
+    public List<String> getD_cardsOwnedByPlayer() {
+        return d_cardsOwnedByPlayer;
+    }
+
+    public void setD_cardsOwnedByPlayer(List<String> d_cardsOwnedByPlayer) {
+        this.d_cardsOwnedByPlayer = d_cardsOwnedByPlayer;
+    }
+
     /**
      * Issue order.
      *
@@ -194,17 +203,6 @@ public class Player {
      */
     public void issueOrder(IssueOrderPhase p_issueOrderPhase) throws Exception {
         p_issueOrderPhase.askForOrders(this);
-//        BufferedReader l_bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-//        System.out.println("Please Enter command to deploy armies on the Map  for ----------->  Player : " + d_name + "   Armies left : "+d_unallocatedArmies);
-//
-//        String l_command = l_bufferedReader.readLine();
-//        CommandHandler l_commandHandler = new CommandHandler(l_command);
-//        if(l_commandHandler.getMainCommand().equals("deploy")){
-//            if(l_command.split(" ").length == 3){
-//                PlayerController l_gamePlayerController = new PlayerController();
-//                l_gamePlayerController.createDeployOrder(l_command, this);
-//            }
-//        }
     }
 
 
@@ -363,5 +361,13 @@ public class Player {
             return false;
         }
         return true;
+    }
+
+    public void removeCard(String p_cardName){
+        this.d_cardsOwnedByPlayer.remove(p_cardName);
+    }
+
+    public void handleCardCommand(String p_inputCommand, CurrentState p_currentState){
+
     }
 }

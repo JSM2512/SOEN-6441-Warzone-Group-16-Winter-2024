@@ -32,6 +32,11 @@ public class OrderExecutionPhase extends Phase{
         }
     }
 
+    @Override
+    protected void cardHandle(String p_inputCommand, Player p_player) {
+        printInvalidCommandInPhase();
+    }
+
     /**
      * Advance.
      *

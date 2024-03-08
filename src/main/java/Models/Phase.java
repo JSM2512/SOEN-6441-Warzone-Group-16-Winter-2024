@@ -191,6 +191,15 @@ public abstract class Phase {
                     d_currentState.getD_modelLogger().setD_message("Entered command: advance. advance executed successfully. ","type-1");
                 }
                 break;
+            case "bomb":
+                if (!l_mapAvailable) {
+                    System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
+                    d_currentState.getD_modelLogger().setD_message("Entered command: bomb. Map is not available. ","type-1");
+                } else {
+                    cardHandle(p_inputCommand, p_player);
+                    d_currentState.getD_modelLogger().setD_message("Entered command: bomb executed successfully. ","type-1");
+                }
+                break;
             case "exit":
                 d_currentState.getD_modelLogger().setD_message("Entered command: exit. Exited successfully.","Type3");
                 d_currentState.getD_modelLogger().setD_message("---------------Game Session Closed---------------","Type3");
@@ -199,6 +208,8 @@ public abstract class Phase {
                 break;
         }
     }
+
+    protected abstract void cardHandle(String p_inputCommand, Player p_player);
 
     /**
      * Advance.

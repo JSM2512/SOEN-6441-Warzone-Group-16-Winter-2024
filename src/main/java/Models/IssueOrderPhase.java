@@ -45,6 +45,15 @@ public class IssueOrderPhase extends Phase{
 
     }
 
+    @Override
+    protected void cardHandle(String p_inputCommand, Player p_player) {
+        if(p_player.getD_cardsOwnedByPlayer().contains(p_inputCommand.split(" ")[0])){
+            p_player.handleCardCommand(p_inputCommand, d_currentState);
+            // Logger Info Required
+        }
+        p_player.checkForMoreOrder();
+    }
+
     /**
      * Load map.
      *
