@@ -377,7 +377,14 @@ public class Player {
                     // Current State Log Needed
                 }
                 break;
+            case "blockade":
+                Card l_blockadeOrder = new CardBlockade(this, p_inputCommand.split(" ")[1]);
+                if(l_blockadeOrder.validOrderCheck(p_currentState)){
+                    this.d_orders.add(l_blockadeOrder);
+                    // Logger Info needed
+                    // Current State Log Needed
+                }
+                break;
         }
-
     }
 }
