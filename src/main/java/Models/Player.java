@@ -40,6 +40,7 @@ public class Player {
      */
     boolean d_moreOrders;
     List<String> d_cardsOwnedByPlayer = new ArrayList<>();
+    List<Player> d_negotiatePlayers = new ArrayList<>();
 
     /**
      * Instantiates a new Player.
@@ -393,6 +394,18 @@ public class Player {
                     // Current State Log Needed
                 }
                 break;
+            case "negotiate":
+                Card l_negotiateOrder = new CardNegotiate(this, p_inputCommand.split(" ")[1]);
+                if(l_negotiateOrder.validOrderCheck(p_currentState)){
+                    this.d_orders.add(l_negotiateOrder);
+                    // Logger Info needed
+                    // Current State Log Needed
+                }
+                break;
         }
+    }
+
+    public void addNegotiatePlayer(Player p_negotiatePlayer){
+        this.d_negotiatePlayers.add(p_negotiatePlayer);
     }
 }

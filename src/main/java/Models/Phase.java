@@ -218,6 +218,15 @@ public abstract class Phase {
                     d_currentState.getD_modelLogger().setD_message("Entered command: airlift. airlift executed successfully. ","type-1");
                 }
                 break;
+            case "negotiate":
+                if (!l_mapAvailable) {
+                    System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
+                    d_currentState.getD_modelLogger().setD_message("Entered command: negotiate. Map is not available. ","type-1");
+                } else {
+                    cardHandle(p_inputCommand, p_player);
+                    d_currentState.getD_modelLogger().setD_message("Entered command: negotiate. negotiate executed successfully. ","type-1");
+                }
+                break;
             case "exit":
                 d_currentState.getD_modelLogger().setD_message("Entered command: exit. Exited successfully.","Type3");
                 d_currentState.getD_modelLogger().setD_message("---------------Game Session Closed---------------","Type3");
