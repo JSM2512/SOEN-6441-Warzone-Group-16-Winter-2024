@@ -61,6 +61,7 @@ public class Advance implements Orders{
             }
             else if(l_targetCountry.getD_armies() == 0){
                 conquerTargetCountry(p_currentState, l_playerOfTargetCountry, l_targetCountry);
+                this.d_intitiatingPlayer.assignCard();
             }
             else{
                 battleOrderResult(p_currentState, l_playerOfTargetCountry, l_sourceCountry, l_targetCountry);
@@ -118,6 +119,7 @@ public class Advance implements Orders{
             p_targetCountry.setD_armies(p_attackerArmiesLeft);
             d_intitiatingPlayer.getD_currentCountries().add(p_targetCountry);
             // Logger Info needed
+            d_intitiatingPlayer.assignCard();
         }
         else{
             p_targetCountry.setD_armies(p_defenderArmiesLeft);

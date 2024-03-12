@@ -1,5 +1,8 @@
 package Constants;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * The type Project constants.
  */
@@ -132,5 +135,7 @@ public final class ProjectConstants {
      * The constant CONTINENT_DOES_NOT_EXIST.
      */
     public static final String CONTINENT_DOES_NOT_EXIST = "The entered continent is not present.";
+    public static final List<String> ALL_CARDS = Arrays.asList("bomb", "blockade", "airlift", "negotiate");
+    public static final int NO_OF_CARDS = ALL_CARDS.size();
 }
 

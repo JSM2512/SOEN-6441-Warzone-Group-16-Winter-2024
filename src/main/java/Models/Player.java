@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Model Class Player.
@@ -407,5 +408,11 @@ public class Player {
 
     public void addNegotiatePlayer(Player p_negotiatePlayer){
         this.d_negotiatePlayers.add(p_negotiatePlayer);
+    }
+
+    public void assignCard(){
+        Random l_random = new Random();
+        this.d_cardsOwnedByPlayer.add(ProjectConstants.ALL_CARDS.get(l_random.nextInt(ProjectConstants.NO_OF_CARDS)));
+        // Logger Info needed
     }
 }
