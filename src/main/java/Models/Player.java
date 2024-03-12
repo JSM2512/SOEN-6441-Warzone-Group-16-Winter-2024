@@ -385,6 +385,14 @@ public class Player {
                     // Current State Log Needed
                 }
                 break;
+            case "airlift":
+                Card l_airliftOrder = new CardAirlift(this, p_inputCommand.split(" ")[1], p_inputCommand.split(" ")[2], Integer.parseInt(p_inputCommand.split(" ")[3]));
+                if(l_airliftOrder.validOrderCheck(p_currentState)){
+                    this.d_orders.add(l_airliftOrder);
+                    // Logger Info needed
+                    // Current State Log Needed
+                }
+                break;
         }
     }
 }
