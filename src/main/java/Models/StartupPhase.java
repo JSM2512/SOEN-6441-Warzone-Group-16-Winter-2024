@@ -39,7 +39,7 @@ public class StartupPhase extends Phase{
         BufferedReader l_bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         d_currentState.getD_modelLogger().setD_message("---------------Game Session Started---------------","Type3");
 
-        while(true){
+        while(d_mainGameEngine.getD_currentPhase() instanceof StartupPhase){
             System.out.println("================================== MAIN MENU ===================================");
             System.out.println("1. Initiate the map: (Usage: 'loadmap <your_filename(.map)>')");
             System.out.println("2. Edit the Map: (Usage: 'editmap <filename>(.map)')");

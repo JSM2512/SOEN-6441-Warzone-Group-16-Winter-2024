@@ -23,8 +23,8 @@ public class CardNegotiate implements Card{
     public void execute(CurrentState p_currentState) {
         Player l_targetPlayer = p_currentState.getPlayerFromName(d_targetPlayer);
         if (valid(p_currentState)) {
-            d_cardOwner.addNegotiatePlayer(l_targetPlayer);
             l_targetPlayer.addNegotiatePlayer(d_cardOwner);
+            d_cardOwner.addNegotiatePlayer(l_targetPlayer);
             d_cardOwner.removeCard("negotiate");
             // Logger Info needed
             // Current state log update.

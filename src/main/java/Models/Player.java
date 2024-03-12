@@ -42,6 +42,7 @@ public class Player {
     boolean d_moreOrders;
     List<String> d_cardsOwnedByPlayer = new ArrayList<>();
     List<Player> d_negotiatePlayers = new ArrayList<>();
+    boolean d_oneCardPerTurn = false;
 
     /**
      * Instantiates a new Player.
@@ -161,6 +162,18 @@ public class Player {
      */
     public void setMoreOrders(boolean p_moreOrders) {
         this.d_moreOrders = p_moreOrders;
+    }
+
+    public void resetNegotiation(){
+        d_negotiatePlayers.clear();
+    }
+
+    public boolean isD_oneCardPerTurn() {
+        return d_oneCardPerTurn;
+    }
+
+    public void setD_oneCardPerTurn(boolean d_oneCardPerTurn) {
+        this.d_oneCardPerTurn = d_oneCardPerTurn;
     }
 
     /**
@@ -412,7 +425,27 @@ public class Player {
 
     public void assignCard(){
         Random l_random = new Random();
-        this.d_cardsOwnedByPlayer.add(ProjectConstants.ALL_CARDS.get(l_random.nextInt(ProjectConstants.NO_OF_CARDS)));
+        int str= l_random.nextInt(ProjectConstants.NO_OF_CARDS);
+        this.d_cardsOwnedByPlayer.add(ProjectConstants.ALL_CARDS.get(str));
+        System.out.println(str);
         // Logger Info needed
+    }
+
+    public boolean negotiationValidation(String p_targetCountryName) {
+        boolean l_canAttack = true;
+        for(Player l_eachPlayer : d_negotiatePlayers){
+            if(l_eachPlayer.getCountryNames().contains(p_targetCountryName)){
+                l_canAttack = false;
+            }
+        }
+        return l_canAttack;
+    }
+
+    public List<String> getCountryNames() {
+        List<String> l_countryNames = new ArrayList<>();
+        for(Country l_eachCountry : d_currentCountries){
+            l_countryNames.add(l_eachCountry.getD_countryName());
+        }
+        return l_countryNames;
     }
 }

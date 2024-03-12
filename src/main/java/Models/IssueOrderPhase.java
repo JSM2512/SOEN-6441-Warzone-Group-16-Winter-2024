@@ -173,7 +173,7 @@ public class IssueOrderPhase extends Phase{
     private void issueOrder() throws Exception {
         do {
             for (Player l_eachPlayer : d_currentState.getD_players()) {
-                if(l_eachPlayer.hasMoreOrders()) {
+                if(l_eachPlayer.hasMoreOrders() && !l_eachPlayer.getD_name().equals("Neutral")) {
                     l_eachPlayer.issueOrder(this);
                 }
             }

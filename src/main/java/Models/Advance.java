@@ -204,8 +204,10 @@ public class Advance implements Orders{
     private Player getplayerOfTargetCounrty(CurrentState p_currentState) {
         Player l_player = null;
         for(Player l_eachPlayer : p_currentState.getD_players()){
-            for(Country l_eachCountry : l_eachPlayer.getD_currentCountries()){
-                if(l_eachCountry.getD_countryName().equalsIgnoreCase(d_targetCountry)){
+            if(!l_eachPlayer.getD_name().equals("Neutral")) {
+                String l_cont = l_eachPlayer.getCountryNames().stream()
+                        .filter(l_country -> l_country.equalsIgnoreCase(this.d_targetCountry)).findFirst().orElse(null);
+                if (!isNullOrEmpty(l_cont)) {
                     l_player = l_eachPlayer;
                 }
             }
@@ -227,17 +229,29 @@ public class Advance implements Orders{
                 l_country = l_eachCountry;
         }
         if(l_country == null){
+            //Logger Info needed
             System.out.println("Cannot execute the order because the source country does not belong to the player.");
             return false;
         }
         if(this.d_noOfArmiesToPlace > l_country.getD_armies()){
+            //Logger Info needed
             System.out.println("Cannot execute the order because the no of armies you inserted is more than available at the source country.");
             return false;
         }
         if(this.d_noOfArmiesToPlace == l_country.getD_armies()){
+            //Logger Info needed
             System.out.println("Cannot execute the order because the no of armies you inserted is equal to the total no of armies present at the souce country; at least one army unit must me present to retain the country.");
             return false;
         }
+        if(!this.d_intitiatingPlayer.negotiationValidation(this.d_targetCountry)){
+            //Logger Info needed
+            System.out.println("Cannot execute the order because the player has a negotiation pact with the owner of the target country.");
+            return false;
+        }
         return true;
+    }
+
+    public static boolean isNullOrEmpty(String p_str){
+        return (p_str == null || p_str.trim().isEmpty());
     }
 }

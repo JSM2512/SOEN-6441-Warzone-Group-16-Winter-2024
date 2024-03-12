@@ -33,6 +33,18 @@ public class PlayerController {
 
         int l_noOfPlayers = l_players.size();
         int l_noOfCountries = l_countryList.size();
+
+        Player l_neutralPlayer = null;
+        for(Player l_eachPlayer : p_currentState.getD_players()){
+            if(l_eachPlayer.getD_name().equalsIgnoreCase("Neutral")){
+                l_neutralPlayer = l_eachPlayer;
+                break;
+            }
+        }
+        if(l_neutralPlayer != null){
+            l_noOfPlayers--;
+        }
+
         int l_noOfCountiesToEachPlayer = Math.floorDiv(l_noOfCountries, l_noOfPlayers);
         assignRandomCountriesToPlayers(l_players, l_countryList, l_noOfCountiesToEachPlayer);
         displayAssignedCountries(l_players);
@@ -90,19 +102,22 @@ public class PlayerController {
             d_currentState.getD_modelLogger().setD_message(ProjectConstants.NO_COUNTRY_IN_MAP,"Type 1");
             return;
         }
+
         for (Player l_eachPlayer : p_players) {
-            for (int i = 1; i <= p_noOfCountiesToEachPlayer; i++) {
+            if(!l_eachPlayer.getD_name().equalsIgnoreCase("Neutral")) {
                 if (l_unallocatedCountries.isEmpty()) {
                     break;
                 }
-                Random l_randomNumber = new Random();
-                int l_randomIndex = l_randomNumber.nextInt(l_unallocatedCountries.size());
+                for (int i = 1; i <= p_noOfCountiesToEachPlayer; i++) {
+                    Random l_randomNumber = new Random();
+                    int l_randomIndex = l_randomNumber.nextInt(l_unallocatedCountries.size());
 
-                if (l_eachPlayer.getD_currentCountries() == null) {
-                    l_eachPlayer.setD_currentCountries(new ArrayList<>());
+                    if (l_eachPlayer.getD_currentCountries() == null) {
+                        l_eachPlayer.setD_currentCountries(new ArrayList<>());
+                    }
+                    l_eachPlayer.getD_currentCountries().add(l_unallocatedCountries.get(l_randomIndex));
+                    l_unallocatedCountries.remove(l_randomIndex);
                 }
-                l_eachPlayer.getD_currentCountries().add(l_unallocatedCountries.get(l_randomIndex));
-                l_unallocatedCountries.remove(l_randomIndex);
             }
         }
 
@@ -168,15 +183,15 @@ public class PlayerController {
     /**
      * Is unexecuted orders exist boolean.
      *
-     * @param p_currentState the p current state
+     * @param p_playerList the p player list
      * @return the boolean
      */
-    public boolean isUnexecutedOrdersExist(CurrentState p_currentState) {
+    public boolean isUnexecutedOrdersExist(List<Player> p_playerList) {
         int l_totalCountOfUnexecutedOrders = 0;
-        for(Player l_eachPlayer : p_currentState.getD_players()){
+        for(Player l_eachPlayer : p_playerList){
             l_totalCountOfUnexecutedOrders += l_eachPlayer.getD_orders().size();
         }
-        return l_totalCountOfUnexecutedOrders > 0;
+        return l_totalCountOfUnexecutedOrders != 0;
     }
 
     /**
@@ -192,5 +207,15 @@ public class PlayerController {
             }
         }
         return false;
+    }
+
+    public void resetPlayerFlag(List<Player> p_playerList){
+        for(Player l_eachPlayer : p_playerList){
+            if(!l_eachPlayer.getD_name().equalsIgnoreCase("Neutral")){
+                l_eachPlayer.setMoreOrders(true);
+            }
+            l_eachPlayer.setD_oneCardPerTurn(false);
+            l_eachPlayer.resetNegotiation();
+        }
     }
 }

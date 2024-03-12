@@ -39,8 +39,8 @@ public class MainGameEngine {
      */
     public void setIssueOrderPhase(){
         this.d_currentState.getD_modelLogger().setD_message("----------------------Issue Order Phase--------------------","Phase-2");
-        this.d_currentPhase = new IssueOrderPhase(d_currentState, this);
-        d_currentPhase.initPhase();
+        setD_currentPhase(new IssueOrderPhase(d_currentState, this));
+        getD_currentPhase().initPhase();
     }
 
     /**
@@ -48,8 +48,8 @@ public class MainGameEngine {
      */
     public void setOrderExecutionPhase(){
         this.d_currentState.getD_modelLogger().setD_message("----------------------Order Execution Phase--------------------","Phase-3");
-        this.d_currentPhase = new OrderExecutionPhase(d_currentState, this);
-        d_currentPhase.initPhase();
+        setD_currentPhase(new OrderExecutionPhase(d_currentState, this));
+        getD_currentPhase().initPhase();
     }
 
     /**

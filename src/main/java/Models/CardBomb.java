@@ -61,6 +61,9 @@ public class CardBomb implements Card{
                 }
             }
         }
+        if(!d_cardOwner.negotiationValidation(this.d_targetCountryName)){
+            return false;
+        }
         if(l_country != null || !l_isTargetCountryNeighbour){
             // Logger Info needed
             return false;
