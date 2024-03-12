@@ -181,4 +181,15 @@ public class CurrentState {
             System.out.println(l_playerName+" added.");
         }
     }
+
+    public Player getPlayerFromCountryName(String p_targetCountryName) {
+        for(Player l_eachPlayer : d_players){
+            for(Country l_eachCountry : l_eachPlayer.getD_currentCountries()){
+                if(l_eachCountry.getD_countryName().equals(p_targetCountryName)){
+                    return l_eachPlayer;
+                }
+            }
+        }
+        return null;
+    }
 }

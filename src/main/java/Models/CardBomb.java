@@ -27,6 +27,9 @@ public class CardBomb implements Card{
             // Logger Info needed
             // Current state log update.
         }
+        else{
+            // Logger Info needed
+        }
     }
     @Override
     public Boolean validOrderCheck(CurrentState p_currentState) {
@@ -48,7 +51,17 @@ public class CardBomb implements Card{
                 l_country = l_eachCountry;
             }
         }
-        if(l_country != null){
+        boolean l_isTargetCountryNeighbour = false;
+        Country l_targetCountry = p_currentState.getD_map().getCountryByName(d_targetCountryName);
+        for (Country l_eachCountry : d_cardOwner.getD_currentCountries()) {
+            for (Integer l_eachNeighbour : l_eachCountry.getD_neighbouringCountriesId()) {
+                if (l_eachNeighbour.equals(l_targetCountry.getD_countryID())) {
+                    l_isTargetCountryNeighbour = true;
+                    break;
+                }
+            }
+        }
+        if(l_country != null || !l_isTargetCountryNeighbour){
             // Logger Info needed
             return false;
         }
