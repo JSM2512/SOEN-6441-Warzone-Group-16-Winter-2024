@@ -30,6 +30,13 @@ public class Deploy implements Orders{
         this.d_targetCountryName = p_targetCountryName;
         this.d_noOfArmiesToMove = p_noOfArmiesToMove;
     }
+    public void setD_orderExecutionLog(String p_orderExecutionLog, String p_messageType) {
+        if (p_messageType.equals("error")) {
+            System.err.println(p_orderExecutionLog);
+        } else {
+            System.out.println(p_orderExecutionLog);
+        }
+    }
 
     /**
      * Execute.
@@ -43,11 +50,13 @@ public class Deploy implements Orders{
                 if(l_eachCountry.getD_countryName().equalsIgnoreCase(this.d_targetCountryName)){
                     Integer l_updatedArmies = l_eachCountry.getD_armies() + this.d_noOfArmiesToMove;
                     l_eachCountry.setD_armies(l_updatedArmies);
+                    this.setD_orderExecutionLog("Armies have been deployed successfully","default");
                 }
             }
         }
         else{
-            System.out.println("Given Deploy Order cannot be executed since the target country does not belong to player.");
+            this.setD_orderExecutionLog("Given Deploy Order cannot be executed since the target country does not belong to player.","error");
+            p_currentState.updateLog("Given Deploy Order cannot be executed since the target country does not belong to player.","effect");
         }
     }
 
