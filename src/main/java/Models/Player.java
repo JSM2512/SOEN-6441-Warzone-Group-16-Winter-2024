@@ -15,10 +15,16 @@ import java.util.Random;
  * Model Class Player.
  */
 public class Player {
+    public String d_playerLog;
     /**
      * The D name.
      */
     String d_name;
+
+    public String getD_playerLog() {
+        return d_playerLog;
+    }
+
     /**
      * The D unallocated armies.
      */

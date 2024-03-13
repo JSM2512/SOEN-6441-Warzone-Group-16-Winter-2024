@@ -39,7 +39,7 @@ public class IssueOrderPhase extends Phase{
             try {
                 issueOrder();
             } catch (Exception p_e) {
-                d_currentState.getD_modelLogger().setD_message(p_e.getMessage(),"Error");
+                d_currentState.updateLog(p_e.getMessage(),"error");
             }
         }
 
@@ -49,7 +49,7 @@ public class IssueOrderPhase extends Phase{
     protected void cardHandle(String p_inputCommand, Player p_player) {
         if(p_player.getD_cardsOwnedByPlayer().contains(p_inputCommand.split(" ")[0])){
             p_player.handleCardCommand(p_inputCommand, d_currentState);
-            // Logger Info Required
+            d_mainGameEngine.setD_mainEngineLog(p_player.d_playerLog,"effect");
         }
         p_player.checkForMoreOrder();
     }
@@ -196,7 +196,7 @@ public class IssueOrderPhase extends Phase{
         System.out.println();
         System.out.print("Enter your command: ");
         String l_commandEntered = l_bufferedReader.readLine();
-        d_currentState.getD_modelLogger().setD_message("Player : " + p_player.getD_name() + " has entered command : " + l_commandEntered ,"Order-1");
+        d_currentState.updateLog("Player : " + p_player.getD_name() + " has entered command : " + l_commandEntered ,"Order-1");
         handleCommand(l_commandEntered, p_player);
     }
 
@@ -212,6 +212,7 @@ public class IssueOrderPhase extends Phase{
         if(l_commandHandler.getMainCommand().equals("deploy")){
             if(p_inputCommand.split(" ").length == 3){
                 p_player.createDeployOrder(p_inputCommand);
+                d_currentState.updateLog(p_player.getD_playerLog(),"effect");
                 p_player.checkForMoreOrder();
             }
         }
@@ -229,6 +230,7 @@ public class IssueOrderPhase extends Phase{
         if(l_commandHandler.getMainCommand().equals("advance")){
             if(p_inputCommand.split(" ").length == 4){
                 p_player.createAdvanceOrder(p_inputCommand, d_currentState);
+                d_currentState.updateLog(p_player.getD_playerLog(),"effect");
                 p_player.checkForMoreOrder();
             }
         }
