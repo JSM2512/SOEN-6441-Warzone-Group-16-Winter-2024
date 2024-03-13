@@ -64,6 +64,14 @@ public class Player {
         this.d_currentContinents = new ArrayList<>();
     }
 
+    public void setD_playerLog(String p_orderExecutionLog, String p_messageType) {
+        if (p_messageType.equals("error")) {
+            System.err.println(p_orderExecutionLog);
+        } else {
+            System.out.println(p_orderExecutionLog);
+        }
+    }
+
     /**
      * Gets d name.
      *
@@ -263,7 +271,7 @@ public class Player {
         }
         else if (validateNoOfArmiesToDeploy(this, l_noOfArmiesToDeploy)) {
             System.out.println(ProjectConstants.INVALID_NO_OF_ARMIES);
-//            d_currentState.getD_modelLogger().setD_message(ProjectConstants.INVALID_NO_OF_ARMIES,"Type 1");
+            this.setD_playerLog(ProjectConstants.INVALID_NO_OF_ARMIES,"error");
         }
         else {
             Orders l_order = new Deploy(this, l_countryName, l_noOfArmiesToDeploy);
@@ -273,8 +281,7 @@ public class Player {
             this.setD_unallocatedArmies(l_unallocatedArmies);
 
             System.out.println(ProjectConstants.ORDER_ADDED);
-//            d_currentState.getD_modelLogger().setD_message(ProjectConstants.ORDER_ADDED,"Type 1");
-
+            this.setD_playerLog(ProjectConstants.ORDER_ADDED,"effect");
         }
     }
 
@@ -303,6 +310,7 @@ public class Player {
      */
     private boolean validateNoOfArmiesToDeploy(Player p_player, int p_noOfDeployArmies){
         if(p_player.getD_unallocatedArmies() < p_noOfDeployArmies){
+            this.setD_playerLog(ProjectConstants.INVALID_NO_OF_ARMIES,"error");
             return true;
         }
         return false;
@@ -345,10 +353,10 @@ public class Player {
             l_noOfArmies > 0 &&
             checkAdjacentCountry(l_sourceCountry,l_targetCountry,p_currentState)){
             this.d_orders.add(new Advance(l_sourceCountry, l_targetCountry, l_noOfArmies, this));
-            System.out.println("Advance order is added for execution for player " + this.getD_name());
+            this.setD_playerLog("Advance order is added for execution for player " + this.getD_name(),"effect");
         }
         else{
-            System.out.println("Invalid Arguments passed for advance order.");
+            this.setD_playerLog("Invalid Arguments passed for advance order.","error");
         }
     }
 
@@ -365,6 +373,7 @@ public class Player {
         Country l_targetCountry = p_currentState.getD_map().getCountryByName(p_targetCountry);
 
         if(!l_sourceCountry.getD_neighbouringCountriesId().contains(l_targetCountry.getD_countryID())){
+            this.setD_playerLog("Target Country is not adjacent to Source Country","error");
             return false;
         }
         return true;
@@ -380,7 +389,7 @@ public class Player {
      */
     public boolean checkCountryPresent(String p_countryName, CurrentState p_currentState){
         if(p_currentState.getD_map().getCountryByName(p_countryName) == null){
-            System.out.println(ProjectConstants.NO_COUNTRY_IN_MAP);
+            this.setD_playerLog(ProjectConstants.NO_COUNTRY_IN_MAP,"error");
             return false;
         }
         return true;
@@ -391,40 +400,65 @@ public class Player {
     }
 
     public void handleCardCommand(String p_inputCommand, CurrentState p_currentState){
-        switch (p_inputCommand.split(" ")[0]){
-            case "bomb":
-                Card l_bombOrder = new CardBomb(this, p_inputCommand.split(" ")[1]);
-                if(l_bombOrder.validOrderCheck(p_currentState)){
-                    this.d_orders.add(l_bombOrder);
-                    // Logger Info needed
-                    // Current State Log Needed
-                }
-                break;
-            case "blockade":
-                Card l_blockadeOrder = new CardBlockade(this, p_inputCommand.split(" ")[1]);
-                if(l_blockadeOrder.validOrderCheck(p_currentState)){
-                    this.d_orders.add(l_blockadeOrder);
-                    // Logger Info needed
-                    // Current State Log Needed
-                }
-                break;
-            case "airlift":
-                Card l_airliftOrder = new CardAirlift(this, p_inputCommand.split(" ")[1], p_inputCommand.split(" ")[2], Integer.parseInt(p_inputCommand.split(" ")[3]));
-                if(l_airliftOrder.validOrderCheck(p_currentState)){
-                    this.d_orders.add(l_airliftOrder);
-                    // Logger Info needed
-                    // Current State Log Needed
-                }
-                break;
-            case "negotiate":
-                Card l_negotiateOrder = new CardNegotiate(this, p_inputCommand.split(" ")[1]);
-                if(l_negotiateOrder.validOrderCheck(p_currentState)){
-                    this.d_orders.add(l_negotiateOrder);
-                    // Logger Info needed
-                    // Current State Log Needed
-                }
-                break;
+        if (checkCardArguments(p_inputCommand)) {
+            switch (p_inputCommand.split(" ")[0]) {
+                case "bomb":
+                    Card l_bombOrder = new CardBomb(this, p_inputCommand.split(" ")[1]);
+                    if (l_bombOrder.validOrderCheck(p_currentState)) {
+                        this.d_orders.add(l_bombOrder);
+                        this.setD_playerLog("Bomb order is added for execution for player " + this.getD_name(), "effect");
+                        p_currentState.updateLog("Bomb order is added for execution for player " + this.getD_name(), "effect");
+                    }
+                    break;
+                case "blockade":
+                    Card l_blockadeOrder = new CardBlockade(this, p_inputCommand.split(" ")[1]);
+                    if (l_blockadeOrder.validOrderCheck(p_currentState)) {
+                        this.d_orders.add(l_blockadeOrder);
+                        this.setD_playerLog("Blockade order is added for execution for player " + this.getD_name(), "effect");
+                        p_currentState.updateLog("Blockade order is added for execution for player " + this.getD_name(), "effect");
+                    }
+                    break;
+                case "airlift":
+                    Card l_airliftOrder = new CardAirlift(this, p_inputCommand.split(" ")[1], p_inputCommand.split(" ")[2], Integer.parseInt(p_inputCommand.split(" ")[3]));
+                    if (l_airliftOrder.validOrderCheck(p_currentState)) {
+                        this.d_orders.add(l_airliftOrder);
+                        this.setD_playerLog("Airlift order is added for execution for player " + this.getD_name(), "effect");
+                        p_currentState.updateLog("Airlift order is added for execution for player " + this.getD_name(), "effect");
+                    }
+                    break;
+                case "negotiate":
+                    Card l_negotiateOrder = new CardNegotiate(this, p_inputCommand.split(" ")[1]);
+                    if (l_negotiateOrder.validOrderCheck(p_currentState)) {
+                        this.d_orders.add(l_negotiateOrder);
+                        this.setD_playerLog("Negotiate order is added for execution for player " + this.getD_name(), "effect");
+                        p_currentState.updateLog("Negotiate order is added for execution for player " + this.getD_name(), "effect");
+                    }
+                    break;
+            }
         }
+        else {
+            this.setD_playerLog("Invalid Arguments passed for card order.","error");
+        }
+    }
+
+    private boolean checkCardArguments(String p_inputCommand) {
+        if(p_inputCommand.split(" ")[0].equalsIgnoreCase("negotiate") && p_inputCommand.split(" ").length != 2){
+            this.setD_playerLog("Invalid Arguments passed for negotiate order.","error");
+            return false;
+        }
+        else if(p_inputCommand.split(" ")[0].equalsIgnoreCase("airlift") && p_inputCommand.split(" ").length != 4){
+            this.setD_playerLog("Invalid Arguments passed for airlift order.","error");
+            return false;
+        }
+        else if(p_inputCommand.split(" ")[0].equalsIgnoreCase("blockade") && p_inputCommand.split(" ").length != 2){
+            this.setD_playerLog("Invalid Arguments passed for blockade order.","error");
+            return false;
+        }
+        else if(p_inputCommand.split(" ")[0].equalsIgnoreCase("bomb") && p_inputCommand.split(" ").length != 2){
+            this.setD_playerLog("Invalid Arguments passed for bomb order.","error");
+            return false;
+        }
+        return true;
     }
 
     public void addNegotiatePlayer(Player p_negotiatePlayer){
@@ -432,11 +466,16 @@ public class Player {
     }
 
     public void assignCard(){
-        Random l_random = new Random();
-        int str= l_random.nextInt(ProjectConstants.NO_OF_CARDS);
-        this.d_cardsOwnedByPlayer.add(ProjectConstants.ALL_CARDS.get(str));
-        System.out.println(str);
-        // Logger Info needed
+        if (!d_oneCardPerTurn) {
+            Random l_random = new Random();
+            int str = l_random.nextInt(ProjectConstants.NO_OF_CARDS);
+            this.d_cardsOwnedByPlayer.add(ProjectConstants.ALL_CARDS.get(str));
+            System.out.println(str);
+            this.setD_playerLog("Card : " + ProjectConstants.ALL_CARDS.get(str) + " assigned to player : " + this.getD_name(), "effect");
+        }
+        else {
+            this.setD_playerLog("Card cannot be assigned to player : " + this.getD_name() + " as one card per turn is already assigned", "error");
+        }
     }
 
     public boolean negotiationValidation(String p_targetCountryName) {

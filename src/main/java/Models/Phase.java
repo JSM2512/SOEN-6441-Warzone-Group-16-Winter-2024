@@ -97,6 +97,7 @@ public abstract class Phase {
         if(d_currentState.getD_map() != null){
             l_mapAvailable = true;
         }
+        d_currentState.updateLog(l_commandHandler.getMainCommand(),"command");
         switch (l_mainCommand){
             case "loadmap":
                 loadMap(l_commandHandler);
@@ -238,10 +239,14 @@ public abstract class Phase {
                 }
                 break;
             case "exit":
-                d_currentState.getD_modelLogger().setD_message("Entered command: exit. Exited successfully.","Type3");
-                d_currentState.getD_modelLogger().setD_message("---------------Game Session Closed---------------","Type3");
+                d_mainGameEngine.setD_mainEngineLog("Entered command: exit. Exited successfully.","effect");
+                d_currentState.getD_modelLogger().setD_message("Entered command: exit. Exited successfully.","effect");
+                d_currentState.getD_modelLogger().setD_message("---------------Game Session Closed---------------","effect");
                 System.out.println("Closing Game....");
                 System.exit(0);
+                break;
+            default:
+                d_mainGameEngine.setD_mainEngineLog("Invalid Command entered for this phase.","effect");
                 break;
         }
     }
@@ -350,6 +355,7 @@ public abstract class Phase {
      * Print invalid command in phase.
      */
     public void printInvalidCommandInPhase(){
+        d_mainGameEngine.setD_mainEngineLog("Invalid Command entered for this phase.","effect");
         d_currentState.getD_modelLogger().setD_message("Invalid Command entered for this phase.","Type-1");
     }
 

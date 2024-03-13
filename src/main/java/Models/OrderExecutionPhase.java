@@ -73,8 +73,7 @@ public class OrderExecutionPhase extends Phase{
             if(!l_eachPlayer.getD_name().equalsIgnoreCase("Neutral")) {
                 System.out.println(l_eachPlayer.getD_currentCountries().size() + l_neutralCountries);
                 if (l_eachPlayer.getD_currentCountries().size() + l_neutralCountries == l_totalCountries) {
-                    //Logger Info needed
-                    System.out.println("Player : " + l_eachPlayer.getD_name() + "won the game.");
+                    d_mainGameEngine.setD_mainEngineLog(l_eachPlayer.getD_name() + " has won the game. Exiting the game....", "end");
                     return true;
                 }
             }
@@ -226,10 +225,12 @@ public class OrderExecutionPhase extends Phase{
      */
     private void executeOrders() {
         addNeutralPlayer(d_currentState);
+        d_mainGameEngine.setD_mainEngineLog("\nStarting Execution of Orders......", "start");
         while(d_gameplayController.isUnexecutedOrdersExist(d_currentState.getD_players())){
             for(Player l_eachPlayer : d_currentState.getD_players()){
                 Orders l_orderToExecute = l_eachPlayer.nextOrder();
                 if(l_orderToExecute != null){
+                    d_currentState.updateLog("Executing Order: " + l_orderToExecute.toString(), "effect");
                     l_orderToExecute.execute(d_currentState);
                 }
             }
