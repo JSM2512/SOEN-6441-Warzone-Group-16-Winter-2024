@@ -9,6 +9,13 @@ public class CardBomb implements Card{
         this.d_cardOwner = p_cardOwner;
         this.d_targetCountryName = p_targetCountryName;
     }
+    public void setD_orderExecutionLog(String p_orderExecutionLog, String p_messageType) {
+        if (p_messageType.equals("error")) {
+            System.err.println(p_orderExecutionLog);
+        } else {
+            System.out.println(p_orderExecutionLog);
+        }
+    }
 
     @Override
     public void execute(CurrentState p_currentState) {
@@ -24,18 +31,20 @@ public class CardBomb implements Card{
             Integer l_newArmies = (int) Math.floor((double) l_armyCountOnTargetCountry / 2);
             l_targetCountry.setD_armies(l_newArmies);
             d_cardOwner.removeCard("bomb");
-            // Logger Info needed
-            // Current state log update.
+            this.setD_orderExecutionLog("Bomb card used to reduce the armies of " + this.d_targetCountryName + " to " + l_newArmies, "default");
+            p_currentState.updateLog("Bomb card used to reduce the armies of " + this.d_targetCountryName + " to " + l_newArmies, "effect");
         }
         else{
-            // Logger Info needed
+            this.setD_orderExecutionLog("Invalid! Bomb card cannot be used", "error");
+            p_currentState.updateLog("Invalid! Bomb card cannot be used", "effect");
         }
     }
     @Override
     public Boolean validOrderCheck(CurrentState p_currentState) {
         Country l_targetCountry = p_currentState.getD_map().getCountryByName(d_targetCountryName);
         if(l_targetCountry == null){
-            // Logger Info Required
+            this.setD_orderExecutionLog("Invalid! Target country does not exist", "error");
+            p_currentState.updateLog("Invalid! Target country does not exist", "effect");
             return false;
         }
         return true;
@@ -62,10 +71,13 @@ public class CardBomb implements Card{
             }
         }
         if(!d_cardOwner.negotiationValidation(this.d_targetCountryName)){
+            this.setD_orderExecutionLog("Invalid! Negotiation is in place with the target country", "error");
+            p_currentState.updateLog("Invalid! Negotiation is in place with the target country", "effect");
             return false;
         }
         if(l_country != null || !l_isTargetCountryNeighbour){
-            // Logger Info needed
+            this.setD_orderExecutionLog("Invalid! Bomb card cannot be used on own country", "error");
+            p_currentState.updateLog("Invalid! Bomb card cannot be used on own country", "effect");
             return false;
         }
         return true;
