@@ -38,7 +38,7 @@ public class MainGameEngine {
      * Set issue order phase.
      */
     public void setIssueOrderPhase(){
-        this.d_currentState.getD_modelLogger().setD_message("----------------------Issue Order Phase--------------------","Phase-2");
+        this.setD_mainEngineLog("Issue Order Phase","phase");
         setD_currentPhase(new IssueOrderPhase(d_currentState, this));
         getD_currentPhase().initPhase();
     }
@@ -47,7 +47,7 @@ public class MainGameEngine {
      * Set order execution phase.
      */
     public void setOrderExecutionPhase(){
-        this.d_currentState.getD_modelLogger().setD_message("----------------------Order Execution Phase--------------------","Phase-3");
+        this.setD_mainEngineLog("Order Execution Phase","phase");
         setD_currentPhase(new OrderExecutionPhase(d_currentState, this));
         getD_currentPhase().initPhase();
     }
@@ -59,15 +59,26 @@ public class MainGameEngine {
      */
     public static void main(String... args){
         MainGameEngine l_mainGameEngine = new MainGameEngine();
-        l_mainGameEngine.start();
+        l_mainGameEngine.getD_currentPhase().getD_currentState().updateLog("Game Session Started","start");
+        l_mainGameEngine.setD_mainEngineLog("Startup Phase of the Game","phase");
+        l_mainGameEngine.start(l_mainGameEngine);
     }
 
     /**
      * Start.
      */
-    private void start() {
-        d_currentState.getD_modelLogger().setD_message("-------------------Game Session Started-----------------","Phase-1");
-        MainGameEngine l_mainGameEngine = new MainGameEngine();
-        l_mainGameEngine.getD_currentPhase().initPhase();
+    private void start(MainGameEngine p_mainGameEngine){
+        p_mainGameEngine.getD_currentPhase().initPhase();
+    }
+
+    public void setD_mainEngineLog(String p_logForMainEngine,String p_logType){
+        this.d_currentState.getD_modelLogger().setD_message(p_logForMainEngine,p_logType);
+        String l_consoleMessage;
+        if (p_logType.equalsIgnoreCase("phase")){
+            l_consoleMessage = "\n=============================== "+p_logForMainEngine+" ===============================\n";
+        }else {
+            l_consoleMessage = p_logForMainEngine;
+        }
+        System.out.println(l_consoleMessage);
     }
 }

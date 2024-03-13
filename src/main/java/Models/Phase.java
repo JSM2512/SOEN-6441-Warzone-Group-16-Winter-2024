@@ -33,6 +33,8 @@ public abstract class Phase {
      */
     MainGameEngine d_mainGameEngine;
 
+
+
     /**
      * Instantiates a new Phase.
      *
@@ -48,6 +50,14 @@ public abstract class Phase {
      * Init phase.
      */
     public abstract void initPhase();
+
+    public CurrentState getD_currentState() {
+        return d_currentState;
+    }
+
+    public MainGameEngine getD_mainGameEngine() {
+        return d_mainGameEngine;
+    }
 
     /**
      * Handle command.

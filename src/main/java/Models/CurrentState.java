@@ -192,4 +192,7 @@ public class CurrentState {
         }
         return null;
     }
+    public void updateLog(String p_logMessage,String p_logType){
+        d_modelLogger.setD_message(p_logMessage,p_logType);
+    }
 }

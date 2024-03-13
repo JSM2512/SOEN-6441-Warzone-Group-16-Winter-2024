@@ -37,9 +37,18 @@ public class ModelLogger extends Observable {
      * @param p_messageType the p message type
      */
     public void setD_message(String p_message, String p_messageType) {
-        this.d_message = p_message;
+        if ("command".equals(p_messageType)) {
+            d_message = System.lineSeparator() + "Command Entered: " + p_message + System.lineSeparator();
+        } else if ("order".equals(p_messageType)) {
+            d_message = System.lineSeparator() + "Order Issued: " + p_message + System.lineSeparator();
+        } else if ("phase".equals(p_messageType)) {
+            d_message = System.lineSeparator() + "=========" + p_message + "=========" +  System.lineSeparator() + System.lineSeparator();
+        } else if ("effect".equals(p_messageType)) {
+            d_message = "Log:" + p_message + System.lineSeparator();
+        } else if ("start".equals(p_messageType) || ("end".equals(p_messageType))) {
+            d_message = p_message + System.lineSeparator();
+        }
         setChanged();
         notifyObservers();
-
     }
 }
