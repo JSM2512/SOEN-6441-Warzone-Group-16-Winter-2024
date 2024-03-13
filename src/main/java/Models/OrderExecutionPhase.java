@@ -30,20 +30,15 @@ public class OrderExecutionPhase extends Phase{
     @Override
     public void initPhase() {
         while(d_mainGameEngine.getD_currentPhase() instanceof OrderExecutionPhase){
-            System.out.println("Before Execute Order");
             executeOrders();
-            System.out.println("After Execute Order");
             MapView l_mapView = new MapView(d_currentState);
             l_mapView.showMap();
 
             if(this.checkEndOfGame(d_currentState)){
-                break;
+                System.exit(0);
             }
 
-            System.out.println("check not done");
             while(d_currentState.getD_players() != null){
-                System.out.println("While Loop");
-                System.out.println("Press Y/y if you want to continue for next turn or else press N/n");
                 BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
 
                 try{
@@ -68,11 +63,18 @@ public class OrderExecutionPhase extends Phase{
 
     private boolean checkEndOfGame(CurrentState p_currentState) {
         Integer l_totalCountries = p_currentState.getD_map().getD_mapCountries().size();
+        Integer l_neutralCountries = 0;
+        for(Player l_eachPlayer : p_currentState.getD_players()){
+            if(l_eachPlayer.getD_name().equalsIgnoreCase("Neutral")){
+                l_neutralCountries = l_eachPlayer.getD_currentCountries().size();
+            }
+        }
         for(Player l_eachPlayer : p_currentState.getD_players()){
             if(!l_eachPlayer.getD_name().equalsIgnoreCase("Neutral")) {
-                System.out.println(l_eachPlayer.getD_currentCountries().size());
-                if (l_eachPlayer.getD_currentCountries().size() == l_totalCountries) {
+                System.out.println(l_eachPlayer.getD_currentCountries().size() + l_neutralCountries);
+                if (l_eachPlayer.getD_currentCountries().size() + l_neutralCountries == l_totalCountries) {
                     //Logger Info needed
+                    System.out.println("Player : " + l_eachPlayer.getD_name() + "won the game.");
                     return true;
                 }
             }

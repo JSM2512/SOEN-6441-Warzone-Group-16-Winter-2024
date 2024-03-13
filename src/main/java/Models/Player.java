@@ -54,6 +54,8 @@ public class Player {
         this.d_unallocatedArmies = 0;
         this.d_orders = new ArrayList<Orders>();
         this.d_moreOrders = true;
+        this.d_currentCountries= new ArrayList<>();
+        this.d_currentContinents = new ArrayList<>();
     }
 
     /**
