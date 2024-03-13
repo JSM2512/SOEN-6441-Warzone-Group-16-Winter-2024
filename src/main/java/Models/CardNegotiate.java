@@ -9,11 +9,20 @@ public class CardNegotiate implements Card{
         this.d_targetPlayer = p_targetPlayer;
     }
 
+    public void setD_orderExecutionLog(String p_orderExecutionLog, String p_messageType) {
+        if (p_messageType.equals("error")) {
+            System.err.println(p_orderExecutionLog);
+        } else {
+            System.out.println(p_orderExecutionLog);
+        }
+    }
+
     @Override
     public Boolean validOrderCheck(CurrentState p_currentState) {
         Player l_targetPlayer = p_currentState.getPlayerFromName(d_targetPlayer);
         if (l_targetPlayer == null) {
-            // Logger Info Required
+            this.setD_orderExecutionLog("Invalid! No player to negotiate","error");
+            p_currentState.updateLog("Invalid! No player to negotiate","effect");
             return false;
         }
         return true;
@@ -26,11 +35,12 @@ public class CardNegotiate implements Card{
             l_targetPlayer.addNegotiatePlayer(d_cardOwner);
             d_cardOwner.addNegotiatePlayer(l_targetPlayer);
             d_cardOwner.removeCard("negotiate");
-            // Logger Info needed
-            // Current state log update.
+            this.setD_orderExecutionLog("Negotiation Successful","default");
+            p_currentState.updateLog("Negotiation Successful","effect");
         }
         else {
-            // Logger Info needed
+            this.setD_orderExecutionLog("Invalid! Negotiation Unsuccessful","error");
+            p_currentState.updateLog("Invalid! Negotiation Unsuccessful","effect");
         }
 
     }
