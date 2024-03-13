@@ -12,17 +12,26 @@ public class CardAirlift implements Card{
         this.d_sourceCountryName = p_sourceCountryName;
         this.d_armyCount = p_armyCount;
     }
+    public void setD_orderExecutionLog(String p_orderExecutionLog, String p_messageType) {
+        if (p_messageType.equals("error")) {
+            System.err.println(p_orderExecutionLog);
+        } else {
+            System.out.println(p_orderExecutionLog);
+        }
+    }
 
     @Override
     public Boolean validOrderCheck(CurrentState p_currentState) {
         Country l_targetCountry = p_currentState.getD_map().getCountryByName(d_targetCountryName);
         if (l_targetCountry == null) {
-            // Logger Info Required
+            this.setD_orderExecutionLog("Invalid! Target country does not exist", "error");
+            p_currentState.updateLog("Invalid! Target country does not exist", "effect");
             return false;
         }
         Country l_sourceCountry = p_currentState.getD_map().getCountryByName(d_sourceCountryName);
         if (l_sourceCountry == null) {
-            // Logger Info Required
+            this.setD_orderExecutionLog("Invalid! Source country does not exist", "error");
+            p_currentState.updateLog("Invalid! Source country does not exist", "effect");
             return false;
         }
         return true;
@@ -38,11 +47,12 @@ public class CardAirlift implements Card{
             Integer l_newArmies = l_targetCountry.getD_armies() + this.d_armyCount;
             l_targetCountry.setD_armies(l_newArmies);
             d_cardOwner.removeCard("airlift");
-            // Logger Info needed
-            // Current state log update.
+            this.setD_orderExecutionLog("Airlift card used to move " + this.d_armyCount + " armies from " + this.d_sourceCountryName + " to " + this.d_targetCountryName, "default");
+            p_currentState.updateLog("Airlift card used to move " + this.d_armyCount + " armies from " + this.d_sourceCountryName + " to " + this.d_targetCountryName, "effect");
         }
         else {
-            // Logger Info needed
+            this.setD_orderExecutionLog("Invalid! Airlift card cannot be used", "error");
+            p_currentState.updateLog("Invalid! Airlift card cannot be used", "effect");
         }
     }
 
@@ -56,8 +66,10 @@ public class CardAirlift implements Card{
             }
         }
         if (l_targetCountry == null) {
+            this.setD_orderExecutionLog("Invalid! Target country does not belong to player", "error");
+            p_currentState.updateLog("Invalid! Target country does not belong to player", "effect");
             return false;
-            // Logger Info needed
+
         }
         Country l_sourceCountry = null;
         for (Country l_eachCountry : d_cardOwner.getD_currentCountries()) {
@@ -67,12 +79,14 @@ public class CardAirlift implements Card{
             }
         }
         if (l_sourceCountry == null) {
+            this.setD_orderExecutionLog("Invalid! Source country does not belong to player", "error");
+            p_currentState.updateLog("Invalid! Source country does not belong to player", "effect");
             return false;
-            // Logger Info needed
         }
         if (l_sourceCountry.getD_armies() < d_armyCount) {
+            this.setD_orderExecutionLog("Invalid! Source country does not have enough armies", "error");
+            p_currentState.updateLog("Invalid! Source country does not have enough armies", "effect");
             return false;
-            // Logger Info needed
         }
         return true;
     }
