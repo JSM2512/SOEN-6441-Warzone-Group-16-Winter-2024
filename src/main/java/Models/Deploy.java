@@ -50,7 +50,7 @@ public class Deploy implements Orders{
                 if(l_eachCountry.getD_countryName().equalsIgnoreCase(this.d_targetCountryName)){
                     Integer l_updatedArmies = l_eachCountry.getD_armies() + this.d_noOfArmiesToMove;
                     l_eachCountry.setD_armies(l_updatedArmies);
-                    this.setD_orderExecutionLog("Armies have been deployed successfully","default");
+                    this.setD_orderExecutionLog(d_intitiatingPlayer.d_name+" Armies have been deployed successfully","default");
                 }
             }
         }
