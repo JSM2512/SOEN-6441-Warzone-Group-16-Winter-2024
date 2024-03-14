@@ -72,6 +72,10 @@ public class Player {
         }
     }
 
+    public List<Player> getD_negotiatePlayers() {
+        return d_negotiatePlayers;
+    }
+
     /**
      * Gets d name.
      *
