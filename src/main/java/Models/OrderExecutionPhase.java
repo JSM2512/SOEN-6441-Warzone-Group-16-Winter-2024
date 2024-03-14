@@ -61,7 +61,7 @@ public class OrderExecutionPhase extends Phase{
         }
     }
 
-    private boolean checkEndOfGame(CurrentState p_currentState) {
+    public boolean checkEndOfGame(CurrentState p_currentState) {
         Integer l_totalCountries = p_currentState.getD_map().getD_mapCountries().size();
         Integer l_neutralCountries = 0;
         for(Player l_eachPlayer : p_currentState.getD_players()){
@@ -71,7 +71,6 @@ public class OrderExecutionPhase extends Phase{
         }
         for(Player l_eachPlayer : p_currentState.getD_players()){
             if(!l_eachPlayer.getD_name().equalsIgnoreCase("Neutral")) {
-                System.out.println(l_eachPlayer.getD_currentCountries().size() + l_neutralCountries);
                 if (l_eachPlayer.getD_currentCountries().size() + l_neutralCountries == l_totalCountries) {
                     d_mainGameEngine.setD_mainEngineLog(l_eachPlayer.getD_name() + " has won the game. Exiting the game....", "end");
                     return true;
