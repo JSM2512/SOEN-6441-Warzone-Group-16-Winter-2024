@@ -233,6 +233,10 @@ public class IssueOrderPhase extends Phase{
                 d_currentState.updateLog(p_player.getD_playerLog(),"effect");
                 p_player.checkForMoreOrder();
             }
+            else{
+                System.err.println("Invalid! command for advance order.");
+                d_currentState.updateLog("Invalid! command for advance order.","error");
+            }
         }
     }
 }
