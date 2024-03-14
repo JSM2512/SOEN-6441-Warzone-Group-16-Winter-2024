@@ -51,7 +51,9 @@ public class OrderExecutionPhaseTest {
     public void checkEndOfGame() {
         assertFalse(d_orderExecutionPhase.checkEndOfGame(d_currentState));
         Orders l_advanceOrder = new Advance("India", "China", 9, d_player1);
+        assertEquals(0,d_player1.getD_cardsOwnedByPlayer().size());
         l_advanceOrder.execute(d_currentState);
+        assertEquals(1,d_player1.getD_cardsOwnedByPlayer().size());
         assertTrue(d_orderExecutionPhase.checkEndOfGame(d_currentState));
     }
 }
