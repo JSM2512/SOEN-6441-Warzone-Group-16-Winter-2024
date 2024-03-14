@@ -274,7 +274,6 @@ public class Player {
             this.setD_playerLog("The country " + l_countryName + " does not belong to this player.","error");
         }
         else if (validateNoOfArmiesToDeploy(this, l_noOfArmiesToDeploy)) {
-            System.out.println(ProjectConstants.INVALID_NO_OF_ARMIES);
             this.setD_playerLog(ProjectConstants.INVALID_NO_OF_ARMIES,"error");
         }
         else {
@@ -284,7 +283,6 @@ public class Player {
             Integer l_unallocatedArmies = this.getD_unallocatedArmies() - l_noOfArmiesToDeploy;
             this.setD_unallocatedArmies(l_unallocatedArmies);
 
-            System.out.println(ProjectConstants.ORDER_ADDED);
             this.setD_playerLog(ProjectConstants.ORDER_ADDED,"effect");
         }
     }
@@ -314,7 +312,6 @@ public class Player {
      */
     private boolean validateNoOfArmiesToDeploy(Player p_player, int p_noOfDeployArmies){
         if(p_player.getD_unallocatedArmies() < p_noOfDeployArmies){
-            this.setD_playerLog(ProjectConstants.INVALID_NO_OF_ARMIES,"error");
             return true;
         }
         return false;
