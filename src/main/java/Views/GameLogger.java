@@ -33,7 +33,9 @@ public class GameLogger implements Observer {
 
         try{
             BufferedWriter writer = new BufferedWriter(new FileWriter(l_loggerFile, true));
-            writer.write(l_logMessage);
+            if(l_logMessage!=null) {
+                writer.write(l_logMessage);
+            }
             writer.newLine();
             writer.close();
         }

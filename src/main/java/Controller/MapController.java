@@ -183,10 +183,10 @@ public class MapController {
             l_reader.close();
         } catch (FileNotFoundException l_e) {
             System.out.println(ProjectConstants.FILE_NOT_FOUND);
-            d_currentState.getD_modelLogger().setD_message(ProjectConstants.FILE_NOT_FOUND,"type-1");
+            d_currentState.getD_modelLogger().setD_message(ProjectConstants.FILE_NOT_FOUND,"error");
         } catch (IOException l_e) {
             System.out.println(ProjectConstants.CORRUPTED_FILE);
-            d_currentState.getD_modelLogger().setD_message(ProjectConstants.CORRUPTED_FILE,"type-1");
+            d_currentState.getD_modelLogger().setD_message(ProjectConstants.CORRUPTED_FILE,"error");
         }
         return l_fileLines;
     }
