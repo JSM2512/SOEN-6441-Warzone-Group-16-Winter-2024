@@ -47,6 +47,7 @@ public class CardAirlift implements Card{
             Integer l_newArmies = l_targetCountry.getD_armies() + this.d_armyCount;
             l_targetCountry.setD_armies(l_newArmies);
             d_cardOwner.removeCard("airlift");
+            d_cardOwner.setD_oneCardPerTurn(false);
             this.setD_orderExecutionLog("Airlift card used to move " + this.d_armyCount + " armies from " + this.d_sourceCountryName + " to " + this.d_targetCountryName, "default");
             p_currentState.updateLog("Airlift card used to move " + this.d_armyCount + " armies from " + this.d_sourceCountryName + " to " + this.d_targetCountryName, "effect");
         }

@@ -271,7 +271,7 @@ public class Player {
         int l_noOfArmiesToDeploy = Integer.parseInt(p_command.split(" ")[2]);
 
         if (!validateCountryBelongstoPlayer(this, l_countryName)) {
-            System.out.println("The country " + l_countryName + " does not belong to this player.");
+            this.setD_playerLog("The country " + l_countryName + " does not belong to this player.","error");
         }
         else if (validateNoOfArmiesToDeploy(this, l_noOfArmiesToDeploy)) {
             System.out.println(ProjectConstants.INVALID_NO_OF_ARMIES);
@@ -474,7 +474,7 @@ public class Player {
             Random l_random = new Random();
             int str = l_random.nextInt(ProjectConstants.NO_OF_CARDS);
             this.d_cardsOwnedByPlayer.add(ProjectConstants.ALL_CARDS.get(str));
-            System.out.println(str);
+            d_oneCardPerTurn = true;
             this.setD_playerLog("Card : " + ProjectConstants.ALL_CARDS.get(str) + " assigned to player : " + this.getD_name(), "effect");
         }
         else {

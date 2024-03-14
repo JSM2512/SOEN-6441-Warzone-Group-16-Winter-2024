@@ -35,6 +35,7 @@ public class CardNegotiate implements Card{
             l_targetPlayer.addNegotiatePlayer(d_cardOwner);
             d_cardOwner.addNegotiatePlayer(l_targetPlayer);
             d_cardOwner.removeCard("negotiate");
+            d_cardOwner.setD_oneCardPerTurn(false);
             this.setD_orderExecutionLog("Negotiation Successful","default");
             p_currentState.updateLog("Negotiation Successful","effect");
         }

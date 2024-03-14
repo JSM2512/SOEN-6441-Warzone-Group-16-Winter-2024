@@ -31,6 +31,7 @@ public class CardBomb implements Card{
             Integer l_newArmies = (int) Math.floor((double) l_armyCountOnTargetCountry / 2);
             l_targetCountry.setD_armies(l_newArmies);
             d_cardOwner.removeCard("bomb");
+            d_cardOwner.setD_oneCardPerTurn(false);
             this.setD_orderExecutionLog("Bomb card used to reduce the armies of " + this.d_targetCountryName + " to " + l_newArmies, "default");
             p_currentState.updateLog("Bomb card used to reduce the armies of " + this.d_targetCountryName + " to " + l_newArmies, "effect");
         }
