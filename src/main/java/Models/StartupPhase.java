@@ -88,7 +88,6 @@ public class StartupPhase extends Phase{
      */
     protected void loadMap(CommandHandler p_commandHandler) throws CommandValidationException {
         List<java.util.Map<String,String>> l_listOfOperations = p_commandHandler.getListOfOperations();
-        System.out.println(l_listOfOperations);
         if(l_listOfOperations == null || l_listOfOperations.isEmpty()) {
             throw new CommandValidationException("Invalid Command for load map");
         }

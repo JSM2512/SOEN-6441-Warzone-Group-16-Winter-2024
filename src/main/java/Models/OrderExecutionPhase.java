@@ -39,12 +39,13 @@ public class OrderExecutionPhase extends Phase{
             }
 
             while(d_currentState.getD_players() != null){
+                System.out.println("Press Y/y if you want to continue for next turn or else press N/n");
                 BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
 
                 try{
                     String l_continue = l_reader.readLine();
                     if(l_continue.equalsIgnoreCase("N")){
-                        break;
+                        System.exit(0);
                     }
                     else if(l_continue.equalsIgnoreCase("Y")){
                         d_gameplayController.assignArmies(d_currentState);
