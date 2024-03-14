@@ -355,8 +355,7 @@ public abstract class Phase {
      * Print invalid command in phase.
      */
     public void printInvalidCommandInPhase(){
-        d_mainGameEngine.setD_mainEngineLog("Invalid Command entered for this phase.","effect");
-        d_currentState.getD_modelLogger().setD_message("Invalid Command entered for this phase.","Type-1");
+        d_mainGameEngine.setD_mainEngineLog("Invalid Command entered for this phase.","error");
     }
 
 }
