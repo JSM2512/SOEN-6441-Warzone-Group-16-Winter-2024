@@ -248,7 +248,7 @@ public class Advance implements Orders{
             return false;
         }
         if(this.d_noOfArmiesToPlace == l_country.getD_armies()){
-            this.setD_orderExecutionLog("Cannot execute the order because the no of armies you inserted is equal to the total no of armies present at the souce country; at least one army unit must me present to retain the country.","error");
+            this.setD_orderExecutionLog("Cannot execute the order because the no of armies you inserted is equal to the total no of armies present at the source country; at least one army unit must me present to retain the country.","error");
             p_currentState.updateLog("Cannot execute the order because the no of armies you inserted is equal to the total no of armies present at the souce country; at least one army unit must me present to retain the country.","effect");
             return false;
         }
