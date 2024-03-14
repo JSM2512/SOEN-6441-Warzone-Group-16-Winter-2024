@@ -132,8 +132,8 @@ public class Advance implements Orders{
             p_targetCountry.setD_armies(p_defenderArmiesLeft);
             Integer l_sourceArmiesToUpdate = p_sourceCountry.getD_armies() + p_attackerArmiesLeft;
             p_sourceCountry.setD_armies(l_sourceArmiesToUpdate);
-            String l_country1 = "Country:" + p_targetCountry.getD_countryName() + "now has" + p_targetCountry.getD_armies() + "remaining armies";
-            String l_country2 = "Country:" + p_sourceCountry.getD_countryName() + "now has" + p_sourceCountry.getD_armies() + "remaining armies";
+            String l_country1 = "Country: " + p_targetCountry.getD_countryName() + " now has " + p_targetCountry.getD_armies() + " remaining armies";
+            String l_country2 = "Country: " + p_sourceCountry.getD_countryName() + " now has " + p_sourceCountry.getD_armies() + " remaining armies";
             this.setD_orderExecutionLog(l_country1 + System.lineSeparator() + l_country2,"default");
         }
     }
@@ -142,10 +142,10 @@ public class Advance implements Orders{
         List<Integer> l_armyList = new ArrayList<>();
         double l_probability = 0.0;
         if(p_role.equals("attacker")){
-            l_probability = 0.7;
+            l_probability = 0.6;
         }
         else{
-            l_probability = 0.5;
+            l_probability = 0.7;
         }
         for(int i = 0; i < p_armiesInAttack; i++) {
            int l_randomNumber = getRandomInteger(1,10);
