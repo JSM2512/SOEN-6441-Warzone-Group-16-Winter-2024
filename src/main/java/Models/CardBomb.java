@@ -76,8 +76,8 @@ public class CardBomb implements Card{
             return false;
         }
         if(l_country != null || !l_isTargetCountryNeighbour){
-            this.setD_orderExecutionLog("Invalid! Bomb card cannot be used on own country", "error");
-            p_currentState.updateLog("Invalid! Bomb card cannot be used on own country", "effect");
+            this.setD_orderExecutionLog("Invalid! Bomb card cannot be used on own country or non-neighbouring Country", "error");
+            p_currentState.updateLog("Invalid! Bomb card cannot be used on own country or non-neighbouring Country", "effect");
             return false;
         }
         return true;
