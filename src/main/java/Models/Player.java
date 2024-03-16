@@ -87,8 +87,8 @@ public class Player {
      * @param p_messageType       the p message type
      */
     public void setD_playerLog(String p_orderExecutionLog, String p_messageType) {
-        MainGameEngine mainGameEngine = new MainGameEngine();
-        mainGameEngine.setD_mainEngineLog(p_orderExecutionLog, p_messageType);
+        MainGameEngine l_mainGameEngine = new MainGameEngine();
+        l_mainGameEngine.setD_mainEngineLog(p_orderExecutionLog, p_messageType);
         if (p_messageType.equals("error")) {
             System.err.println(p_orderExecutionLog);
         } else {
