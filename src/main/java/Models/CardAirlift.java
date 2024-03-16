@@ -50,6 +50,11 @@ public class CardAirlift implements Card{
         }
     }
 
+    /**
+     * To string string.
+     *
+     * @return the string
+     */
     @Override
     public String toString() {
         return "CardAirlift{" +

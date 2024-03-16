@@ -38,6 +38,11 @@ public class CardBlockade implements Card {
         }
     }
 
+    /**
+     * To string string.
+     *
+     * @return the string
+     */
     @Override
     public String toString() {
         return "CardBlockade{" +

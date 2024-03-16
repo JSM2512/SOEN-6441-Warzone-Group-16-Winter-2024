@@ -31,6 +31,11 @@ public class Deploy implements Orders{
         this.d_noOfArmiesToMove = p_noOfArmiesToMove;
     }
 
+    /**
+     * To string string.
+     *
+     * @return the string
+     */
     @Override
     public String toString() {
         return "Deploy{" +

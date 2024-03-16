@@ -56,6 +56,11 @@ public class Advance implements Orders{
         }
     }
 
+    /**
+     * To string string.
+     *
+     * @return the string
+     */
     @Override
     public String toString() {
         return "Advance{" +
