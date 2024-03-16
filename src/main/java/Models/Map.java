@@ -25,6 +25,12 @@ public class Map {
     List<Continent> d_mapContinents;
 
     /**
+     * Instantiates a new Map.
+     */
+    public Map() {
+    }
+
+    /**
      * Gets d map name.
      *
      * @return the d map name

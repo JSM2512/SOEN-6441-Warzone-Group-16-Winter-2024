@@ -18,6 +18,12 @@ public class PlayerController {
     CurrentState d_currentState = new CurrentState();
 
     /**
+     * Instantiates a new Player controller.
+     */
+    public PlayerController() {
+    }
+
+    /**
      * Assign countries.
      *
      * @param p_currentState the p current state

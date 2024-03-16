@@ -17,6 +17,12 @@ public class MainGameEngine {
     Phase d_currentPhase = new StartupPhase(d_currentState, this);
 
     /**
+     * Instantiates a new Main game engine.
+     */
+    public MainGameEngine() {
+    }
+
+    /**
      * Gets d current phase.
      *
      * @return the d current phase

@@ -8,6 +8,12 @@ import java.util.List;
  */
 public final class ProjectConstants {
     /**
+     * Instantiates a new Project constants.
+     */
+    public ProjectConstants() {
+    }
+
+    /**
      * The constant MAP_NOT_AVAILABLE_EDIT_COUNTRY.
      */
     public static final String MAP_NOT_AVAILABLE_EDIT_COUNTRY = "Cannot edit Country as map is not available. Please run editmap command";

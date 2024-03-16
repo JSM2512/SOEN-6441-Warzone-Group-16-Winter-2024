@@ -20,6 +20,12 @@ public class GameLogger implements Observer {
     ModelLogger d_modelLogger;
 
     /**
+     * Instantiates a new Game logger.
+     */
+    public GameLogger() {
+    }
+
+    /**
      * Update.
      *
      * @param p_observable the p observable

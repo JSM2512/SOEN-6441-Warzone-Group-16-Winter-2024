@@ -25,6 +25,13 @@ public class CurrentState {
     ModelLogger d_modelLogger = new ModelLogger();
 
     /**
+     * Instantiates a new Current state.
+     */
+    public CurrentState() {
+        d_modelLogger.setD_message("New State/Session generated","start");
+    }
+
+    /**
      * Gets d players.
      *
      * @return the d players

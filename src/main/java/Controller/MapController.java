@@ -23,6 +23,12 @@ public class MapController {
     CurrentState d_currentState = new CurrentState();
 
     /**
+     * Instantiates a new Map controller.
+     */
+    public MapController() {
+    }
+
+    /**
      * Load map map.
      *
      * @param p_currentState the p current state
