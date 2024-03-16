@@ -8,13 +8,36 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+/**
+ * The type Card negotiate test.
+ */
 public class CardNegotiateTest {
+    /**
+     * The D map.
+     */
     Map d_map;
+    /**
+     * The D player 1.
+     */
     Player d_player1;
+    /**
+     * The D player 2.
+     */
     Player d_player2;
+    /**
+     * The D card negotiate.
+     */
     CardNegotiate d_cardNegotiate;
+    /**
+     * The D current state.
+     */
     CurrentState d_currentState;
 
+    /**
+     * Sets up.
+     *
+     * @throws Exception the exception
+     */
     @Before
     public void setUp() throws Exception {
         d_currentState = new CurrentState();
@@ -47,6 +70,9 @@ public class CardNegotiateTest {
         d_currentState.setD_players(l_playerList);
     }
 
+    /**
+     * Execute.
+     */
     @Test
     public void execute() {
         d_cardNegotiate.execute(d_currentState);

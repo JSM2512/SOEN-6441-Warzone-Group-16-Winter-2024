@@ -8,12 +8,32 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+/**
+ * The type Deploy test.
+ */
 public class DeployTest {
+    /**
+     * The D map.
+     */
     Map d_map;
+    /**
+     * The D player.
+     */
     Player d_player;
+    /**
+     * The D current state.
+     */
     CurrentState d_currentState;
+    /**
+     * The D map controller.
+     */
     MapController d_mapController;
 
+    /**
+     * Sets up.
+     *
+     * @throws Exception the exception
+     */
     @Before
     public void setUp() throws Exception {
         d_map = new Map();
@@ -25,6 +45,9 @@ public class DeployTest {
         d_player.setD_currentCountries(l_countryList);
     }
 
+    /**
+     * Execute.
+     */
     @Test
     public void execute() {
         Deploy l_deploy = new Deploy(d_player,"India",5);

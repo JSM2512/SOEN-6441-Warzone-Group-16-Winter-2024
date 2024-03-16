@@ -6,6 +6,9 @@ import Utils.CommandHandlerTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+/**
+ * The type Testsuite.
+ */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         MainGameEngineTest.class,

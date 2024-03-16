@@ -9,15 +9,27 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+/**
+ * The type Card airlift test.
+ */
 public class CardAirliftTest {
     /**
      * The D current state.
      */
     CurrentState d_currentState;
 
+    /**
+     * The D card airlift order.
+     */
     CardAirlift d_cardAirliftOrder;
+    /**
+     * The D player 1.
+     */
     Player d_player1;
 
+    /**
+     * Sets .
+     */
     @Before
     public void setup() {
         d_currentState = new CurrentState();
@@ -46,6 +58,10 @@ public class CardAirliftTest {
 
         d_cardAirliftOrder = new CardAirlift(d_player1, "India", "Morocco", 2);
     }
+
+    /**
+     * Test card airlift execution.
+     */
     @Test
     public void testCardAirliftExecution() {
         d_cardAirliftOrder.execute(d_currentState);
@@ -53,6 +69,9 @@ public class CardAirliftTest {
         assertEquals("7", l_updatedCountry.getD_armies().toString());
     }
 
+    /**
+     * Testvalid order check.
+     */
     @Test
     public void testvalidOrderCheck() {
         Country l_sourceCountry = d_currentState.getD_map().getCountryByName("Spain");

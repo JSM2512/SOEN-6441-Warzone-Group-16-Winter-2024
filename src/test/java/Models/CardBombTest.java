@@ -8,18 +8,42 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+/**
+ * The type Card bomb test.
+ */
 public class CardBombTest {
+    /**
+     * The D current state.
+     */
     CurrentState d_currentState;
 
+    /**
+     * The D card bomb order.
+     */
     CardBomb d_cardBombOrder;
 
+    /**
+     * The D card bomb order 1.
+     */
     Card d_cardBombOrder1;
 
+    /**
+     * The D player 1.
+     */
     Player d_player1;
+    /**
+     * The D player 2.
+     */
     Player d_player2;
 
+    /**
+     * The L map.
+     */
     Map l_map;
 
+    /**
+     * Sets .
+     */
     @Before
     public void setup() {
         d_currentState = new CurrentState();
@@ -71,6 +95,9 @@ public class CardBombTest {
 
     }
 
+    /**
+     * Execute card bomb.
+     */
     @Test
     public void executeCardBomb() {
         d_cardBombOrder.execute(d_currentState);
@@ -79,6 +106,9 @@ public class CardBombTest {
         assertEquals("7", l_bombedCountry.getD_armies().toString());
     }
 
+    /**
+     * Valid order check card bomb.
+     */
     @Test
     public void validOrderCheckCardBomb() {
         assertFalse(d_cardBombOrder1.valid(d_currentState));

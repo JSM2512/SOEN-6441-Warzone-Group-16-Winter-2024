@@ -10,15 +10,42 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+/**
+ * The type Order execution phase test.
+ */
 public class OrderExecutionPhaseTest {
+    /**
+     * The D map.
+     */
     Map d_map;
+    /**
+     * The D map controller.
+     */
     MapController d_mapController;
+    /**
+     * The D current state.
+     */
     CurrentState d_currentState;
+    /**
+     * The D main game engine.
+     */
     MainGameEngine d_mainGameEngine;
+    /**
+     * The D player 1.
+     */
     Player d_player1;
+    /**
+     * The D player 2.
+     */
     Player d_player2;
+    /**
+     * The D order execution phase.
+     */
     OrderExecutionPhase d_orderExecutionPhase;
 
+    /**
+     * Sets up.
+     */
     @Before
     public void setUp() {
         d_currentState = new CurrentState();
@@ -47,6 +74,9 @@ public class OrderExecutionPhaseTest {
         d_orderExecutionPhase = new OrderExecutionPhase(d_currentState, d_mainGameEngine);
     }
 
+    /**
+     * Check end of game.
+     */
     @Test
     public void checkEndOfGame() {
         assertFalse(d_orderExecutionPhase.checkEndOfGame(d_currentState));

@@ -13,21 +13,45 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * The type Phase test.
+ */
 public class PhaseTest {
 
+    /**
+     * The D current state.
+     */
     CurrentState d_currentState;
 
+    /**
+     * The D main game engine.
+     */
     MainGameEngine d_mainGameEngine;
 
+    /**
+     * The D startup phase.
+     */
     StartupPhase d_startupPhase;
 
+    /**
+     * The D map.
+     */
     Map d_map;
 
+    /**
+     * The D player.
+     */
     Player d_player;
 
+    /**
+     * The D map controller.
+     */
     MapController d_mapController;
 
 
+    /**
+     * Setup.
+     */
     @Before
     public void setup(){
         d_mainGameEngine = new MainGameEngine();
@@ -43,6 +67,12 @@ public class PhaseTest {
 
     }
 
+    /**
+     * Correct startup phase.
+     *
+     * @throws CommandValidationException the command validation exception
+     * @throws IOException                the io exception
+     */
     @Test
     public void correctStartupPhase() throws CommandValidationException, IOException {
         assertEquals(d_mainGameEngine.getD_currentPhase().getClass(), d_startupPhase.getClass());

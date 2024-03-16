@@ -8,13 +8,31 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+/**
+ * The type Card blockade test.
+ */
 public class CardBlockadeTest {
+    /**
+     * The D current state.
+     */
     CurrentState d_currentState;
 
+    /**
+     * The D card blockade order 1.
+     */
     CardBlockade d_cardBlockadeOrder1;
+    /**
+     * The D card blockade order 2.
+     */
     CardBlockade d_cardBlockadeOrder2;
+    /**
+     * The D player 1.
+     */
     Player d_player1;
 
+    /**
+     * Sets .
+     */
     @Before
     public void setup() {
         d_currentState = new CurrentState();
@@ -53,6 +71,10 @@ public class CardBlockadeTest {
         d_cardBlockadeOrder1 = new CardBlockade(d_player1, "Nigeria");
         d_cardBlockadeOrder2 = new CardBlockade(d_player1, "Brazil");
     }
+
+    /**
+     * Valid order check.
+     */
     @Test
     public void validOrderCheck() {
         boolean l_actualBoolean = d_cardBlockadeOrder1.valid(d_currentState);
@@ -62,6 +84,9 @@ public class CardBlockadeTest {
         assertFalse(l_actualBoolean2);
     }
 
+    /**
+     * Execute.
+     */
     @Test
     public void execute() {
         d_cardBlockadeOrder1.execute(d_currentState);

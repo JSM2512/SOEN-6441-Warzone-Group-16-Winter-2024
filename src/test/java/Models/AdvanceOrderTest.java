@@ -8,13 +8,34 @@ import org.junit.Assert;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Advance order test.
+ */
 public class AdvanceOrderTest {
+    /**
+     * The D current state.
+     */
     CurrentState d_currentState;
+    /**
+     * The D player 1.
+     */
     Player d_player1;
+    /**
+     * The D player 2.
+     */
     Player d_player2;
+    /**
+     * The D map.
+     */
     Map d_map;
+    /**
+     * The D map controller.
+     */
     MapController d_mapController = new MapController();
 
+    /**
+     * Setup.
+     */
     @Before
     public void setup(){
         d_player1 = new Player("mehak");
@@ -37,6 +58,9 @@ public class AdvanceOrderTest {
         d_player2.setD_currentCountries(l_player2Countries);
     }
 
+    /**
+     * Execute.
+     */
     @Test
     public void execute(){
         Orders l_advanceOrder = new Advance("India","China",9,d_player1);
