@@ -1,5 +1,7 @@
 package Models;
 
+import Constants.ProjectConstants;
+
 import java.util.List;
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -21,6 +23,12 @@ public class Map {
      * The D map continents.
      */
     List<Continent> d_mapContinents;
+
+    /**
+     * Instantiates a new Map.
+     */
+    public Map() {
+    }
 
     /**
      * Gets d map name.
@@ -104,7 +112,7 @@ public class Map {
                 return l_country;
             }
         }
-        System.out.println("The entered country is not present.");
+        System.out.println(ProjectConstants.COUNTRY_DOES_NOT_EXIST);
         return null;
     }
 
@@ -121,7 +129,7 @@ public class Map {
                 return l_continent;
             }
         }
-        System.out.println("The entered continent is not present.");
+        System.out.println(ProjectConstants.CONTINENT_DOES_NOT_EXIST);
         return null;
     }
 
@@ -274,11 +282,11 @@ public class Map {
      */
     public boolean validateCountriesAndContinents() {
         if(d_mapContinents == null || d_mapContinents.isEmpty()){
-            System.out.println("Map does not have Continents");
+            System.out.println(ProjectConstants.NO_CONTINENT_IN_MAP);
             return false;
         }
         else if(d_mapCountries == null || d_mapCountries.isEmpty()){
-            System.out.println("Map does not have Countries");
+            System.out.println(ProjectConstants.NO_COUNTRY_IN_MAP);
             return false;
         }
         else{
@@ -314,7 +322,7 @@ public class Map {
             int l_mapContinentId = getMaxContinentID() + 1;
             Continent l_newContinent = new Continent(l_mapContinentId,p_mapContinentName,p_continentValue);
             d_mapContinents.add(l_newContinent);
-            System.out.println(d_mapContinents);
+            System.out.println("Continent " + l_newContinent.getD_continentName() +" inserted Successfully!");
         }
     }
 
@@ -370,7 +378,6 @@ public class Map {
      * @param p_mapContinentName the p map continent name
      */
     public void removeContinent(String p_mapContinentName) {
-        System.out.println(p_mapContinentName);
         if(d_mapContinents == null && d_mapContinents.isEmpty()){
             System.out.println("Continent : "+p_mapContinentName+" does not exists.");
         }
@@ -389,6 +396,7 @@ public class Map {
                     }
                 }
                 d_mapContinents.remove(getContinentByName(p_mapContinentName));
+                System.out.println("Continent " + p_mapContinentName +" removed successfully!");
             }
         }
     }
@@ -434,11 +442,12 @@ public class Map {
             for (Continent l_continent : d_mapContinents) {
                 if (l_continent.getD_continentID() == l_continentID) {
                     l_continent.addCountry(l_newCountry);
+                    System.out.println("Country " + l_newCountry.getD_countryName() +" inserted Successfully!");
                 }
             }
         }
         else{
-            System.out.println("Continent does'nt exist.");
+            System.out.println(ProjectConstants.CONTINENT_DOES_NOT_EXIST);
         }
     }
 
@@ -450,7 +459,7 @@ public class Map {
      */
     private int getContinentIDByName(String p_continentName) {
         if(d_mapContinents == null){
-            System.out.println("No Continents in Map.");
+            System.out.println(ProjectConstants.NO_CONTINENT_IN_MAP);
             return -1;
         }
         else{
@@ -471,7 +480,7 @@ public class Map {
      */
     public void addNeighbour(int p_countryID, int p_neighbourID) {
         if(d_mapCountries == null){
-            System.out.println("No country in Map.");
+            System.out.println(ProjectConstants.NO_COUNTRY_IN_MAP);
         } else if (getCountry(p_countryID) == null || getCountry(p_neighbourID) == null) {
             if(getCountry(p_countryID) == null){
                 System.out.println("Country with ID : "+p_countryID+" does not exists in the Map.");
@@ -481,7 +490,9 @@ public class Map {
             }
         } else{
             getCountry(p_countryID).addCountryNeighbour(p_neighbourID);
+            System.out.println("Country " + p_countryID + " added as neighbor to " + p_neighbourID);
             getCountry(p_neighbourID).addCountryNeighbour(p_countryID);
+            System.out.println("Country " + p_neighbourID + " added as neighbor to " + p_countryID);
         }
     }
 
@@ -493,7 +504,7 @@ public class Map {
      */
     public void removeNeighbour(int p_countryID, int p_neighbourID) {
         if (d_mapCountries == null) {
-            System.out.println("No country in Map.");
+            System.out.println(ProjectConstants.NO_COUNTRY_IN_MAP);
         } else if (getCountry(p_countryID) == null || getCountry(p_neighbourID) == null) {
             if (getCountry(p_countryID) == null) {
                 System.out.println("Country with ID : " + p_countryID + " does not exists in the Map.");
@@ -502,7 +513,9 @@ public class Map {
             }
         } else {
             getCountry(p_countryID).removeCountryNeighbourIfPresent(p_neighbourID);
+            System.out.println("Country " + p_countryID + " removed as neighbor to " + p_neighbourID);
             getCountry(p_neighbourID).removeCountryNeighbourIfPresent(p_countryID);
+            System.out.println("Country " + p_neighbourID + " removed as neighbor to " + p_countryID);
         }
     }
 
@@ -522,13 +535,24 @@ public class Map {
                     l_eachContinent.removeCountry(getCountryByName(p_removeCountryName));
                 }
             }
-
             removeAllCountryNeighbours(getCountryByName(p_removeCountryName));
-
             d_mapCountries.remove(getCountryByName(p_removeCountryName));
-            System.out.println(d_mapCountries);
-            System.out.println(d_mapContinents);
-
+            System.out.println("Country " + p_removeCountryName +" removed successfully!");
         }
+    }
+
+    /**
+     * Gets country name by id.
+     *
+     * @param p_neighbourID the p neighbour id
+     * @return the country name by id
+     */
+    public String getCountryNameByID(Integer p_neighbourID) {
+        for(Country l_eachCountry : d_mapCountries){
+            if(l_eachCountry.getD_countryID().equals(p_neighbourID)){
+                return l_eachCountry.getD_countryName();
+            }
+        }
+        return "null";
     }
 }

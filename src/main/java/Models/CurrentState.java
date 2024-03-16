@@ -1,5 +1,8 @@
 package Models;
 
+import Constants.ProjectConstants;
+import Exceptions.CommandValidationException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +18,18 @@ public class CurrentState {
      * The D map.
      */
     Map d_map;
+
+    /**
+     * The D model logger.
+     */
+    ModelLogger d_modelLogger = new ModelLogger();
+
+    /**
+     * Instantiates a new Current state.
+     */
+    public CurrentState() {
+        d_modelLogger.setD_message("New State/Session generated","start");
+    }
 
     /**
      * Gets d players.
@@ -53,6 +68,34 @@ public class CurrentState {
     }
 
     /**
+     * Get d model logger model logger.
+     *
+     * @return the model logger
+     */
+    public ModelLogger getD_modelLogger(){
+        return  this.d_modelLogger;
+    }
+
+    /**
+     * Gets d model logger message.
+     *
+     * @return the d model logger message
+     */
+    public String getD_modelLoggerMessage() {
+        return d_modelLogger.getD_message();
+    }
+
+    /**
+     * Sets log message.
+     *
+     * @param p_modelLoggerMessage the p model logger message
+     * @param p_messageType        the p message type
+     */
+    public void setLogMessage(String p_modelLoggerMessage, String p_messageType) {
+        d_modelLogger.setD_message(p_modelLoggerMessage, p_messageType);
+    }
+
+    /**
      * Add or remove game players.
      *
      * @param p_operation the p operation
@@ -66,7 +109,11 @@ public class CurrentState {
             removeGamePlayer(p_arguments);
         }
         else {
-            System.out.println("Wrong command entered. Use either '-add playerName' or '-remove playerName' in command.");
+            try {
+                throw new CommandValidationException("Wrong command entered. Use either '-add playerName' or '-remove playerName' in command.");
+            } catch (CommandValidationException p_e) {
+                System.out.println(p_e.getMessage());
+            }
         }
     }
 
@@ -79,7 +126,7 @@ public class CurrentState {
         if (p_arguments.split(" ").length == 1) {
             String l_playerName = p_arguments.split(" ")[0];
             if(d_players == null || d_players.isEmpty()){
-                System.out.println("No Player exist in the game yet.");
+                System.out.println(ProjectConstants.NO_PLAYER_IN_GAME);
             }
             else {
                 boolean l_isPresent = false;
@@ -105,7 +152,7 @@ public class CurrentState {
      * @param p_playerName the p player name
      * @return the player from name
      */
-    private Player getPlayerFromName(String p_playerName) {
+    public Player getPlayerFromName(String p_playerName) {
         for(Player l_eachPlayer : d_players){
             if(l_eachPlayer.getD_name().equals(p_playerName)){
                 return l_eachPlayer;
@@ -131,7 +178,7 @@ public class CurrentState {
                 for(Player l_eachPlayer : d_players){
                     if(l_eachPlayer.getD_name().equals(l_playerName))
                     {
-                        System.out.println("Name already exist, try some other name!");
+                        System.out.println(ProjectConstants.NAME_ALREADY_EXISTS);
                         return;
                     }
                 }
@@ -140,5 +187,32 @@ public class CurrentState {
             }
             System.out.println(l_playerName+" added.");
         }
+    }
+
+    /**
+     * Gets player from country name.
+     *
+     * @param p_targetCountryName the p target country name
+     * @return the player from country name
+     */
+    public Player getPlayerFromCountryName(String p_targetCountryName) {
+        for(Player l_eachPlayer : d_players){
+            for(Country l_eachCountry : l_eachPlayer.getD_currentCountries()){
+                if(l_eachCountry.getD_countryName().equals(p_targetCountryName)){
+                    return l_eachPlayer;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Update log.
+     *
+     * @param p_logMessage the p log message
+     * @param p_logType    the p log type
+     */
+    public void updateLog(String p_logMessage,String p_logType){
+        d_modelLogger.setD_message(p_logMessage,p_logType);
     }
 }

@@ -49,11 +49,11 @@ public class OrdersTest {
     @Test
     public void execute() {
         d_player.setD_currentCountries(d_map.getD_mapCountries());
-        Orders l_order1 = new Orders("deploy","India",3);
-        Orders l_order2 = new Orders("deploy","China",4);
-        l_order1.execute(d_player);
+        Orders l_order1 = new Deploy(d_player,"India",3);
+        Orders l_order2 = new Deploy(d_player,"China",4);
+        l_order1.execute(d_currentState);
         assertEquals("3", d_map.getCountryByName("India").getD_armies().toString());
-        l_order2.execute(d_player);
+        l_order2.execute(d_currentState);
         assertEquals("4", d_map.getCountryByName("China").getD_armies().toString());
         assertNotEquals("3", d_map.getCountryByName("Morocco").getD_armies().toString());
     }

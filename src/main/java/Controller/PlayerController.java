@@ -1,10 +1,7 @@
 package Controller;
 
-import Models.CurrentState;
-import Models.Player;
-import Models.Continent;
-import Models.Country;
-import Models.Orders;
+import Constants.ProjectConstants;
+import Models.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +11,18 @@ import java.util.Random;
  * The type Player controller.
  */
 public class PlayerController {
+
+    /**
+     * The D current state.
+     */
+    CurrentState d_currentState = new CurrentState();
+
+    /**
+     * Instantiates a new Player controller.
+     */
+    public PlayerController() {
+    }
+
     /**
      * Assign countries.
      *
@@ -21,7 +30,8 @@ public class PlayerController {
      */
     public void assignCountries(CurrentState p_currentState) {
         if(p_currentState.getD_players() == null || p_currentState.getD_players().isEmpty()){
-            System.out.println("No players exist in the game. Please add players using 'gameplayer -add' command first.");
+            System.out.println(ProjectConstants.NO_PLAYER_IN_GAME);
+            d_currentState.getD_modelLogger().setD_message(ProjectConstants.NO_PLAYER_IN_GAME,"Type 1");
             return;
         }
         List<Player> l_players = p_currentState.getD_players();
@@ -29,6 +39,18 @@ public class PlayerController {
 
         int l_noOfPlayers = l_players.size();
         int l_noOfCountries = l_countryList.size();
+
+        Player l_neutralPlayer = null;
+        for(Player l_eachPlayer : p_currentState.getD_players()){
+            if(l_eachPlayer.getD_name().equalsIgnoreCase("Neutral")){
+                l_neutralPlayer = l_eachPlayer;
+                break;
+            }
+        }
+        if(l_neutralPlayer != null){
+            l_noOfPlayers--;
+        }
+
         int l_noOfCountiesToEachPlayer = Math.floorDiv(l_noOfCountries, l_noOfPlayers);
         assignRandomCountriesToPlayers(l_players, l_countryList, l_noOfCountiesToEachPlayer);
         displayAssignedCountries(l_players);
@@ -82,22 +104,26 @@ public class PlayerController {
     public void assignRandomCountriesToPlayers(List<Player> p_players, List<Country> p_countryList, int p_noOfCountiesToEachPlayer) {
         List<Country> l_unallocatedCountries = new ArrayList<>(p_countryList);
         if (l_unallocatedCountries.isEmpty()) {
-            System.out.println("No Countries in Map.");
+            System.out.println(ProjectConstants.NO_COUNTRY_IN_MAP);
+            d_currentState.getD_modelLogger().setD_message(ProjectConstants.NO_COUNTRY_IN_MAP,"Type 1");
             return;
         }
+
         for (Player l_eachPlayer : p_players) {
-            for (int i = 1; i <= p_noOfCountiesToEachPlayer; i++) {
+            if(!l_eachPlayer.getD_name().equalsIgnoreCase("Neutral")) {
                 if (l_unallocatedCountries.isEmpty()) {
                     break;
                 }
-                Random l_randomNumber = new Random();
-                int l_randomIndex = l_randomNumber.nextInt(l_unallocatedCountries.size());
+                for (int i = 1; i <= p_noOfCountiesToEachPlayer; i++) {
+                    Random l_randomNumber = new Random();
+                    int l_randomIndex = l_randomNumber.nextInt(l_unallocatedCountries.size());
 
-                if (l_eachPlayer.getD_currentCountries() == null) {
-                    l_eachPlayer.setD_currentCountries(new ArrayList<>());
+                    if (l_eachPlayer.getD_currentCountries() == null) {
+                        l_eachPlayer.setD_currentCountries(new ArrayList<>());
+                    }
+                    l_eachPlayer.getD_currentCountries().add(l_unallocatedCountries.get(l_randomIndex));
+                    l_unallocatedCountries.remove(l_randomIndex);
                 }
-                l_eachPlayer.getD_currentCountries().add(l_unallocatedCountries.get(l_randomIndex));
-                l_unallocatedCountries.remove(l_randomIndex);
             }
         }
 
@@ -113,7 +139,8 @@ public class PlayerController {
      */
     public void assignArmies(CurrentState p_currentState) {
         if(p_currentState.getD_players() == null || p_currentState.getD_players().isEmpty()){
-            System.out.println("Currently, No players are present in the game so, add players using 'gameplayer -add' command first.");
+            System.out.println(ProjectConstants.NO_PLAYER_IN_GAME);
+            d_currentState.getD_modelLogger().setD_message(ProjectConstants.NO_PLAYER_IN_GAME,"Type 1");
             return;
         }
         for (Player l_eachPlayer : p_currentState.getD_players()) {
@@ -158,52 +185,30 @@ public class PlayerController {
         return l_totalCount > 0;
     }
 
+
     /**
-     * Create deploy order.
+     * Is unexecuted orders exist boolean.
      *
-     * @param p_command the p command
-     * @param p_player  the p player
+     * @param p_playerList the p player list
+     * @return the boolean
      */
-    public void createDeployOrder(String p_command, Player p_player) {
-        List<Orders> l_orders;
-        if (p_player.getD_orders() == null || p_player.getD_orders().isEmpty()) {
-            l_orders = new ArrayList<>();
-        } else {
-            l_orders = p_player.getD_orders();
+    public boolean isUnexecutedOrdersExist(List<Player> p_playerList) {
+        int l_totalCountOfUnexecutedOrders = 0;
+        for(Player l_eachPlayer : p_playerList){
+            l_totalCountOfUnexecutedOrders += l_eachPlayer.getD_orders().size();
         }
-
-        String l_countryName = p_command.split(" ")[1];
-        int l_noOfArmiesToDeploy = Integer.parseInt(p_command.split(" ")[2]);
-
-        if (!validateCountryBelongstoPlayer(p_player, l_countryName)) {
-            System.out.println("The country " + l_countryName + " does not belong to this player.");
-        }
-        else if (validateNoOfArmiesToDeploy(p_player, l_noOfArmiesToDeploy)) {
-            System.out.println("Given deploy order can't be executed as armies in deploy order is more than players unallocated armies");
-        }
-        else {
-            Orders l_order = new Orders(p_command.split(" ")[0], l_countryName, l_noOfArmiesToDeploy);
-            l_orders.add(l_order);
-
-            p_player.setD_orders(l_orders);
-
-            Integer l_unallocatedArmies = p_player.getD_unallocatedArmies() - l_noOfArmiesToDeploy;
-            p_player.setD_unallocatedArmies(l_unallocatedArmies);
-
-            System.out.println("Order has been added to queue for execution");
-        }
+        return l_totalCountOfUnexecutedOrders != 0;
     }
 
     /**
-     * Validate country belongsto player boolean.
+     * Check for more orders boolean.
      *
-     * @param p_player      the p player
-     * @param p_countryName the p country name
+     * @param p_players the p players
      * @return the boolean
      */
-    private boolean validateCountryBelongstoPlayer(Player p_player, String p_countryName) {
-        for (Country l_eachCountry : p_player.getD_currentCountries()) {
-            if (l_eachCountry.getD_countryName().equals(p_countryName)) {
+    public boolean checkForMoreOrders(List<Player> p_players) {
+        for(Player l_eachPlayer : p_players){
+            if(l_eachPlayer.hasMoreOrders()){
                 return true;
             }
         }
@@ -211,30 +216,17 @@ public class PlayerController {
     }
 
     /**
-     * Validate no of armies to deploy boolean.
+     * Reset player flag.
      *
-     * @param p_player           the p player
-     * @param p_noOfDeployArmies the p no of deploy armies
-     * @return the boolean
+     * @param p_playerList the p player list
      */
-    private boolean validateNoOfArmiesToDeploy(Player p_player, int p_noOfDeployArmies){
-        if(p_player.getD_unallocatedArmies() < p_noOfDeployArmies){
-            return true;
+    public void resetPlayerFlag(List<Player> p_playerList){
+        for(Player l_eachPlayer : p_playerList){
+            if(!l_eachPlayer.getD_name().equalsIgnoreCase("Neutral")){
+                l_eachPlayer.setMoreOrders(true);
+            }
+            l_eachPlayer.setD_oneCardPerTurn(false);
+            l_eachPlayer.resetNegotiation();
         }
-        return false;
-    }
-
-    /**
-     * Is unexecuted orders exist boolean.
-     *
-     * @param p_currentState the p current state
-     * @return the boolean
-     */
-    public boolean isUnexecutedOrdersExist(CurrentState p_currentState) {
-        int l_totalCountOfUnexecutedOrders = 0;
-        for(Player l_eachPlayer : p_currentState.getD_players()){
-            l_totalCountOfUnexecutedOrders += l_eachPlayer.getD_orders().size();
-        }
-        return l_totalCountOfUnexecutedOrders > 0;
     }
 }

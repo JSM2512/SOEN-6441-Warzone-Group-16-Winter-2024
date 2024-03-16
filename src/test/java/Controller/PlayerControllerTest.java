@@ -132,16 +132,16 @@ public class PlayerControllerTest {
         assertEquals(18, d_playerController.getNoOfArmies(d_player1));
         assertEquals(13, d_playerController.getNoOfArmies(d_player2));
 
-        d_playerController.createDeployOrder("deploy India 10", d_player1);
+        d_player1.createDeployOrder("deploy India 10");
         assertEquals(8, d_player1.getD_unallocatedArmies().intValue());
 
-        d_playerController.createDeployOrder("deploy Morocco 8", d_player2);
+        d_player2.createDeployOrder("deploy Morocco 8");
         assertEquals(5, d_player2.getD_unallocatedArmies().intValue());
 
-        d_playerController.createDeployOrder("deploy China 8", d_player1);
+        d_player1.createDeployOrder("deploy China 8");
         assertEquals(0, d_player1.getD_unallocatedArmies().intValue());
 
-        d_playerController.createDeployOrder("deploy Nigeria 5", d_player2);
+        d_player2.createDeployOrder("deploy Nigeria 5");
         assertEquals(0, d_player2.getD_unallocatedArmies().intValue());
 
     }
@@ -156,8 +156,8 @@ public class PlayerControllerTest {
         d_player1.setD_currentCountries(d_map.getD_mapCountries());
         d_playerController.assignCountries(d_currentState);
         d_playerController.assignArmies(d_currentState);
-        d_playerController.createDeployOrder("deploy India 10", d_player1);
-        d_playerController.createDeployOrder("deploy China 8", d_player1);
+        d_player1.createDeployOrder("deploy India 10");
+        d_player1.createDeployOrder("deploy China 8");
         assertEquals(10, d_player1.getD_unallocatedArmies().intValue());
         assertEquals(2, d_player1.getD_orders().size());
     }
@@ -172,9 +172,9 @@ public class PlayerControllerTest {
         d_player1.setD_currentCountries(d_map.getD_mapCountries());
         d_playerController.assignCountries(d_currentState);
         d_playerController.assignArmies(d_currentState);
-        d_playerController.createDeployOrder("deploy India 10", d_player1);
+        d_player1.createDeployOrder("deploy India 10");
         assertEquals(18, d_player1.getD_unallocatedArmies().intValue());
-        d_playerController.createDeployOrder("deploy China 20", d_player1);
+        d_player1.createDeployOrder("deploy China 20");
         assertEquals(18, d_player1.getD_unallocatedArmies().intValue());
     }
 }

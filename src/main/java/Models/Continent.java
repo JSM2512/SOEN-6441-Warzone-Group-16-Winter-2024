@@ -1,5 +1,7 @@
 package Models;
 
+import Constants.ProjectConstants;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -163,11 +165,11 @@ public class Continent {
                 d_countries.remove(p_countryObject);
             }
             else{
-                System.out.println("This countries does not exist in this continent.");
+                System.out.println(ProjectConstants.COUNTRY_NOT_IN_CONTINENT);
             }
         }
         else{
-            System.out.println("No countries exists in this continent.");
+            System.out.println(ProjectConstants.EMPTY_CONTINENT);
         }
     }
 

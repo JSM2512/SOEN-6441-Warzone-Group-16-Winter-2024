@@ -61,8 +61,8 @@ public class PlayerTest {
      */
     @Test
     public void nextOrder() {
-        Orders l_order1 = new Orders("deploy","India",3);
-        Orders l_order2 = new Orders("deploy","China",4);
+        Orders l_order1 = new Deploy(d_player,"India",3);
+        Orders l_order2 = new Deploy(d_player,"China",4);
         List<Orders> l_orderlist = new ArrayList<>();
         l_orderlist.add(l_order1);
         l_orderlist.add(l_order2);
