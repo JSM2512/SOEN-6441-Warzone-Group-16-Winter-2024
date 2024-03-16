@@ -1,17 +1,47 @@
 package Models;
 
+/**
+ * The type Card airlift.
+ */
 public class CardAirlift implements Card{
+    /**
+     * The D army count.
+     */
     Integer d_armyCount;
+    /**
+     * The D source country name.
+     */
     String d_sourceCountryName;
+    /**
+     * The D card owner.
+     */
     Player d_cardOwner;
+    /**
+     * The D target country name.
+     */
     String d_targetCountryName;
 
+    /**
+     * Instantiates a new Card airlift.
+     *
+     * @param p_cardOwner         the p card owner
+     * @param p_sourceCountryName the p source country name
+     * @param p_targetCountryName the p target country name
+     * @param p_armyCount         the p army count
+     */
     public CardAirlift(Player p_cardOwner, String p_sourceCountryName,String p_targetCountryName, Integer p_armyCount) {
         this.d_cardOwner = p_cardOwner;
         this.d_targetCountryName = p_targetCountryName;
         this.d_sourceCountryName = p_sourceCountryName;
         this.d_armyCount = p_armyCount;
     }
+
+    /**
+     * Sets d order execution log.
+     *
+     * @param p_orderExecutionLog the p order execution log
+     * @param p_messageType       the p message type
+     */
     public void setD_orderExecutionLog(String p_orderExecutionLog, String p_messageType) {
         if (p_messageType.equals("error")) {
             System.err.println(p_orderExecutionLog);
@@ -20,6 +50,12 @@ public class CardAirlift implements Card{
         }
     }
 
+    /**
+     * Valid order check boolean.
+     *
+     * @param p_currentState the p current state
+     * @return the boolean
+     */
     @Override
     public Boolean validOrderCheck(CurrentState p_currentState) {
         Country l_targetCountry = p_currentState.getD_map().getCountryByName(d_targetCountryName);
@@ -37,6 +73,11 @@ public class CardAirlift implements Card{
         return true;
     }
 
+    /**
+     * Execute.
+     *
+     * @param p_currentState the p current state
+     */
     @Override
     public void execute(CurrentState p_currentState) {
         if (valid(p_currentState)) {
@@ -57,6 +98,12 @@ public class CardAirlift implements Card{
         }
     }
 
+    /**
+     * Valid boolean.
+     *
+     * @param p_currentState the p current state
+     * @return the boolean
+     */
     @Override
     public boolean valid(CurrentState p_currentState) {
         Country l_targetCountry = null;

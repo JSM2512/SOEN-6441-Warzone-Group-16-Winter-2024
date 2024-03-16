@@ -1,14 +1,36 @@
 package Models;
 
+/**
+ * The type Card bomb.
+ */
 public class CardBomb implements Card{
 
+    /**
+     * The D card owner.
+     */
     Player d_cardOwner;
+    /**
+     * The D target country name.
+     */
     String d_targetCountryName;
 
+    /**
+     * Instantiates a new Card bomb.
+     *
+     * @param p_cardOwner         the p card owner
+     * @param p_targetCountryName the p target country name
+     */
     public CardBomb(Player p_cardOwner, String p_targetCountryName) {
         this.d_cardOwner = p_cardOwner;
         this.d_targetCountryName = p_targetCountryName;
     }
+
+    /**
+     * Sets d order execution log.
+     *
+     * @param p_orderExecutionLog the p order execution log
+     * @param p_messageType       the p message type
+     */
     public void setD_orderExecutionLog(String p_orderExecutionLog, String p_messageType) {
         if (p_messageType.equals("error")) {
             System.err.println(p_orderExecutionLog);
@@ -17,6 +39,11 @@ public class CardBomb implements Card{
         }
     }
 
+    /**
+     * Execute.
+     *
+     * @param p_currentState the p current state
+     */
     @Override
     public void execute(CurrentState p_currentState) {
         if(valid(p_currentState)){
@@ -40,6 +67,13 @@ public class CardBomb implements Card{
             p_currentState.updateLog("Invalid! Bomb card cannot be used", "effect");
         }
     }
+
+    /**
+     * Valid order check boolean.
+     *
+     * @param p_currentState the p current state
+     * @return the boolean
+     */
     @Override
     public Boolean validOrderCheck(CurrentState p_currentState) {
         Country l_targetCountry = p_currentState.getD_map().getCountryByName(d_targetCountryName);
@@ -52,7 +86,12 @@ public class CardBomb implements Card{
     }
 
 
-
+    /**
+     * Valid boolean.
+     *
+     * @param p_currentState the p current state
+     * @return the boolean
+     */
     @Override
     public boolean valid(CurrentState p_currentState) {
         Country l_country = null;

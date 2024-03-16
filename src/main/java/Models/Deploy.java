@@ -30,6 +30,13 @@ public class Deploy implements Orders{
         this.d_targetCountryName = p_targetCountryName;
         this.d_noOfArmiesToMove = p_noOfArmiesToMove;
     }
+
+    /**
+     * Sets d order execution log.
+     *
+     * @param p_orderExecutionLog the p order execution log
+     * @param p_messageType       the p message type
+     */
     public void setD_orderExecutionLog(String p_orderExecutionLog, String p_messageType) {
         if (p_messageType.equals("error")) {
             System.err.println(p_orderExecutionLog);

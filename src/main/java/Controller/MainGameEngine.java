@@ -66,11 +66,19 @@ public class MainGameEngine {
 
     /**
      * Start.
+     *
+     * @param p_mainGameEngine the p main game engine
      */
     private void start(MainGameEngine p_mainGameEngine){
         p_mainGameEngine.getD_currentPhase().initPhase();
     }
 
+    /**
+     * Set d main engine log.
+     *
+     * @param p_logForMainEngine the p log for main engine
+     * @param p_logType          the p log type
+     */
     public void setD_mainEngineLog(String p_logForMainEngine,String p_logType){
         this.d_currentState.getD_modelLogger().setD_message(p_logForMainEngine,p_logType);
         String l_consoleMessage;

@@ -34,7 +34,6 @@ public abstract class Phase {
     MainGameEngine d_mainGameEngine;
 
 
-
     /**
      * Instantiates a new Phase.
      *
@@ -51,10 +50,20 @@ public abstract class Phase {
      */
     public abstract void initPhase();
 
+    /**
+     * Gets d current state.
+     *
+     * @return the d current state
+     */
     public CurrentState getD_currentState() {
         return d_currentState;
     }
 
+    /**
+     * Gets d main game engine.
+     *
+     * @return the d main game engine
+     */
     public MainGameEngine getD_mainGameEngine() {
         return d_mainGameEngine;
     }
@@ -251,6 +260,12 @@ public abstract class Phase {
         }
     }
 
+    /**
+     * Card handle.
+     *
+     * @param p_inputCommand the p input command
+     * @param p_player       the p player
+     */
     protected abstract void cardHandle(String p_inputCommand, Player p_player);
 
     /**

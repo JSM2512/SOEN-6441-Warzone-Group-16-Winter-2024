@@ -64,6 +64,12 @@ public class StartupPhase extends Phase{
         }
     }
 
+    /**
+     * Card handle.
+     *
+     * @param p_inputCommand the p input command
+     * @param p_player       the p player
+     */
     @Override
     protected void cardHandle(String p_inputCommand, Player p_player) {
         printInvalidCommandInPhase();

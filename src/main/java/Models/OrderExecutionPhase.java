@@ -62,6 +62,12 @@ public class OrderExecutionPhase extends Phase{
         }
     }
 
+    /**
+     * Check end of game boolean.
+     *
+     * @param p_currentState the p current state
+     * @return the boolean
+     */
     public boolean checkEndOfGame(CurrentState p_currentState) {
         Integer l_totalCountries = p_currentState.getD_map().getD_mapCountries().size();
         Integer l_neutralCountries = 0;
@@ -81,6 +87,12 @@ public class OrderExecutionPhase extends Phase{
         return false;
     }
 
+    /**
+     * Card handle.
+     *
+     * @param p_inputCommand the p input command
+     * @param p_player       the p player
+     */
     @Override
     protected void cardHandle(String p_inputCommand, Player p_player) {
         printInvalidCommandInPhase();
@@ -238,6 +250,11 @@ public class OrderExecutionPhase extends Phase{
         d_gameplayController.resetPlayerFlag(d_currentState.getD_players());
     }
 
+    /**
+     * Add neutral player.
+     *
+     * @param p_currentState the p current state
+     */
     private void addNeutralPlayer(CurrentState p_currentState) {
         Player l_player = null;
         for(Player l_eachPlayer : p_currentState.getD_players()){

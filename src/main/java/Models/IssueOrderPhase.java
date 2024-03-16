@@ -1,6 +1,5 @@
 package Models;
 
-import Constants.ProjectConstants;
 import Controller.MainGameEngine;
 import Controller.PlayerController;
 import Exceptions.CommandValidationException;
@@ -45,6 +44,12 @@ public class IssueOrderPhase extends Phase{
 
     }
 
+    /**
+     * Card handle.
+     *
+     * @param p_inputCommand the p input command
+     * @param p_player       the p player
+     */
     @Override
     protected void cardHandle(String p_inputCommand, Player p_player) {
         if(p_player.getD_cardsOwnedByPlayer().contains(p_inputCommand.split(" ")[0])){

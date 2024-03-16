@@ -209,6 +209,11 @@ public class PlayerController {
         return false;
     }
 
+    /**
+     * Reset player flag.
+     *
+     * @param p_playerList the p player list
+     */
     public void resetPlayerFlag(List<Player> p_playerList){
         for(Player l_eachPlayer : p_playerList){
             if(!l_eachPlayer.getD_name().equalsIgnoreCase("Neutral")){

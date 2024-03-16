@@ -1,14 +1,35 @@
 package Models;
 
+/**
+ * The type Card negotiate.
+ */
 public class CardNegotiate implements Card{
+    /**
+     * The D card owner.
+     */
     Player d_cardOwner;
+    /**
+     * The D target player.
+     */
     String d_targetPlayer;
 
+    /**
+     * Instantiates a new Card negotiate.
+     *
+     * @param p_player       the p player
+     * @param p_targetPlayer the p target player
+     */
     public CardNegotiate(Player p_player, String p_targetPlayer) {
         this.d_cardOwner = p_player;
         this.d_targetPlayer = p_targetPlayer;
     }
 
+    /**
+     * Sets d order execution log.
+     *
+     * @param p_orderExecutionLog the p order execution log
+     * @param p_messageType       the p message type
+     */
     public void setD_orderExecutionLog(String p_orderExecutionLog, String p_messageType) {
         if (p_messageType.equals("error")) {
             System.err.println(p_orderExecutionLog);
@@ -17,6 +38,12 @@ public class CardNegotiate implements Card{
         }
     }
 
+    /**
+     * Valid order check boolean.
+     *
+     * @param p_currentState the p current state
+     * @return the boolean
+     */
     @Override
     public Boolean validOrderCheck(CurrentState p_currentState) {
         Player l_targetPlayer = p_currentState.getPlayerFromName(d_targetPlayer);
@@ -28,6 +55,11 @@ public class CardNegotiate implements Card{
         return true;
     }
 
+    /**
+     * Execute.
+     *
+     * @param p_currentState the p current state
+     */
     @Override
     public void execute(CurrentState p_currentState) {
         Player l_targetPlayer = p_currentState.getPlayerFromName(d_targetPlayer);
@@ -46,6 +78,12 @@ public class CardNegotiate implements Card{
 
     }
 
+    /**
+     * Valid boolean.
+     *
+     * @param p_currentState the p current state
+     * @return the boolean
+     */
     @Override
     public boolean valid(CurrentState p_currentState) {
         return true;

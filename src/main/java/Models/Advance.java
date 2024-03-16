@@ -42,6 +42,12 @@ public class Advance implements Orders{
         this.d_intitiatingPlayer = p_intitiatingPlayer;
     }
 
+    /**
+     * Sets d order execution log.
+     *
+     * @param p_orderExecutionLog the p order execution log
+     * @param p_messageType       the p message type
+     */
     public void setD_orderExecutionLog(String p_orderExecutionLog, String p_messageType) {
         if (p_messageType.equals("error")) {
             System.err.println(p_orderExecutionLog);
@@ -80,6 +86,14 @@ public class Advance implements Orders{
         }
     }
 
+    /**
+     * Battle order result.
+     *
+     * @param p_currentState          the p current state
+     * @param p_playerOfTargetCountry the p player of target country
+     * @param p_sourceCountry         the p source country
+     * @param p_targetCountry         the p target country
+     */
     private void battleOrderResult(CurrentState p_currentState, Player p_playerOfTargetCountry, Country p_sourceCountry, Country p_targetCountry) {
         int l_armiesInAttack = 0;
         if(d_noOfArmiesToPlace < p_targetCountry.getD_armies()){
@@ -94,6 +108,15 @@ public class Advance implements Orders{
         updateContinents(d_intitiatingPlayer, p_playerOfTargetCountry, p_currentState);
     }
 
+    /**
+     * Produce battle result.
+     *
+     * @param p_sourceCountry         the p source country
+     * @param p_targetCountry         the p target country
+     * @param p_attackerArmies        the p attacker armies
+     * @param p_defenderArmies        the p defender armies
+     * @param p_playerOfTargetCountry the p player of target country
+     */
     private void produceBattleResult(Country p_sourceCountry, Country p_targetCountry, List<Integer> p_attackerArmies, List<Integer> p_defenderArmies, Player p_playerOfTargetCountry) {
         Integer l_attackerArmiesLeft = 0;
         Integer l_defenderArmiesLeft = 0;
@@ -120,6 +143,15 @@ public class Advance implements Orders{
         handleSurvivingArmies(l_attackerArmiesLeft, l_defenderArmiesLeft, p_sourceCountry, p_targetCountry, p_playerOfTargetCountry);
     }
 
+    /**
+     * Handle surviving armies.
+     *
+     * @param p_attackerArmiesLeft    the p attacker armies left
+     * @param p_defenderArmiesLeft    the p defender armies left
+     * @param p_sourceCountry         the p source country
+     * @param p_targetCountry         the p target country
+     * @param p_playerOfTargetCountry the p player of target country
+     */
     private void handleSurvivingArmies(Integer p_attackerArmiesLeft, Integer p_defenderArmiesLeft, Country p_sourceCountry, Country p_targetCountry, Player p_playerOfTargetCountry) {
         if(p_defenderArmiesLeft == 0) {
             p_playerOfTargetCountry.getD_currentCountries().remove(p_targetCountry);
@@ -138,6 +170,13 @@ public class Advance implements Orders{
         }
     }
 
+    /**
+     * Generate random army units list.
+     *
+     * @param p_armiesInAttack the p armies in attack
+     * @param p_role           the p role
+     * @return the list
+     */
     private List<Integer> generateRandomArmyUnits(int p_armiesInAttack, String p_role) {
         List<Integer> l_armyList = new ArrayList<>();
         double l_probability = 0.0;
@@ -155,6 +194,13 @@ public class Advance implements Orders{
         return l_armyList;
     }
 
+    /**
+     * Gets random integer.
+     *
+     * @param p_min the p min
+     * @param p_max the p max
+     * @return the random integer
+     */
     private int getRandomInteger(int p_min, int p_max) {
         return ((int) (Math.random() * (p_max - p_min))) + p_min;
     }
@@ -260,6 +306,12 @@ public class Advance implements Orders{
         return true;
     }
 
+    /**
+     * Is null or empty boolean.
+     *
+     * @param p_str the p str
+     * @return the boolean
+     */
     public static boolean isNullOrEmpty(String p_str){
         return (p_str == null || p_str.trim().isEmpty());
     }

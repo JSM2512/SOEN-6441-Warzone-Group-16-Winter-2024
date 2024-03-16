@@ -182,6 +182,12 @@ public class CurrentState {
         }
     }
 
+    /**
+     * Gets player from country name.
+     *
+     * @param p_targetCountryName the p target country name
+     * @return the player from country name
+     */
     public Player getPlayerFromCountryName(String p_targetCountryName) {
         for(Player l_eachPlayer : d_players){
             for(Country l_eachCountry : l_eachPlayer.getD_currentCountries()){
@@ -192,6 +198,13 @@ public class CurrentState {
         }
         return null;
     }
+
+    /**
+     * Update log.
+     *
+     * @param p_logMessage the p log message
+     * @param p_logType    the p log type
+     */
     public void updateLog(String p_logMessage,String p_logType){
         d_modelLogger.setD_message(p_logMessage,p_logType);
     }

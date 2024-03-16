@@ -135,7 +135,13 @@ public final class ProjectConstants {
      * The constant CONTINENT_DOES_NOT_EXIST.
      */
     public static final String CONTINENT_DOES_NOT_EXIST = "The entered continent is not present.";
+    /**
+     * The constant ALL_CARDS.
+     */
     public static final List<String> ALL_CARDS = Arrays.asList("bomb", "blockade", "airlift", "negotiate");
+    /**
+     * The constant NO_OF_CARDS.
+     */
     public static final int NO_OF_CARDS = ALL_CARDS.size();
 }
 

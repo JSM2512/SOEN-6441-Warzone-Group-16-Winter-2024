@@ -1,8 +1,6 @@
 package Models;
 
 import Constants.ProjectConstants;
-import Utils.CommandHandler;
-import Controller.PlayerController;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,12 +13,20 @@ import java.util.Random;
  * Model Class Player.
  */
 public class Player {
+    /**
+     * The D player log.
+     */
     public String d_playerLog;
     /**
      * The D name.
      */
     String d_name;
 
+    /**
+     * Gets d player log.
+     *
+     * @return the d player log
+     */
     public String getD_playerLog() {
         return d_playerLog;
     }
@@ -46,8 +52,17 @@ public class Player {
      * The D more orders.
      */
     boolean d_moreOrders;
+    /**
+     * The D cards owned by player.
+     */
     List<String> d_cardsOwnedByPlayer = new ArrayList<>();
+    /**
+     * The D negotiate players.
+     */
     List<Player> d_negotiatePlayers = new ArrayList<>();
+    /**
+     * The D one card per turn.
+     */
     boolean d_oneCardPerTurn = false;
 
     /**
@@ -64,6 +79,12 @@ public class Player {
         this.d_currentContinents = new ArrayList<>();
     }
 
+    /**
+     * Sets d player log.
+     *
+     * @param p_orderExecutionLog the p order execution log
+     * @param p_messageType       the p message type
+     */
     public void setD_playerLog(String p_orderExecutionLog, String p_messageType) {
         if (p_messageType.equals("error")) {
             System.err.println(p_orderExecutionLog);
@@ -72,6 +93,11 @@ public class Player {
         }
     }
 
+    /**
+     * Gets d negotiate players.
+     *
+     * @return the d negotiate players
+     */
     public List<Player> getD_negotiatePlayers() {
         return d_negotiatePlayers;
     }
@@ -184,14 +210,27 @@ public class Player {
         this.d_moreOrders = p_moreOrders;
     }
 
+    /**
+     * Reset negotiation.
+     */
     public void resetNegotiation(){
         d_negotiatePlayers.clear();
     }
 
+    /**
+     * Is d one card per turn boolean.
+     *
+     * @return the boolean
+     */
     public boolean isD_oneCardPerTurn() {
         return d_oneCardPerTurn;
     }
 
+    /**
+     * Sets d one card per turn.
+     *
+     * @param d_oneCardPerTurn the d one card per turn
+     */
     public void setD_oneCardPerTurn(boolean d_oneCardPerTurn) {
         this.d_oneCardPerTurn = d_oneCardPerTurn;
     }
@@ -222,10 +261,20 @@ public class Player {
         }
     }
 
+    /**
+     * Gets d cards owned by player.
+     *
+     * @return the d cards owned by player
+     */
     public List<String> getD_cardsOwnedByPlayer() {
         return d_cardsOwnedByPlayer;
     }
 
+    /**
+     * Sets d cards owned by player.
+     *
+     * @param d_cardsOwnedByPlayer the d cards owned by player
+     */
     public void setD_cardsOwnedByPlayer(List<String> d_cardsOwnedByPlayer) {
         this.d_cardsOwnedByPlayer = d_cardsOwnedByPlayer;
     }
@@ -396,10 +445,21 @@ public class Player {
         return true;
     }
 
+    /**
+     * Remove card.
+     *
+     * @param p_cardName the p card name
+     */
     public void removeCard(String p_cardName){
         this.d_cardsOwnedByPlayer.remove(p_cardName);
     }
 
+    /**
+     * Handle card command.
+     *
+     * @param p_inputCommand the p input command
+     * @param p_currentState the p current state
+     */
     public void handleCardCommand(String p_inputCommand, CurrentState p_currentState){
         if (checkCardArguments(p_inputCommand)) {
             switch (p_inputCommand.split(" ")[0]) {
@@ -442,6 +502,12 @@ public class Player {
         }
     }
 
+    /**
+     * Check card arguments boolean.
+     *
+     * @param p_inputCommand the p input command
+     * @return the boolean
+     */
     private boolean checkCardArguments(String p_inputCommand) {
         if(p_inputCommand.split(" ")[0].equalsIgnoreCase("negotiate") && p_inputCommand.split(" ").length != 2){
             this.setD_playerLog("Invalid Arguments passed for negotiate order.","error");
@@ -462,10 +528,18 @@ public class Player {
         return true;
     }
 
+    /**
+     * Add negotiate player.
+     *
+     * @param p_negotiatePlayer the p negotiate player
+     */
     public void addNegotiatePlayer(Player p_negotiatePlayer){
         this.d_negotiatePlayers.add(p_negotiatePlayer);
     }
 
+    /**
+     * Assign card.
+     */
     public void assignCard(){
         if (!d_oneCardPerTurn) {
             Random l_random = new Random();
@@ -479,6 +553,12 @@ public class Player {
         }
     }
 
+    /**
+     * Negotiation validation boolean.
+     *
+     * @param p_targetCountryName the p target country name
+     * @return the boolean
+     */
     public boolean negotiationValidation(String p_targetCountryName) {
         boolean l_canAttack = true;
         for(Player l_eachPlayer : d_negotiatePlayers){
@@ -489,6 +569,11 @@ public class Player {
         return l_canAttack;
     }
 
+    /**
+     * Gets country names.
+     *
+     * @return the country names
+     */
     public List<String> getCountryNames() {
         List<String> l_countryNames = new ArrayList<>();
         for(Country l_eachCountry : d_currentCountries){
