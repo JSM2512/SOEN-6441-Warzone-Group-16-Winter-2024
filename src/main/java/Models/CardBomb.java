@@ -39,6 +39,14 @@ public class CardBomb implements Card{
         }
     }
 
+    @Override
+    public String toString() {
+        return "CardBomb{" +
+                "d_cardOwner=" + d_cardOwner +
+                ", d_targetCountryName='" + d_targetCountryName + '\'' +
+                '}';
+    }
+
     /**
      * Execute.
      *

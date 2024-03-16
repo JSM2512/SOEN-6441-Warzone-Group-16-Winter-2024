@@ -38,6 +38,14 @@ public class CardNegotiate implements Card{
         }
     }
 
+    @Override
+    public String toString() {
+        return "CardNegotiate{" +
+                "d_cardOwner=" + d_cardOwner +
+                ", d_targetPlayer='" + d_targetPlayer + '\'' +
+                '}';
+    }
+
     /**
      * Valid order check boolean.
      *

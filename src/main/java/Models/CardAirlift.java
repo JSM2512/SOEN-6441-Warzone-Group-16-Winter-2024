@@ -50,6 +50,16 @@ public class CardAirlift implements Card{
         }
     }
 
+    @Override
+    public String toString() {
+        return "CardAirlift{" +
+                "d_armyCount=" + d_armyCount +
+                ", d_sourceCountryName='" + d_sourceCountryName + '\'' +
+                ", d_cardOwner=" + d_cardOwner +
+                ", d_targetCountryName='" + d_targetCountryName + '\'' +
+                '}';
+    }
+
     /**
      * Valid order check boolean.
      *

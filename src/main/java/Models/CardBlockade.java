@@ -38,6 +38,14 @@ public class CardBlockade implements Card {
         }
     }
 
+    @Override
+    public String toString() {
+        return "CardBlockade{" +
+                "d_cardOwner=" + d_cardOwner +
+                ", d_targetCountryName='" + d_targetCountryName + '\'' +
+                '}';
+    }
+
     /**
      * Valid order check boolean.
      *

@@ -216,14 +216,14 @@ public class MapController {
         File l_fileToEdit = new File(l_fileLocation);
         if(l_fileToEdit.createNewFile() == true){
             System.out.println(ProjectConstants.FILE_CREATED_SUCCESS);
-            d_currentState.getD_modelLogger().setD_message(ProjectConstants.FILE_CREATED_SUCCESS,"type-1");
+            d_currentState.getD_modelLogger().setD_message(ProjectConstants.FILE_CREATED_SUCCESS,"effect");
             Map l_map=new Map();
             l_map.setD_mapName(p_editFileName);
             p_currentState.setD_map(l_map);
         }
         else{
             System.out.println(ProjectConstants.FILE_ALREADY_EXISTS);
-            d_currentState.getD_modelLogger().setD_message("File Already exists","type-1");
+            d_currentState.getD_modelLogger().setD_message("File Already exists","effect");
             p_currentState.setD_map(this.loadMap( p_currentState , p_editFileName ));
             p_currentState.getD_map().setD_mapName(p_editFileName);
         }
@@ -269,7 +269,7 @@ public class MapController {
             p_mapToUpdate.removeCountry(p_arguments);
         } else {
             System.out.println(ProjectConstants.CANNOT_ADD_REMOVE_COUNTRY);
-            d_currentState.getD_modelLogger().setD_message(ProjectConstants.CANNOT_ADD_REMOVE_COUNTRY,"type-1");
+            d_currentState.getD_modelLogger().setD_message(ProjectConstants.CANNOT_ADD_REMOVE_COUNTRY,"effect");
         }
         return  p_mapToUpdate;
     }
@@ -336,7 +336,7 @@ public class MapController {
             p_mapToUpdate.removeNeighbour(Integer.parseInt(p_arguments.split(" ")[0]), Integer.parseInt(p_arguments.split(" ")[1]));
         } else {
             System.out.println(ProjectConstants.CANNOT_ADD_REMOVE_NEIGHBOUR);
-            d_currentState.getD_modelLogger().setD_message(ProjectConstants.CANNOT_ADD_REMOVE_NEIGHBOUR,"type-1");
+            d_currentState.getD_modelLogger().setD_message(ProjectConstants.CANNOT_ADD_REMOVE_NEIGHBOUR,"effect");
         }
         return  p_mapToUpdate;
     }
@@ -356,7 +356,7 @@ public class MapController {
             p_mapToUpdate.removeContinent(p_arguments);
         } else {
             System.out.println(ProjectConstants.CANNOT_ADD_REMOVE_CONTINENT);
-            d_currentState.getD_modelLogger().setD_message(ProjectConstants.CANNOT_ADD_REMOVE_CONTINENT,"type-1");
+            d_currentState.getD_modelLogger().setD_message(ProjectConstants.CANNOT_ADD_REMOVE_CONTINENT,"effect");
         }
         return  p_mapToUpdate;
     }
@@ -376,7 +376,7 @@ public class MapController {
 
                 if (!l_map.getD_mapName().equals(p_arguments)) {
                     System.out.println("Name of the file must be same which you loaded in the first place i.e. : " + l_map.getD_mapName());
-                    d_currentState.getD_modelLogger().setD_message("Filename is different from the file loaded.","type-1");
+                    d_currentState.getD_modelLogger().setD_message("Filename is different from the file loaded.","effect");
 
                 }
 
@@ -387,7 +387,7 @@ public class MapController {
                     saveContinentsOnMap(l_writer, p_currentState);
                 } else {
                     System.out.println(ProjectConstants.NO_CONTINENT_IN_MAP);
-                    d_currentState.getD_modelLogger().setD_message(ProjectConstants.NO_COUNTRY_IN_MAP,"type-1");
+                    d_currentState.getD_modelLogger().setD_message(ProjectConstants.NO_COUNTRY_IN_MAP,"effect");
 
                 }
                 if (l_map.getD_mapCountries() != null || !l_map.getD_mapCountries().isEmpty()) {
@@ -395,13 +395,13 @@ public class MapController {
                     saveCountryBordersOnMap(l_writer, p_currentState);
                 } else {
                     System.out.println(ProjectConstants.NO_COUNTRY_IN_MAP);
-                    d_currentState.getD_modelLogger().setD_message(ProjectConstants.NO_COUNTRY_IN_MAP,"type-1");
+                    d_currentState.getD_modelLogger().setD_message(ProjectConstants.NO_COUNTRY_IN_MAP,"effect");
                 }
                 l_writer.close();
             }
             else {
                 System.out.println(ProjectConstants.INVALID_MAP);
-                d_currentState.getD_modelLogger().setD_message(ProjectConstants.INVALID_MAP,"type-1");
+                d_currentState.getD_modelLogger().setD_message(ProjectConstants.INVALID_MAP,"effect");
                 return false;
             }
             return true;
@@ -463,7 +463,7 @@ public class MapController {
         }
         if(l_borders.isEmpty()){
             System.out.println(ProjectConstants.NO_BORDER_IN_MAP);
-            d_currentState.getD_modelLogger().setD_message("No borders in the map.","type-1");
+            d_currentState.getD_modelLogger().setD_message("No borders in the map.","effect");
         }
         else {
             for (String l_borderEntry : l_borders) {

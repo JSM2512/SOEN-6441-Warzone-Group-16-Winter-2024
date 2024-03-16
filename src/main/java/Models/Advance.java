@@ -56,6 +56,15 @@ public class Advance implements Orders{
         }
     }
 
+    @Override
+    public String toString() {
+        return "Advance{" +
+                "d_sourceCountry='" + d_sourceCountry + '\'' +
+                ", d_targetCountry='" + d_targetCountry + '\'' +
+                ", d_noOfArmiesToPlace=" + d_noOfArmiesToPlace +
+                ", d_intitiatingPlayer=" + d_intitiatingPlayer +
+                '}';
+    }
 
     /**
      * Execute.

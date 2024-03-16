@@ -31,6 +31,15 @@ public class Deploy implements Orders{
         this.d_noOfArmiesToMove = p_noOfArmiesToMove;
     }
 
+    @Override
+    public String toString() {
+        return "Deploy{" +
+                "d_targetCountryName='" + d_targetCountryName + '\'' +
+                ", d_noOfArmiesToMove=" + d_noOfArmiesToMove +
+                ", d_intitiatingPlayer=" + d_intitiatingPlayer +
+                '}';
+    }
+
     /**
      * Sets d order execution log.
      *
