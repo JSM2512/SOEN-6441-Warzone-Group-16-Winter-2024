@@ -31,7 +31,7 @@ public class PlayerController {
     public void assignCountries(CurrentState p_currentState) {
         if(p_currentState.getD_players() == null || p_currentState.getD_players().isEmpty()){
             System.out.println(ProjectConstants.NO_PLAYER_IN_GAME);
-            d_currentState.getD_modelLogger().setD_message(ProjectConstants.NO_PLAYER_IN_GAME,"Type 1");
+            d_currentState.getD_modelLogger().setD_message(ProjectConstants.NO_PLAYER_IN_GAME,"effect");
             return;
         }
         List<Player> l_players = p_currentState.getD_players();
@@ -105,7 +105,7 @@ public class PlayerController {
         List<Country> l_unallocatedCountries = new ArrayList<>(p_countryList);
         if (l_unallocatedCountries.isEmpty()) {
             System.out.println(ProjectConstants.NO_COUNTRY_IN_MAP);
-            d_currentState.getD_modelLogger().setD_message(ProjectConstants.NO_COUNTRY_IN_MAP,"Type 1");
+            d_currentState.getD_modelLogger().setD_message(ProjectConstants.NO_COUNTRY_IN_MAP,"effect");
             return;
         }
 
@@ -140,7 +140,7 @@ public class PlayerController {
     public void assignArmies(CurrentState p_currentState) {
         if(p_currentState.getD_players() == null || p_currentState.getD_players().isEmpty()){
             System.out.println(ProjectConstants.NO_PLAYER_IN_GAME);
-            d_currentState.getD_modelLogger().setD_message(ProjectConstants.NO_PLAYER_IN_GAME,"Type 1");
+            d_currentState.getD_modelLogger().setD_message(ProjectConstants.NO_PLAYER_IN_GAME,"effect");
             return;
         }
         for (Player l_eachPlayer : p_currentState.getD_players()) {

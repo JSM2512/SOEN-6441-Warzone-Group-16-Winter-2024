@@ -13,6 +13,8 @@ public class CardNegotiate implements Card{
      */
     String d_targetPlayer;
 
+    String d_logOrderExecution;
+
     /**
      * Instantiates a new Card negotiate.
      *
@@ -31,11 +33,16 @@ public class CardNegotiate implements Card{
      * @param p_messageType       the p message type
      */
     public void setD_orderExecutionLog(String p_orderExecutionLog, String p_messageType) {
+        this.d_logOrderExecution = p_orderExecutionLog;
         if (p_messageType.equals("error")) {
             System.err.println(p_orderExecutionLog);
         } else {
             System.out.println(p_orderExecutionLog);
         }
+    }
+
+    public String orderExecutionLog() {
+        return this.d_logOrderExecution;
     }
 
     /**
@@ -62,7 +69,7 @@ public class CardNegotiate implements Card{
         Player l_targetPlayer = p_currentState.getPlayerFromName(d_targetPlayer);
         if (l_targetPlayer == null) {
             this.setD_orderExecutionLog("Invalid! No player to negotiate","error");
-            p_currentState.updateLog("Invalid! No player to negotiate","effect");
+            p_currentState.updateLog(orderExecutionLog(),"effect");
             return false;
         }
         return true;
@@ -82,11 +89,11 @@ public class CardNegotiate implements Card{
             d_cardOwner.removeCard("negotiate");
             d_cardOwner.setD_oneCardPerTurn(false);
             this.setD_orderExecutionLog("Negotiation Successful","default");
-            p_currentState.updateLog("Negotiation Successful","effect");
+            p_currentState.updateLog(d_logOrderExecution,"effect");
         }
         else {
             this.setD_orderExecutionLog("Invalid! Negotiation Unsuccessful","error");
-            p_currentState.updateLog("Invalid! Negotiation Unsuccessful","effect");
+            p_currentState.updateLog(d_logOrderExecution,"effect");
         }
 
     }

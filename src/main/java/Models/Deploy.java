@@ -18,6 +18,8 @@ public class Deploy implements Orders{
      */
     Player d_intitiatingPlayer;
 
+    String d_logofOrderExecution;
+
     /**
      * Instantiates a new Deploy.
      *
@@ -45,6 +47,11 @@ public class Deploy implements Orders{
                 '}';
     }
 
+    @Override
+    public String orderExecutionLog(){
+        return d_logofOrderExecution;
+    }
+
     /**
      * Sets d order execution log.
      *
@@ -52,6 +59,7 @@ public class Deploy implements Orders{
      * @param p_messageType       the p message type
      */
     public void setD_orderExecutionLog(String p_orderExecutionLog, String p_messageType) {
+        this.d_logofOrderExecution = p_orderExecutionLog;
         if (p_messageType.equals("error")) {
             System.err.println(p_orderExecutionLog);
         } else {
@@ -77,8 +85,8 @@ public class Deploy implements Orders{
         }
         else{
             this.setD_orderExecutionLog("Given Deploy Order cannot be executed since the target country does not belong to player.","error");
-            p_currentState.updateLog("Given Deploy Order cannot be executed since the target country does not belong to player.","effect");
         }
+        p_currentState.updateLog(orderExecutionLog(),"effect");
     }
 
     /**

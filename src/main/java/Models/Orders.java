@@ -13,6 +13,10 @@ public interface Orders {
      */
     public void execute(CurrentState p_currentState);
 
+    public String orderExecutionLog();
+
+    public void setD_orderExecutionLog(String p_orderExecutionLog, String p_logType);
+
     /**
      * Valid boolean.
      *

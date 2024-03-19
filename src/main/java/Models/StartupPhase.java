@@ -37,7 +37,6 @@ public class StartupPhase extends Phase{
     @Override
     public void initPhase() {
         BufferedReader l_bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        d_currentState.getD_modelLogger().setD_message("---------------Game Session Started---------------","Type3");
 
         while(d_mainGameEngine.getD_currentPhase() instanceof StartupPhase){
             System.out.println("================================== MAIN MENU ===================================");
@@ -101,6 +100,7 @@ public class StartupPhase extends Phase{
             if(l_singleOperation.containsKey("Arguments") && l_singleOperation.get("Arguments")!=null) {
                 Models.Map l_map = d_mapController.loadMap(d_currentState,l_singleOperation.get("Arguments"));
                 if(l_map.validateMap()){
+                    d_mainGameEngine.setD_mainEngineLog(l_singleOperation.get("Arguments")+" has been loaded to start the game", "effect");
                     System.out.println(ProjectConstants.VALID_MAP);
                 }
                 else{
@@ -264,6 +264,7 @@ public class StartupPhase extends Phase{
             } else {
                 if (l_map.validateMap()) {
                     System.out.println(ProjectConstants.VALID_MAP);
+                    d_mainGameEngine.setD_mainEngineLog(ProjectConstants.VALID_MAP,"effect");
                 } else {
                     System.out.println(ProjectConstants.INVALID_MAP);
                 }
@@ -290,6 +291,7 @@ public class StartupPhase extends Phase{
                     boolean l_isMapSaved = d_mapController.saveMap(d_currentState, l_singleOperation.get("Arguments"));
                     if (l_isMapSaved) {
                         System.out.println("Map : " + d_currentState.getD_map().getD_mapName() + " saved successfully.");
+                        d_mainGameEngine.setD_mainEngineLog("Required changes have been made in the map file", "effect");
                     } else {
                         System.out.println(ProjectConstants.SAVEMAP_FAILURE_MESSAGE);
                     }

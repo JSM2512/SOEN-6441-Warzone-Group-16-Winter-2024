@@ -13,6 +13,8 @@ public class CardBlockade implements Card {
      */
     String d_targetCountryName;
 
+    String d_executionOrderLog;
+
     /**
      * Instantiates a new Card blockade.
      *
@@ -31,12 +33,18 @@ public class CardBlockade implements Card {
      * @param p_messageType       the p message type
      */
     public void setD_orderExecutionLog(String p_orderExecutionLog, String p_messageType) {
+        this.d_executionOrderLog = p_orderExecutionLog;
         if (p_messageType.equals("error")) {
             System.err.println(p_orderExecutionLog);
         } else {
             System.out.println(p_orderExecutionLog);
         }
     }
+
+    public String orderExecutionLog() {
+        return this.d_executionOrderLog;
+    }
+
 
     /**
      * To string string.
@@ -62,7 +70,6 @@ public class CardBlockade implements Card {
         Country l_targetCountry = p_currentState.getD_map().getCountryByName(d_targetCountryName);
         if (l_targetCountry == null) {
             this.setD_orderExecutionLog("Invalid! Target country does not exist", "error");
-            p_currentState.updateLog("Invalid! Target country does not exist", "effect");
             return false;
         }
         return true;
@@ -97,7 +104,7 @@ public class CardBlockade implements Card {
             d_cardOwner.removeCard("blockade");
             d_cardOwner.setD_oneCardPerTurn(false);
             this.setD_orderExecutionLog("Player " + d_cardOwner.getD_name() + " used blockade card to triple the armies of " + this.d_targetCountryName, "default");
-            p_currentState.updateLog("Player " + d_cardOwner.getD_name() + " used blockade card to triple the armies of " + this.d_targetCountryName, "effect");
+            p_currentState.updateLog(orderExecutionLog(), "effect");
         }
     }
 
@@ -120,7 +127,7 @@ public class CardBlockade implements Card {
             return true;
         } else {
             this.setD_orderExecutionLog("Invalid! Blockade card cannot be used because target country does not belong to player", "error");
-            p_currentState.updateLog("Invalid! Blockade card cannot be used because target country does not belong to player", "effect");
+            p_currentState.updateLog(orderExecutionLog(), "effect");
             return false;
         }
     }

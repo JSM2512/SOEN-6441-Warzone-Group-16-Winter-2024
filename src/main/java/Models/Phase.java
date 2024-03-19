@@ -110,146 +110,114 @@ public abstract class Phase {
         switch (l_mainCommand){
             case "loadmap":
                 loadMap(l_commandHandler);
-                d_currentState.getD_modelLogger().setD_message("Map Loaded Success", "effect");
                 break;
             case "editmap":
                 editMap(l_commandHandler);
-                d_currentState.getD_modelLogger().setD_message("Editmap command executed successfully", "effect");
                 break;
             case "editcountry":
                 if (!l_mapAvailable) {
                     System.out.println(ProjectConstants.MAP_NOT_AVAILABLE_EDIT_COUNTRY);
-                    d_currentState.getD_modelLogger().setD_message("Entered command: editCountry. Map is not available. ","effect");
                 } else {
                     editCountry(l_commandHandler);
-                    d_currentState.getD_modelLogger().setD_message("Entered command: editcountry. Country edited successfully","effect");
                 }
                 break;
             case "editcontinent":
                 if(!l_mapAvailable){
                     System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
-                    d_currentState.getD_modelLogger().setD_message("Entered command: editcontinent. Map is not available. ","effect");
                 }
                 else{
                     editContinent(l_commandHandler);
-                    d_currentState.getD_modelLogger().setD_message("Entered command: editcontinent. Continent edited successfully. ","effect");
                 }
                 break;
             case "editneighbour":
                 if(!l_mapAvailable){
                     System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
-                    d_currentState.getD_modelLogger().setD_message("Entered command: editneighbour. Map is not available. ","effect");
                 }
                 else {
                     editNeighbourCountry(l_commandHandler);
-                    d_currentState.getD_modelLogger().setD_message("Entered command: editneighbour. Neighbour edited successfully. ","effect");
                 }
                 break;
             case "showmap":
                 if(!l_mapAvailable){
                     System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
-                    d_currentState.getD_modelLogger().setD_message("Entered command: showmap. Map is not available. ","effect");
                 }
                 else {
                     showMap();
-                    d_currentState.getD_modelLogger().setD_message("Entered command: showmap. showmap executed successfully. ","effect");
                 }
                 break;
             case "gameplayer":
                 if (!l_mapAvailable) {
                     System.out.println(ProjectConstants.MAP_NOT_AVAILABLE_PLAYERS);
-                    d_currentState.getD_modelLogger().setD_message("Entered command: gameplayer. Map is not available. ","effect");
                 }
                 else {
                     gamePlayer(l_commandHandler);
-                    d_currentState.getD_modelLogger().setD_message("Entered command: gameplayer. gameplayer executed successfully. ","effect");
                 }
                 break;
             case "assigncountries":
                 if (!l_mapAvailable) {
                     System.out.println(ProjectConstants.MAP_NOT_AVAILABLE_ASSIGN_COUNTRIES);
-                    d_currentState.getD_modelLogger().setD_message("Entered command: assigncountries. Map is not available. ","effect");
                 }
                 else {
                     assignCountries(l_commandHandler);
-                    d_currentState.getD_modelLogger().setD_message("Entered command: assigncountries. assigncountries executed successfully. ","effect");
                 }
                 break;
             case "validatemap":
                 if (!l_mapAvailable) {
                     System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
-                    d_currentState.getD_modelLogger().setD_message("Entered command: validatemap. Map is not available. ","effect");
                 } else {
                     validateMap(l_commandHandler);
-                    d_currentState.getD_modelLogger().setD_message("Entered command: validatemap. validatemap executed successfully. ","effect");
                 }
                 break;
             case "savemap":
                 if (!l_mapAvailable) {
                     System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
-                    d_currentState.getD_modelLogger().setD_message("Entered command: savemap. Map is not available. ","effect");
                 } else {
                     saveMap(l_commandHandler);
-                    d_currentState.getD_modelLogger().setD_message("Entered command: savemap. savemap executed successfully. ","effect");
                 }
                 break;
             case "deploy":
                 if (!l_mapAvailable) {
                     System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
-                    d_currentState.getD_modelLogger().setD_message("Entered command: deploy. Map is not available. ","effect");
                 } else {
                     deploy(p_inputCommand, p_player);
-                    d_currentState.getD_modelLogger().setD_message("Entered command: deploy. deploy executed successfully. ","effect");
                 }
                 break;
             case "advance":
                 if (!l_mapAvailable) {
                     System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
-                    d_currentState.getD_modelLogger().setD_message("Entered command: advance. Map is not available. ","effect");
                 } else {
                     advance(p_inputCommand, p_player);
-                    d_currentState.getD_modelLogger().setD_message("Entered command: advance. advance executed successfully. ","effect");
                 }
                 break;
             case "bomb":
                 if (!l_mapAvailable) {
                     System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
-                    d_currentState.getD_modelLogger().setD_message("Entered command: bomb. Map is not available. ","effect");
                 } else {
                     cardHandle(p_inputCommand, p_player);
-                    d_currentState.getD_modelLogger().setD_message("Entered command: bomb executed successfully. ","effect");
                 }
                 break;
             case "blockade":
                 if (!l_mapAvailable) {
                     System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
-                    d_currentState.getD_modelLogger().setD_message("Entered command: blockade. Map is not available. ","effect");
                 } else {
                     cardHandle(p_inputCommand, p_player);
-                    d_currentState.getD_modelLogger().setD_message("Entered command: blockade. blockade executed successfully. ","effect");
                 }
                 break;
             case "airlift":
                 if (!l_mapAvailable) {
                     System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
-                    d_currentState.getD_modelLogger().setD_message("Entered command: airlift. Map is not available. ","effect");
                 } else {
                     cardHandle(p_inputCommand, p_player);
-                    d_currentState.getD_modelLogger().setD_message("Entered command: airlift. airlift executed successfully. ","effect");
                 }
                 break;
             case "negotiate":
                 if (!l_mapAvailable) {
-                    System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
                     d_currentState.getD_modelLogger().setD_message("Entered command: negotiate. Map is not available. ","effect");
                 } else {
                     cardHandle(p_inputCommand, p_player);
-                    d_currentState.getD_modelLogger().setD_message("Entered command: negotiate. negotiate executed successfully. ","effect");
                 }
                 break;
             case "exit":
-                d_mainGameEngine.setD_mainEngineLog("Entered command: exit. Exited successfully.","effect");
-                d_currentState.getD_modelLogger().setD_message("Entered command: exit. Exited successfully.","effect");
                 d_currentState.getD_modelLogger().setD_message("---------------Game Session Closed---------------","effect");
                 System.out.println("Closing Game....");
                 System.exit(0);
@@ -370,7 +338,7 @@ public abstract class Phase {
      * Print invalid command in phase.
      */
     public void printInvalidCommandInPhase(){
-        d_mainGameEngine.setD_mainEngineLog("Invalid Command entered for this phase.","error");
+        d_mainGameEngine.setD_mainEngineLog("Invalid Command entered for this phase.","effect");
     }
 
 }
