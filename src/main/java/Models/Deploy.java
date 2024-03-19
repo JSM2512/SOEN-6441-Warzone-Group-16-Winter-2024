@@ -18,6 +18,9 @@ public class Deploy implements Orders{
      */
     Player d_intitiatingPlayer;
 
+    /**
+     * The D logof order execution.
+     */
     String d_logofOrderExecution;
 
     /**
@@ -47,6 +50,11 @@ public class Deploy implements Orders{
                 '}';
     }
 
+    /**
+     * Order execution log string.
+     *
+     * @return the string
+     */
     @Override
     public String orderExecutionLog(){
         return d_logofOrderExecution;

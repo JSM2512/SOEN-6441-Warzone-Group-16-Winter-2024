@@ -57,6 +57,11 @@ public class CurrentState {
         return d_map;
     }
 
+    /**
+     * Get recent log string.
+     *
+     * @return the string
+     */
     public String getRecentLog(){
         return d_modelLogger.getD_message();
     }

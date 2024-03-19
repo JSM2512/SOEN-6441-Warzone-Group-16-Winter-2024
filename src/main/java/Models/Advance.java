@@ -27,6 +27,9 @@ public class Advance implements Orders{
      */
     Player d_intitiatingPlayer;
 
+    /**
+     * The D order execution log.
+     */
     String d_orderExecutionLog;
 
     /**
@@ -259,6 +262,11 @@ public class Advance implements Orders{
         l_playerController.assignContinentToPlayers(l_playerList, p_currentState.getD_map().getD_mapContinents());
     }
 
+    /**
+     * Order execution log string.
+     *
+     * @return the string
+     */
     @Override
     public String orderExecutionLog() {
         return this.d_orderExecutionLog;

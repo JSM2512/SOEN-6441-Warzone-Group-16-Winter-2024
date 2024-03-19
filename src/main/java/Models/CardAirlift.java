@@ -21,6 +21,9 @@ public class CardAirlift implements Card{
      */
     String d_targetCountryName;
 
+    /**
+     * The D log of order execution.
+     */
     String d_logOfOrderExecution;
 
     /**
@@ -68,6 +71,11 @@ public class CardAirlift implements Card{
                 '}';
     }
 
+    /**
+     * Order execution log string.
+     *
+     * @return the string
+     */
     @Override
     public String orderExecutionLog() {
         return this.d_logOfOrderExecution;

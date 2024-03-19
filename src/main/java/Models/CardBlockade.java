@@ -13,6 +13,9 @@ public class CardBlockade implements Card {
      */
     String d_targetCountryName;
 
+    /**
+     * The D execution order log.
+     */
     String d_executionOrderLog;
 
     /**
@@ -41,6 +44,11 @@ public class CardBlockade implements Card {
         }
     }
 
+    /**
+     * Order execution log string.
+     *
+     * @return the string
+     */
     public String orderExecutionLog() {
         return this.d_executionOrderLog;
     }

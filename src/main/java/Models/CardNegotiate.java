@@ -13,6 +13,9 @@ public class CardNegotiate implements Card{
      */
     String d_targetPlayer;
 
+    /**
+     * The D log order execution.
+     */
     String d_logOrderExecution;
 
     /**
@@ -41,6 +44,11 @@ public class CardNegotiate implements Card{
         }
     }
 
+    /**
+     * Order execution log string.
+     *
+     * @return the string
+     */
     public String orderExecutionLog() {
         return this.d_logOrderExecution;
     }

@@ -14,6 +14,9 @@ public class CardBomb implements Card{
      */
     String d_targetCountryName;
 
+    /**
+     * The D log order execution.
+     */
     String d_logOrderExecution;
 
     /**
@@ -101,6 +104,11 @@ public class CardBomb implements Card{
         return true;
     }
 
+    /**
+     * Order execution log string.
+     *
+     * @return the string
+     */
     public String orderExecutionLog() {
         return this.d_logOrderExecution;
     }
