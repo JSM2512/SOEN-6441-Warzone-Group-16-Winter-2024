@@ -62,6 +62,11 @@ public class OrderExecutionPhase extends Phase{
         }
     }
 
+    @Override
+    protected void tournamentMode(CommandHandler lCommandHandler) {
+        printInvalidCommandInPhase();
+    }
+
     /**
      * Check end of game boolean.
      *

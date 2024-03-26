@@ -50,6 +50,7 @@ public class StartupPhase extends Phase{
             System.out.println("8. Edit the Neighbour: (Usage: 'editneighbour -add/-remove <country_id_1> <country_id_2>')");
             System.out.println("9. Add a player: (Usage: 'gameplayer -add/-remove <player_name>')");
             System.out.println("10. Assign countries and allocate armies to players: (Usage: 'assigncountries')");
+            System.out.println("11. Tournament Mode: (Usage: 'tournament -M <list_of_maps> -P <list_of_player_strategies> -G <number_of_games> -D <max_turns>')");
             System.out.println("11. Exit the game: (Usage: 'exit')");
             System.out.println("");
             System.out.print("Enter your command: ");
@@ -61,6 +62,11 @@ public class StartupPhase extends Phase{
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    @Override
+    protected void tournamentMode(CommandHandler lCommandHandler) {
+
     }
 
     /**

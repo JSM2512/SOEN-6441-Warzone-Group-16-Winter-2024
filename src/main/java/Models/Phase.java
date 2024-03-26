@@ -217,6 +217,9 @@ public abstract class Phase {
                     cardHandle(p_inputCommand, p_player);
                 }
                 break;
+            case "tournament":
+                tournamentMode(l_commandHandler);
+                break;
             case "exit":
                 d_currentState.getD_modelLogger().setD_message("---------------Game Session Closed---------------","effect");
                 System.out.println("Closing Game....");
@@ -227,6 +230,8 @@ public abstract class Phase {
                 break;
         }
     }
+
+    protected abstract void tournamentMode(CommandHandler lCommandHandler);
 
     /**
      * Card handle.

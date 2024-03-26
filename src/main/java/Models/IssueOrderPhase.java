@@ -44,6 +44,11 @@ public class IssueOrderPhase extends Phase{
 
     }
 
+    @Override
+    protected void tournamentMode(CommandHandler lCommandHandler) {
+        printInvalidCommandInPhase();
+    }
+
     /**
      * Card handle.
      *
