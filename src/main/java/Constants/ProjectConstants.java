@@ -151,5 +151,10 @@ public final class ProjectConstants {
     public static final int NO_OF_CARDS = ALL_CARDS.size();
     public static final String INVALID_TOURNAMENT_MODE_COMMAND = "Invalid command for Tournament mode, Provide command in format of : tournament -M <list_of_maps> -P <list_of_player_strategies> -G <number_of_games> -D <max_turns>";
     public static final String INVALID_MAP_FILE_COUNT = "Invalid number of map files. Please provide 1 to 5 map files.";
+    public static final String DUPLICATE_STRATEGY = "Duplicate strategy found. Please provide unique strategies for each player.";
+    public static final String INVALID_STRATEGY = "Invalid strategy found. Please provide valid strategy for each player from : 'Aggressive', 'Random', 'Benevolent', 'Cheater'";
+    public static final List<String> TOURNAMENT_PLAYER_BEHAVIOUR = Arrays.asList("Aggressive", "Random", "Benevolent", "Cheater");
+    public static final String INVALID_STRATEGY_COUNT = "Invalid number of strategies found. Please provide 2 to 4 strategies for each player.";
+    public static final String INVALID_PLAYER_NUMBER = "Invalid number of players found. Please provide atleast 2 players for the tournament.";
 }
 

@@ -53,7 +53,63 @@ public class Tournament {
     }
 
     private boolean parseStrategyArguments(CurrentState p_currentState, String p_argument, MainGameEngine p_maingameEngine) {
+        String[] l_listOfStrategies = p_argument.split(" ");
+        int l_strategySize = l_listOfStrategies.length;
+        List<Player> l_playersInGame = new ArrayList<>();
+        List<String> l_uniqueStrategies = new ArrayList<>();
+        for(String l_strategy : l_listOfStrategies){
+            if(l_uniqueStrategies.contains(l_strategy)){
+                p_maingameEngine.setD_mainEngineLog(ProjectConstants.DUPLICATE_STRATEGY,"effect");
+                return false;
+            }
+            l_uniqueStrategies.add(l_strategy);
+            if(!ProjectConstants.TOURNAMENT_PLAYER_BEHAVIOUR.contains(l_strategy)){
+                p_maingameEngine.setD_mainEngineLog(ProjectConstants.INVALID_STRATEGY,"effect");
+                return false;
+            }
+        }
+        if(l_strategySize >= 2 && l_strategySize <= 4){
+            setTournamentPlayers(p_maingameEngine, l_listOfStrategies, p_currentState.getD_players(), l_playersInGame);
+        }
+        else {
+            p_maingameEngine.setD_mainEngineLog(ProjectConstants.INVALID_STRATEGY_COUNT,"effect");
+            return false;
+        }
+        if(l_playersInGame.size() < 2){
+            p_maingameEngine.setD_mainEngineLog(ProjectConstants.INVALID_PLAYER_NUMBER,"effect");
+            return false;
+        }
+        for(CurrentState l_currentState : d_currentStateList){
+            l_currentState.setD_players(getPlayersToAdd(l_playersInGame));
+        }
+
         return true;
+    }
+
+    private void setTournamentPlayers(MainGameEngine p_maingameEngine, String[] l_listOfStrategies, List<Player> p_players, List<Player> l_playersInGame) {
+
+    }
+
+    private List<Player> getPlayersToAdd(List<Player> p_playersInGame) {
+        List<Player> l_players = new ArrayList<>();
+        for(Player l_player : p_playersInGame){
+            Player l_newPlayer = new Player(l_player.getD_name());
+
+//            if(l_player.getD_playerStrategy().equalsIgnoreCase("Aggressive")){
+//                l_newPlayer.setD_playerStrategy(new Aggressive());
+//            }
+//            else if(l_player.getD_playerStrategy().equalsIgnoreCase("Random")){
+//                l_newPlayer.setD_playerStrategy(new Random());
+//            }
+//            else if(l_player.getD_playerStrategy().equalsIgnoreCase("Benevolent")){
+//                l_newPlayer.setD_playerStrategy(new Benevolent());
+//            }
+//            else if(l_player.getD_playerStrategy().equalsIgnoreCase("Cheater")){
+//                l_newPlayer.setD_playerStrategy(new Cheater());
+//            }
+
+        }
+        return l_players;
     }
 
     private boolean parseMapArguments(String p_argument, MainGameEngine p_maingameEngine) {
