@@ -5,3 +5,15 @@ Map Loaded Success
 ---------------Game Session Started---------------
 Map Loaded Success
 ---------------Game Session Closed---------------
+Game Session Started
+
+
+=========Startup Phase of the Game=========
+
+
+Game Session Started
+
+
+=========Startup Phase of the Game=========
+
+

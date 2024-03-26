@@ -19,7 +19,7 @@ public class HumanPlayer extends PlayerBehaviourStrategy{
     }
 
     @Override
-    public String createCardOwner(Player p_player, CurrentState p_currentState, String p_cardName) {
+    public String createCardOrder(Player p_player, CurrentState p_currentState, String p_cardName) {
         return null;
     }
 
