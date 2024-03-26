@@ -38,12 +38,12 @@ public class AggressivePlayer extends PlayerBehaviourStrategy{
                     case 3:
                         if (p_player.getD_cardsOwnedByPlayer().size() == 1) {
                             System.out.println("Cards");
-                            l_command = createCardOwner(p_player, p_currentState, p_player.getD_cardsOwnedByPlayer().get(0));
+                            l_command = createCardOrder(p_player, p_currentState, p_player.getD_cardsOwnedByPlayer().get(0));
                             break;
                         } else {
                             Random l_random = new Random();
                             int l_randomIndex = l_random.nextInt(p_player.getD_cardsOwnedByPlayer().size());
-                            l_command = createCardOwner(p_player, p_currentState, p_player.getD_cardsOwnedByPlayer().get(l_randomIndex));
+                            l_command = createCardOrder(p_player, p_currentState, p_player.getD_cardsOwnedByPlayer().get(l_randomIndex));
                             break;
                         }
                     default:
@@ -73,7 +73,7 @@ public class AggressivePlayer extends PlayerBehaviourStrategy{
     }
 
     @Override
-    public String createCardOwner(Player p_player, CurrentState p_currentState, String p_cardName) {
+    public String createCardOrder(Player p_player, CurrentState p_currentState, String p_cardName) {
         Random l_random = new Random();
         Country l_strongestSourceCountry = getStrongestCountry(p_player, p_currentState);
         Country l_randomTargetCountry = p_currentState.getD_map().getCountryById(l_strongestSourceCountry.getD_neighbouringCountriesId().get(l_random.nextInt(l_strongestSourceCountry.getD_neighbouringCountriesId().size())));
@@ -86,20 +86,30 @@ public class AggressivePlayer extends PlayerBehaviourStrategy{
             case "airlift":
                 return "airlift " + l_strongestSourceCountry.getD_countryName() + " " + l_randomTargetCountry.getD_countryName() + " " + l_noOfArmiesToMove;
             case "negotiate":
-                return "negotiate " + l_randomTargetCountry.getD_countryName();
+                return "negotiate " + getRandomEnemyPlayer(p_player, p_currentState).getD_name();
         }
         return null;
     }
 
+    private Player getRandomEnemyPlayer(Player p_player, CurrentState p_gameState) {
+        ArrayList<Player> l_playerList = new ArrayList<>();
+        Random l_random = new Random();
+        for (Player l_eachPlayer : p_gameState.getD_players()) {
+            if (!l_eachPlayer.equals(p_player)) {
+                l_playerList.add(l_eachPlayer);
+            }
+        }
+        return l_playerList.get(l_random.nextInt(l_playerList.size()));
+    }
 
     private Country getStrongestCountry(Player p_player, CurrentState p_currentState) {
         List<Country> l_countriesOwnedByPlayer = p_player.getD_currentCountries();
-        Country l_strongestCountry = claculateStrongestCountry(l_countriesOwnedByPlayer);
+        Country l_strongestCountry = calculateStrongestCountry(l_countriesOwnedByPlayer);
         return l_strongestCountry;
 
     }
 
-    private Country claculateStrongestCountry(List<Country> p_countriesOwnedByPlayer) {
+    private Country calculateStrongestCountry(List<Country> p_countriesOwnedByPlayer) {
         LinkedHashMap<Country,Integer> l_countryWithArmies = new LinkedHashMap<>();
         int l_largestNoOfArmies = 0;
         Country l_strongestCountry = null;

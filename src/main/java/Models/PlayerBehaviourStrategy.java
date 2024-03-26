@@ -12,7 +12,7 @@ public abstract class PlayerBehaviourStrategy {
 
     public abstract String createOrder(Player p_player, CurrentState p_currentState) throws IOException;
 
-    public abstract String createCardOwner(Player p_player, CurrentState p_currentState, String p_cardName);
+    public abstract String createCardOrder(Player p_player, CurrentState p_currentState, String p_cardName);
 
     public abstract String createAdvanceOrder(Player p_player, CurrentState p_currentState);
 
