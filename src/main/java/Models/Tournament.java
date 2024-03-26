@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Tournament {
     MapController d_mapController = new MapController();
-    List<CurrentState> d_currentStates = new ArrayList<>();
+    List<CurrentState> d_currentStateList = new ArrayList<>();
 
     public MapController getD_mapController() {
         return d_mapController;
@@ -20,12 +20,12 @@ public class Tournament {
         this.d_mapController = p_mapController;
     }
 
-    public List<CurrentState> getD_currentStates() {
-        return d_currentStates;
+    public List<CurrentState> getD_currentStateList() {
+        return d_currentStateList;
     }
 
-    public void setD_currentStates(List<CurrentState> p_currentStates) {
-        this.d_currentStates = p_currentStates;
+    public void setD_currentStateList(List<CurrentState> p_currentStates) {
+        this.d_currentStateList = p_currentStates;
     }
 
     public boolean parseTournamentCommand(CurrentState p_currentState, String p_operation, String p_argument, MainGameEngine p_maingameEngine) throws CommandValidationException {
@@ -57,6 +57,29 @@ public class Tournament {
     }
 
     private boolean parseMapArguments(String p_argument, MainGameEngine p_maingameEngine) {
+        String[] l_listOfMapFiles = p_argument.split(" ");
+        int l_mapFileSize = l_listOfMapFiles.length;
+
+        if(l_mapFileSize >= 1 && l_mapFileSize <= 5){
+            for(String l_mapFile : l_listOfMapFiles){
+                CurrentState l_currentState = new CurrentState();
+                Map l_map = d_mapController.loadMap(l_currentState, l_mapFile);
+                l_map.setD_mapName(l_mapFile);
+                if(l_map.validateMap()){
+                    l_currentState.setD_loadCommand();
+                    p_maingameEngine.setD_mainEngineLog("Map :" + l_mapFile + " Loaded Successfully","effect");
+                    d_currentStateList.add(l_currentState);
+                }
+                else {
+                    d_mapController.resetMap(l_currentState, l_mapFile);
+                    return false;
+                }
+            }
+        }
+        else {
+            p_maingameEngine.setD_mainEngineLog(ProjectConstants.INVALID_MAP_FILE_COUNT,"effect");
+            return false;
+        }
         return true;
     }
 }

@@ -477,4 +477,10 @@ public class MapController {
             }
         }
     }
+
+    public void resetMap(CurrentState p_currentState, String p_mapFile) {
+        System.err.println("Map is not valid. Kindly provide valid map.");
+        p_currentState.updateLog(p_mapFile + " map is not valid. Kindly provide valid map.","effect");
+        p_currentState.setD_map(new Map());
+    }
 }

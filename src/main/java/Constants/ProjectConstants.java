@@ -150,5 +150,6 @@ public final class ProjectConstants {
      */
     public static final int NO_OF_CARDS = ALL_CARDS.size();
     public static final String INVALID_TOURNAMENT_MODE_COMMAND = "Invalid command for Tournament mode, Provide command in format of : tournament -M <list_of_maps> -P <list_of_player_strategies> -G <number_of_games> -D <max_turns>";
+    public static final String INVALID_MAP_FILE_COUNT = "Invalid number of map files. Please provide 1 to 5 map files.";
 }
 

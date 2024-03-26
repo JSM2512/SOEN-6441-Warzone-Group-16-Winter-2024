@@ -23,6 +23,7 @@ public class CurrentState {
      * The D model logger.
      */
     ModelLogger d_modelLogger = new ModelLogger();
+    Boolean d_loadCommand = false;
 
     /**
      * Instantiates a new Current state.
@@ -101,6 +102,14 @@ public class CurrentState {
      */
     public void setLogMessage(String p_modelLoggerMessage, String p_messageType) {
         d_modelLogger.setD_message(p_modelLoggerMessage, p_messageType);
+    }
+
+    public Boolean getD_loadCommand() {
+        return d_loadCommand;
+    }
+
+    public void setD_loadCommand() {
+        this.d_loadCommand = true;
     }
 
     /**
