@@ -149,5 +149,6 @@ public final class ProjectConstants {
      * The constant NO_OF_CARDS.
      */
     public static final int NO_OF_CARDS = ALL_CARDS.size();
+    public static final String INVALID_TOURNAMENT_MODE_COMMAND = "Invalid command for Tournament mode, Provide command in format of : tournament -M <list_of_maps> -P <list_of_player_strategies> -G <number_of_games> -D <max_turns>";
 }
 
