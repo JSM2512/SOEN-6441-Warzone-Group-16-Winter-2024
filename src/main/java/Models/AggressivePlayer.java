@@ -15,9 +15,61 @@ public class AggressivePlayer extends PlayerBehaviourStrategy{
 
     @Override
     public String createOrder(Player p_player, CurrentState p_currentState) throws IOException {
+        System.out.println("Order creation for " + p_player.getD_name());
+        String l_command = "";
+        if (!checkIfArmiesDeployed(p_player)) {
+            if (p_player.getD_unallocatedArmies() > 0) {
+                l_command = createDeployOrder(p_player, p_currentState);
+            } else {
+                l_command = createAdvanceOrder(p_player, p_currentState);
+            }
+        } else {
+            if (p_player.getD_cardsOwnedByPlayer().size() > 0) {
+                int l_index = (int) (Math.random() * 3) + 1;
+                switch (l_index) {
+                    case 1:
+                        System.out.println("Deploy order");
+                        l_command = createDeployOrder(p_player, p_currentState);
+                        break;
+                    case 2:
+                        System.out.println("Advance order");
+                        l_command = createAdvanceOrder(p_player, p_currentState);
+                        break;
+                    case 3:
+                        if (p_player.getD_cardsOwnedByPlayer().size() == 1) {
+                            System.out.println("Cards");
+                            l_command = createCardOwner(p_player, p_currentState, p_player.getD_cardsOwnedByPlayer().get(0));
+                            break;
+                        } else {
+                            Random l_random = new Random();
+                            int l_randomIndex = l_random.nextInt(p_player.getD_cardsOwnedByPlayer().size());
+                            l_command = createCardOwner(p_player, p_currentState, p_player.getD_cardsOwnedByPlayer().get(l_randomIndex));
+                            break;
+                        }
+                    default:
+                        l_command = createAdvanceOrder(p_player, p_currentState);
+                        break;
+                }
+            } else {
+                Random l_random = new Random();
+                boolean l_randomBoolean = l_random.nextBoolean();
+                if (l_randomBoolean) {
+                    System.out.println("Without card deploy");
+                    l_command = createDeployOrder(p_player, p_currentState);
+                } else {
+                    System.out.println("Without card advance");
+                    l_command = createAdvanceOrder(p_player, p_currentState);
+                }
+            }
+        }
+        return l_command;
+    }
 
-
-        return null;
+    private boolean checkIfArmiesDeployed(Player p_player) {
+        if(p_player.getD_currentCountries().stream().anyMatch(l_country -> l_country.getD_armies() > 0)){
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -103,6 +155,13 @@ public class AggressivePlayer extends PlayerBehaviourStrategy{
 
     @Override
     public String createDeployOrder(Player p_player, CurrentState p_currentState) {
-        return null;
+        Random l_random = new Random();
+        Country l_strongestCountry = getStrongestCountry(p_player, p_currentState);
+        d_deployCountries.add(l_strongestCountry);
+        int l_noOfArmiesToDeploy = 1;
+        if(p_player.getD_unallocatedArmies()>1){
+            l_noOfArmiesToDeploy = l_random.nextInt(p_player.getD_unallocatedArmies()-1)+1;
+        }
+        return String.format("deploy %s %d", l_strongestCountry.getD_countryName(), l_noOfArmiesToDeploy);
     }
 }
