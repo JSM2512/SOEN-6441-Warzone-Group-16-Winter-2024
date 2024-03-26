@@ -555,4 +555,14 @@ public class Map {
         }
         return "null";
     }
+
+    public Country getCountryById(Integer p_countryId){
+        for(Country l_country : d_mapCountries){
+            if(l_country.d_countryID.equals(p_countryId)){
+                return l_country;
+            }
+        }
+        System.out.println(ProjectConstants.COUNTRY_DOES_NOT_EXIST);
+        return null;
+    }
 }
