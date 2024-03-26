@@ -44,7 +44,7 @@ public class ModelLogger extends Observable {
         } else if ("phase".equals(p_messageType)) {
             d_message = System.lineSeparator() + "=========" + p_message + "=========" +  System.lineSeparator() + System.lineSeparator();
         } else if ("effect".equals(p_messageType)) {
-            d_message = "Log:" + p_message + System.lineSeparator();
+            d_message = "Log: " + p_message + System.lineSeparator();
         } else if ("start".equals(p_messageType) || ("end".equals(p_messageType))) {
             d_message = p_message + System.lineSeparator();
         }

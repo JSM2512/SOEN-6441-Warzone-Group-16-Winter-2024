@@ -201,7 +201,7 @@ public class IssueOrderPhase extends Phase{
         System.out.println();
         System.out.print("Enter your command: ");
         String l_commandEntered = l_bufferedReader.readLine();
-        d_currentState.updateLog("Player : " + p_player.getD_name() + " has entered command : " + l_commandEntered ,"Order-1");
+        d_currentState.updateLog("Player : " + p_player.getD_name() + " has entered command : " + l_commandEntered ,"order");
         handleCommand(l_commandEntered, p_player);
     }
 
@@ -217,6 +217,7 @@ public class IssueOrderPhase extends Phase{
         if(l_commandHandler.getMainCommand().equals("deploy")){
             if(p_inputCommand.split(" ").length == 3){
                 p_player.createDeployOrder(p_inputCommand);
+                d_currentState.updateLog(p_player.getD_playerLog(), "effect");
                 p_player.checkForMoreOrder();
             }
         }
@@ -234,6 +235,8 @@ public class IssueOrderPhase extends Phase{
         if(l_commandHandler.getMainCommand().equals("advance")){
             if(p_inputCommand.split(" ").length == 4){
                 p_player.createAdvanceOrder(p_inputCommand, d_currentState);
+                d_currentState.updateLog(p_player.getD_playerLog(), "effect");
+
                 p_player.checkForMoreOrder();
             }
             else{

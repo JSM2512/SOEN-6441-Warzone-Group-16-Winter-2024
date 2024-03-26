@@ -86,7 +86,7 @@ public class MainGameEngine {
      * @param p_logType          the p log type
      */
     public void setD_mainEngineLog(String p_logForMainEngine,String p_logType){
-        this.d_currentState.getD_modelLogger().setD_message(p_logForMainEngine,p_logType);
+        d_currentPhase.getD_currentState().updateLog(p_logForMainEngine,p_logType);
         String l_consoleMessage;
         if (p_logType.equalsIgnoreCase("phase")){
             l_consoleMessage = "\n=============================== "+p_logForMainEngine+" ===============================\n";

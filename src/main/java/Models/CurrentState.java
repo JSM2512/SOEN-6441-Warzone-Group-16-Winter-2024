@@ -28,7 +28,6 @@ public class CurrentState {
      * Instantiates a new Current state.
      */
     public CurrentState() {
-        d_modelLogger.setD_message("New State/Session generated","start");
     }
 
     /**
@@ -56,6 +55,15 @@ public class CurrentState {
      */
     public Map getD_map() {
         return d_map;
+    }
+
+    /**
+     * Get recent log string.
+     *
+     * @return the string
+     */
+    public String getRecentLog(){
+        return d_modelLogger.getD_message();
     }
 
     /**

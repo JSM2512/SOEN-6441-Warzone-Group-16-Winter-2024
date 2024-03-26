@@ -28,6 +28,11 @@ public class Advance implements Orders{
     Player d_intitiatingPlayer;
 
     /**
+     * The D order execution log.
+     */
+    String d_orderExecutionLog;
+
+    /**
      * Instantiates a new Advance.
      *
      * @param p_sourceCountry     the p source country
@@ -49,6 +54,7 @@ public class Advance implements Orders{
      * @param p_messageType       the p message type
      */
     public void setD_orderExecutionLog(String p_orderExecutionLog, String p_messageType) {
+        this.d_orderExecutionLog = p_orderExecutionLog;
         if (p_messageType.equals("error")) {
             System.err.println(p_orderExecutionLog);
         } else {
@@ -96,7 +102,7 @@ public class Advance implements Orders{
             }
         }
         else{
-            p_currentState.updateLog("Cannot execute advance Order","effect");
+            p_currentState.updateLog(orderExecutionLog(),"effect");
         }
     }
 
@@ -119,6 +125,7 @@ public class Advance implements Orders{
         List<Integer> l_defenderArmies = generateRandomArmyUnits(l_armiesInAttack, "defender");
         List<Integer> l_attackerArmies = generateRandomArmyUnits(l_armiesInAttack, "attacker");
         this.produceBattleResult(p_sourceCountry, p_targetCountry, l_attackerArmies, l_defenderArmies, p_playerOfTargetCountry);
+        p_currentState.updateLog(orderExecutionLog(),"effect");
         updateContinents(d_intitiatingPlayer, p_playerOfTargetCountry, p_currentState);
     }
 
@@ -230,7 +237,8 @@ public class Advance implements Orders{
         p_targetCountry.setD_armies(d_noOfArmiesToPlace);
         p_playerOfTargetCountry.getD_currentCountries().remove(p_targetCountry);
         this.d_intitiatingPlayer.d_currentCountries.add(p_targetCountry);
-        System.out.println("Player : "+d_intitiatingPlayer.getD_name()+" is assigned with Country : "+p_targetCountry.getD_countryName()+" and Armies : "+p_targetCountry.getD_armies());
+        this.setD_orderExecutionLog("Player : "+d_intitiatingPlayer.getD_name()+" is assigned with Country : "+p_targetCountry.getD_countryName()+" and Armies : "+p_targetCountry.getD_armies(),"default");
+        p_currentState.updateLog(orderExecutionLog(),"effect");
         this.updateContinents(this.d_intitiatingPlayer, p_playerOfTargetCountry, p_currentState);
     }
 
@@ -252,6 +260,16 @@ public class Advance implements Orders{
 
         PlayerController l_playerController = new PlayerController();
         l_playerController.assignContinentToPlayers(l_playerList, p_currentState.getD_map().getD_mapContinents());
+    }
+
+    /**
+     * Order execution log string.
+     *
+     * @return the string
+     */
+    @Override
+    public String orderExecutionLog() {
+        return this.d_orderExecutionLog;
     }
 
     /**
@@ -299,22 +317,22 @@ public class Advance implements Orders{
         }
         if(l_country == null){
             this.setD_orderExecutionLog("Cannot execute the order because the source country does not belong to the player.","error");
-            p_currentState.updateLog("Cannot execute the order because the source country does not belong to the player.","effect");
+            p_currentState.updateLog(orderExecutionLog(),"effect");
             return false;
         }
         if(this.d_noOfArmiesToPlace > l_country.getD_armies()){
             this.setD_orderExecutionLog("Cannot execute the order because the no of armies you inserted is more than available at the source country.","error");
-            p_currentState.updateLog("Cannot execute the order because the no of armies you inserted is more than available at the source country.","effect");
+            p_currentState.updateLog(orderExecutionLog(),"effect");
             return false;
         }
         if(this.d_noOfArmiesToPlace == l_country.getD_armies()){
             this.setD_orderExecutionLog("Cannot execute the order because the no of armies you inserted is equal to the total no of armies present at the source country; at least one army unit must me present to retain the country.","error");
-            p_currentState.updateLog("Cannot execute the order because the no of armies you inserted is equal to the total no of armies present at the source country; at least one army unit must me present to retain the country.","effect");
+            p_currentState.updateLog(orderExecutionLog(),"effect");
             return false;
         }
         if(!this.d_intitiatingPlayer.negotiationValidation(this.d_targetCountry)){
             this.setD_orderExecutionLog("Cannot execute the order because the player has a negotiation pact with the owner of the target country.","error");
-            p_currentState.updateLog("Cannot execute the order because the player has a negotiation pact with the owner of the target country.","effect");
+            p_currentState.updateLog(orderExecutionLog(),"effect");
             return false;
         }
         return true;

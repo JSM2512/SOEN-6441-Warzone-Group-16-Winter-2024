@@ -87,8 +87,7 @@ public class Player {
      * @param p_messageType       the p message type
      */
     public void setD_playerLog(String p_orderExecutionLog, String p_messageType) {
-        MainGameEngine l_mainGameEngine = new MainGameEngine();
-        l_mainGameEngine.setD_mainEngineLog(p_orderExecutionLog, p_messageType);
+        this.d_playerLog = p_orderExecutionLog;
         if (p_messageType.equals("error")) {
             System.err.println(p_orderExecutionLog);
         } else {
@@ -406,7 +405,7 @@ public class Player {
             l_noOfArmies > 0 &&
             checkAdjacentCountry(l_sourceCountry,l_targetCountry,p_currentState)){
             this.d_orders.add(new Advance(l_sourceCountry, l_targetCountry, l_noOfArmies, this));
-            this.setD_playerLog("Advance order is added for execution for player " + this.getD_name(),"effect");
+            this.setD_playerLog("Advance order is added for execution for player " + this.getD_name(),"log");
         }
         else{
             this.setD_playerLog("Invalid Arguments passed for advance order.","error");
@@ -471,7 +470,7 @@ public class Player {
                     if (l_bombOrder.validOrderCheck(p_currentState)) {
                         this.d_orders.add(l_bombOrder);
                         this.setD_playerLog("Bomb order is added for execution for player " + this.getD_name(), "effect");
-                        p_currentState.updateLog("Bomb order is added for execution for player " + this.getD_name(), "effect");
+                        p_currentState.updateLog(getD_playerLog(), "effect");
                     }
                     break;
                 case "blockade":
@@ -479,7 +478,7 @@ public class Player {
                     if (l_blockadeOrder.validOrderCheck(p_currentState)) {
                         this.d_orders.add(l_blockadeOrder);
                         this.setD_playerLog("Blockade order is added for execution for player " + this.getD_name(), "effect");
-                        p_currentState.updateLog("Blockade order is added for execution for player " + this.getD_name(), "effect");
+                        p_currentState.updateLog(getD_playerLog(), "effect");
                     }
                     break;
                 case "airlift":
@@ -487,7 +486,7 @@ public class Player {
                     if (l_airliftOrder.validOrderCheck(p_currentState)) {
                         this.d_orders.add(l_airliftOrder);
                         this.setD_playerLog("Airlift order is added for execution for player " + this.getD_name(), "effect");
-                        p_currentState.updateLog("Airlift order is added for execution for player " + this.getD_name(), "effect");
+                        p_currentState.updateLog(getD_playerLog(), "effect");
                     }
                     break;
                 case "negotiate":
@@ -495,7 +494,7 @@ public class Player {
                     if (l_negotiateOrder.validOrderCheck(p_currentState)) {
                         this.d_orders.add(l_negotiateOrder);
                         this.setD_playerLog("Negotiate order is added for execution for player " + this.getD_name(), "effect");
-                        p_currentState.updateLog("Negotiate order is added for execution for player " + this.getD_name(), "effect");
+                        p_currentState.updateLog(getD_playerLog(), "effect");
                     }
                     break;
             }

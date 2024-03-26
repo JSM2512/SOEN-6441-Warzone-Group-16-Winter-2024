@@ -14,6 +14,21 @@ public interface Orders {
     public void execute(CurrentState p_currentState);
 
     /**
+     * Order execution log string.
+     *
+     * @return the string
+     */
+    public String orderExecutionLog();
+
+    /**
+     * Sets d order execution log.
+     *
+     * @param p_orderExecutionLog the p order execution log
+     * @param p_logType           the p log type
+     */
+    public void setD_orderExecutionLog(String p_orderExecutionLog, String p_logType);
+
+    /**
      * Valid boolean.
      *
      * @param p_currentState the p current state

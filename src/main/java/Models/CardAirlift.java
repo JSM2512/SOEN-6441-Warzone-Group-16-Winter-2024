@@ -22,6 +22,11 @@ public class CardAirlift implements Card{
     String d_targetCountryName;
 
     /**
+     * The D log of order execution.
+     */
+    String d_logOfOrderExecution;
+
+    /**
      * Instantiates a new Card airlift.
      *
      * @param p_cardOwner         the p card owner
@@ -43,6 +48,7 @@ public class CardAirlift implements Card{
      * @param p_messageType       the p message type
      */
     public void setD_orderExecutionLog(String p_orderExecutionLog, String p_messageType) {
+        this.d_logOfOrderExecution = p_orderExecutionLog;
         if (p_messageType.equals("error")) {
             System.err.println(p_orderExecutionLog);
         } else {
@@ -66,6 +72,16 @@ public class CardAirlift implements Card{
     }
 
     /**
+     * Order execution log string.
+     *
+     * @return the string
+     */
+    @Override
+    public String orderExecutionLog() {
+        return this.d_logOfOrderExecution;
+    }
+
+    /**
      * Valid order check boolean.
      *
      * @param p_currentState the p current state
@@ -76,13 +92,13 @@ public class CardAirlift implements Card{
         Country l_targetCountry = p_currentState.getD_map().getCountryByName(d_targetCountryName);
         if (l_targetCountry == null) {
             this.setD_orderExecutionLog("Invalid! Target country does not exist", "error");
-            p_currentState.updateLog("Invalid! Target country does not exist", "effect");
+            p_currentState.updateLog(orderExecutionLog(), "effect");
             return false;
         }
         Country l_sourceCountry = p_currentState.getD_map().getCountryByName(d_sourceCountryName);
         if (l_sourceCountry == null) {
             this.setD_orderExecutionLog("Invalid! Source country does not exist", "error");
-            p_currentState.updateLog("Invalid! Source country does not exist", "effect");
+            p_currentState.updateLog(orderExecutionLog(), "effect");
             return false;
         }
         return true;
@@ -130,7 +146,7 @@ public class CardAirlift implements Card{
         }
         if (l_targetCountry == null) {
             this.setD_orderExecutionLog("Invalid! Target country does not belong to player", "error");
-            p_currentState.updateLog("Invalid! Target country does not belong to player", "effect");
+            p_currentState.updateLog(orderExecutionLog(), "effect");
             return false;
 
         }
@@ -143,12 +159,12 @@ public class CardAirlift implements Card{
         }
         if (l_sourceCountry == null) {
             this.setD_orderExecutionLog("Invalid! Source country does not belong to player", "error");
-            p_currentState.updateLog("Invalid! Source country does not belong to player", "effect");
+            p_currentState.updateLog(orderExecutionLog(), "effect");
             return false;
         }
         if (l_sourceCountry.getD_armies() < d_armyCount) {
             this.setD_orderExecutionLog("Invalid! Source country does not have enough armies", "error");
-            p_currentState.updateLog("Invalid! Source country does not have enough armies", "effect");
+            p_currentState.updateLog(orderExecutionLog(), "effect");
             return false;
         }
         return true;
