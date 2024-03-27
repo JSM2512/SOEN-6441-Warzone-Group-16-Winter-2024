@@ -92,7 +92,6 @@ public class Tournament {
      * @return the boolean
      */
     private boolean parseNoOfTurnArgument(String p_argument, MainGameEngine p_maingameEngine) {
-
         int l_maxNoOfTurns = Integer.parseInt(p_argument.split(" ")[0]);
         if(l_maxNoOfTurns >= 10 && l_maxNoOfTurns <= 50){
             for(CurrentState l_currentState : d_currentStateList){

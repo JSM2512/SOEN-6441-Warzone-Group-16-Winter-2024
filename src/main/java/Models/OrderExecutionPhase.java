@@ -96,6 +96,7 @@ public class OrderExecutionPhase extends Phase{
         for(Player l_eachPlayer : p_currentState.getD_players()){
             if(!l_eachPlayer.getD_name().equalsIgnoreCase("Neutral")) {
                 if (l_eachPlayer.getD_currentCountries().size() + l_neutralCountries == l_totalCountries) {
+                    d_currentState.setD_winner(l_eachPlayer);
                     d_mainGameEngine.setD_mainEngineLog(l_eachPlayer.getD_name() + " has won the game. Exiting the game....", "end");
                     return true;
                 }
