@@ -156,5 +156,7 @@ public final class ProjectConstants {
     public static final List<String> TOURNAMENT_PLAYER_BEHAVIOUR = Arrays.asList("Aggressive", "Random", "Benevolent", "Cheater");
     public static final String INVALID_STRATEGY_COUNT = "Invalid number of strategies found. Please provide 2 to 4 strategies for each player.";
     public static final String INVALID_PLAYER_NUMBER = "Invalid number of players found. Please provide atleast 2 players for the tournament.";
+    public static final String INVALID_GAME_COUNT = "Invalid number of games found. Please provide 1 to 5 games for the tournament.";
+    public static final String INVALID_TURN_COUNT = "Invalid number of turns found. Please provide 10 to 50 turns for the tournament.";
 }
 

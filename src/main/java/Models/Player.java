@@ -23,19 +23,13 @@ public class Player {
      */
     String d_name;
 
-    /**
-     * Gets d player log.
-     *
-     * @return the d player log
-     */
-    public String getD_playerLog() {
-        return d_playerLog;
-    }
 
     /**
      * The D unallocated armies.
      */
     Integer d_unallocatedArmies;
+
+    PlayerBehaviourStrategy d_playerBehaviourStrategy;
     /**
      * The D current countries.
      */
@@ -113,6 +107,14 @@ public class Player {
         return d_name;
     }
 
+    public PlayerBehaviourStrategy getD_playerBehaviourStrategy() {
+        return d_playerBehaviourStrategy;
+    }
+
+    public void setD_playerBehaviourStrategy(PlayerBehaviourStrategy p_playerBehaviourStrategy) {
+        this.d_playerBehaviourStrategy = p_playerBehaviourStrategy;
+    }
+
     /**
      * Sets d name.
      *
@@ -156,6 +158,16 @@ public class Player {
      */
     public void setD_currentCountries(List<Country> p_currentCountries) {
         this.d_currentCountries = p_currentCountries;
+    }
+
+
+    /**
+     * Gets d player log.
+     *
+     * @return the d player log
+     */
+    public String getD_playerLog() {
+        return d_playerLog;
     }
 
     /**

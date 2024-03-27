@@ -19,6 +19,10 @@ public class CurrentState {
      */
     Map d_map;
 
+    int d_maxNumberOfTurns = 0;
+
+    int d_numberOfTurnsLeft = 0;
+
     /**
      * The D model logger.
      */
@@ -56,6 +60,22 @@ public class CurrentState {
      */
     public Map getD_map() {
         return d_map;
+    }
+
+    public int getD_maxNumberOfTurns() {
+        return d_maxNumberOfTurns;
+    }
+
+    public void setD_maxNumberOfTurns(int p_maxNumberOfTurns) {
+        this.d_maxNumberOfTurns = p_maxNumberOfTurns;
+    }
+
+    public int getD_numberOfTurnsLeft() {
+        return d_numberOfTurnsLeft;
+    }
+
+    public void setD_numberOfTurnsLeft(int p_numberOfTurnsLeft) {
+        this.d_numberOfTurnsLeft = p_numberOfTurnsLeft;
     }
 
     /**
