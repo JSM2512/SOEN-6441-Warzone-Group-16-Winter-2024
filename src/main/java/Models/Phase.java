@@ -51,7 +51,7 @@ public abstract class Phase {
     /**
      * Init phase.
      */
-    public abstract void initPhase();
+    public abstract void initPhase(boolean p_isTournamentMode);
 
     /**
      * Gets d current state.

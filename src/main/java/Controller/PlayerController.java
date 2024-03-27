@@ -28,33 +28,37 @@ public class PlayerController {
      *
      * @param p_currentState the p current state
      */
-    public void assignCountries(CurrentState p_currentState) {
-        if(p_currentState.getD_players() == null || p_currentState.getD_players().isEmpty()){
-            System.out.println(ProjectConstants.NO_PLAYER_IN_GAME);
-            d_currentState.getD_modelLogger().setD_message(ProjectConstants.NO_PLAYER_IN_GAME,"effect");
-            return;
+    public boolean assignCountries(CurrentState p_currentState) {
+        if (!checkPlayersAvalability(p_currentState)) {
+            return false;
         }
-        List<Player> l_players = p_currentState.getD_players();
-        List<Country> l_countryList = p_currentState.getD_map().getD_mapCountries();
+        List<Country> l_countries = p_currentState.getD_map().getD_mapCountries();
 
-        int l_noOfPlayers = l_players.size();
-        int l_noOfCountries = l_countryList.size();
-
+        int l_playersize = p_currentState.getD_players().size();
         Player l_neutralPlayer = null;
-        for(Player l_eachPlayer : p_currentState.getD_players()){
-            if(l_eachPlayer.getD_name().equalsIgnoreCase("Neutral")){
+        for (Player l_eachPlayer : p_currentState.getD_players()) {
+            if (l_eachPlayer.getD_name().equalsIgnoreCase("Neutral")) {
                 l_neutralPlayer = l_eachPlayer;
                 break;
             }
         }
-        if(l_neutralPlayer != null){
-            l_noOfPlayers--;
+        if(l_neutralPlayer != null) {
+            l_playersize = l_playersize - 1;
         }
+        int l_countriesPerPlayer = Math.floorDiv(l_countries.size(), l_playersize);
+        this.assignRandomCountriesToPlayers(l_countriesPerPlayer, l_countries, p_currentState.getD_players(), p_currentState);
+        this.assignContinentToPlayers(p_currentState.getD_players(), p_currentState.getD_map().getD_mapContinents());
+        p_currentState.updateLog("Countries assigned to players", "effect");
+        return true;
+    }
 
-        int l_noOfCountiesToEachPlayer = Math.floorDiv(l_noOfCountries, l_noOfPlayers);
-        assignRandomCountriesToPlayers(l_players, l_countryList, l_noOfCountiesToEachPlayer);
-        displayAssignedCountries(l_players);
-        assignContinentToPlayers(l_players, p_currentState.getD_map().getD_mapContinents());
+    private boolean checkPlayersAvalability(CurrentState p_currentState) {
+        if (p_currentState.getD_players() == null || p_currentState.getD_players().isEmpty()) {
+            System.out.println(ProjectConstants.NO_PLAYER_IN_GAME);
+            d_currentState.getD_modelLogger().setD_message(ProjectConstants.NO_PLAYER_IN_GAME, "effect");
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -99,9 +103,8 @@ public class PlayerController {
      *
      * @param p_players                  the p players
      * @param p_countryList              the p country list
-     * @param p_noOfCountiesToEachPlayer the p no of counties to each player
      */
-    public void assignRandomCountriesToPlayers(List<Player> p_players, List<Country> p_countryList, int p_noOfCountiesToEachPlayer) {
+    public void assignRandomCountriesToPlayers(int p_countriesPerPlayer, List<Country> p_countryList, List<Player> p_players, CurrentState p_currentState) {
         List<Country> l_unallocatedCountries = new ArrayList<>(p_countryList);
         if (l_unallocatedCountries.isEmpty()) {
             System.out.println(ProjectConstants.NO_COUNTRY_IN_MAP);
@@ -114,7 +117,7 @@ public class PlayerController {
                 if (l_unallocatedCountries.isEmpty()) {
                     break;
                 }
-                for (int i = 1; i <= p_noOfCountiesToEachPlayer; i++) {
+                for (int i = 1; i <= p_countriesPerPlayer; i++) {
                     Random l_randomNumber = new Random();
                     int l_randomIndex = l_randomNumber.nextInt(l_unallocatedCountries.size());
 
@@ -128,7 +131,7 @@ public class PlayerController {
         }
 
         if (!l_unallocatedCountries.isEmpty()) {
-            assignRandomCountriesToPlayers(p_players, l_unallocatedCountries, 1);
+            assignRandomCountriesToPlayers(1, l_unallocatedCountries, p_players, p_currentState);
         }
     }
 

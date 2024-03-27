@@ -383,23 +383,28 @@ public class Player {
     /**
      * Check for more order.
      */
-    public void checkForMoreOrder() {
-        BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Do you still want to give order for player : " + this.getD_name() + " in the next turn?");
-        System.out.println("Press Y for Yes and N for No");
-        try {
-            String l_check = l_reader.readLine();
-            if(l_check.equalsIgnoreCase("Y") || l_check.equalsIgnoreCase("N")){
-                this.setMoreOrders(l_check.equalsIgnoreCase("Y"));
+    public void checkForMoreOrder(boolean p_isTournamentMode) {
+        if (p_isTournamentMode || !this.getD_playerBehaviourStrategy().getPlayerBehaviour().equalsIgnoreCase("Human")) {
+            Random l_random = new Random();
+            boolean l_moreOrders = l_random.nextBoolean();
+            this.setMoreOrders(l_moreOrders);
+        }else {
+            BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
+            System.out.println("Do you still want to give order for player : " + this.getD_name() + " in the next turn?");
+            System.out.println("Press Y for Yes and N for No");
+            try {
+                String l_check = l_reader.readLine();
+                if(l_check.equalsIgnoreCase("Y") || l_check.equalsIgnoreCase("N")){
+                    this.setMoreOrders(l_check.equalsIgnoreCase("Y"));
+                }
+                else{
+                    System.err.println("Invalid Input Entered");
+                    this.checkForMoreOrder(p_isTournamentMode);
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-            else{
-                System.err.println("Invalid Input Entered");
-                this.checkForMoreOrder();
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
-
     }
 
     /**

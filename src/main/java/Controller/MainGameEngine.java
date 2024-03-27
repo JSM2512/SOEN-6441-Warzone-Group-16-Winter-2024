@@ -63,10 +63,10 @@ public class MainGameEngine {
     /**
      * Set issue order phase.
      */
-    public void setIssueOrderPhase(){
+    public void setIssueOrderPhase(boolean p_isTournamentMode){
         this.setD_mainEngineLog("Issue Order Phase","phase");
         setD_currentPhase(new IssueOrderPhase(d_currentState, this));
-        getD_currentPhase().initPhase();
+        getD_currentPhase().initPhase(p_isTournamentMode);
     }
 
     /**
@@ -75,7 +75,7 @@ public class MainGameEngine {
     public void setOrderExecutionPhase(){
         this.setD_mainEngineLog("Order Execution Phase","phase");
         setD_currentPhase(new OrderExecutionPhase(d_currentState, this));
-        getD_currentPhase().initPhase();
+        getD_currentPhase().initPhase(d_isTournamentMode);
     }
 
     /**
@@ -96,7 +96,7 @@ public class MainGameEngine {
      * @param p_mainGameEngine the p main game engine
      */
     private void start(MainGameEngine p_mainGameEngine){
-        p_mainGameEngine.getD_currentPhase().initPhase();
+        p_mainGameEngine.getD_currentPhase().initPhase(d_isTournamentMode);
     }
 
     /**

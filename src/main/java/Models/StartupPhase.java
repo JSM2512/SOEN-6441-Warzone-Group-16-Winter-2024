@@ -35,7 +35,7 @@ public class StartupPhase extends Phase{
      * Init phase.
      */
     @Override
-    public void initPhase() {
+    public void initPhase(boolean p_isTournamentMode) {
         BufferedReader l_bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
         while(d_mainGameEngine.getD_currentPhase() instanceof StartupPhase){
@@ -278,13 +278,15 @@ public class StartupPhase extends Phase{
             if(l_operationList.isEmpty() || p_isTournamentMode) {
                 d_mainGameEngine.setD_stateOfGame(p_currentState);
                 d_mainGameEngine.setD_isTournamentMode(p_isTournamentMode);
-//                if(d_gamePlayerController.assignCountries(p_currentState)){
-
-
-
-
+                if(d_gamePlayerController.assignCountries(p_currentState)){
+                    d_gamePlayerController.assignArmies(p_currentState);
+                    d_mainGameEngine.setIssueOrderPhase(p_isTournamentMode);
+                }
+            } else {
+                throw new CommandValidationException("Invalid Command for assign countries");
             }
-
+        }else {
+            d_mainGameEngine.setD_mainEngineLog("Please load a valid map first", "effect");
         }
     }
 

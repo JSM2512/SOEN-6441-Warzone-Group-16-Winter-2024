@@ -33,10 +33,10 @@ public class IssueOrderPhase extends Phase{
      * Init phase.
      */
     @Override
-    public void initPhase() {
+    public void initPhase(boolean p_isTournamentMode) {
         while(d_mainGameEngine.getD_currentPhase() instanceof IssueOrderPhase){
             try {
-                issueOrder();
+                issueOrder(p_isTournamentMode);
             } catch (Exception p_e) {
                 d_currentState.updateLog(p_e.getMessage(),"error");
             }
@@ -61,7 +61,6 @@ public class IssueOrderPhase extends Phase{
             p_player.handleCardCommand(p_inputCommand, d_currentState);
             d_mainGameEngine.setD_mainEngineLog(p_player.d_playerLog,"effect");
         }
-        p_player.checkForMoreOrder();
     }
 
     /**
@@ -180,11 +179,15 @@ public class IssueOrderPhase extends Phase{
      *
      * @throws Exception the exception
      */
-    private void issueOrder() throws Exception {
+    private void issueOrder(boolean p_isTournamentMode) throws Exception {
         do {
             for (Player l_eachPlayer : d_currentState.getD_players()) {
+                if (l_eachPlayer.getD_currentCountries().size() == 0) {
+                    l_eachPlayer.setMoreOrders(false);
+                }
                 if(l_eachPlayer.hasMoreOrders() && !l_eachPlayer.getD_name().equals("Neutral")) {
                     l_eachPlayer.issueOrder(this);
+                    l_eachPlayer.checkForMoreOrder(p_isTournamentMode);
                 }
             }
         }while(d_gamePlayerController.checkForMoreOrders(d_currentState.getD_players()));
@@ -223,7 +226,6 @@ public class IssueOrderPhase extends Phase{
             if(p_inputCommand.split(" ").length == 3){
                 p_player.createDeployOrder(p_inputCommand);
                 d_currentState.updateLog(p_player.getD_playerLog(), "effect");
-                p_player.checkForMoreOrder();
             }
         }
     }
@@ -241,8 +243,6 @@ public class IssueOrderPhase extends Phase{
             if(p_inputCommand.split(" ").length == 4){
                 p_player.createAdvanceOrder(p_inputCommand, d_currentState);
                 d_currentState.updateLog(p_player.getD_playerLog(), "effect");
-
-                p_player.checkForMoreOrder();
             }
             else{
                 System.err.println("Invalid! command for advance order.");

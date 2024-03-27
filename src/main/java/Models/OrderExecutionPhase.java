@@ -28,9 +28,10 @@ public class OrderExecutionPhase extends Phase{
      * Init phase.
      */
     @Override
-    public void initPhase() {
+    public void initPhase(boolean p_isTournamentMode) {
         while(d_mainGameEngine.getD_currentPhase() instanceof OrderExecutionPhase){
             executeOrders();
+
             MapView l_mapView = new MapView(d_currentState);
             l_mapView.showMap();
 
@@ -49,7 +50,7 @@ public class OrderExecutionPhase extends Phase{
                     }
                     else if(l_continue.equalsIgnoreCase("Y")){
                         d_gameplayController.assignArmies(d_currentState);
-                        d_mainGameEngine.setIssueOrderPhase();
+                        d_mainGameEngine.setIssueOrderPhase(p_isTournamentMode);
                     }
                     else{
                         System.out.println("Invalid Input");
