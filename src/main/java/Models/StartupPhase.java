@@ -6,6 +6,7 @@ import Controller.PlayerController;
 import Exceptions.CommandValidationException;
 import Utils.CommandHandler;
 import Views.MapView;
+import Views.TournamentView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -87,8 +88,16 @@ public class StartupPhase extends Phase{
                 for(CurrentState l_eachState : d_tournament.getD_currentStateList()){
                     d_mainGameEngine.setD_mainEngineLog("Starting new game on the map " + l_eachState.getD_map().getD_mapName() +" ...........", "effect");
                     assignCountries(new CommandHandler("assigncountries"), null, true , l_eachState);
+
+                    d_mainGameEngine.setD_mainEngineLog("Game completed on map : " + l_eachState.getD_map().getD_mapName() + "................\n ", "effect");
                 }
+                d_mainGameEngine.setD_mainEngineLog("******** Tournament Completed ********", "effect");
+                TournamentView l_tournamentView = new TournamentView(d_tournament);
+                l_tournamentView.viewTournament();
+                d_tournament = new Tournament();
             }
+        } else {
+            d_mainGameEngine.setD_mainEngineLog("Please add 2 or more players to start the tournament", "effect");
         }
     }
 
