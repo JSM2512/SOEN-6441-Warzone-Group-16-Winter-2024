@@ -211,7 +211,7 @@ public class OrderExecutionPhase extends Phase{
      * @throws IOException                the io exception
      */
     @Override
-    protected void assignCountries(CommandHandler lCommandHandler) throws CommandValidationException, IOException {
+    protected void assignCountries(CommandHandler lCommandHandler, Player p_player, Boolean p_isTournamentMode, CurrentState p_currentState) throws CommandValidationException, IOException {
         printInvalidCommandInPhase();
     }
 

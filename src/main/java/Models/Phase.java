@@ -34,6 +34,9 @@ public abstract class Phase {
     MainGameEngine d_mainGameEngine;
 
 
+    Tournament d_tournament = new Tournament();
+
+
     /**
      * Instantiates a new Phase.
      *
@@ -158,7 +161,7 @@ public abstract class Phase {
                     System.out.println(ProjectConstants.MAP_NOT_AVAILABLE_ASSIGN_COUNTRIES);
                 }
                 else {
-                    assignCountries(l_commandHandler);
+                    assignCountries(l_commandHandler, p_player, false, d_currentState);
                 }
                 break;
             case "validatemap":
@@ -231,7 +234,7 @@ public abstract class Phase {
         }
     }
 
-    protected abstract void tournamentMode(CommandHandler lCommandHandler);
+    protected abstract void tournamentMode(CommandHandler lCommandHandler) throws CommandValidationException, IOException;
 
     /**
      * Card handle.
@@ -321,7 +324,7 @@ public abstract class Phase {
      * @throws CommandValidationException the command validation exception
      * @throws IOException                the io exception
      */
-    protected abstract void assignCountries(CommandHandler lCommandHandler) throws CommandValidationException, IOException;
+    protected abstract void assignCountries(CommandHandler lCommandHandler, Player p_player, Boolean p_isTournamentMode, CurrentState p_currentState) throws CommandValidationException, IOException;
 
     /**
      * Validate map.

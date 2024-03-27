@@ -4,6 +4,7 @@ import Constants.ProjectConstants;
 import Controller.MainGameEngine;
 import Controller.MapController;
 import Exceptions.CommandValidationException;
+import Utils.CommandHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -250,6 +251,22 @@ public class Tournament {
         }
         else {
             p_maingameEngine.setD_mainEngineLog(ProjectConstants.INVALID_MAP_FILE_COUNT,"effect");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean requiredTournamentArgPresent(List<java.util.Map<String, String>> p_operationsList, CommandHandler p_commandHandler) {
+        String l_argumentKey = new String();
+        if(p_operationsList.size() != 4){
+            return false;
+        }
+        for(java.util.Map<String, String> l_operation : p_operationsList){
+            if(p_commandHandler.checkRequiredKey("arguments", l_operation) && p_commandHandler.checkRequiredKey("operation", l_operation)){
+                l_argumentKey.concat(l_operation.get("operation"));
+            }
+        }
+        if(!l_argumentKey.equalsIgnoreCase("MPGD")){
             return false;
         }
         return true;

@@ -16,6 +16,10 @@ public class MainGameEngine {
      */
     Phase d_currentPhase = new StartupPhase(d_currentState, this);
 
+    private CurrentState d_stateOfGame = new CurrentState();
+
+    boolean d_isTournamentMode = false;
+
     /**
      * Instantiates a new Main game engine.
      */
@@ -38,6 +42,22 @@ public class MainGameEngine {
      */
     public void setD_currentPhase(Phase d_currentPhase) {
         this.d_currentPhase = d_currentPhase;
+    }
+
+    public CurrentState getD_stateOfGame() {
+        return d_stateOfGame;
+    }
+
+    public void setD_stateOfGame(CurrentState p_stateOfGame) {
+        this.d_stateOfGame = p_stateOfGame;
+    }
+
+    public boolean isD_isTournamentMode() {
+        return d_isTournamentMode;
+    }
+
+    public void setD_isTournamentMode(boolean p_isTournamentMode) {
+        this.d_isTournamentMode = p_isTournamentMode;
     }
 
     /**

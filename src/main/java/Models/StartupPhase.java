@@ -65,8 +65,31 @@ public class StartupPhase extends Phase{
     }
 
     @Override
-    protected void tournamentMode(CommandHandler lCommandHandler) {
-
+    protected void tournamentMode(CommandHandler p_commandHandler) throws CommandValidationException, IOException {
+        if(d_currentState.getD_players() != null && d_currentState.getD_players().size() > 1){
+            List<java.util.Map<String, String>> l_operationsList = p_commandHandler.getListOfOperations();
+            boolean l_parsingSuccess = false;
+            if(l_operationsList.isEmpty() && !d_tournament.requiredTournamentArgPresent(l_operationsList,p_commandHandler)){
+                throw new CommandValidationException(ProjectConstants.INVALID_TOURNAMENT_MODE_COMMAND);
+            } else{
+                for(java.util.Map<String, String> l_singleOperation : l_operationsList) {
+                    if (p_commandHandler.checkRequiredKey("arguments", l_singleOperation) && p_commandHandler.checkRequiredKey("operation", l_singleOperation)) {
+                        l_parsingSuccess = d_tournament.parseTournamentCommand(d_currentState, l_singleOperation.get("operation"), l_singleOperation.get("arguments"), d_mainGameEngine);
+                        if (!l_parsingSuccess) {
+                            break;
+                        }
+                    } else {
+                        throw new CommandValidationException(ProjectConstants.INVALID_TOURNAMENT_MODE_COMMAND);
+                    }
+                }
+            }
+            if(l_parsingSuccess){
+                for(CurrentState l_eachState : d_tournament.getD_currentStateList()){
+                    d_mainGameEngine.setD_mainEngineLog("Starting new game on the map " + l_eachState.getD_map().getD_mapName() +" ...........", "effect");
+                    assignCountries(new CommandHandler("assigncountries"), null, true , l_eachState);
+                }
+            }
+        }
     }
 
     /**
@@ -245,12 +268,23 @@ public class StartupPhase extends Phase{
      * @throws IOException                the io exception
      */
     @Override
-    protected void assignCountries(CommandHandler p_commandHandler) throws CommandValidationException, IOException {
-        List<java.util.Map<String, String>> l_listOfOperations = p_commandHandler.getListOfOperations();
-        if (l_listOfOperations == null || l_listOfOperations.isEmpty()) {
-            d_gamePlayerController.assignCountries(d_currentState);
-            d_gamePlayerController.assignArmies(d_currentState);
-            d_mainGameEngine.setIssueOrderPhase();
+    protected void assignCountries(CommandHandler p_commandHandler, Player p_player, Boolean p_isTournamentMode, CurrentState p_currentState) throws CommandValidationException, IOException {
+        if(d_currentState != null && d_currentState.d_players != null && d_currentState.d_players.size() < 2){
+            throw new CommandValidationException("Cannot assign Countries with only 1 Player");
+        }
+        else if(p_currentState.getD_loadCommand()){
+            List<java.util.Map<String, String>> l_operationList = p_commandHandler.getListOfOperations();
+
+            if(l_operationList.isEmpty() || p_isTournamentMode) {
+                d_mainGameEngine.setD_stateOfGame(p_currentState);
+                d_mainGameEngine.setD_isTournamentMode(p_isTournamentMode);
+//                if(d_gamePlayerController.assignCountries(p_currentState)){
+
+
+
+
+            }
+
         }
     }
 
