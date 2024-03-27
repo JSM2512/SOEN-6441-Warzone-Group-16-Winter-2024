@@ -583,4 +583,12 @@ public class Player {
         }
         return l_countryNames;
     }
+
+    public List<Integer> getCountryIDs() {
+        List<Integer> l_countryIDs = new ArrayList<>();
+        for (Country l_eachCountry : d_currentCountries) {
+            l_countryIDs.add(l_eachCountry.getD_countryID());
+        }
+        return l_countryIDs;
+    }
 }
