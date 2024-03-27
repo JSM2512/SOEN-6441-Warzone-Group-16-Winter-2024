@@ -61,6 +61,15 @@ public class MainGameEngine {
     }
 
     /**
+     * Set startup phase.
+     */
+    public void setStartupPhase(){
+        this.setD_mainEngineLog("Startup Phase of the Game","phase");
+        setD_currentPhase(new StartupPhase(d_currentState, this));
+        getD_currentPhase().initPhase(d_isTournamentMode);
+    }
+
+    /**
      * Set issue order phase.
      */
     public void setIssueOrderPhase(boolean p_isTournamentMode){

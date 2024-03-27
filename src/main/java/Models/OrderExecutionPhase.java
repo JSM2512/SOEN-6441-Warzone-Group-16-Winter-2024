@@ -38,29 +38,40 @@ public class OrderExecutionPhase extends Phase{
             if(this.checkEndOfGame(d_currentState)){
                 System.exit(0);
             }
-
-            while(d_currentState.getD_players() != null){
-                System.out.println("Press Y/y if you want to continue for next turn or else press N/n");
-                BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
-
-                try{
-                    String l_continue = l_reader.readLine();
-                    if(l_continue.equalsIgnoreCase("N")){
-                        System.exit(0);
-                    }
-                    else if(l_continue.equalsIgnoreCase("Y")){
-                        d_gameplayController.assignArmies(d_currentState);
-                        d_mainGameEngine.setIssueOrderPhase(p_isTournamentMode);
-                    }
-                    else{
-                        System.out.println("Invalid Input");
-                    }
+            try{
+                String l_continue = this.continueForNextTurn(p_isTournamentMode);
+                if(l_continue.equalsIgnoreCase("N") && p_isTournamentMode){
+                    d_mainGameEngine.setD_mainEngineLog("Startup Phase", "phase");
+                    d_mainGameEngine.setD_currentPhase(new StartupPhase(d_currentState, d_mainGameEngine));
                 }
-                catch (IOException l_e){
+                else if(l_continue.equalsIgnoreCase("N") && !p_isTournamentMode){
+                    d_mainGameEngine.setStartupPhase();
+                }
+                else if(l_continue.equalsIgnoreCase("Y")){
+                    d_gameplayController.assignArmies(d_currentState);
+                    d_mainGameEngine.setIssueOrderPhase(p_isTournamentMode);
+                }
+                else{
                     System.out.println("Invalid Input");
                 }
             }
+            catch (IOException l_e){
+                System.out.println("Invalid Input");
+            }
         }
+    }
+
+    private String continueForNextTurn(boolean pIsTournamentMode) throws IOException {
+        String l_continue = new String();
+        if(pIsTournamentMode){
+            d_currentState.setD_numberOfTurnsLeft(d_currentState.getD_numberOfTurnsLeft() - 1);
+            l_continue = d_currentState.getD_numberOfTurnsLeft() == 0 ? "N" : "Y";
+        }else {
+            System.out.println("Do you want to continue to next turn? (Y/N)");
+            BufferedReader l_bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            l_continue = l_bufferedReader.readLine();
+        }
+        return l_continue;
     }
 
     @Override

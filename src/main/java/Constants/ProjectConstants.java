@@ -7,6 +7,8 @@ import java.util.List;
  * The type Project constants.
  */
 public final class ProjectConstants {
+    public static final int WIDTH = 80;
+
     /**
      * Instantiates a new Project constants.
      */

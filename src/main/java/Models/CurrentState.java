@@ -23,6 +23,26 @@ public class CurrentState {
 
     int d_numberOfTurnsLeft = 0;
 
+    Player d_winner;
+
+    List<Player> d_playersFailed = new ArrayList<>();
+
+    public Player getD_winner() {
+        return d_winner;
+    }
+
+    public void setD_winner(Player d_winner) {
+        this.d_winner = d_winner;
+    }
+
+    public List<Player> getD_playersFailed() {
+        return d_playersFailed;
+    }
+
+    public void setD_playersFailed(List<Player> d_playersFailed) {
+        this.d_playersFailed = d_playersFailed;
+    }
+
     /**
      * The D model logger.
      */
