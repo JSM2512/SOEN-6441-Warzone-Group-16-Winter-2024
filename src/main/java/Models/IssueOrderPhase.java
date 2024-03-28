@@ -180,7 +180,6 @@ public class IssueOrderPhase extends Phase{
      */
     private void issueOrder(boolean p_isTournamentMode) throws Exception {
         do {
-            System.out.println("Issue Order Phase");
             for (Player l_eachPlayer : d_currentState.getD_players()) {
                 if (l_eachPlayer.getD_currentCountries().size() == 0) {
                     l_eachPlayer.setMoreOrders(false);

@@ -116,6 +116,12 @@ public class CardBlockade implements Card {
         }
     }
 
+    @Override
+    public void printOrder() {
+        this.d_executionOrderLog = "Blockade Order : " + d_cardOwner.getD_name() + " is using blockade card to triple the armies of " + d_targetCountryName;
+        System.out.println(d_executionOrderLog);
+    }
+
     /**
      * Valid boolean.
      *

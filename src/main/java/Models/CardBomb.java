@@ -87,6 +87,12 @@ public class CardBomb implements Card{
         }
     }
 
+    @Override
+    public void printOrder() {
+        this.d_logOrderExecution = "Bomb Card : "+d_cardOwner.getD_name()+" is using bomb card on "+d_targetCountryName;
+        System.out.println(d_logOrderExecution);
+    }
+
     /**
      * Valid order check boolean.
      *

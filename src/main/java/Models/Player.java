@@ -345,7 +345,7 @@ public class Player {
 
             Integer l_unallocatedArmies = this.getD_unallocatedArmies() - l_noOfArmiesToDeploy;
             this.setD_unallocatedArmies(l_unallocatedArmies);
-
+            d_orders.get(d_orders.size()-1).printOrder();
             this.setD_playerLog(ProjectConstants.ORDER_ADDED,"effect");
         }
     }
@@ -422,6 +422,7 @@ public class Player {
             l_noOfArmies > 0 &&
             checkAdjacentCountry(l_sourceCountry,l_targetCountry,p_currentState)){
             this.d_orders.add(new Advance(l_sourceCountry, l_targetCountry, l_noOfArmies, this));
+            d_orders.get(d_orders.size()-1).printOrder();
             this.setD_playerLog("Advance order is added for execution for player " + this.getD_name(),"log");
         }
         else{
@@ -486,6 +487,7 @@ public class Player {
                     Card l_bombOrder = new CardBomb(this, p_inputCommand.split(" ")[1]);
                     if (l_bombOrder.validOrderCheck(p_currentState)) {
                         this.d_orders.add(l_bombOrder);
+                        l_bombOrder.printOrder();
                         this.setD_playerLog("Bomb order is added for execution for player " + this.getD_name(), "effect");
                         p_currentState.updateLog(getD_playerLog(), "effect");
                     }
@@ -494,6 +496,7 @@ public class Player {
                     Card l_blockadeOrder = new CardBlockade(this, p_inputCommand.split(" ")[1]);
                     if (l_blockadeOrder.validOrderCheck(p_currentState)) {
                         this.d_orders.add(l_blockadeOrder);
+                        l_blockadeOrder.printOrder();
                         this.setD_playerLog("Blockade order is added for execution for player " + this.getD_name(), "effect");
                         p_currentState.updateLog(getD_playerLog(), "effect");
                     }
@@ -502,6 +505,7 @@ public class Player {
                     Card l_airliftOrder = new CardAirlift(this, p_inputCommand.split(" ")[1], p_inputCommand.split(" ")[2], Integer.parseInt(p_inputCommand.split(" ")[3]));
                     if (l_airliftOrder.validOrderCheck(p_currentState)) {
                         this.d_orders.add(l_airliftOrder);
+                        l_airliftOrder.printOrder();
                         this.setD_playerLog("Airlift order is added for execution for player " + this.getD_name(), "effect");
                         p_currentState.updateLog(getD_playerLog(), "effect");
                     }
@@ -510,6 +514,7 @@ public class Player {
                     Card l_negotiateOrder = new CardNegotiate(this, p_inputCommand.split(" ")[1]);
                     if (l_negotiateOrder.validOrderCheck(p_currentState)) {
                         this.d_orders.add(l_negotiateOrder);
+                        l_negotiateOrder.printOrder();
                         this.setD_playerLog("Negotiate order is added for execution for player " + this.getD_name(), "effect");
                         p_currentState.updateLog(getD_playerLog(), "effect");
                     }

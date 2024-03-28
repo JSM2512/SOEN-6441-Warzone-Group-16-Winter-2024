@@ -13,7 +13,11 @@ public class HumanPlayer extends PlayerBehaviourStrategy{
     @Override
     public String createOrder(Player p_player, CurrentState p_currentState) throws IOException {
         BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Please Enter the command to issue order for player : " + p_player.getD_name() + " or use showmap command to view the current state of the map.");
+        System.out.println("Please Enter command for Player : " + p_player.getD_name() + "   Armies left : " + p_player.getD_unallocatedArmies());
+        System.out.println("1. Deploy Order Command : 'deploy <countryName> <noOfArmies>'");
+        System.out.println("2. Advance Order Command : 'advance <countryFromName> <countryToName> <noOfArmies>");
+        System.out.println();
+        System.out.print("Enter your command: ");
         String l_command = l_reader.readLine();
         return l_command;
     }

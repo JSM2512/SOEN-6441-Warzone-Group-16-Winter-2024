@@ -260,6 +260,7 @@ public class OrderExecutionPhase extends Phase{
             for(Player l_eachPlayer : d_currentState.getD_players()){
                 Orders l_orderToExecute = l_eachPlayer.nextOrder();
                 if(l_orderToExecute != null){
+                    l_orderToExecute.printOrder();
                    // d_currentState.updateLog(l_orderToExecute.orderExecutionLog(), "effect");
                     l_orderToExecute.execute(d_currentState);
                 }
