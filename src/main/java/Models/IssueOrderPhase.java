@@ -180,6 +180,7 @@ public class IssueOrderPhase extends Phase{
      */
     private void issueOrder(boolean p_isTournamentMode) throws Exception {
         do {
+            System.out.println("Issue Order Phase");
             for (Player l_eachPlayer : d_currentState.getD_players()) {
                 if (l_eachPlayer.getD_currentCountries().size() == 0) {
                     l_eachPlayer.setMoreOrders(false);
@@ -190,7 +191,6 @@ public class IssueOrderPhase extends Phase{
                 }
             }
         }while(d_gamePlayerController.checkForMoreOrders(d_currentState.getD_players()));
-
         d_mainGameEngine.setOrderExecutionPhase();
     }
 
@@ -201,15 +201,14 @@ public class IssueOrderPhase extends Phase{
      * @throws Exception the exception
      */
     public void askForOrders(Player p_player) throws Exception {
-        BufferedReader l_bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Please Enter command for Player : " + p_player.getD_name() + "   Armies left : " + p_player.getD_unallocatedArmies());
-        System.out.println("1. Deploy Order Command : 'deploy <countryName> <noOfArmies>'");
-        System.out.println("2. Advance Order Command : 'advance <countryFromName> <countryToName> <noOfArmies>");
-        System.out.println();
-        System.out.print("Enter your command: ");
-        String l_commandEntered = l_bufferedReader.readLine();
-        d_currentState.updateLog("Player : " + p_player.getD_name() + " has entered command : " + l_commandEntered ,"order");
-        handleCommand(l_commandEntered, p_player);
+        String l_commandEntered = p_player.getPlayerOrder(d_currentState);
+        if (l_commandEntered != null) {
+            d_currentState.updateLog("Player : " + p_player.getD_name() + " has entered command : " + l_commandEntered ,"order");
+            handleCommand(l_commandEntered, p_player);
+        }
+        else {
+            return;
+        }
     }
 
     /**

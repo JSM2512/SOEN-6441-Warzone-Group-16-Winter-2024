@@ -608,4 +608,9 @@ public class Player {
         }
         return l_countryIDs;
     }
+
+    public String getPlayerOrder(CurrentState p_currentState) throws IOException {
+        String l_order = this.d_playerBehaviourStrategy.createOrder(this, p_currentState);
+        return l_order;
+    }
 }
