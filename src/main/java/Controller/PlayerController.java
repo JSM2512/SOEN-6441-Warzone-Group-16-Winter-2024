@@ -48,7 +48,6 @@ public class PlayerController {
         int l_countriesPerPlayer = Math.floorDiv(l_countries.size(), l_playersize);
         this.assignRandomCountriesToPlayers(l_countriesPerPlayer, l_countries, p_currentState.getD_players(), p_currentState);
         this.assignContinentToPlayers(p_currentState.getD_players(), p_currentState.getD_map().getD_mapContinents());
-        displayAssignedCountries(p_currentState.getD_players());
         p_currentState.updateLog("Countries assigned to players", "effect");
         return true;
     }
@@ -152,6 +151,7 @@ public class PlayerController {
             l_eachPlayer.setD_unallocatedArmies(l_countOfArmiesOfEachPlayer);
             System.out.println("Player " + l_eachPlayer.getD_name() + " got assigned : " + l_countOfArmiesOfEachPlayer + " Armies.");
         }
+        displayAssignedCountries(p_currentState.getD_players());
     }
 
     /**
