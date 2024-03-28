@@ -257,7 +257,7 @@ public class StartupPhase extends Phase{
      * @throws CommandValidationException the command validation exception
      */
     @Override
-    protected void gamePlayer(CommandHandler p_commandHandler) throws CommandValidationException {
+    protected void gamePlayer(CommandHandler p_commandHandler, Player p_player) throws CommandValidationException, IOException {
         List<java.util.Map<String, String>> l_listOfOperations = p_commandHandler.getListOfOperations();
         if (l_listOfOperations == null || l_listOfOperations.isEmpty()) {
             System.out.println(ProjectConstants.INVALID_GAMEPLAYER_COMMAND);

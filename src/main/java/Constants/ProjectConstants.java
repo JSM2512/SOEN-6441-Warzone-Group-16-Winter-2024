@@ -8,6 +8,7 @@ import java.util.List;
  */
 public final class ProjectConstants {
     public static final int WIDTH = 80;
+    public static final List<String>  PLAYER_BEHAVIOR = Arrays.asList("Human","Aggressive", "Random", "Benevolent", "Cheater");
 
     /**
      * Instantiates a new Project constants.

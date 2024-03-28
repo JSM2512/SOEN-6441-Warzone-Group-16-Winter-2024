@@ -212,7 +212,7 @@ public class OrderExecutionPhase extends Phase{
      * @throws CommandValidationException the command validation exception
      */
     @Override
-    protected void gamePlayer(CommandHandler lCommandHandler) throws CommandValidationException {
+    protected void gamePlayer(CommandHandler p_ommandHandler, Player p_player) throws CommandValidationException {
         printInvalidCommandInPhase();
     }
 

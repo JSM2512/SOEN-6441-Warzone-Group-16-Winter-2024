@@ -132,11 +132,10 @@ public class IssueOrderPhase extends Phase{
     /**
      * Game player.
      *
-     * @param lCommandHandler the l command handler
      * @throws CommandValidationException the command validation exception
      */
     @Override
-    protected void gamePlayer(CommandHandler lCommandHandler) throws CommandValidationException {
+    protected void gamePlayer(CommandHandler p_commandHandler, Player p_player) throws CommandValidationException {
         printInvalidCommandInPhase();
     }
 

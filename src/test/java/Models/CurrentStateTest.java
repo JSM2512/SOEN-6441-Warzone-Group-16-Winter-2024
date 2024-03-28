@@ -4,6 +4,7 @@ import Controller.MapController;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -46,7 +47,7 @@ public class CurrentStateTest {
      * Add or remove game players.
      */
     @Test
-    public void addOrRemoveGamePlayers() {
+    public void addOrRemoveGamePlayers() throws IOException {
         d_currentState.setD_players(new ArrayList<>());
         d_currentState.addOrRemoveGamePlayers("add", "Player1");
         assertEquals(1, d_currentState.getD_players().size());
