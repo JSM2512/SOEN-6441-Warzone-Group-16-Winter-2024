@@ -248,13 +248,6 @@ public class MapController {
     }
 
 
-    /**
-     * Save map boolean.
-     *
-     * @param p_currentState the p current state
-     * @param p_arguments    the p arguments
-     * @return the boolean
-     */
     public boolean saveMap(CurrentState p_currentState, String p_fileName){
         try {
             String l_mapFormat = null;
@@ -288,7 +281,7 @@ public class MapController {
         }
     }
 
-    private void parseMapToFile(CurrentState p_currentState, FileWriter p_writer, String p_mapFormat) {
+    private void parseMapToFile(CurrentState p_currentState, FileWriter p_writer, String p_mapFormat) throws IOException {
         if(p_mapFormat.equalsIgnoreCase("ConquestMap")) {
         }
         else{
