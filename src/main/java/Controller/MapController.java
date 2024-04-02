@@ -5,10 +5,7 @@ import Models.Continent;
 import Models.Country;
 import Models.CurrentState;
 import Models.Map;
-import Services.ConquestMapFileReader;
-import Services.MapFileReader;
-import Services.MapFileWriter;
-import Services.MapReaderAdapter;
+import Services.*;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -286,6 +283,8 @@ public class MapController {
 
     private void parseMapToFile(CurrentState p_currentState, FileWriter p_writer, String p_mapFormat) throws IOException {
         if(p_mapFormat.equalsIgnoreCase("ConquestMap")) {
+            MapWriterAdapter l_mapWriterAdapter = new MapWriterAdapter(new ConquestMapFileWriter());
+            l_mapWriterAdapter.parseMapToFile(p_currentState, p_writer, p_mapFormat);
         }
         else{
             new MapFileWriter().parseMapToFile(p_currentState, p_writer, p_mapFormat);

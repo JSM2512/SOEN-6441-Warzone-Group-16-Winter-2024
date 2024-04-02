@@ -20,6 +20,7 @@ public class ConquestMapFileReader {
         l_continentList = linkCountryToContinent(l_continentList, l_updatedCountryList);
         p_map.setD_mapContinents(l_continentList);
         p_map.setD_mapCountries(l_updatedCountryList);
+        p_map.setD_mapName(p_fileName);
         p_currentState.setD_map(p_map);
     }
 

@@ -565,4 +565,13 @@ public class Map {
         System.out.println(ProjectConstants.COUNTRY_DOES_NOT_EXIST);
         return null;
     }
+
+    public Continent getContinentById(Integer p_continentID) {
+        for(Continent l_eachContinent :d_mapContinents){
+            if(l_eachContinent.d_continentID.equals(p_continentID)){
+                return l_eachContinent;
+            }
+        }
+        return null;
+    }
 }

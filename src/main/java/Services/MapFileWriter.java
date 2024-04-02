@@ -28,7 +28,7 @@ public class MapFileWriter {
         p_writer.write(System.lineSeparator() + "[countries]" + System.lineSeparator());
         for (Country l_eachCountry : p_currentState.getD_map().getD_mapCountries()) {
             l_countryMetadata = "";
-            l_countryMetadata = l_eachCountry.getD_countryID().toString() + " " + l_eachCountry.getD_countryName() + " " + l_eachCountry.getD_continentID();
+            l_countryMetadata = l_eachCountry.getD_countryID().toString() + " " + l_eachCountry.getD_countryName() + " " + l_eachCountry.getD_continentID().toString();
             p_writer.write(l_countryMetadata + System.lineSeparator());
 
             if (l_eachCountry.getD_neighbouringCountriesId() != null && !l_eachCountry.getD_neighbouringCountriesId().isEmpty()) {
@@ -49,7 +49,7 @@ public class MapFileWriter {
     }
 
     private void writeContinentMetaData(CurrentState p_currentState, FileWriter p_writer) throws IOException {
-        p_writer.write(System.lineSeparator() + "[Continents]" + System.lineSeparator());
+        p_writer.write(System.lineSeparator() + "[continents]" + System.lineSeparator());
         for(Continent l_eachContinent : p_currentState.getD_map().getD_mapContinents()){
             p_writer.write(l_eachContinent.getD_continentName() + " " + l_eachContinent.getD_continentValue().toString() + System.lineSeparator());
         }
