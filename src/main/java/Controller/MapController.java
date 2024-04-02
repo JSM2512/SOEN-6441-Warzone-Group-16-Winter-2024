@@ -5,8 +5,10 @@ import Models.Continent;
 import Models.Country;
 import Models.CurrentState;
 import Models.Map;
+import Services.ConquestMapFileReader;
 import Services.MapFileReader;
 import Services.MapFileWriter;
+import Services.MapReaderAdapter;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -44,7 +46,8 @@ public class MapController {
         List<String> l_fileLines = loadFile(p_fileName);
         if(!l_fileLines.isEmpty()) {
             if(l_fileLines.contains("[Territories]")){
-
+                MapReaderAdapter l_mapReaderAdapter = new MapReaderAdapter(new ConquestMapFileReader());
+                l_mapReaderAdapter.parseMapFile(p_currentState, l_map, l_fileLines, p_fileName);
             }
             else if(l_fileLines.contains("[continents]")){
               new MapFileReader().parseMapFile(p_currentState, l_map, l_fileLines, p_fileName);
