@@ -6,8 +6,11 @@ import Models.Country;
 import Models.CurrentState;
 import Models.Map;
 import Services.MapFileReader;
+import Services.MapFileWriter;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -252,46 +255,59 @@ public class MapController {
      * @param p_arguments    the p arguments
      * @return the boolean
      */
-    public boolean saveMap(CurrentState p_currentState, String p_arguments){
+    public boolean saveMap(CurrentState p_currentState, String p_fileName){
         try {
-            Map l_map = p_currentState.getD_map();
-            if (l_map != null && l_map.validateMap()) {
-
-                if (!l_map.getD_mapName().equals(p_arguments)) {
-                    System.out.println("Name of the file must be same which you loaded in the first place i.e. : " + l_map.getD_mapName());
-                    d_currentState.getD_modelLogger().setD_message("Filename is different from the file loaded.","effect");
-
-                }
-
-                FileOutputStream l_writer = new FileOutputStream(getFilePath(p_arguments), false);
-                l_writer.write("".getBytes());
-
-                if (l_map.getD_mapContinents() != null || !l_map.getD_mapContinents().isEmpty()) {
-                    saveContinentsOnMap(l_writer, p_currentState);
-                } else {
-                    System.out.println(ProjectConstants.NO_CONTINENT_IN_MAP);
-                    d_currentState.getD_modelLogger().setD_message(ProjectConstants.NO_COUNTRY_IN_MAP,"effect");
-
-                }
-                if (l_map.getD_mapCountries() != null || !l_map.getD_mapCountries().isEmpty()) {
-                    saveCountriesOnMap(l_writer, p_currentState);
-                    saveCountryBordersOnMap(l_writer, p_currentState);
-                } else {
-                    System.out.println(ProjectConstants.NO_COUNTRY_IN_MAP);
-                    d_currentState.getD_modelLogger().setD_message(ProjectConstants.NO_COUNTRY_IN_MAP,"effect");
-                }
-                l_writer.close();
-            }
-            else {
-                System.out.println(ProjectConstants.INVALID_MAP);
-                d_currentState.getD_modelLogger().setD_message(ProjectConstants.INVALID_MAP,"effect");
+            String l_mapFormat = null;
+            if(!p_fileName.equalsIgnoreCase(p_currentState.getD_map().getD_mapName())){
+                p_currentState.setLogMessage("Kindly provide same filename to save the map which you have given for edit.", "error");
                 return false;
+            }
+            else{
+                if(p_currentState.getD_map() != null){
+                    Map l_currentMap = p_currentState.getD_map();
+                    if(l_currentMap.validateMap()){
+                        l_mapFormat = this.getFormatToSave();
+                        Files.deleteIfExists(Paths.get(getFilePath(p_fileName)));
+                        FileWriter l_writer = new FileWriter(getFilePath(p_fileName));
+
+                        parseMapToFile(p_currentState, l_writer, l_mapFormat);
+                        p_currentState.updateLog("Map saved successfully.","effect");
+                        l_writer.close();
+                    }
+                }
+                else{
+                    p_currentState.updateLog("Map is not valid. Kindly provide valid map.","error");
+                    return false;
+                }
             }
             return true;
         }
-        catch (IOException p_exception){
-            System.out.println(p_exception.getMessage());
+        catch (Exception l_e){
+            p_currentState.updateLog("Error in saving map","error");
             return false;
+        }
+    }
+
+    private void parseMapToFile(CurrentState p_currentState, FileWriter p_writer, String p_mapFormat) {
+        if(p_mapFormat.equalsIgnoreCase("ConquestMap")) {
+        }
+        else{
+            new MapFileWriter().parseMapToFile(p_currentState, p_writer, p_mapFormat);
+        }
+    }
+
+    private String getFormatToSave() throws IOException {
+        BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Kindly press 1 to save the map as 'Conquest Map Format' or else press 2 to save the map as 'Domination Map Format'");
+        String l_nextOrder = l_reader.readLine();
+        if(l_nextOrder.equalsIgnoreCase("1")){
+            return "ConquestMap";
+        } else if (l_nextOrder.equalsIgnoreCase("2")) {
+            return "NormalMap";
+        }
+        else {
+            System.err.println("Invalid input passed.");
+            return this.getFormatToSave();
         }
     }
 
