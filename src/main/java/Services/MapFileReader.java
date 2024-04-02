@@ -74,8 +74,11 @@ public class MapFileReader {
         int l_continentIds = 1;
         for(String l_continent : p_continentData) {
             String[] l_continentDataList = l_continent.split(" ");
-            String l_continentName = l_continentDataList[0];
-            int l_continentValue = Integer.parseInt(l_continentDataList[1]);
+            String l_continentName = "";
+            for(int i=0;i<l_continentDataList.length-1;i++){
+                l_continentName += l_continentDataList[i];
+            }
+            int l_continentValue = Integer.parseInt(l_continentDataList[l_continentDataList.length-1]);
             l_continents.add(new Continent(l_continentIds,l_continentName,l_continentValue));
             l_continentIds++;
         }

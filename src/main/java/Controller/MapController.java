@@ -11,7 +11,6 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -177,7 +176,7 @@ public class MapController {
             l_map = p_currentState.getD_map();
         }
         if(l_map != null){
-            Map l_updatedMap = addRemoveContinents(l_map,p_operation,p_arguments);
+            Map l_updatedMap = addRemoveContinents(p_currentState,l_map,p_operation,p_arguments);
             p_currentState.setD_map((l_updatedMap));
             p_currentState.getD_map().setD_mapName(l_mapName);
         }
@@ -230,12 +229,13 @@ public class MapController {
     /**
      * Add remove continents map.
      *
-     * @param p_mapToUpdate the p map to update
-     * @param p_operation   the p operation
-     * @param p_arguments   the p arguments
+     * @param p_currentState
+     * @param p_mapToUpdate  the p map to update
+     * @param p_operation    the p operation
+     * @param p_arguments    the p arguments
      * @return the map
      */
-    private Map addRemoveContinents(Map p_mapToUpdate, String p_operation, String p_arguments) {
+    private Map addRemoveContinents(CurrentState p_currentState, Map p_mapToUpdate, String p_operation, String p_arguments) {
         if (p_operation.equals("add") && p_arguments.split(" ").length == 2){
             p_mapToUpdate.addContinent(p_arguments.split(" ")[0], Integer.parseInt(p_arguments.split(" ")[1]));
         } else if (p_operation.equals("remove") && p_arguments.split(" ").length == 1){
