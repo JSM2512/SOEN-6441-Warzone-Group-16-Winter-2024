@@ -116,7 +116,11 @@ public abstract class Phase implements Serializable {
                 loadMap(l_commandHandler);
                 break;
             case "editmap":
-                editMap(l_commandHandler);
+                if (!l_mapAvailable) {
+                    System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
+                } else {
+                    editMap(l_commandHandler);
+                }
                 break;
             case "savegame":
                 if(!l_mapAvailable){
@@ -158,20 +162,10 @@ public abstract class Phase implements Serializable {
                 break;
 
             case "loadgame":
-                if(!l_mapAvailable){
-                    System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
-                }
-                else {
-                    loadGame(l_commandHandler, p_player);
-                }
+                loadGame(l_commandHandler, p_player);
                 break;
             case "gameplayer":
-                if (!l_mapAvailable) {
-                    System.out.println(ProjectConstants.MAP_NOT_AVAILABLE_PLAYERS);
-                }
-                else {
-                    gamePlayer(l_commandHandler, p_player);
-                }
+                gamePlayer(l_commandHandler, p_player);
                 break;
             case "assigncountries":
                 if (!l_mapAvailable) {

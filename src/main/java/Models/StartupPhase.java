@@ -54,7 +54,9 @@ public class StartupPhase extends Phase{
             System.out.println("10. Assign countries and allocate armies to players: (Usage: 'assigncountries')");
            // tournament -Mtest.map -PHuman -G4 -D4
             System.out.println("11. Tournament Mode: (Usage: 'tournament -M <list_of_maps> -P <list_of_player_strategies> -G <number_of_games> -D <max_turns>')");
-            System.out.println("11. Exit the game: (Usage: 'exit')");
+            System.out.println("12. Savegame : (Usage: 'savegame <filename>') ");
+            System.out.println("13. Loadgame : (Usage: 'loadgame <filename>') ");
+            System.out.println("14. Exit the game: (Usage: 'exit')");
             System.out.println("");
             System.out.print("Enter your command: ");
             try{
@@ -80,6 +82,8 @@ public class StartupPhase extends Phase{
                 try {
                     Phase l_phase = GameService.loadGame(l_fileName);
                     this.d_mainGameEngine.loadPhase(l_phase);
+                    System.out.println("Game loaded successfully from Filename : " + l_fileName);
+                    d_mainGameEngine.setD_mainEngineLog("Game loaded successfully from Filename : " + l_fileName, "effect");
                 } catch (ClassNotFoundException | IOException e) {
                     System.out.println(ProjectConstants.INVALID_LOADGAME_COMMAND);
                 }
