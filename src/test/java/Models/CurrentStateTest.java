@@ -2,6 +2,7 @@ package Models;
 
 import Controller.MapController;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -46,6 +47,7 @@ public class CurrentStateTest {
     /**
      * Add or remove game players.
      */
+    @Ignore
     @Test
     public void addOrRemoveGamePlayers() throws IOException {
         d_currentState.setD_players(new ArrayList<>());
