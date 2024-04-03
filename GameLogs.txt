@@ -17,3 +17,164 @@ Game Session Started
 =========Startup Phase of the Game=========
 
 
+Log: Player : mehak is assigned with Country : China and Armies : 9
+
+Log: Airlift card used to move 2 armies from India to Morocco
+
+Log: Invalid! Blockade card cannot be used because target country does not belong to player
+
+Log: Player player1 used blockade card to triple the armies of Nigeria
+
+Log: Bomb card used to reduce the armies of Japan to 7
+
+Log: Invalid! Bomb card cannot be used on own country or non-neighbouring Country
+
+Log: Negotiation Successful
+
+Log: Cannot execute the order because the player has a negotiation pact with the owner of the target country.
+
+Log: Player1 Armies have been deployed successfully
+
+Log: Player : Player1 is assigned with Country : China and Armies : 9
+
+Player1 has won the game. Exiting the game....
+
+Log: Player 1 Armies have been deployed successfully
+
+Log: Player 1 Armies have been deployed successfully
+
+Log: test.map has been loaded to start the game
+
+
+Log: Player : mehak is assigned with Country : China and Armies : 9
+
+Log: Airlift card used to move 2 armies from India to Morocco
+
+Log: Invalid! Blockade card cannot be used because target country does not belong to player
+
+Log: Player player1 used blockade card to triple the armies of Nigeria
+
+Log: Bomb card used to reduce the armies of Japan to 7
+
+Log: Invalid! Bomb card cannot be used on own country or non-neighbouring Country
+
+Log: Negotiation Successful
+
+Log: Cannot execute the order because the player has a negotiation pact with the owner of the target country.
+
+Log: Player1 Armies have been deployed successfully
+
+Log: Player : Player1 is assigned with Country : China and Armies : 9
+
+Player1 has won the game. Exiting the game....
+
+Log: Player 1 Armies have been deployed successfully
+
+Log: Player 1 Armies have been deployed successfully
+
+Log: test.map has been loaded to start the game
+
+
+Log: Countries assigned to players
+
+Log: Countries assigned to players
+
+Log: Countries assigned to players
+
+
+Log: Countries assigned to players
+
+Log: Countries assigned to players
+
+Log: Countries assigned to players
+
+Log: Player : mehak is assigned with Country : China and Armies : 9
+
+Log: Airlift card used to move 2 armies from India to Morocco
+
+Log: Invalid! Blockade card cannot be used because target country does not belong to player
+
+Log: Player player1 used blockade card to triple the armies of Nigeria
+
+Log: Bomb card used to reduce the armies of Japan to 7
+
+Log: Invalid! Bomb card cannot be used on own country or non-neighbouring Country
+
+Log: Player1 Armies have been deployed successfully
+
+Log: Player 1 Armies have been deployed successfully
+
+Log: Player 1 Armies have been deployed successfully
+
+Log: Player : Player1 is assigned with Country : China and Armies : 9
+
+Player1 has won the game. Exiting the game....
+
+Log: test.map has been loaded to start the game
+
+Log: Player : mehak is assigned with Country : China and Armies : 9
+
+Log: Airlift card used to move 2 armies from India to Morocco
+
+Log: Invalid! Blockade card cannot be used because target country does not belong to player
+
+Log: Player player1 used blockade card to triple the armies of Nigeria
+
+Log: Bomb card used to reduce the armies of Japan to 7
+
+Log: Invalid! Bomb card cannot be used on own country or non-neighbouring Country
+
+Log: Negotiation Successful
+
+Log: Cannot execute the order because the player has a negotiation pact with the owner of the target country.
+
+Log: Player1 Armies have been deployed successfully
+
+Log: Player : Player1 is assigned with Country : China and Armies : 9
+
+Player1 has won the game. Exiting the game....
+
+Log: Player 1 Armies have been deployed successfully
+
+Log: Player 1 Armies have been deployed successfully
+
+Log: test.map has been loaded to start the game
+
+
+Log: Countries assigned to players
+
+Log: Countries assigned to players
+
+Log: Countries assigned to players
+
+
+Log: Countries assigned to players
+
+Log: Countries assigned to players
+
+Log: Countries assigned to players
+
+Log: Player : mehak is assigned with Country : China and Armies : 9
+
+Log: Airlift card used to move 2 armies from India to Morocco
+
+Log: Invalid! Blockade card cannot be used because target country does not belong to player
+
+Log: Player player1 used blockade card to triple the armies of Nigeria
+
+Log: Bomb card used to reduce the armies of Japan to 7
+
+Log: Invalid! Bomb card cannot be used on own country or non-neighbouring Country
+
+Log: Player1 Armies have been deployed successfully
+
+Log: Player 1 Armies have been deployed successfully
+
+Log: Player 1 Armies have been deployed successfully
+
+Log: Player : Player1 is assigned with Country : China and Armies : 9
+
+Player1 has won the game. Exiting the game....
+
+Log: test.map has been loaded to start the game
+

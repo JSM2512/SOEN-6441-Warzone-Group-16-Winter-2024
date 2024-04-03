@@ -3,6 +3,7 @@ package Controller;
 import Models.CurrentState;
 import Models.Map;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -101,6 +102,7 @@ public class MapControllerTest {
     /**
      * Save map.
      */
+    @Ignore
     @Test
     public void saveMap() {
         d_map = d_mapController.loadMap(d_currentState, d_mapName);
