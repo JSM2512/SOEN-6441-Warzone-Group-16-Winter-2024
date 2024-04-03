@@ -2,13 +2,14 @@ package Models;
 
 import Controller.PlayerController;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * The type Advance.
  */
-public class Advance implements Orders{
+public class Advance implements Orders, Serializable {
 
     /**
      * The D source country.

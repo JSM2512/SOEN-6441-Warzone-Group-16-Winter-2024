@@ -4,6 +4,7 @@ import Constants.ProjectConstants;
 import Controller.MainGameEngine;
 import Controller.PlayerController;
 import Exceptions.CommandValidationException;
+import Services.GameService;
 import Utils.CommandHandler;
 import Views.MapView;
 import Views.TournamentView;
@@ -63,6 +64,24 @@ public class StartupPhase extends Phase{
             catch (Exception e){
                 throw new RuntimeException(e);
             }
+        }
+    }
+
+    @Override
+    protected void saveGame(CommandHandler p_commandHandler, Player p_player) throws CommandValidationException {
+        List<java.util.Map<String,String>> l_operationsList = p_commandHandler.getListOfOperations();
+        if(l_operationsList == null || l_operationsList.isEmpty()){
+            System.out.println(ProjectConstants.INVALID_SAVEGAME_COMMAND);
+        }
+        for(java.util.Map<String,String> l_map : l_operationsList){
+            if(p_commandHandler.checkRequiredKey("Arguments", l_map)) {
+                String l_fileName = l_map.get("Arguments");
+                GameService.saveGame(this,l_fileName);
+                d_mainGameEngine.setD_mainEngineLog("Game saved successfully to Filename : " + l_fileName, "effect");
+            } else {
+                throw new CommandValidationException(ProjectConstants.INVALID_SAVEGAME_COMMAND);
+            }
+
         }
     }
 

@@ -8,11 +8,12 @@ import Exceptions.CommandValidationException;
 import Utils.CommandHandler;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 /**
  * The type Phase.
  */
-public abstract class Phase {
+public abstract class Phase implements Serializable {
 
     /**
      * The D current state.
@@ -116,6 +117,13 @@ public abstract class Phase {
                 break;
             case "editmap":
                 editMap(l_commandHandler);
+                break;
+            case "savegame":
+                if(!l_mapAvailable){
+                    System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
+                } else {
+                    saveGame(l_commandHandler, p_player);
+                }
                 break;
             case "editcountry":
                 if (!l_mapAvailable) {
@@ -233,6 +241,8 @@ public abstract class Phase {
                 break;
         }
     }
+
+    protected abstract void saveGame(CommandHandler p_commandHandler, Player p_player) throws CommandValidationException;
 
     protected abstract void tournamentMode(CommandHandler p_commandHandler) throws CommandValidationException, IOException;
 

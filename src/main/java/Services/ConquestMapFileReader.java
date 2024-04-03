@@ -5,10 +5,11 @@ import Models.Country;
 import Models.CurrentState;
 import Models.Map;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConquestMapFileReader {
+public class ConquestMapFileReader implements Serializable {
     public void readConquestFile(CurrentState p_currentState, Map p_map, List<String> p_fileLines, String p_fileName) {
         List<String> l_continentData = getMetaData(p_fileLines, "continent");
 

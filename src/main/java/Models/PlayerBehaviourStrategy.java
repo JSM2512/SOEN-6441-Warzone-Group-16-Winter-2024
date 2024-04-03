@@ -1,8 +1,9 @@
 package Models;
 
 import java.io.IOException;
+import java.io.Serializable;
 
-public abstract class PlayerBehaviourStrategy {
+public abstract class PlayerBehaviourStrategy implements Serializable {
 
     CurrentState d_currentState;
 

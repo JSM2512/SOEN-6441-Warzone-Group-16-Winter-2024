@@ -1,14 +1,16 @@
 package Constants;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * The type Project constants.
  */
-public final class ProjectConstants {
+public final class ProjectConstants implements Serializable {
     public static final int WIDTH = 80;
     public static final List<String>  PLAYER_BEHAVIOR = Arrays.asList("Human","Aggressive", "Random", "Benevolent", "Cheater");
+    public static final String INVALID_SAVEGAME_COMMAND = "Invalid command for savegame. Please provide savegame filename";
 
     /**
      * Instantiates a new Project constants.

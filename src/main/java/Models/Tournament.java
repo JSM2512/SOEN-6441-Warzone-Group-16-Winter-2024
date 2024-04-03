@@ -6,13 +6,14 @@ import Controller.MapController;
 import Exceptions.CommandValidationException;
 import Utils.CommandHandler;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * The type Tournament.
  */
-public class Tournament {
+public class Tournament implements Serializable {
     /**
      * The D map controller.
      */

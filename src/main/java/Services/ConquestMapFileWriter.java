@@ -6,8 +6,9 @@ import Models.CurrentState;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 
-public class ConquestMapFileWriter {
+public class ConquestMapFileWriter implements Serializable {
 
     public void parseMapToFile(CurrentState p_currentState, FileWriter p_writer, String p_mapFormat) throws IOException {
         if(p_currentState.getD_map().getD_mapContinents() != null && !p_currentState.getD_map().getD_mapContinents().isEmpty()){

@@ -2,6 +2,7 @@ package Models;
 
 import Constants.ProjectConstants;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Model Class Map.
  */
-public class Map {
+public class Map implements Serializable {
 
     /**
      * The D map name.

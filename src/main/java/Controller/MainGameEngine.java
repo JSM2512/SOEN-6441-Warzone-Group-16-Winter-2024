@@ -2,10 +2,12 @@ package Controller;
 
 import Models.*;
 
+import java.io.Serializable;
+
 /**
  * The type Main game engine.
  */
-public class MainGameEngine {
+public class MainGameEngine implements Serializable {
 
     /**
      * The D current state.

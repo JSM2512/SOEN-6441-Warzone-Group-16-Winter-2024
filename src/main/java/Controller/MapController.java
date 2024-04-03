@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 /**
  * The type Map controller.
  */
-public class MapController {
+public class MapController implements Serializable {
     /**
      * The D current state.
      */

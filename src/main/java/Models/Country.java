@@ -2,13 +2,14 @@ package Models;
 
 import Constants.ProjectConstants;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Model Class Country.
  */
-public class Country {
+public class Country implements Serializable {
     /**
      * The D country id.
      */

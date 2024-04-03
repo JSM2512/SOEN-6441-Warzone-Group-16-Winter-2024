@@ -1,13 +1,17 @@
 package Models;
 
+import Constants.ProjectConstants;
 import Controller.MainGameEngine;
 import Controller.PlayerController;
 import Exceptions.CommandValidationException;
+import Services.GameService;
 import Utils.CommandHandler;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The type Issue order phase.
@@ -245,6 +249,24 @@ public class IssueOrderPhase extends Phase{
                 System.err.println("Invalid! command for advance order.");
                 d_currentState.updateLog("Invalid! command for advance order.","error");
             }
+        }
+    }
+
+    @Override
+    protected void saveGame(CommandHandler p_commandHandler, Player p_player) throws CommandValidationException {
+        List<Map<String,String>> l_operationsList = p_commandHandler.getListOfOperations();
+        if(l_operationsList == null || l_operationsList.isEmpty()){
+            System.out.println(ProjectConstants.INVALID_SAVEGAME_COMMAND);
+        }
+        for(java.util.Map<String,String> l_map :l_operationsList){
+            if(p_commandHandler.checkRequiredKey("arguments", l_map)) {
+                String l_fileName = l_map.get("arguments");
+                GameService.saveGame(this,l_fileName);
+                d_mainGameEngine.setD_mainEngineLog("Game saved successfully to Filename : " + l_fileName, "effect");
+            } else {
+                throw new CommandValidationException(ProjectConstants.INVALID_SAVEGAME_COMMAND);
+            }
+
         }
     }
 }

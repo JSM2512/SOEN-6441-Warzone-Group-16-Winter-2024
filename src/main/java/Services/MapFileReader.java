@@ -5,11 +5,12 @@ import Models.Country;
 import Models.CurrentState;
 import Models.Map;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-public class MapFileReader {
+public class MapFileReader implements Serializable {
     public void parseMapFile(CurrentState p_currentState, Map p_map, List<String> p_fileLines, String p_fileName) {
         List<String> l_continentData = getContinentData(p_fileLines);
         List<String> l_countryData = getCountryData(p_fileLines);

@@ -3,6 +3,7 @@ package Controller;
 import Constants.ProjectConstants;
 import Models.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -10,7 +11,7 @@ import java.util.Random;
 /**
  * The type Player controller.
  */
-public class PlayerController {
+public class PlayerController implements Serializable {
 
     /**
      * The D current state.
