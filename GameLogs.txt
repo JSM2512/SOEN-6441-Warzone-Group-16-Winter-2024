@@ -11,6 +11,17 @@ Game Session Started
 =========Startup Phase of the Game=========
 
 
+
+Command Entered: loadmap
+
+Log: test.map has been loaded to start the game
+
+Game Session Started
+
+
+=========Startup Phase of the Game=========
+
+
 Game Session Started
 
 

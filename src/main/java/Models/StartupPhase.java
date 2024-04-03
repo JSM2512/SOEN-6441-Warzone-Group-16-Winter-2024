@@ -75,8 +75,8 @@ public class StartupPhase extends Phase{
             System.out.println(ProjectConstants.INVALID_LOADGAME_COMMAND);
         }
         for (java.util.Map<String,String> l_map : l_operationsList) {
-            if (p_commandHandler.checkRequiredKey("arguments", l_map)) {
-                String l_fileName = l_map.get("arguments");
+            if (p_commandHandler.checkRequiredKey("Arguments", l_map)) {
+                String l_fileName = l_map.get("Arguments");
                 try {
                     Phase l_phase = GameService.loadGame(l_fileName);
                     this.d_mainGameEngine.loadPhase(l_phase);
