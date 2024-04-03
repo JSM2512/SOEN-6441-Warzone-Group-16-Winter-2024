@@ -11,6 +11,7 @@ public final class ProjectConstants implements Serializable {
     public static final int WIDTH = 80;
     public static final List<String>  PLAYER_BEHAVIOR = Arrays.asList("Human","Aggressive", "Random", "Benevolent", "Cheater");
     public static final String INVALID_SAVEGAME_COMMAND = "Invalid command for savegame. Please provide savegame filename";
+    public static final String INVALID_LOADGAME_COMMAND = "Invalid command for loadgame. Please provide loadgame filename";
 
     /**
      * Instantiates a new Project constants.

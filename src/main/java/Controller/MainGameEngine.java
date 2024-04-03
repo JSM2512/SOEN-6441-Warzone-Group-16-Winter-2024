@@ -65,8 +65,8 @@ public class MainGameEngine implements Serializable {
     /**
      * Set startup phase.
      */
-    public void setStartupPhase(){
-        this.setD_mainEngineLog("Startup Phase of the Game","phase");
+    public void setStartupPhase() {
+        this.setD_mainEngineLog("Startup Phase of the Game", "phase");
         setD_currentPhase(new StartupPhase(d_currentState, this));
         getD_currentPhase().initPhase(d_isTournamentMode);
     }
@@ -74,8 +74,8 @@ public class MainGameEngine implements Serializable {
     /**
      * Set issue order phase.
      */
-    public void setIssueOrderPhase(boolean p_isTournamentMode){
-        this.setD_mainEngineLog("Issue Order Phase","phase");
+    public void setIssueOrderPhase(boolean p_isTournamentMode) {
+        this.setD_mainEngineLog("Issue Order Phase", "phase");
         setD_currentPhase(new IssueOrderPhase(d_currentState, this));
         getD_currentPhase().initPhase(p_isTournamentMode);
     }
@@ -83,8 +83,8 @@ public class MainGameEngine implements Serializable {
     /**
      * Set order execution phase.
      */
-    public void setOrderExecutionPhase(){
-        this.setD_mainEngineLog("Order Execution Phase","phase");
+    public void setOrderExecutionPhase() {
+        this.setD_mainEngineLog("Order Execution Phase", "phase");
         setD_currentPhase(new OrderExecutionPhase(d_currentState, this));
         getD_currentPhase().initPhase(d_isTournamentMode);
     }
@@ -94,10 +94,10 @@ public class MainGameEngine implements Serializable {
      *
      * @param args the args
      */
-    public static void main(String... args){
+    public static void main(String... args) {
         MainGameEngine l_mainGameEngine = new MainGameEngine();
-        l_mainGameEngine.getD_currentPhase().getD_currentState().updateLog("Game Session Started","start");
-        l_mainGameEngine.setD_mainEngineLog("Startup Phase of the Game","phase");
+        l_mainGameEngine.getD_currentPhase().getD_currentState().updateLog("Game Session Started", "start");
+        l_mainGameEngine.setD_mainEngineLog("Startup Phase of the Game", "phase");
         l_mainGameEngine.start(l_mainGameEngine);
     }
 
@@ -106,7 +106,7 @@ public class MainGameEngine implements Serializable {
      *
      * @param p_mainGameEngine the p main game engine
      */
-    private void start(MainGameEngine p_mainGameEngine){
+    private void start(MainGameEngine p_mainGameEngine) {
         p_mainGameEngine.getD_currentPhase().initPhase(d_isTournamentMode);
     }
 
@@ -116,14 +116,20 @@ public class MainGameEngine implements Serializable {
      * @param p_logForMainEngine the p log for main engine
      * @param p_logType          the p log type
      */
-    public void setD_mainEngineLog(String p_logForMainEngine,String p_logType){
-        d_currentPhase.getD_currentState().updateLog(p_logForMainEngine,p_logType);
+    public void setD_mainEngineLog(String p_logForMainEngine, String p_logType) {
+        d_currentPhase.getD_currentState().updateLog(p_logForMainEngine, p_logType);
         String l_consoleMessage;
-        if (p_logType.equalsIgnoreCase("phase")){
-            l_consoleMessage = "\n=============================== "+p_logForMainEngine+" ===============================\n";
-        }else {
+        if (p_logType.equalsIgnoreCase("phase")) {
+            l_consoleMessage = "\n=============================== " + p_logForMainEngine + " ===============================\n";
+        } else {
             l_consoleMessage = p_logForMainEngine;
         }
         System.out.println(l_consoleMessage);
+    }
+
+    public void loadPhase(Phase p_phase) {
+        d_currentPhase = p_phase;
+        d_stateOfGame = p_phase.getD_currentState();
+        getD_currentPhase().initPhase(d_isTournamentMode);
     }
 }

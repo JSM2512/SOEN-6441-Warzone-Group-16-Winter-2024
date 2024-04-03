@@ -18,4 +18,12 @@ public class GameService{
             l_e.printStackTrace();
         }
     }
+
+    public static Phase loadGame(String p_fileName) throws IOException, ClassNotFoundException {
+        ObjectInputStream l_gameLoadFileObjectStream = new ObjectInputStream(new FileInputStream("src/main/maps/" + p_fileName));
+        Phase l_phase = (Phase) l_gameLoadFileObjectStream.readObject();
+
+        l_gameLoadFileObjectStream.close();
+        return l_phase;
+    }
 }

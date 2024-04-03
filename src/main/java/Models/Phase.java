@@ -156,6 +156,15 @@ public abstract class Phase implements Serializable {
                     showMap();
                 }
                 break;
+
+            case "loadgame":
+                if(!l_mapAvailable){
+                    System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
+                }
+                else {
+                    loadGame(l_commandHandler, p_player);
+                }
+                break;
             case "gameplayer":
                 if (!l_mapAvailable) {
                     System.out.println(ProjectConstants.MAP_NOT_AVAILABLE_PLAYERS);
@@ -241,6 +250,9 @@ public abstract class Phase implements Serializable {
                 break;
         }
     }
+
+    public abstract void loadGame(CommandHandler p_commandHandler, Player p_player);
+
 
     protected abstract void saveGame(CommandHandler p_commandHandler, Player p_player) throws CommandValidationException;
 

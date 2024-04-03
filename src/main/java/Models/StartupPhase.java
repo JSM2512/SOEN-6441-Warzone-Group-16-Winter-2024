@@ -68,6 +68,26 @@ public class StartupPhase extends Phase{
     }
 
     @Override
+    public void loadGame(CommandHandler p_commandHandler, Player p_player) {
+        List <java.util.Map<String,String>> l_operationsList = p_commandHandler.getListOfOperations();
+
+        if (l_operationsList == null || l_operationsList.isEmpty()) {
+            System.out.println(ProjectConstants.INVALID_LOADGAME_COMMAND);
+        }
+        for (java.util.Map<String,String> l_map : l_operationsList) {
+            if (p_commandHandler.checkRequiredKey("arguments", l_map)) {
+                String l_fileName = l_map.get("arguments");
+                try {
+                    Phase l_phase = GameService.loadGame(l_fileName);
+                    this.d_mainGameEngine.loadPhase(l_phase);
+                } catch (ClassNotFoundException | IOException e) {
+                    System.out.println(ProjectConstants.INVALID_LOADGAME_COMMAND);
+                }
+            }
+        }
+    }
+
+    @Override
     protected void saveGame(CommandHandler p_commandHandler, Player p_player) throws CommandValidationException {
         List<java.util.Map<String,String>> l_operationsList = p_commandHandler.getListOfOperations();
         if(l_operationsList == null || l_operationsList.isEmpty()){

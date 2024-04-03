@@ -65,6 +65,11 @@ public class OrderExecutionPhase extends Phase{
         }
     }
 
+    @Override
+    public void loadGame(CommandHandler p_commandHandler, Player p_player) {
+        printInvalidCommandInPhase();
+    }
+
     private String continueForNextTurn(boolean pIsTournamentMode) throws IOException {
         String l_continue = new String();
         if(pIsTournamentMode){

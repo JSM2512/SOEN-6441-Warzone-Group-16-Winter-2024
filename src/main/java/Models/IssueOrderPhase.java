@@ -49,6 +49,11 @@ public class IssueOrderPhase extends Phase{
     }
 
     @Override
+    public void loadGame(CommandHandler p_commandHandler, Player p_player) {
+        printInvalidCommandInPhase();
+    }
+
+    @Override
     protected void tournamentMode(CommandHandler lCommandHandler) {
         printInvalidCommandInPhase();
     }
