@@ -262,8 +262,8 @@ public class Tournament implements Serializable {
             return false;
         }
         for(java.util.Map<String, String> l_operation : p_operationsList){
-            if(p_commandHandler.checkRequiredKey("arguments", l_operation) && p_commandHandler.checkRequiredKey("operation", l_operation)){
-                l_argumentKey.concat(l_operation.get("operation"));
+            if(p_commandHandler.checkRequiredKey("Arguments", l_operation) && p_commandHandler.checkRequiredKey("Operation", l_operation)){
+                l_argumentKey.concat(l_operation.get("Operation"));
             }
         }
         if(!l_argumentKey.equalsIgnoreCase("MPGD")){

@@ -28,7 +28,7 @@ public class TournamentView {
         System.out.format("+%s+%n", l_separator.toString());
     }
     public void renderMapName(Integer p_index, String p_mapName) {
-        String l_formattedString = String.format("%s %s %d %s %s", p_mapName, "(Game Number:", p_index, ")");
+        String l_formattedString = String.format("%s %s %d %s", p_mapName, "(Game Number:", p_index, ")");
         renderSeparator();
         renderCenterString(ProjectConstants.WIDTH, l_formattedString);
         renderSeparator();

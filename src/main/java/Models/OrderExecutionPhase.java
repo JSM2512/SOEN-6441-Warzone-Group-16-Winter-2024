@@ -217,7 +217,6 @@ public class OrderExecutionPhase extends Phase{
     /**
      * Game player.
      *
-     * @param lCommandHandler the l command handler
      * @throws CommandValidationException the command validation exception
      */
     @Override
@@ -308,8 +307,8 @@ public class OrderExecutionPhase extends Phase{
             System.out.println(ProjectConstants.INVALID_SAVEGAME_COMMAND);
         }
         for(java.util.Map<String,String> l_map :l_operationsList){
-            if(p_commandHandler.checkRequiredKey("arguments", l_map)) {
-                String l_fileName = l_map.get("arguments");
+            if(p_commandHandler.checkRequiredKey("Arguments", l_map)) {
+                String l_fileName = l_map.get("Arguments");
                 GameService.saveGame(this,l_fileName);
                 d_mainGameEngine.setD_mainEngineLog("Game saved successfully to Filename : " + l_fileName, "effect");
             } else {

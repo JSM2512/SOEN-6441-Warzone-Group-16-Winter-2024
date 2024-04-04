@@ -118,8 +118,8 @@ public class StartupPhase extends Phase{
                 throw new CommandValidationException(ProjectConstants.INVALID_TOURNAMENT_MODE_COMMAND);
             } else{
                 for(java.util.Map<String, String> l_singleOperation : l_operationsList) {
-                    if (p_commandHandler.checkRequiredKey("arguments", l_singleOperation) && p_commandHandler.checkRequiredKey("operation", l_singleOperation)) {
-                        l_parsingSuccess = d_tournament.parseTournamentCommand(d_currentState, l_singleOperation.get("operation"), l_singleOperation.get("arguments"), d_mainGameEngine);
+                    if (p_commandHandler.checkRequiredKey("Arguments", l_singleOperation) && p_commandHandler.checkRequiredKey("Operation", l_singleOperation)) {
+                        l_parsingSuccess = d_tournament.parseTournamentCommand(d_currentState, l_singleOperation.get("Operation"), l_singleOperation.get("Arguments"), d_mainGameEngine);
                         if (!l_parsingSuccess) {
                             break;
                         }
