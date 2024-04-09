@@ -1,0 +1,16 @@
+
+[continents]
+Asia 15
+Africa 10
+
+[countries]
+1 India 1
+2 China 1
+3 Morocco 2
+4 Nigeria 2
+
+[borders]
+1 2 4
+2 1 3 4
+3 4 2
+4 2 1 3
