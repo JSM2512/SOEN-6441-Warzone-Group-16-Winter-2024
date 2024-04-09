@@ -23,24 +23,37 @@ public class TournamentTest {
      */
     CurrentState d_currentState;
 
-    Tournament d_tournament = new Tournament();
+    Tournament d_tournament;
+
+    MainGameEngine d_mainGameEngine = new MainGameEngine();
 
     @Before
     public void setup() {
         d_currentState = new CurrentState();
-        d_player1 = new Player("a");
-//        d_player1.setStrategy(new RandomPlayer());
-        d_player2 = new Player("b");
-//        d_player2.setStrategy(new RandomPlayer());
+        d_player1 = new Player("Player1");
+        d_player1.setD_playerBehaviourStrategy(new RandomPlayer());
+        d_player2 = new Player("Player2");
+        d_player2.setD_playerBehaviourStrategy(new CheaterPlayer());
 
         d_currentState.setD_players(Arrays.asList(d_player1, d_player2));
+        d_mainGameEngine.setD_stateOfGame(d_currentState);
+        d_tournament = new Tournament();
     }
 
 
   @Test
     public void testInvalidMapArgs() throws CommandValidationException {
-        Tournament l_tournament = new Tournament();
-        assertFalse(l_tournament.parseTournamentCommand(d_currentState,"M","test.map test.map test.map test.map test.map test.map",new MainGameEngine()));
-      assertTrue(l_tournament.parseTournamentCommand(d_currentState,"M","test.map test.map test.map test.map",new MainGameEngine()));
+
+      assertFalse(d_tournament.parseTournamentCommand(d_currentState, "M", "test.map test.map test.map test.map test.map test.map", new MainGameEngine()));
+      assertTrue(d_tournament.parseTournamentCommand(d_currentState, "M", "test.map test.map test.map test.map", new MainGameEngine()));
   }
+
+  @Test
+    public void testInvalidPlayerStrategiesArgs() throws CommandValidationException {
+        assertTrue(d_tournament.parseTournamentCommand(d_currentState,"P","Random Cheater",new MainGameEngine()));
+        assertFalse(d_tournament.parseTournamentCommand(d_currentState,"P","Random Aggressive",new MainGameEngine()));
+
+  }
+
+
 }
