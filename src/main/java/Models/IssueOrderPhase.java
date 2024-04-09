@@ -1,13 +1,17 @@
 package Models;
 
+import Constants.ProjectConstants;
 import Controller.MainGameEngine;
 import Controller.PlayerController;
 import Exceptions.CommandValidationException;
+import Services.GameService;
 import Utils.CommandHandler;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The type Issue order phase.
@@ -33,15 +37,25 @@ public class IssueOrderPhase extends Phase{
      * Init phase.
      */
     @Override
-    public void initPhase() {
+    public void initPhase(boolean p_isTournamentMode) {
         while(d_mainGameEngine.getD_currentPhase() instanceof IssueOrderPhase){
             try {
-                issueOrder();
+                issueOrder(p_isTournamentMode);
             } catch (Exception p_e) {
                 d_currentState.updateLog(p_e.getMessage(),"error");
             }
         }
 
+    }
+
+    @Override
+    public void loadGame(CommandHandler p_commandHandler, Player p_player) {
+        printInvalidCommandInPhase();
+    }
+
+    @Override
+    protected void tournamentMode(CommandHandler lCommandHandler) {
+        printInvalidCommandInPhase();
     }
 
     /**
@@ -56,7 +70,6 @@ public class IssueOrderPhase extends Phase{
             p_player.handleCardCommand(p_inputCommand, d_currentState);
             d_mainGameEngine.setD_mainEngineLog(p_player.d_playerLog,"effect");
         }
-        p_player.checkForMoreOrder();
     }
 
     /**
@@ -128,11 +141,10 @@ public class IssueOrderPhase extends Phase{
     /**
      * Game player.
      *
-     * @param lCommandHandler the l command handler
      * @throws CommandValidationException the command validation exception
      */
     @Override
-    protected void gamePlayer(CommandHandler lCommandHandler) throws CommandValidationException {
+    protected void gamePlayer(CommandHandler p_commandHandler, Player p_player) throws CommandValidationException {
         printInvalidCommandInPhase();
     }
 
@@ -144,7 +156,7 @@ public class IssueOrderPhase extends Phase{
      * @throws IOException                the io exception
      */
     @Override
-    protected void assignCountries(CommandHandler lCommandHandler) throws CommandValidationException, IOException {
+    protected void assignCountries(CommandHandler lCommandHandler, Player p_player, Boolean p_isTournamentMode, CurrentState p_currentState) throws CommandValidationException, IOException {
         printInvalidCommandInPhase();
     }
 
@@ -175,15 +187,18 @@ public class IssueOrderPhase extends Phase{
      *
      * @throws Exception the exception
      */
-    private void issueOrder() throws Exception {
+    private void issueOrder(boolean p_isTournamentMode) throws Exception {
         do {
             for (Player l_eachPlayer : d_currentState.getD_players()) {
+                if (l_eachPlayer.getD_currentCountries().size() == 0) {
+                    l_eachPlayer.setMoreOrders(false);
+                }
                 if(l_eachPlayer.hasMoreOrders() && !l_eachPlayer.getD_name().equals("Neutral")) {
                     l_eachPlayer.issueOrder(this);
+                    l_eachPlayer.checkForMoreOrder(p_isTournamentMode);
                 }
             }
         }while(d_gamePlayerController.checkForMoreOrders(d_currentState.getD_players()));
-
         d_mainGameEngine.setOrderExecutionPhase();
     }
 
@@ -194,15 +209,14 @@ public class IssueOrderPhase extends Phase{
      * @throws Exception the exception
      */
     public void askForOrders(Player p_player) throws Exception {
-        BufferedReader l_bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Please Enter command for Player : " + p_player.getD_name() + "   Armies left : " + p_player.getD_unallocatedArmies());
-        System.out.println("1. Deploy Order Command : 'deploy <countryName> <noOfArmies>'");
-        System.out.println("2. Advance Order Command : 'advance <countryFromName> <countryToName> <noOfArmies>");
-        System.out.println();
-        System.out.print("Enter your command: ");
-        String l_commandEntered = l_bufferedReader.readLine();
-        d_currentState.updateLog("Player : " + p_player.getD_name() + " has entered command : " + l_commandEntered ,"order");
-        handleCommand(l_commandEntered, p_player);
+        String l_commandEntered = p_player.getPlayerOrder(d_currentState);
+        if (l_commandEntered != null) {
+            d_currentState.updateLog("Player : " + p_player.getD_name() + " has entered command : " + l_commandEntered ,"order");
+            handleCommand(l_commandEntered, p_player);
+        }
+        else {
+            return;
+        }
     }
 
     /**
@@ -218,7 +232,6 @@ public class IssueOrderPhase extends Phase{
             if(p_inputCommand.split(" ").length == 3){
                 p_player.createDeployOrder(p_inputCommand);
                 d_currentState.updateLog(p_player.getD_playerLog(), "effect");
-                p_player.checkForMoreOrder();
             }
         }
     }
@@ -236,13 +249,29 @@ public class IssueOrderPhase extends Phase{
             if(p_inputCommand.split(" ").length == 4){
                 p_player.createAdvanceOrder(p_inputCommand, d_currentState);
                 d_currentState.updateLog(p_player.getD_playerLog(), "effect");
-
-                p_player.checkForMoreOrder();
             }
             else{
                 System.err.println("Invalid! command for advance order.");
                 d_currentState.updateLog("Invalid! command for advance order.","error");
             }
+        }
+    }
+
+    @Override
+    protected void saveGame(CommandHandler p_commandHandler, Player p_player) throws CommandValidationException {
+        List<Map<String,String>> l_operationsList = p_commandHandler.getListOfOperations();
+        if(l_operationsList == null || l_operationsList.isEmpty()){
+            System.out.println(ProjectConstants.INVALID_SAVEGAME_COMMAND);
+        }
+        for(java.util.Map<String,String> l_map :l_operationsList){
+            if(p_commandHandler.checkRequiredKey("Arguments", l_map)) {
+                String l_fileName = l_map.get("Arguments");
+                GameService.saveGame(this,l_fileName);
+                d_mainGameEngine.setD_mainEngineLog("Game saved successfully to Filename : " + l_fileName, "effect");
+            } else {
+                throw new CommandValidationException(ProjectConstants.INVALID_SAVEGAME_COMMAND);
+            }
+
         }
     }
 }

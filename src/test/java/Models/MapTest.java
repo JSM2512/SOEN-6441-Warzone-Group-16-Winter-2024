@@ -64,7 +64,7 @@ public class MapTest {
      */
     @Test
     public void validateMap() {
-        assertTrue(d_mapController.loadMap(d_currentState,"canada.map").validateMap());
+        assertTrue(d_mapController.loadMap(d_currentState,"testconquest.map").validateMap());
         assertFalse(d_mapController.loadMap(d_currentState,"testInvalid.map").validateMap());
     }
 

@@ -2,13 +2,14 @@ package Models;
 
 import Controller.PlayerController;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * The type Advance.
  */
-public class Advance implements Orders{
+public class Advance implements Orders, Serializable {
 
     /**
      * The D source country.
@@ -104,6 +105,12 @@ public class Advance implements Orders{
         else{
             p_currentState.updateLog(orderExecutionLog(),"effect");
         }
+    }
+
+    @Override
+    public void printOrder() {
+        this.d_orderExecutionLog = "Advance Order : "+d_intitiatingPlayer.getD_name()+" is advancing "+d_noOfArmiesToPlace+" armies from "+d_sourceCountry+" to "+d_targetCountry;
+        System.out.println(d_orderExecutionLog);
     }
 
     /**

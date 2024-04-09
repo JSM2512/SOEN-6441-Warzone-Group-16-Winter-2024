@@ -2,6 +2,8 @@ import Controller.MainGameEngineTest;
 import Controller.MapControllerTest;
 import Controller.PlayerControllerTest;
 import Models.*;
+import Services.GameService;
+import Services.GameServiceTest;
 import Utils.CommandHandlerTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -27,7 +29,9 @@ import org.junit.runners.Suite;
         OrderExecutionPhaseTest.class,
         PhaseTest.class,
         PlayerTest.class,
-        CommandHandlerTest.class
+        CommandHandlerTest.class,
+        GameServiceTest.class,
+        TournamentTest.class,
 })
 public class Testsuite {
 

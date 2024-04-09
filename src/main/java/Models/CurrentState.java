@@ -3,13 +3,17 @@ package Models;
 import Constants.ProjectConstants;
 import Exceptions.CommandValidationException;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Model Class Current state.
  */
-public class CurrentState {
+public class CurrentState implements Serializable {
     /**
      * The D players.
      */
@@ -19,10 +23,35 @@ public class CurrentState {
      */
     Map d_map;
 
+    int d_maxNumberOfTurns = 0;
+
+    int d_numberOfTurnsLeft = 0;
+
+    Player d_winner;
+
+    List<Player> d_playersFailed = new ArrayList<>();
+
+    public Player getD_winner() {
+        return d_winner;
+    }
+
+    public void setD_winner(Player d_winner) {
+        this.d_winner = d_winner;
+    }
+
+    public List<Player> getD_playersFailed() {
+        return d_playersFailed;
+    }
+
+    public void setD_playersFailed(List<Player> d_playersFailed) {
+        this.d_playersFailed = d_playersFailed;
+    }
+
     /**
      * The D model logger.
      */
     ModelLogger d_modelLogger = new ModelLogger();
+    Boolean d_loadCommand = false;
 
     /**
      * Instantiates a new Current state.
@@ -55,6 +84,22 @@ public class CurrentState {
      */
     public Map getD_map() {
         return d_map;
+    }
+
+    public int getD_maxNumberOfTurns() {
+        return d_maxNumberOfTurns;
+    }
+
+    public void setD_maxNumberOfTurns(int p_maxNumberOfTurns) {
+        this.d_maxNumberOfTurns = p_maxNumberOfTurns;
+    }
+
+    public int getD_numberOfTurnsLeft() {
+        return d_numberOfTurnsLeft;
+    }
+
+    public void setD_numberOfTurnsLeft(int p_numberOfTurnsLeft) {
+        this.d_numberOfTurnsLeft = p_numberOfTurnsLeft;
     }
 
     /**
@@ -103,13 +148,21 @@ public class CurrentState {
         d_modelLogger.setD_message(p_modelLoggerMessage, p_messageType);
     }
 
+    public Boolean getD_loadCommand() {
+        return d_loadCommand;
+    }
+
+    public void setD_loadCommand() {
+        this.d_loadCommand = true;
+    }
+
     /**
      * Add or remove game players.
      *
      * @param p_operation the p operation
      * @param p_arguments the p arguments
      */
-    public void addOrRemoveGamePlayers(String p_operation, String p_arguments) {
+    public void addOrRemoveGamePlayers(String p_operation, String p_arguments) throws IOException {
         if(p_operation.equals("add")){
             addGamePlayer(p_arguments);
         }
@@ -174,27 +227,55 @@ public class CurrentState {
      *
      * @param p_arguments the p arguments
      */
-    public void addGamePlayer(String p_arguments){
+    public void addGamePlayer(String p_arguments) throws IOException {
         if (p_arguments.split(" ").length == 1) {
             String l_playerName = p_arguments.split(" ")[0];
             Player l_gamePlayer = new Player(l_playerName);
             if(d_players == null){
                 d_players = new ArrayList<>();
-                d_players.add(l_gamePlayer);
             }
             else {
-                for(Player l_eachPlayer : d_players){
-                    if(l_eachPlayer.getD_name().equals(l_playerName))
-                    {
+                for (Player l_eachPlayer : d_players) {
+                    if (l_eachPlayer.getD_name().equals(l_playerName)) {
                         System.out.println(ProjectConstants.NAME_ALREADY_EXISTS);
                         return;
                     }
                 }
-                d_players.add(l_gamePlayer);
-
             }
-            System.out.println(l_playerName+" added.");
+            String l_playerStrategy = getPlayerStrategy(l_gamePlayer);
+            switch (l_playerStrategy){
+                case "Aggressive":
+                    l_gamePlayer.setD_playerBehaviourStrategy(new AggressivePlayer());
+                    break;
+                case "Benevolent":
+                    l_gamePlayer.setD_playerBehaviourStrategy(new BenevolentPlayer());
+                    break;
+                case "Random":
+                    l_gamePlayer.setD_playerBehaviourStrategy(new RandomPlayer());
+                    break;
+                case "Cheater":
+                    l_gamePlayer.setD_playerBehaviourStrategy(new CheaterPlayer());
+                    break;
+                case "Human":
+                    l_gamePlayer.setD_playerBehaviourStrategy(new HumanPlayer());
+                    break;
+                default:
+                    updateLog("Invalid player strategy entered.", "error");
+            }
+            d_players.add(l_gamePlayer);
+            System.out.println("Player : "+l_playerName+" added to the game with Strategy :" + l_playerStrategy);
         }
+    }
+
+    private String getPlayerStrategy(Player p_gamePlayer) throws IOException {
+        BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Please enter the strategy for player : "+p_gamePlayer.getD_name()+"(Aggressive, Benevolent, Random, Cheater, Human)");
+        String l_playerStrategy = l_reader.readLine();
+        if (!ProjectConstants.PLAYER_BEHAVIOR.contains(l_playerStrategy)) {
+            this.updateLog("Invalid player strategy entered.", "error");
+            return getPlayerStrategy(p_gamePlayer);
+        }
+        return l_playerStrategy;
     }
 
     /**

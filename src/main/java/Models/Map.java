@@ -2,6 +2,7 @@ package Models;
 
 import Constants.ProjectConstants;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Model Class Map.
  */
-public class Map {
+public class Map implements Serializable {
 
     /**
      * The D map name.
@@ -554,5 +555,24 @@ public class Map {
             }
         }
         return "null";
+    }
+
+    public Country getCountryById(Integer p_countryId){
+        for(Country l_country : d_mapCountries){
+            if(l_country.d_countryID.equals(p_countryId)){
+                return l_country;
+            }
+        }
+        System.out.println(ProjectConstants.COUNTRY_DOES_NOT_EXIST);
+        return null;
+    }
+
+    public Continent getContinentById(Integer p_continentID) {
+        for(Continent l_eachContinent :d_mapContinents){
+            if(l_eachContinent.d_continentID.equals(p_continentID)){
+                return l_eachContinent;
+            }
+        }
+        return null;
     }
 }

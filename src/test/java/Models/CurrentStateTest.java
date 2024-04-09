@@ -2,8 +2,12 @@ package Models;
 
 import Controller.MapController;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -46,11 +50,15 @@ public class CurrentStateTest {
      * Add or remove game players.
      */
     @Test
-    public void addOrRemoveGamePlayers() {
+    public void addOrRemoveGamePlayers() throws IOException {
+        InputStream originalSystemIn = System.in;
         d_currentState.setD_players(new ArrayList<>());
+        ByteArrayInputStream in = new ByteArrayInputStream("Aggressive\n".getBytes());
+        System.setIn(in);
         d_currentState.addOrRemoveGamePlayers("add", "Player1");
         assertEquals(1, d_currentState.getD_players().size());
         d_currentState.addOrRemoveGamePlayers("remove", "Player1");
         assertEquals(0, d_currentState.getD_players().size());
+        System.setIn(originalSystemIn);
     }
 }

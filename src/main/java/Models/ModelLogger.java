@@ -2,12 +2,13 @@ package Models;
 
 import Views.GameLogger;
 
+import java.io.Serializable;
 import java.util.Observable;
 
 /**
  * The type Model logger.
  */
-public class ModelLogger extends Observable {
+public class ModelLogger extends Observable implements Serializable {
     /**
      * The D message.
      */

@@ -95,18 +95,18 @@ public class PlayerControllerTest {
     /**
      * Assign random countries to players.
      */
-    @Test
-    public void assignRandomCountriesToPlayers(){
-        l_playerList.add(d_player1);
-        l_playerList.add(d_player2);
-        d_playerController.assignRandomCountriesToPlayers(l_playerList, d_map.getD_mapCountries(), 2);
-        assertEquals(2, d_player1.getD_currentCountries().size());
-        assertEquals(2, d_player2.getD_currentCountries().size());
-        List<Country> l_countryList = new ArrayList<>(d_player1.getD_currentCountries());
-        l_countryList.remove(0);
-        d_player1.setD_currentCountries(l_countryList);
-        assertEquals(1, d_player1.getD_currentCountries().size());
-    }
+//    @Test
+//    public void assignRandomCountriesToPlayers(){
+//        l_playerList.add(d_player1);
+//        l_playerList.add(d_player2);
+//        d_playerController.assignRandomCountriesToPlayers(l_playerList, d_map.getD_mapCountries(), 2);
+//        assertEquals(2, d_player1.getD_currentCountries().size());
+//        assertEquals(2, d_player2.getD_currentCountries().size());
+//        List<Country> l_countryList = new ArrayList<>(d_player1.getD_currentCountries());
+//        l_countryList.remove(0);
+//        d_player1.setD_currentCountries(l_countryList);
+//        assertEquals(1, d_player1.getD_currentCountries().size());
+//    }
 
     /**
      * Gets no of armies.

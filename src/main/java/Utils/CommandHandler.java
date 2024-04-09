@@ -1,5 +1,6 @@
 package Utils;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.Arrays;
 /**
  * The type Command handler.
  */
-public class CommandHandler {
+public class CommandHandler implements Serializable {
     /**
      * The D command.
      */

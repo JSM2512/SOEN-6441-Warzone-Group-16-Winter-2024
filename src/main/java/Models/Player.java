@@ -6,6 +6,7 @@ import Controller.MainGameEngine;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -13,7 +14,7 @@ import java.util.Random;
 /**
  * Model Class Player.
  */
-public class Player {
+public class Player implements Serializable {
     /**
      * The D player log.
      */
@@ -23,19 +24,13 @@ public class Player {
      */
     String d_name;
 
-    /**
-     * Gets d player log.
-     *
-     * @return the d player log
-     */
-    public String getD_playerLog() {
-        return d_playerLog;
-    }
 
     /**
      * The D unallocated armies.
      */
     Integer d_unallocatedArmies;
+
+    PlayerBehaviourStrategy d_playerBehaviourStrategy;
     /**
      * The D current countries.
      */
@@ -113,6 +108,14 @@ public class Player {
         return d_name;
     }
 
+    public PlayerBehaviourStrategy getD_playerBehaviourStrategy() {
+        return d_playerBehaviourStrategy;
+    }
+
+    public void setD_playerBehaviourStrategy(PlayerBehaviourStrategy p_playerBehaviourStrategy) {
+        this.d_playerBehaviourStrategy = p_playerBehaviourStrategy;
+    }
+
     /**
      * Sets d name.
      *
@@ -156,6 +159,16 @@ public class Player {
      */
     public void setD_currentCountries(List<Country> p_currentCountries) {
         this.d_currentCountries = p_currentCountries;
+    }
+
+
+    /**
+     * Gets d player log.
+     *
+     * @return the d player log
+     */
+    public String getD_playerLog() {
+        return d_playerLog;
     }
 
     /**
@@ -333,7 +346,7 @@ public class Player {
 
             Integer l_unallocatedArmies = this.getD_unallocatedArmies() - l_noOfArmiesToDeploy;
             this.setD_unallocatedArmies(l_unallocatedArmies);
-
+            d_orders.get(d_orders.size()-1).printOrder();
             this.setD_playerLog(ProjectConstants.ORDER_ADDED,"effect");
         }
     }
@@ -371,23 +384,28 @@ public class Player {
     /**
      * Check for more order.
      */
-    public void checkForMoreOrder() {
-        BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Do you still want to give order for player : " + this.getD_name() + " in the next turn?");
-        System.out.println("Press Y for Yes and N for No");
-        try {
-            String l_check = l_reader.readLine();
-            if(l_check.equalsIgnoreCase("Y") || l_check.equalsIgnoreCase("N")){
-                this.setMoreOrders(l_check.equalsIgnoreCase("Y"));
+    public void checkForMoreOrder(boolean p_isTournamentMode) {
+        if (p_isTournamentMode || !this.getD_playerBehaviourStrategy().getPlayerBehaviour().equalsIgnoreCase("Human")) {
+            Random l_random = new Random();
+            boolean l_moreOrders = l_random.nextBoolean();
+            this.setMoreOrders(l_moreOrders);
+        }else {
+            BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
+            System.out.println("Do you still want to give order for player : " + this.getD_name() + " in the next turn?");
+            System.out.println("Press Y for Yes and N for No");
+            try {
+                String l_check = l_reader.readLine();
+                if(l_check.equalsIgnoreCase("Y") || l_check.equalsIgnoreCase("N")){
+                    this.setMoreOrders(l_check.equalsIgnoreCase("Y"));
+                }
+                else{
+                    System.err.println("Invalid Input Entered");
+                    this.checkForMoreOrder(p_isTournamentMode);
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-            else{
-                System.err.println("Invalid Input Entered");
-                this.checkForMoreOrder();
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
-
     }
 
     /**
@@ -405,6 +423,7 @@ public class Player {
             l_noOfArmies > 0 &&
             checkAdjacentCountry(l_sourceCountry,l_targetCountry,p_currentState)){
             this.d_orders.add(new Advance(l_sourceCountry, l_targetCountry, l_noOfArmies, this));
+            d_orders.get(d_orders.size()-1).printOrder();
             this.setD_playerLog("Advance order is added for execution for player " + this.getD_name(),"log");
         }
         else{
@@ -469,6 +488,7 @@ public class Player {
                     Card l_bombOrder = new CardBomb(this, p_inputCommand.split(" ")[1]);
                     if (l_bombOrder.validOrderCheck(p_currentState)) {
                         this.d_orders.add(l_bombOrder);
+                        l_bombOrder.printOrder();
                         this.setD_playerLog("Bomb order is added for execution for player " + this.getD_name(), "effect");
                         p_currentState.updateLog(getD_playerLog(), "effect");
                     }
@@ -477,6 +497,7 @@ public class Player {
                     Card l_blockadeOrder = new CardBlockade(this, p_inputCommand.split(" ")[1]);
                     if (l_blockadeOrder.validOrderCheck(p_currentState)) {
                         this.d_orders.add(l_blockadeOrder);
+                        l_blockadeOrder.printOrder();
                         this.setD_playerLog("Blockade order is added for execution for player " + this.getD_name(), "effect");
                         p_currentState.updateLog(getD_playerLog(), "effect");
                     }
@@ -485,6 +506,7 @@ public class Player {
                     Card l_airliftOrder = new CardAirlift(this, p_inputCommand.split(" ")[1], p_inputCommand.split(" ")[2], Integer.parseInt(p_inputCommand.split(" ")[3]));
                     if (l_airliftOrder.validOrderCheck(p_currentState)) {
                         this.d_orders.add(l_airliftOrder);
+                        l_airliftOrder.printOrder();
                         this.setD_playerLog("Airlift order is added for execution for player " + this.getD_name(), "effect");
                         p_currentState.updateLog(getD_playerLog(), "effect");
                     }
@@ -493,6 +515,7 @@ public class Player {
                     Card l_negotiateOrder = new CardNegotiate(this, p_inputCommand.split(" ")[1]);
                     if (l_negotiateOrder.validOrderCheck(p_currentState)) {
                         this.d_orders.add(l_negotiateOrder);
+                        l_negotiateOrder.printOrder();
                         this.setD_playerLog("Negotiate order is added for execution for player " + this.getD_name(), "effect");
                         p_currentState.updateLog(getD_playerLog(), "effect");
                     }
@@ -582,5 +605,18 @@ public class Player {
             l_countryNames.add(l_eachCountry.getD_countryName());
         }
         return l_countryNames;
+    }
+
+    public List<Integer> getCountryIDs() {
+        List<Integer> l_countryIDs = new ArrayList<>();
+        for (Country l_eachCountry : d_currentCountries) {
+            l_countryIDs.add(l_eachCountry.getD_countryID());
+        }
+        return l_countryIDs;
+    }
+
+    public String getPlayerOrder(CurrentState p_currentState) throws IOException {
+        String l_order = this.d_playerBehaviourStrategy.createOrder(this, p_currentState);
+        return l_order;
     }
 }

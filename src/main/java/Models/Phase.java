@@ -8,11 +8,12 @@ import Exceptions.CommandValidationException;
 import Utils.CommandHandler;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 /**
  * The type Phase.
  */
-public abstract class Phase {
+public abstract class Phase implements Serializable {
 
     /**
      * The D current state.
@@ -34,6 +35,9 @@ public abstract class Phase {
     MainGameEngine d_mainGameEngine;
 
 
+    Tournament d_tournament = new Tournament();
+
+
     /**
      * Instantiates a new Phase.
      *
@@ -48,7 +52,7 @@ public abstract class Phase {
     /**
      * Init phase.
      */
-    public abstract void initPhase();
+    public abstract void initPhase(boolean p_isTournamentMode);
 
     /**
      * Gets d current state.
@@ -112,7 +116,18 @@ public abstract class Phase {
                 loadMap(l_commandHandler);
                 break;
             case "editmap":
-                editMap(l_commandHandler);
+                if (!l_mapAvailable) {
+                    System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
+                } else {
+                    editMap(l_commandHandler);
+                }
+                break;
+            case "savegame":
+                if(!l_mapAvailable){
+                    System.out.println(ProjectConstants.MAP_NOT_AVAILABLE);
+                } else {
+                    saveGame(l_commandHandler, p_player);
+                }
                 break;
             case "editcountry":
                 if (!l_mapAvailable) {
@@ -145,20 +160,19 @@ public abstract class Phase {
                     showMap();
                 }
                 break;
+
+            case "loadgame":
+                loadGame(l_commandHandler, p_player);
+                break;
             case "gameplayer":
-                if (!l_mapAvailable) {
-                    System.out.println(ProjectConstants.MAP_NOT_AVAILABLE_PLAYERS);
-                }
-                else {
-                    gamePlayer(l_commandHandler);
-                }
+                gamePlayer(l_commandHandler, p_player);
                 break;
             case "assigncountries":
                 if (!l_mapAvailable) {
                     System.out.println(ProjectConstants.MAP_NOT_AVAILABLE_ASSIGN_COUNTRIES);
                 }
                 else {
-                    assignCountries(l_commandHandler);
+                    assignCountries(l_commandHandler, p_player, false, d_currentState);
                 }
                 break;
             case "validatemap":
@@ -217,6 +231,9 @@ public abstract class Phase {
                     cardHandle(p_inputCommand, p_player);
                 }
                 break;
+            case "tournament":
+                tournamentMode(l_commandHandler);
+                break;
             case "exit":
                 d_currentState.getD_modelLogger().setD_message("---------------Game Session Closed---------------","effect");
                 System.out.println("Closing Game....");
@@ -227,6 +244,13 @@ public abstract class Phase {
                 break;
         }
     }
+
+    public abstract void loadGame(CommandHandler p_commandHandler, Player p_player);
+
+
+    protected abstract void saveGame(CommandHandler p_commandHandler, Player p_player) throws CommandValidationException;
+
+    protected abstract void tournamentMode(CommandHandler p_commandHandler) throws CommandValidationException, IOException;
 
     /**
      * Card handle.
@@ -256,43 +280,43 @@ public abstract class Phase {
     /**
      * Load map.
      *
-     * @param lCommandHandler the l command handler
+     * @param p_commandHandler the l command handler
      * @throws CommandValidationException the command validation exception
      */
-    protected abstract void loadMap(CommandHandler lCommandHandler) throws CommandValidationException;
+    protected abstract void loadMap(CommandHandler p_commandHandler) throws CommandValidationException;
 
     /**
      * Edit map.
      *
-     * @param lCommandHandler the l command handler
+     * @param p_commandHandler the l command handler
      * @throws CommandValidationException the command validation exception
      * @throws IOException                the io exception
      */
-    protected abstract void editMap(CommandHandler lCommandHandler) throws CommandValidationException, IOException;
+    protected abstract void editMap(CommandHandler p_commandHandler) throws CommandValidationException, IOException;
 
     /**
      * Edit country.
      *
-     * @param lCommandHandler the l command handler
+     * @param p_commandHandler the l command handler
      * @throws CommandValidationException the command validation exception
      */
-    protected abstract void editCountry(CommandHandler lCommandHandler) throws CommandValidationException;
+    protected abstract void editCountry(CommandHandler p_commandHandler) throws CommandValidationException;
 
     /**
      * Edit continent.
      *
-     * @param lCommandHandler the l command handler
+     * @param p_commandHandler the l command handler
      * @throws CommandValidationException the command validation exception
      */
-    protected abstract void editContinent(CommandHandler lCommandHandler) throws CommandValidationException;
+    protected abstract void editContinent(CommandHandler p_commandHandler) throws CommandValidationException;
 
     /**
      * Edit neighbour country.
      *
-     * @param lCommandHandler the l command handler
+     * @param p_commandHandler the l command handler
      * @throws CommandValidationException the command validation exception
      */
-    protected abstract void editNeighbourCountry(CommandHandler lCommandHandler) throws CommandValidationException;
+    protected abstract void editNeighbourCountry(CommandHandler p_commandHandler) throws CommandValidationException;
 
     /**
      * Show map.
@@ -304,35 +328,35 @@ public abstract class Phase {
     /**
      * Game player.
      *
-     * @param lCommandHandler the l command handler
+     * @param p_commandHandler the l command handler
      * @throws CommandValidationException the command validation exception
      */
-    protected abstract void gamePlayer(CommandHandler lCommandHandler) throws CommandValidationException;
+    protected abstract void gamePlayer(CommandHandler p_commandHandler,Player p_player) throws CommandValidationException, IOException;
 
     /**
      * Assign countries.
      *
-     * @param lCommandHandler the l command handler
+     * @param p_commandHandler the l command handler
      * @throws CommandValidationException the command validation exception
      * @throws IOException                the io exception
      */
-    protected abstract void assignCountries(CommandHandler lCommandHandler) throws CommandValidationException, IOException;
+    protected abstract void assignCountries(CommandHandler p_commandHandler, Player p_player, Boolean p_isTournamentMode, CurrentState p_currentState) throws CommandValidationException, IOException;
 
     /**
      * Validate map.
      *
-     * @param lCommandHandler the l command handler
+     * @param p_commandHandler the l command handler
      * @throws CommandValidationException the command validation exception
      */
-    protected abstract void validateMap(CommandHandler lCommandHandler) throws CommandValidationException;
+    protected abstract void validateMap(CommandHandler p_commandHandler) throws CommandValidationException;
 
     /**
      * Save map.
      *
-     * @param lCommandHandler the l command handler
+     * @param p_commandHandler the l command handler
      * @throws CommandValidationException the command validation exception
      */
-    protected abstract void saveMap(CommandHandler lCommandHandler) throws CommandValidationException;
+    protected abstract void saveMap(CommandHandler p_commandHandler) throws CommandValidationException;
 
     /**
      * Print invalid command in phase.
