@@ -75,6 +75,9 @@ public class Deploy implements Orders{
         }
     }
 
+    /**
+     * Print order.
+     */
     @Override
     public void printOrder(){
         this.d_logofOrderExecution = "Deploy Order : "+d_intitiatingPlayer.d_name+" is deploying "+d_noOfArmiesToMove+" armies to "+d_targetCountryName;

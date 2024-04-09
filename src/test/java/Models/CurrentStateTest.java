@@ -48,6 +48,8 @@ public class CurrentStateTest {
 
     /**
      * Add or remove game players.
+     *
+     * @throws IOException the io exception
      */
     @Test
     public void addOrRemoveGamePlayers() throws IOException {

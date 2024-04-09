@@ -28,6 +28,7 @@ public class PlayerController implements Serializable {
      * Assign countries.
      *
      * @param p_currentState the p current state
+     * @return the boolean
      */
     public boolean assignCountries(CurrentState p_currentState) {
         if (!checkPlayersAvalability(p_currentState)) {
@@ -53,6 +54,12 @@ public class PlayerController implements Serializable {
         return true;
     }
 
+    /**
+     * Check players avalability boolean.
+     *
+     * @param p_currentState the p current state
+     * @return the boolean
+     */
     private boolean checkPlayersAvalability(CurrentState p_currentState) {
         if (p_currentState.getD_players() == null || p_currentState.getD_players().isEmpty()) {
             System.out.println(ProjectConstants.NO_PLAYER_IN_GAME);
@@ -102,8 +109,10 @@ public class PlayerController implements Serializable {
     /**
      * Assign random countries to players.
      *
-     * @param p_players                  the p players
-     * @param p_countryList              the p country list
+     * @param p_countriesPerPlayer the p countries per player
+     * @param p_countryList        the p country list
+     * @param p_players            the p players
+     * @param p_currentState       the p current state
      */
     public void assignRandomCountriesToPlayers(int p_countriesPerPlayer, List<Country> p_countryList, List<Player> p_players, CurrentState p_currentState) {
         List<Country> l_unallocatedCountries = new ArrayList<>(p_countryList);

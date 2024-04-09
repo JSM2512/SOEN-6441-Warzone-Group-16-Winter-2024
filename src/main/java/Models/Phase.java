@@ -35,6 +35,9 @@ public abstract class Phase implements Serializable {
     MainGameEngine d_mainGameEngine;
 
 
+    /**
+     * The D tournament.
+     */
     Tournament d_tournament = new Tournament();
 
 
@@ -51,6 +54,8 @@ public abstract class Phase implements Serializable {
 
     /**
      * Init phase.
+     *
+     * @param p_isTournamentMode the p is tournament mode
      */
     public abstract void initPhase(boolean p_isTournamentMode);
 
@@ -245,11 +250,31 @@ public abstract class Phase implements Serializable {
         }
     }
 
+    /**
+     * Load game.
+     *
+     * @param p_commandHandler the p command handler
+     * @param p_player         the p player
+     */
     public abstract void loadGame(CommandHandler p_commandHandler, Player p_player);
 
 
+    /**
+     * Save game.
+     *
+     * @param p_commandHandler the p command handler
+     * @param p_player         the p player
+     * @throws CommandValidationException the command validation exception
+     */
     protected abstract void saveGame(CommandHandler p_commandHandler, Player p_player) throws CommandValidationException;
 
+    /**
+     * Tournament mode.
+     *
+     * @param p_commandHandler the p command handler
+     * @throws CommandValidationException the command validation exception
+     * @throws IOException                the io exception
+     */
     protected abstract void tournamentMode(CommandHandler p_commandHandler) throws CommandValidationException, IOException;
 
     /**
@@ -329,14 +354,19 @@ public abstract class Phase implements Serializable {
      * Game player.
      *
      * @param p_commandHandler the l command handler
+     * @param p_player         the p player
      * @throws CommandValidationException the command validation exception
+     * @throws IOException                the io exception
      */
     protected abstract void gamePlayer(CommandHandler p_commandHandler,Player p_player) throws CommandValidationException, IOException;
 
     /**
      * Assign countries.
      *
-     * @param p_commandHandler the l command handler
+     * @param p_commandHandler   the l command handler
+     * @param p_player           the p player
+     * @param p_isTournamentMode the p is tournament mode
+     * @param p_currentState     the p current state
      * @throws CommandValidationException the command validation exception
      * @throws IOException                the io exception
      */

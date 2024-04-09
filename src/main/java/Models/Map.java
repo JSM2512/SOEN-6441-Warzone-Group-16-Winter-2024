@@ -557,6 +557,12 @@ public class Map implements Serializable {
         return "null";
     }
 
+    /**
+     * Get country by id country.
+     *
+     * @param p_countryId the p country id
+     * @return the country
+     */
     public Country getCountryById(Integer p_countryId){
         for(Country l_country : d_mapCountries){
             if(l_country.d_countryID.equals(p_countryId)){
@@ -567,6 +573,12 @@ public class Map implements Serializable {
         return null;
     }
 
+    /**
+     * Gets continent by id.
+     *
+     * @param p_continentID the p continent id
+     * @return the continent by id
+     */
     public Continent getContinentById(Integer p_continentID) {
         for(Continent l_eachContinent :d_mapContinents){
             if(l_eachContinent.d_continentID.equals(p_continentID)){

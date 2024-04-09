@@ -30,6 +30,9 @@ public class Player implements Serializable {
      */
     Integer d_unallocatedArmies;
 
+    /**
+     * The D player behaviour strategy.
+     */
     PlayerBehaviourStrategy d_playerBehaviourStrategy;
     /**
      * The D current countries.
@@ -108,10 +111,20 @@ public class Player implements Serializable {
         return d_name;
     }
 
+    /**
+     * Gets d player behaviour strategy.
+     *
+     * @return the d player behaviour strategy
+     */
     public PlayerBehaviourStrategy getD_playerBehaviourStrategy() {
         return d_playerBehaviourStrategy;
     }
 
+    /**
+     * Sets d player behaviour strategy.
+     *
+     * @param p_playerBehaviourStrategy the p player behaviour strategy
+     */
     public void setD_playerBehaviourStrategy(PlayerBehaviourStrategy p_playerBehaviourStrategy) {
         this.d_playerBehaviourStrategy = p_playerBehaviourStrategy;
     }
@@ -383,6 +396,8 @@ public class Player implements Serializable {
 
     /**
      * Check for more order.
+     *
+     * @param p_isTournamentMode the p is tournament mode
      */
     public void checkForMoreOrder(boolean p_isTournamentMode) {
         if (p_isTournamentMode || !this.getD_playerBehaviourStrategy().getPlayerBehaviour().equalsIgnoreCase("Human")) {
@@ -607,6 +622,11 @@ public class Player implements Serializable {
         return l_countryNames;
     }
 
+    /**
+     * Gets country i ds.
+     *
+     * @return the country i ds
+     */
     public List<Integer> getCountryIDs() {
         List<Integer> l_countryIDs = new ArrayList<>();
         for (Country l_eachCountry : d_currentCountries) {
@@ -615,6 +635,13 @@ public class Player implements Serializable {
         return l_countryIDs;
     }
 
+    /**
+     * Gets player order.
+     *
+     * @param p_currentState the p current state
+     * @return the player order
+     * @throws IOException the io exception
+     */
     public String getPlayerOrder(CurrentState p_currentState) throws IOException {
         String l_order = this.d_playerBehaviourStrategy.createOrder(this, p_currentState);
         return l_order;

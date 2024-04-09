@@ -129,6 +129,9 @@ public class CardAirlift implements Card{
         }
     }
 
+    /**
+     * Print order.
+     */
     @Override
     public void printOrder() {
         this.d_logOfOrderExecution = "Airlift Order : " + d_cardOwner.getD_name() + " is airlifting " + d_armyCount + " armies from " + d_sourceCountryName + " to " + d_targetCountryName;

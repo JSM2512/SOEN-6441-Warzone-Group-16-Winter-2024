@@ -13,7 +13,6 @@ import java.util.List;
 /**
  * The type Tournament.
  */
-
 public class Tournament implements Serializable {
     /**
      * The D map controller.
@@ -257,6 +256,13 @@ public class Tournament implements Serializable {
         return true;
     }
 
+    /**
+     * Required tournament arg present boolean.
+     *
+     * @param p_operationsList the p operations list
+     * @param p_commandHandler the p command handler
+     * @return the boolean
+     */
     public boolean requiredTournamentArgPresent(List<java.util.Map<String, String>> p_operationsList, CommandHandler p_commandHandler) {
         String l_argumentKey = new String();
         if(p_operationsList.size() != 4){

@@ -12,6 +12,10 @@ public interface Orders {
      * @param p_currentState the p current state
      */
     public void execute(CurrentState p_currentState);
+
+    /**
+     * Print order.
+     */
     public void printOrder();
 
     /**

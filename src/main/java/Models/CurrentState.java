@@ -23,26 +23,58 @@ public class CurrentState implements Serializable {
      */
     Map d_map;
 
+    /**
+     * The D max number of turns.
+     */
     int d_maxNumberOfTurns = 0;
 
+    /**
+     * The D number of turns left.
+     */
     int d_numberOfTurnsLeft = 0;
 
+    /**
+     * The D winner.
+     */
     Player d_winner;
 
+    /**
+     * The D players failed.
+     */
     List<Player> d_playersFailed = new ArrayList<>();
 
+    /**
+     * Gets d winner.
+     *
+     * @return the d winner
+     */
     public Player getD_winner() {
         return d_winner;
     }
 
+    /**
+     * Sets d winner.
+     *
+     * @param d_winner the d winner
+     */
     public void setD_winner(Player d_winner) {
         this.d_winner = d_winner;
     }
 
+    /**
+     * Gets d players failed.
+     *
+     * @return the d players failed
+     */
     public List<Player> getD_playersFailed() {
         return d_playersFailed;
     }
 
+    /**
+     * Sets d players failed.
+     *
+     * @param d_playersFailed the d players failed
+     */
     public void setD_playersFailed(List<Player> d_playersFailed) {
         this.d_playersFailed = d_playersFailed;
     }
@@ -51,6 +83,9 @@ public class CurrentState implements Serializable {
      * The D model logger.
      */
     ModelLogger d_modelLogger = new ModelLogger();
+    /**
+     * The D load command.
+     */
     Boolean d_loadCommand = false;
 
     /**
@@ -86,18 +121,38 @@ public class CurrentState implements Serializable {
         return d_map;
     }
 
+    /**
+     * Gets d max number of turns.
+     *
+     * @return the d max number of turns
+     */
     public int getD_maxNumberOfTurns() {
         return d_maxNumberOfTurns;
     }
 
+    /**
+     * Sets d max number of turns.
+     *
+     * @param p_maxNumberOfTurns the p max number of turns
+     */
     public void setD_maxNumberOfTurns(int p_maxNumberOfTurns) {
         this.d_maxNumberOfTurns = p_maxNumberOfTurns;
     }
 
+    /**
+     * Gets d number of turns left.
+     *
+     * @return the d number of turns left
+     */
     public int getD_numberOfTurnsLeft() {
         return d_numberOfTurnsLeft;
     }
 
+    /**
+     * Sets d number of turns left.
+     *
+     * @param p_numberOfTurnsLeft the p number of turns left
+     */
     public void setD_numberOfTurnsLeft(int p_numberOfTurnsLeft) {
         this.d_numberOfTurnsLeft = p_numberOfTurnsLeft;
     }
@@ -148,10 +203,18 @@ public class CurrentState implements Serializable {
         d_modelLogger.setD_message(p_modelLoggerMessage, p_messageType);
     }
 
+    /**
+     * Gets d load command.
+     *
+     * @return the d load command
+     */
     public Boolean getD_loadCommand() {
         return d_loadCommand;
     }
 
+    /**
+     * Sets d load command.
+     */
     public void setD_loadCommand() {
         this.d_loadCommand = true;
     }
@@ -161,6 +224,7 @@ public class CurrentState implements Serializable {
      *
      * @param p_operation the p operation
      * @param p_arguments the p arguments
+     * @throws IOException the io exception
      */
     public void addOrRemoveGamePlayers(String p_operation, String p_arguments) throws IOException {
         if(p_operation.equals("add")){
@@ -226,6 +290,7 @@ public class CurrentState implements Serializable {
      * Add game player.
      *
      * @param p_arguments the p arguments
+     * @throws IOException the io exception
      */
     public void addGamePlayer(String p_arguments) throws IOException {
         if (p_arguments.split(" ").length == 1) {
@@ -267,6 +332,13 @@ public class CurrentState implements Serializable {
         }
     }
 
+    /**
+     * Gets player strategy.
+     *
+     * @param p_gamePlayer the p game player
+     * @return the player strategy
+     * @throws IOException the io exception
+     */
     private String getPlayerStrategy(Player p_gamePlayer) throws IOException {
         BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Please enter the strategy for player : "+p_gamePlayer.getD_name()+"(Aggressive, Benevolent, Random, Cheater, Human)");

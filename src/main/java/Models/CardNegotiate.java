@@ -106,6 +106,9 @@ public class CardNegotiate implements Card{
 
     }
 
+    /**
+     * Print order.
+     */
     @Override
     public void printOrder() {
         this.d_logOrderExecution = "Negotiate Card : "+d_cardOwner.getD_name()+" is using negotiate card with "+d_targetPlayer;
