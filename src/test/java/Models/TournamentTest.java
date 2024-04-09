@@ -40,20 +40,31 @@ public class TournamentTest {
         d_tournament = new Tournament();
     }
 
-
-  @Test
+    @Test
     public void testInvalidMapArgs() throws CommandValidationException {
+        assertFalse(d_tournament.parseTournamentCommand(d_currentState, "M", "test.map test.map test.map test.map test.map test.map", d_mainGameEngine));
+        assertTrue(d_tournament.parseTournamentCommand(d_currentState, "M", "test.map test.map test.map test.map", d_mainGameEngine));
+    }
 
-      assertFalse(d_tournament.parseTournamentCommand(d_currentState, "M", "test.map test.map test.map test.map test.map test.map", new MainGameEngine()));
-      assertTrue(d_tournament.parseTournamentCommand(d_currentState, "M", "test.map test.map test.map test.map", new MainGameEngine()));
-  }
-
-  @Test
+    @Test
     public void testInvalidPlayerStrategiesArgs() throws CommandValidationException {
-        assertTrue(d_tournament.parseTournamentCommand(d_currentState,"P","Random Cheater",new MainGameEngine()));
-        assertFalse(d_tournament.parseTournamentCommand(d_currentState,"P","Random Aggressive",new MainGameEngine()));
+        assertTrue(d_tournament.parseTournamentCommand(d_currentState, "P", "Random Cheater", d_mainGameEngine));
+        assertFalse(d_tournament.parseTournamentCommand(d_currentState, "P", "Random Aggressive", d_mainGameEngine));
 
-  }
+    }
 
+    @Test
+    public void testInvalidNoOfGameArgs() throws CommandValidationException {
+        assertFalse(d_tournament.parseTournamentCommand(d_currentState,"G","10",d_mainGameEngine));
+        assertTrue(d_tournament.parseTournamentCommand(d_currentState,"G","3",d_mainGameEngine));
+
+    }
+
+    @Test
+    public void testInvalidNoOfTurns() throws CommandValidationException {
+        assertFalse(d_tournament.parseTournamentCommand(d_currentState,"D","100",d_mainGameEngine));
+        assertTrue(d_tournament.parseTournamentCommand(d_currentState,"D","40",d_mainGameEngine));
+
+    }
 
 }

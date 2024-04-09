@@ -189,3 +189,85 @@ Player1 has won the game. Exiting the game....
 
 Log: test.map has been loaded to start the game
 
+Log: Invalid number of games found. Please provide 1 to 5 games for the tournament.
+
+Log: Invalid number of turns found. Please provide 10 to 50 turns for the tournament.
+
+Log: Player : Player1 added to the game with strategy : Random
+
+Log: Player : Player2 added to the game with strategy : Cheater
+
+Log: Player : Player1 added to the game with strategy : Random
+
+Log: Invalid number of players found. Please provide atleast 2 players for the tournament.
+
+Log: Invalid number of games found. Please provide 1 to 5 games for the tournament.
+
+Log: Invalid number of map files. Please provide 1 to 5 map files.
+
+Log: Map :test.map Loaded Successfully
+
+Log: Map :test.map Loaded Successfully
+
+Log: Map :test.map Loaded Successfully
+
+Log: Map :test.map Loaded Successfully
+
+Log: Invalid number of turns found. Please provide 10 to 50 turns for the tournament.
+
+Log: Map :test.map Loaded Successfully
+
+Log: Map :test.map Loaded Successfully
+
+Log: Map :test.map Loaded Successfully
+
+Log: Player : Player1 added to the game with strategy : Random
+
+Log: Invalid number of players found. Please provide atleast 2 players for the tournament.
+
+Log: Map :test.map Loaded Successfully
+
+Log: Map :test.map Loaded Successfully
+
+Log: Player : Player1 added to the game with strategy : Random
+
+Log: Invalid number of players found. Please provide atleast 2 players for the tournament.
+
+Log: Map :test.map Loaded Successfully
+
+Log: Map :test.map Loaded Successfully
+
+Log: Player : Player1 added to the game with strategy : Random
+
+Log: Invalid number of players found. Please provide atleast 2 players for the tournament.
+
+Log: Map :test.map Loaded Successfully
+
+Log: Map :test.map Loaded Successfully
+
+Log: Player : Player1 added to the game with strategy : Random
+
+Log: Invalid number of players found. Please provide atleast 2 players for the tournament.
+
+Log: Player : Player1 added to the game with strategy : Random
+
+Log: Player : Player2 added to the game with strategy : Cheater
+
+Log: Player : Player1 added to the game with strategy : Random
+
+Log: Invalid number of players found. Please provide atleast 2 players for the tournament.
+
+Log: Invalid number of games found. Please provide 1 to 5 games for the tournament.
+
+Log: Invalid number of map files. Please provide 1 to 5 map files.
+
+Log: Map :test.map Loaded Successfully
+
+Log: Map :test.map Loaded Successfully
+
+Log: Map :test.map Loaded Successfully
+
+Log: Map :test.map Loaded Successfully
+
+Log: Invalid number of turns found. Please provide 10 to 50 turns for the tournament.
+
