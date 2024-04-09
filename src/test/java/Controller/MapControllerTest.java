@@ -122,6 +122,9 @@ public class MapControllerTest {
         d_map = d_mapController.loadMap(d_currentState, d_mapName);
         assertEquals("Paris", d_map.getCountryByName("Paris").getD_countryName());
         d_mapController.editCountry(d_currentState, "remove", "Paris");
+        in = new ByteArrayInputStream("2\n".getBytes());
+        System.setIn(in);
+        d_currentState.setD_map(d_map);
         d_mapController.saveMap(d_currentState, d_mapName);
         System.setIn(originalSystemIn);
     }
