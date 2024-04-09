@@ -92,7 +92,7 @@ public class StartupPhase extends Phase{
     }
 
     @Override
-    protected void saveGame(CommandHandler p_commandHandler, Player p_player) throws CommandValidationException {
+    public void saveGame(CommandHandler p_commandHandler, Player p_player) throws CommandValidationException {
         List<java.util.Map<String,String>> l_operationsList = p_commandHandler.getListOfOperations();
         if(l_operationsList == null || l_operationsList.isEmpty()){
             System.out.println(ProjectConstants.INVALID_SAVEGAME_COMMAND);
