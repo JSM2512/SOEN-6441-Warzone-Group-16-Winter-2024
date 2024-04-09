@@ -30,7 +30,8 @@ import org.junit.runners.Suite;
         PhaseTest.class,
         PlayerTest.class,
         CommandHandlerTest.class,
-        GameServiceTest.class
+        GameServiceTest.class,
+        TournamentTest.class,
 })
 public class Testsuite {
 

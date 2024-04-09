@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * The type Tournament.
  */
+
 public class Tournament implements Serializable {
     /**
      * The D map controller.
