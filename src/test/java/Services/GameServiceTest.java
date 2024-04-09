@@ -21,6 +21,8 @@ public class GameServiceTest {
     Player d_player1;
 
     Player d_player2;
+
+    Player d_player3;
     Map d_map;
     MapController d_mapController;
     CurrentState d_currentState;
@@ -46,10 +48,29 @@ public class GameServiceTest {
         d_player_list.add(d_player2);
         d_currentState.setD_players(d_player_list);
         d_currentPhase.getD_currentState().setD_players(d_player_list);
-        d_currentPhase.saveGame(new CommandHandler("savegame hello.txt"),d_player1);
-        Phase d_phase =new StartupPhase(new CurrentState(),new MainGameEngine());
-        GameService d_gameserive = new GameService();
-        d_phase=d_gameserive.loadGame("hello.txt");
+        d_currentPhase.saveGame(new CommandHandler("savegame savedGame.txt"),d_player1);
+        new StartupPhase(new CurrentState(), new MainGameEngine());
+        Phase d_phase;
+        d_phase = GameService.loadGame("savedGame.txt");
+        assertEquals(d_currentPhase.getD_currentState().getD_players().size(), d_phase.getD_currentState().getD_players().size());
+    }
+
+    @Test
+    public void loadGameTest() throws CommandValidationException, IOException, ClassNotFoundException {
+        StartupPhase d_currentPhase =new StartupPhase(d_currentState,d_mainGameEngine);
+        d_player1 = new Player("Player-1");
+        d_player2 = new Player("Player-2");
+        d_player3 = new Player("Player-3");
+        List<Player> d_player_list = new ArrayList<>();
+        d_player_list.add(d_player1);
+        d_player_list.add(d_player2);
+        d_player_list.add(d_player3);
+        d_currentState.setD_players(d_player_list);
+        d_currentPhase.getD_currentState().setD_players(d_player_list);
+        d_currentPhase.saveGame(new CommandHandler("savegame loadGame.txt"),d_player1);
+        new StartupPhase(new CurrentState(), new MainGameEngine());
+        Phase d_phase;
+        d_phase = GameService.loadGame("loadGame.txt");
         assertEquals(d_currentPhase.getD_currentState().getD_players().size(), d_phase.getD_currentState().getD_players().size());
     }
 }
