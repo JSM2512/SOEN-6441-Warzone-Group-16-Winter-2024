@@ -9,7 +9,25 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Conquest map file reader.
+ */
 public class ConquestMapFileReader implements Serializable {
+
+    /**
+     * Instantiates a new Conquest map file reader.
+     */
+    public ConquestMapFileReader() {
+    }
+
+    /**
+     * Read conquest file.
+     *
+     * @param p_currentState the p current state
+     * @param p_map          the p map
+     * @param p_fileLines    the p file lines
+     * @param p_fileName     the p file name
+     */
     public void readConquestFile(CurrentState p_currentState, Map p_map, List<String> p_fileLines, String p_fileName) {
         List<String> l_continentData = getMetaData(p_fileLines, "continent");
 
@@ -25,6 +43,13 @@ public class ConquestMapFileReader implements Serializable {
         p_currentState.setD_map(p_map);
     }
 
+    /**
+     * Link country to continent list.
+     *
+     * @param p_continentList      the p continent list
+     * @param p_updatedCountryList the p updated country list
+     * @return the list
+     */
     private List<Continent> linkCountryToContinent(List<Continent> p_continentList, List<Country> p_updatedCountryList) {
         for(Country l_eachCountry : p_updatedCountryList){
             for(Continent l_eachContinent : p_continentList){
@@ -36,6 +61,13 @@ public class ConquestMapFileReader implements Serializable {
         return p_continentList;
     }
 
+    /**
+     * Parse neighbours meta data list.
+     *
+     * @param p_countryList the p country list
+     * @param p_countryData the p country data
+     * @return the list
+     */
     private List<Country> parseNeighboursMetaData(List<Country> p_countryList, List<String> p_countryData) {
         List<Country> l_updatedCountryList = new ArrayList<>(p_countryList);
         String l_matchedCountry = null;
@@ -56,6 +88,13 @@ public class ConquestMapFileReader implements Serializable {
         return l_updatedCountryList;
     }
 
+    /**
+     * Gets country by name.
+     *
+     * @param p_countryList the p country list
+     * @param p_countryName the p country name
+     * @return the country by name
+     */
     private Country getCountryByName(List<Country> p_countryList, String p_countryName) {
         for (Country l_eachCountry : p_countryList) {
             if (l_eachCountry.getD_countryName().equals(p_countryName)) {
@@ -65,6 +104,13 @@ public class ConquestMapFileReader implements Serializable {
         return null;
     }
 
+    /**
+     * Parse country meta data list.
+     *
+     * @param p_countryData   the p country data
+     * @param p_continentList the p continent list
+     * @return the list
+     */
     private List<Country> parseCountryMetaData(List<String> p_countryData, List<Continent> p_continentList) {
         List<Country> l_countryList = new ArrayList<>();
         int l_countryId = 1;
@@ -78,6 +124,13 @@ public class ConquestMapFileReader implements Serializable {
         return l_countryList;
     }
 
+    /**
+     * Gets continent by name.
+     *
+     * @param p_continentList the p continent list
+     * @param p_continentName the p continent name
+     * @return the continent by name
+     */
     private Continent getContinentByName(List<Continent> p_continentList, String p_continentName) {
         for (Continent l_eachContinent : p_continentList) {
             if (l_eachContinent.getD_continentName().equals(p_continentName)) {
@@ -87,6 +140,12 @@ public class ConquestMapFileReader implements Serializable {
         return null;
     }
 
+    /**
+     * Parse continent meta data list.
+     *
+     * @param p_continentData the p continent data
+     * @return the list
+     */
     private List<Continent> parseContinentMetaData(List<String> p_continentData) {
         int l_contientId = 1;
         List<Continent> l_continentList = new ArrayList<>();
@@ -98,6 +157,13 @@ public class ConquestMapFileReader implements Serializable {
         return l_continentList;
     }
 
+    /**
+     * Gets meta data.
+     *
+     * @param p_fileLines the p file lines
+     * @param p_parameter the p parameter
+     * @return the meta data
+     */
     private List<String> getMetaData(List<String> p_fileLines, String p_parameter) {
         switch (p_parameter) {
             case "continent":

@@ -4,15 +4,40 @@ import java.io.IOException;
 import java.util.*;
 import java.util.Map;
 
+/**
+ * The type Aggressive player.
+ */
 public class AggressivePlayer extends PlayerBehaviourStrategy{
 
+    /**
+     * The D deploy countries.
+     */
     ArrayList<Country> d_deployCountries = new ArrayList<>();
 
+    /**
+     * Instantiates a new Aggressive player.
+     */
+    public AggressivePlayer() {
+    }
+
+    /**
+     * Gets player behaviour.
+     *
+     * @return the player behaviour
+     */
     @Override
     public String getPlayerBehaviour() {
         return "Aggressive";
     }
 
+    /**
+     * Create order string.
+     *
+     * @param p_player       the p player
+     * @param p_currentState the p current state
+     * @return the string
+     * @throws IOException the io exception
+     */
     @Override
     public String createOrder(Player p_player, CurrentState p_currentState) throws IOException {
         System.out.println("Order creation for " + p_player.getD_name());
@@ -65,6 +90,12 @@ public class AggressivePlayer extends PlayerBehaviourStrategy{
         return l_command;
     }
 
+    /**
+     * Check if armies deployed boolean.
+     *
+     * @param p_player the p player
+     * @return the boolean
+     */
     private boolean checkIfArmiesDeployed(Player p_player) {
         if(p_player.getD_currentCountries().stream().anyMatch(l_country -> l_country.getD_armies() > 0)){
             return true;
@@ -72,6 +103,14 @@ public class AggressivePlayer extends PlayerBehaviourStrategy{
         return false;
     }
 
+    /**
+     * Create card order string.
+     *
+     * @param p_player       the p player
+     * @param p_currentState the p current state
+     * @param p_cardName     the p card name
+     * @return the string
+     */
     @Override
     public String createCardOrder(Player p_player, CurrentState p_currentState, String p_cardName) {
         Random l_random = new Random();
@@ -91,6 +130,13 @@ public class AggressivePlayer extends PlayerBehaviourStrategy{
         return null;
     }
 
+    /**
+     * Gets random enemy player.
+     *
+     * @param p_player    the p player
+     * @param p_gameState the p game state
+     * @return the random enemy player
+     */
     private Player getRandomEnemyPlayer(Player p_player, CurrentState p_gameState) {
         ArrayList<Player> l_playerList = new ArrayList<>();
         Random l_random = new Random();
@@ -102,6 +148,13 @@ public class AggressivePlayer extends PlayerBehaviourStrategy{
         return l_playerList.get(l_random.nextInt(l_playerList.size()));
     }
 
+    /**
+     * Gets strongest country.
+     *
+     * @param p_player       the p player
+     * @param p_currentState the p current state
+     * @return the strongest country
+     */
     private Country getStrongestCountry(Player p_player, CurrentState p_currentState) {
         List<Country> l_countriesOwnedByPlayer = p_player.getD_currentCountries();
         Country l_strongestCountry = calculateStrongestCountry(l_countriesOwnedByPlayer);
@@ -109,6 +162,12 @@ public class AggressivePlayer extends PlayerBehaviourStrategy{
 
     }
 
+    /**
+     * Calculate strongest country country.
+     *
+     * @param p_countriesOwnedByPlayer the p countries owned by player
+     * @return the country
+     */
     private Country calculateStrongestCountry(List<Country> p_countriesOwnedByPlayer) {
         LinkedHashMap<Country,Integer> l_countryWithArmies = new LinkedHashMap<>();
         int l_largestNoOfArmies = 0;
@@ -125,6 +184,13 @@ public class AggressivePlayer extends PlayerBehaviourStrategy{
         return l_strongestCountry;
     }
 
+    /**
+     * Create advance order string.
+     *
+     * @param p_player       the p player
+     * @param p_currentState the p current state
+     * @return the string
+     */
     @Override
     public String createAdvanceOrder(Player p_player, CurrentState p_currentState) {
         Country l_randomSourceCountry = getRandomCountry(d_deployCountries);
@@ -136,6 +202,13 @@ public class AggressivePlayer extends PlayerBehaviourStrategy{
         return "advance " + l_randomSourceCountry.getD_countryName() + " " + l_randomTargetCountry.getD_countryName() + " " + l_noOfArmiesToMove;
     }
 
+    /**
+     * Move armies from its neighbours.
+     *
+     * @param p_player              the p player
+     * @param p_randomSourceCountry the p random source country
+     * @param p_currentState        the p current state
+     */
     private void moveArmiesFromItsNeighbours(Player p_player, Country p_randomSourceCountry, CurrentState p_currentState) {
         List<Integer> l_adjacentCountryIds = p_randomSourceCountry.getD_neighbouringCountriesId();
         List<Country> l_listOfNeighbours = new ArrayList<>();
@@ -158,11 +231,24 @@ public class AggressivePlayer extends PlayerBehaviourStrategy{
         p_randomSourceCountry.setD_armies(l_armiesToMove);
     }
 
+    /**
+     * Gets random country.
+     *
+     * @param p_deployCountries the p deploy countries
+     * @return the random country
+     */
     private Country getRandomCountry(ArrayList<Country> p_deployCountries) {
         Random l_random = new Random();
         return p_deployCountries.get(l_random.nextInt(p_deployCountries.size()));
     }
 
+    /**
+     * Create deploy order string.
+     *
+     * @param p_player       the p player
+     * @param p_currentState the p current state
+     * @return the string
+     */
     @Override
     public String createDeployOrder(Player p_player, CurrentState p_currentState) {
         Random l_random = new Random();

@@ -9,8 +9,14 @@ import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
+/**
+ * The type Tournament test.
+ */
 public class TournamentTest {
 
+    /**
+     * The D player 1.
+     */
     Player d_player1;
 
     /**
@@ -23,10 +29,19 @@ public class TournamentTest {
      */
     CurrentState d_currentState;
 
+    /**
+     * The D tournament.
+     */
     Tournament d_tournament;
 
+    /**
+     * The D main game engine.
+     */
     MainGameEngine d_mainGameEngine = new MainGameEngine();
 
+    /**
+     * Sets .
+     */
     @Before
     public void setup() {
         d_currentState = new CurrentState();
@@ -40,12 +55,22 @@ public class TournamentTest {
         d_tournament = new Tournament();
     }
 
+    /**
+     * Test invalid map args.
+     *
+     * @throws CommandValidationException the command validation exception
+     */
     @Test
     public void testInvalidMapArgs() throws CommandValidationException {
         assertFalse(d_tournament.parseTournamentCommand(d_currentState, "M", "test.map test.map test.map test.map test.map test.map", d_mainGameEngine));
         assertTrue(d_tournament.parseTournamentCommand(d_currentState, "M", "test.map test.map test.map test.map", d_mainGameEngine));
     }
 
+    /**
+     * Test invalid player strategies args.
+     *
+     * @throws CommandValidationException the command validation exception
+     */
     @Test
     public void testInvalidPlayerStrategiesArgs() throws CommandValidationException {
         assertTrue(d_tournament.parseTournamentCommand(d_currentState, "P", "Random Cheater", d_mainGameEngine));
@@ -53,6 +78,11 @@ public class TournamentTest {
 
     }
 
+    /**
+     * Test invalid no of game args.
+     *
+     * @throws CommandValidationException the command validation exception
+     */
     @Test
     public void testInvalidNoOfGameArgs() throws CommandValidationException {
         assertFalse(d_tournament.parseTournamentCommand(d_currentState,"G","10",d_mainGameEngine));
@@ -60,6 +90,11 @@ public class TournamentTest {
 
     }
 
+    /**
+     * Test invalid no of turns.
+     *
+     * @throws CommandValidationException the command validation exception
+     */
     @Test
     public void testInvalidNoOfTurns() throws CommandValidationException {
         assertFalse(d_tournament.parseTournamentCommand(d_currentState,"D","100",d_mainGameEngine));

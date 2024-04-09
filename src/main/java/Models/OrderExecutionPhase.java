@@ -30,6 +30,8 @@ public class OrderExecutionPhase extends Phase{
 
     /**
      * Init phase.
+     *
+     * @param p_isTournamentMode the p is tournament mode
      */
     @Override
     public void initPhase(boolean p_isTournamentMode) {
@@ -65,11 +67,24 @@ public class OrderExecutionPhase extends Phase{
         }
     }
 
+    /**
+     * Load game.
+     *
+     * @param p_commandHandler the p command handler
+     * @param p_player         the p player
+     */
     @Override
     public void loadGame(CommandHandler p_commandHandler, Player p_player) {
         printInvalidCommandInPhase();
     }
 
+    /**
+     * Continue for next turn string.
+     *
+     * @param pIsTournamentMode the p is tournament mode
+     * @return the string
+     * @throws IOException the io exception
+     */
     private String continueForNextTurn(boolean pIsTournamentMode) throws IOException {
         String l_continue = new String();
         if(pIsTournamentMode){
@@ -83,6 +98,11 @@ public class OrderExecutionPhase extends Phase{
         return l_continue;
     }
 
+    /**
+     * Tournament mode.
+     *
+     * @param lCommandHandler the l command handler
+     */
     @Override
     protected void tournamentMode(CommandHandler lCommandHandler) {
         printInvalidCommandInPhase();
@@ -217,6 +237,8 @@ public class OrderExecutionPhase extends Phase{
     /**
      * Game player.
      *
+     * @param p_ommandHandler the p ommand handler
+     * @param p_player        the p player
      * @throws CommandValidationException the command validation exception
      */
     @Override
@@ -227,7 +249,10 @@ public class OrderExecutionPhase extends Phase{
     /**
      * Assign countries.
      *
-     * @param lCommandHandler the l command handler
+     * @param lCommandHandler    the l command handler
+     * @param p_player           the p player
+     * @param p_isTournamentMode the p is tournament mode
+     * @param p_currentState     the p current state
      * @throws CommandValidationException the command validation exception
      * @throws IOException                the io exception
      */
@@ -300,6 +325,13 @@ public class OrderExecutionPhase extends Phase{
         }
     }
 
+    /**
+     * Save game.
+     *
+     * @param p_commandHandler the p command handler
+     * @param p_player         the p player
+     * @throws CommandValidationException the command validation exception
+     */
     @Override
     protected void saveGame(CommandHandler p_commandHandler, Player p_player) throws CommandValidationException {
         List<Map<String,String>> l_operationsList = p_commandHandler.getListOfOperations();

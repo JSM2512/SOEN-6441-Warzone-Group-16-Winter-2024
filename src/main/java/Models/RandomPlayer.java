@@ -4,10 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * The type Random player.
+ */
 public class RandomPlayer extends PlayerBehaviourStrategy {
 
+    /**
+     * Instantiates a new Random player.
+     */
+    public RandomPlayer() {
+    }
+
+    /**
+     * The D deploy countries.
+     */
     ArrayList<Country> d_deployCountries = new ArrayList<Country>();
 
+    /**
+     * Create order string.
+     *
+     * @param p_player    the p player
+     * @param p_gameState the p game state
+     * @return the string
+     */
     @Override
     public String createOrder(Player p_player, CurrentState p_gameState) {
         System.out.println("Creating order for : " + p_player.getD_name());
@@ -55,6 +74,12 @@ public class RandomPlayer extends PlayerBehaviourStrategy {
         return l_command;
     }
 
+    /**
+     * Check if armies depoyed boolean.
+     *
+     * @param p_player the p player
+     * @return the boolean
+     */
     private boolean checkIfArmiesDepoyed(Player p_player) {
         for(Country l_eachCountry : p_player.getD_currentCountries()){
             if(l_eachCountry.getD_armies() > 0) {
@@ -64,11 +89,24 @@ public class RandomPlayer extends PlayerBehaviourStrategy {
         return false;
     }
 
+    /**
+     * Gets player behaviour.
+     *
+     * @return the player behaviour
+     */
     @Override
     public String getPlayerBehaviour() {
         return "Random";
     }
 
+    /**
+     * Create card order string.
+     *
+     * @param p_player       the p player
+     * @param p_currentState the p current state
+     * @param p_cardName     the p card name
+     * @return the string
+     */
     @Override
     public String createCardOrder(Player p_player, CurrentState p_currentState, String p_cardName) {
         Random l_random = new Random();
@@ -96,6 +134,13 @@ public class RandomPlayer extends PlayerBehaviourStrategy {
         }
     }
 
+    /**
+     * Gets random player.
+     *
+     * @param p_currentState the p current state
+     * @param p_player       the p player
+     * @return the random player
+     */
     private Player getRandomPlayer(CurrentState p_currentState, Player p_player) {
         ArrayList<Player> l_PlayerList = new ArrayList<Player>();
         Random l_random = new Random();
@@ -107,6 +152,13 @@ public class RandomPlayer extends PlayerBehaviourStrategy {
         return l_PlayerList.get(l_random.nextInt(l_PlayerList.size()));
     }
 
+    /**
+     * Create advance order string.
+     *
+     * @param p_player       the p player
+     * @param p_currentState the p current state
+     * @return the string
+     */
     @Override
     public String createAdvanceOrder(Player p_player, CurrentState p_currentState) {
         int l_armiesToAdvance = 1;
@@ -129,6 +181,13 @@ public class RandomPlayer extends PlayerBehaviourStrategy {
       return "advance " + l_randomOwnedCountry.getD_countryName() + " " + l_randomNeighbour.getD_countryName() + " " + l_armiesToAdvance;
     }
 
+    /**
+     * Create deploy order string.
+     *
+     * @param p_player       the p player
+     * @param p_currentState the p current state
+     * @return the string
+     */
     @Override
     public String createDeployOrder(Player p_player, CurrentState p_currentState) {
         if(p_player.getD_unallocatedArmies() > 0){
@@ -146,6 +205,12 @@ public class RandomPlayer extends PlayerBehaviourStrategy {
         }
     }
 
+    /**
+     * Gets random country.
+     *
+     * @param p_currentCountries the p current countries
+     * @return the random country
+     */
     private Country getRandomCountry(List<Country> p_currentCountries) {
         Random l_random = new Random();
         int l_randomIndex = l_random.nextInt(p_currentCountries.size());

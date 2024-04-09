@@ -16,19 +16,50 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+/**
+ * The type Game service test.
+ */
 public class GameServiceTest {
 
+    /**
+     * The D player 1.
+     */
     Player d_player1;
 
+    /**
+     * The D player 2.
+     */
     Player d_player2;
 
+    /**
+     * The D player 3.
+     */
     Player d_player3;
+    /**
+     * The D map.
+     */
     Map d_map;
+    /**
+     * The D map controller.
+     */
     MapController d_mapController;
+    /**
+     * The D current state.
+     */
     CurrentState d_currentState;
 
+    /**
+     * The D main game engine.
+     */
     MainGameEngine d_mainGameEngine = new MainGameEngine();
+    /**
+     * The D map name.
+     */
     String d_mapName;
+
+    /**
+     * Sets .
+     */
     @Before
     public void setup() {
         d_mapController = new MapController();
@@ -42,6 +73,14 @@ public class GameServiceTest {
 
 
     }
+
+    /**
+     * Test save game.
+     *
+     * @throws CommandValidationException the command validation exception
+     * @throws IOException                the io exception
+     * @throws ClassNotFoundException     the class not found exception
+     */
     @Test
     public void testSaveGame() throws CommandValidationException, IOException, ClassNotFoundException {
         StartupPhase d_currentPhase =new StartupPhase(d_currentState,d_mainGameEngine);
@@ -56,6 +95,13 @@ public class GameServiceTest {
         assertEquals(d_currentPhase.getD_currentState().getD_players().size(), d_phase.getD_currentState().getD_players().size());
     }
 
+    /**
+     * Load game test.
+     *
+     * @throws CommandValidationException the command validation exception
+     * @throws IOException                the io exception
+     * @throws ClassNotFoundException     the class not found exception
+     */
     @Test
     public void loadGameTest() throws CommandValidationException, IOException, ClassNotFoundException {
         StartupPhase d_currentPhase =new StartupPhase(d_currentState,d_mainGameEngine);

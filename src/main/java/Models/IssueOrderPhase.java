@@ -35,6 +35,8 @@ public class IssueOrderPhase extends Phase{
 
     /**
      * Init phase.
+     *
+     * @param p_isTournamentMode the p is tournament mode
      */
     @Override
     public void initPhase(boolean p_isTournamentMode) {
@@ -48,11 +50,22 @@ public class IssueOrderPhase extends Phase{
 
     }
 
+    /**
+     * Load game.
+     *
+     * @param p_commandHandler the p command handler
+     * @param p_player         the p player
+     */
     @Override
     public void loadGame(CommandHandler p_commandHandler, Player p_player) {
         printInvalidCommandInPhase();
     }
 
+    /**
+     * Tournament mode.
+     *
+     * @param lCommandHandler the l command handler
+     */
     @Override
     protected void tournamentMode(CommandHandler lCommandHandler) {
         printInvalidCommandInPhase();
@@ -141,6 +154,8 @@ public class IssueOrderPhase extends Phase{
     /**
      * Game player.
      *
+     * @param p_commandHandler the p command handler
+     * @param p_player         the p player
      * @throws CommandValidationException the command validation exception
      */
     @Override
@@ -151,7 +166,10 @@ public class IssueOrderPhase extends Phase{
     /**
      * Assign countries.
      *
-     * @param lCommandHandler the l command handler
+     * @param lCommandHandler    the l command handler
+     * @param p_player           the p player
+     * @param p_isTournamentMode the p is tournament mode
+     * @param p_currentState     the p current state
      * @throws CommandValidationException the command validation exception
      * @throws IOException                the io exception
      */
@@ -185,6 +203,7 @@ public class IssueOrderPhase extends Phase{
     /**
      * Issue order.
      *
+     * @param p_isTournamentMode the p is tournament mode
      * @throws Exception the exception
      */
     private void issueOrder(boolean p_isTournamentMode) throws Exception {
@@ -257,6 +276,13 @@ public class IssueOrderPhase extends Phase{
         }
     }
 
+    /**
+     * Save game.
+     *
+     * @param p_commandHandler the p command handler
+     * @param p_player         the p player
+     * @throws CommandValidationException the command validation exception
+     */
     @Override
     protected void saveGame(CommandHandler p_commandHandler, Player p_player) throws CommandValidationException {
         List<Map<String,String>> l_operationsList = p_commandHandler.getListOfOperations();

@@ -8,13 +8,35 @@ import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * The type Cheater player.
+ */
 public class CheaterPlayer extends PlayerBehaviourStrategy{
 
+    /**
+     * Instantiates a new Cheater player.
+     */
+    public CheaterPlayer() {
+    }
+
+    /**
+     * Gets player behaviour.
+     *
+     * @return the player behaviour
+     */
     @Override
     public String getPlayerBehaviour() {
         return "Cheater";
     }
 
+    /**
+     * Create order string.
+     *
+     * @param p_player       the p player
+     * @param p_currentState the p current state
+     * @return the string
+     * @throws IOException the io exception
+     */
     @Override
     public String createOrder(Player p_player, CurrentState p_currentState) throws IOException {
         if(p_player.getD_unallocatedArmies() !=0) {
@@ -43,6 +65,12 @@ public class CheaterPlayer extends PlayerBehaviourStrategy{
         return null;
     }
 
+    /**
+     * Double army on enemy neighbour countries.
+     *
+     * @param p_player       the p player
+     * @param p_currentState the p current state
+     */
     private void doubleArmyOnEnemyNeighbourCountries(Player p_player, CurrentState p_currentState) {
         List<Country> l_countriesOwned = p_player.getD_currentCountries();
 
@@ -65,6 +93,12 @@ public class CheaterPlayer extends PlayerBehaviourStrategy{
         }
     }
 
+    /**
+     * Conquer neighboring enemies.
+     *
+     * @param p_player       the p player
+     * @param p_currentState the p current state
+     */
     private void conquerNeighboringEnemies(Player p_player, CurrentState p_currentState) {
         List<Country> l_countriesOwned = p_player.getD_currentCountries();
 
@@ -84,12 +118,27 @@ public class CheaterPlayer extends PlayerBehaviourStrategy{
         }
     }
 
+    /**
+     * Conquer target country.
+     *
+     * @param p_currentState      the p current state
+     * @param p_enemyCountryOwner the p enemy country owner
+     * @param p_player            the p player
+     * @param p_enemyCountry      the p enemy country
+     */
     private void conquerTargetCountry(CurrentState p_currentState, Player p_enemyCountryOwner, Player p_player, Country p_enemyCountry) {
         p_enemyCountryOwner.getD_currentCountries().remove(p_enemyCountry);
         p_player.getD_currentCountries().add(p_enemyCountry);
         updateContinents(p_player, p_enemyCountryOwner, p_currentState);
     }
 
+    /**
+     * Update continents.
+     *
+     * @param p_player            the p player
+     * @param p_enemyCountryOwner the p enemy country owner
+     * @param p_currentState      the p current state
+     */
     private void updateContinents(Player p_player, Player p_enemyCountryOwner, CurrentState p_currentState) {
         List<Player> l_players = new ArrayList<>();
         p_player.setD_currentContinents(new ArrayList<>());
@@ -101,6 +150,13 @@ public class CheaterPlayer extends PlayerBehaviourStrategy{
         l_playerController.assignContinentToPlayers(l_players, p_currentState.getD_map().getD_mapContinents());
     }
 
+    /**
+     * Gets country owner.
+     *
+     * @param p_currentState the p current state
+     * @param l_enemyId      the l enemy id
+     * @return the country owner
+     */
     private Player getCountryOwner(CurrentState p_currentState, Integer l_enemyId) {
         List<Player> l_players = p_currentState.getD_players();
         Player l_owner = null;
@@ -114,6 +170,13 @@ public class CheaterPlayer extends PlayerBehaviourStrategy{
         return l_owner;
     }
 
+    /**
+     * Gets enemies.
+     *
+     * @param p_player      the p player
+     * @param p_eachCountry the p each country
+     * @return the enemies
+     */
     private ArrayList<Integer> getEnemies(Player p_player, Country p_eachCountry) {
         ArrayList<Integer> l_enemyCountries = new ArrayList<>();
 
@@ -125,22 +188,50 @@ public class CheaterPlayer extends PlayerBehaviourStrategy{
         return l_enemyCountries;
     }
 
+    /**
+     * Gets random country.
+     *
+     * @param p_currentCountries the p current countries
+     * @return the random country
+     */
     private Country getRandomCountry(List<Country> p_currentCountries) {
         Random l_random = new Random();
         int l_randomIndex = l_random.nextInt(p_currentCountries.size());
         return p_currentCountries.get(l_randomIndex);
     }
 
+    /**
+     * Create card order string.
+     *
+     * @param p_player       the p player
+     * @param p_currentState the p current state
+     * @param p_cardName     the p card name
+     * @return the string
+     */
     @Override
     public String createCardOrder(Player p_player, CurrentState p_currentState, String p_cardName) {
         return null;
     }
 
+    /**
+     * Create advance order string.
+     *
+     * @param p_player       the p player
+     * @param p_currentState the p current state
+     * @return the string
+     */
     @Override
     public String createAdvanceOrder(Player p_player, CurrentState p_currentState) {
         return null;
     }
 
+    /**
+     * Create deploy order string.
+     *
+     * @param p_player       the p player
+     * @param p_currentState the p current state
+     * @return the string
+     */
     @Override
     public String createDeployOrder(Player p_player, CurrentState p_currentState) {
         return null;

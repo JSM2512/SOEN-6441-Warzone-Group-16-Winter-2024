@@ -229,7 +229,7 @@ public class MapController implements Serializable {
     /**
      * Add remove continents map.
      *
-     * @param p_currentState
+     * @param p_currentState the p current state
      * @param p_mapToUpdate  the p map to update
      * @param p_operation    the p operation
      * @param p_arguments    the p arguments
@@ -248,6 +248,13 @@ public class MapController implements Serializable {
     }
 
 
+    /**
+     * Save map boolean.
+     *
+     * @param p_currentState the p current state
+     * @param p_fileName     the p file name
+     * @return the boolean
+     */
     public boolean saveMap(CurrentState p_currentState, String p_fileName){
         try {
             String l_mapFormat = null;
@@ -281,6 +288,14 @@ public class MapController implements Serializable {
         }
     }
 
+    /**
+     * Parse map to file.
+     *
+     * @param p_currentState the p current state
+     * @param p_writer       the p writer
+     * @param p_mapFormat    the p map format
+     * @throws IOException the io exception
+     */
     private void parseMapToFile(CurrentState p_currentState, FileWriter p_writer, String p_mapFormat) throws IOException {
         if(p_mapFormat.equalsIgnoreCase("ConquestMap")) {
             MapWriterAdapter l_mapWriterAdapter = new MapWriterAdapter(new ConquestMapFileWriter());
@@ -291,6 +306,12 @@ public class MapController implements Serializable {
         }
     }
 
+    /**
+     * Gets format to save.
+     *
+     * @return the format to save
+     * @throws IOException the io exception
+     */
     private String getFormatToSave() throws IOException {
         BufferedReader l_reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Kindly press 1 to save the map as 'Conquest Map Format' or else press 2 to save the map as 'Domination Map Format'");
@@ -366,6 +387,12 @@ public class MapController implements Serializable {
         }
     }
 
+    /**
+     * Reset map.
+     *
+     * @param p_currentState the p current state
+     * @param p_mapFile      the p map file
+     */
     public void resetMap(CurrentState p_currentState, String p_mapFile) {
         System.err.println("Map is not valid. Kindly provide valid map.");
         p_currentState.updateLog(p_mapFile + " map is not valid. Kindly provide valid map.","effect");

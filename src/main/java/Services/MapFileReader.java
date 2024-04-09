@@ -10,7 +10,25 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+/**
+ * The type Map file reader.
+ */
 public class MapFileReader implements Serializable {
+
+    /**
+     * Instantiates a new Map file reader.
+     */
+    public MapFileReader() {
+    }
+
+    /**
+     * Parse map file.
+     *
+     * @param p_currentState the p current state
+     * @param p_map          the p map
+     * @param p_fileLines    the p file lines
+     * @param p_fileName     the p file name
+     */
     public void parseMapFile(CurrentState p_currentState, Map p_map, List<String> p_fileLines, String p_fileName) {
         List<String> l_continentData = getContinentData(p_fileLines);
         List<String> l_countryData = getCountryData(p_fileLines);

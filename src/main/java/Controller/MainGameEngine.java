@@ -18,6 +18,9 @@ public class MainGameEngine implements Serializable {
      */
     Phase d_currentPhase = new StartupPhase(d_stateOfGame, this);
 
+    /**
+     * The D is tournament mode.
+     */
     boolean d_isTournamentMode = false;
 
     /**
@@ -44,18 +47,38 @@ public class MainGameEngine implements Serializable {
         this.d_currentPhase = d_currentPhase;
     }
 
+    /**
+     * Gets d state of game.
+     *
+     * @return the d state of game
+     */
     public CurrentState getD_stateOfGame() {
         return d_stateOfGame;
     }
 
+    /**
+     * Sets d state of game.
+     *
+     * @param p_stateOfGame the p state of game
+     */
     public void setD_stateOfGame(CurrentState p_stateOfGame) {
         this.d_stateOfGame = p_stateOfGame;
     }
 
+    /**
+     * Is d is tournament mode boolean.
+     *
+     * @return the boolean
+     */
     public boolean isD_isTournamentMode() {
         return d_isTournamentMode;
     }
 
+    /**
+     * Sets d is tournament mode.
+     *
+     * @param p_isTournamentMode the p is tournament mode
+     */
     public void setD_isTournamentMode(boolean p_isTournamentMode) {
         this.d_isTournamentMode = p_isTournamentMode;
     }
@@ -71,6 +94,8 @@ public class MainGameEngine implements Serializable {
 
     /**
      * Set issue order phase.
+     *
+     * @param p_isTournamentMode the p is tournament mode
      */
     public void setIssueOrderPhase(boolean p_isTournamentMode) {
         this.setD_mainEngineLog("Issue Order Phase", "phase");
@@ -125,6 +150,11 @@ public class MainGameEngine implements Serializable {
         System.out.println(l_consoleMessage);
     }
 
+    /**
+     * Load phase.
+     *
+     * @param p_phase the p phase
+     */
     public void loadPhase(Phase p_phase) {
         d_currentPhase = p_phase;
         d_stateOfGame = p_phase.getD_currentState();

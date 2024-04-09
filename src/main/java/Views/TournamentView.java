@@ -6,20 +6,43 @@ import Models.Tournament;
 
 import java.util.List;
 
+/**
+ * The type Tournament view.
+ */
 public class TournamentView {
+    /**
+     * The D tournament.
+     */
     Tournament d_tournament;
+    /**
+     * The D current states object.
+     */
     List<CurrentState> d_currentStatesObject;
 
+    /**
+     * Instantiates a new Tournament view.
+     *
+     * @param p_tournament the p tournament
+     */
     public TournamentView(Tournament p_tournament) {
         d_tournament = p_tournament;
         d_currentStatesObject = d_tournament.getD_currentStateList();
     }
 
+    /**
+     * Render center string.
+     *
+     * @param p_width  the p width
+     * @param p_string the p string
+     */
     public void renderCenterString(int p_width, String p_string) {
         String l_centeredString = String.format("%" + p_width + "s", String.format("%" + (p_string.length() + (p_width - p_string.length()) / 2) + "s", p_string));
         System.out.format(l_centeredString+"\n");
     }
 
+    /**
+     * Render separator.
+     */
     public void renderSeparator() {
         StringBuilder l_separator = new StringBuilder();
         for (int i = 0; i < ProjectConstants.WIDTH - 2; i++) {
@@ -27,12 +50,25 @@ public class TournamentView {
         }
         System.out.format("+%s+%n", l_separator.toString());
     }
+
+    /**
+     * Render map name.
+     *
+     * @param p_index   the p index
+     * @param p_mapName the p map name
+     */
     public void renderMapName(Integer p_index, String p_mapName) {
         String l_formattedString = String.format("%s %s %d %s", p_mapName, "(Game Number:", p_index, ")");
         renderSeparator();
         renderCenterString(ProjectConstants.WIDTH, l_formattedString);
         renderSeparator();
     }
+
+    /**
+     * Render games.
+     *
+     * @param p_currentState the p current state
+     */
     public void renderGames(CurrentState p_currentState) {
         String l_winner;
         String l_conclusion;
@@ -58,6 +94,9 @@ public class TournamentView {
         System.out.println(l_conclusionString);
     }
 
+    /**
+     * View tournament.
+     */
     public void viewTournament(){
         int l_counter = 0;
         System.out.println();

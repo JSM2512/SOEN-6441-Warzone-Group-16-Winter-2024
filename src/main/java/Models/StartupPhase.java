@@ -35,6 +35,8 @@ public class StartupPhase extends Phase{
 
     /**
      * Init phase.
+     *
+     * @param p_isTournamentMode the p is tournament mode
      */
     @Override
     public void initPhase(boolean p_isTournamentMode) {
@@ -69,6 +71,12 @@ public class StartupPhase extends Phase{
         }
     }
 
+    /**
+     * Load game.
+     *
+     * @param p_commandHandler the p command handler
+     * @param p_player         the p player
+     */
     @Override
     public void loadGame(CommandHandler p_commandHandler, Player p_player) {
         List <java.util.Map<String,String>> l_operationsList = p_commandHandler.getListOfOperations();
@@ -91,6 +99,13 @@ public class StartupPhase extends Phase{
         }
     }
 
+    /**
+     * Save game.
+     *
+     * @param p_commandHandler the p command handler
+     * @param p_player         the p player
+     * @throws CommandValidationException the command validation exception
+     */
     @Override
     public void saveGame(CommandHandler p_commandHandler, Player p_player) throws CommandValidationException {
         List<java.util.Map<String,String>> l_operationsList = p_commandHandler.getListOfOperations();
@@ -109,6 +124,13 @@ public class StartupPhase extends Phase{
         }
     }
 
+    /**
+     * Tournament mode.
+     *
+     * @param p_commandHandler the p command handler
+     * @throws CommandValidationException the command validation exception
+     * @throws IOException                the io exception
+     */
     @Override
     protected void tournamentMode(CommandHandler p_commandHandler) throws CommandValidationException, IOException {
         if(d_currentState.getD_players() != null && d_currentState.getD_players().size() > 1){
@@ -297,7 +319,9 @@ public class StartupPhase extends Phase{
      * Game player.
      *
      * @param p_commandHandler the p command handler
+     * @param p_player         the p player
      * @throws CommandValidationException the command validation exception
+     * @throws IOException                the io exception
      */
     @Override
     protected void gamePlayer(CommandHandler p_commandHandler, Player p_player) throws CommandValidationException, IOException {
@@ -317,7 +341,10 @@ public class StartupPhase extends Phase{
     /**
      * Assign countries.
      *
-     * @param p_commandHandler the p command handler
+     * @param p_commandHandler   the p command handler
+     * @param p_player           the p player
+     * @param p_isTournamentMode the p is tournament mode
+     * @param p_currentState     the p current state
      * @throws CommandValidationException the command validation exception
      * @throws IOException                the io exception
      */

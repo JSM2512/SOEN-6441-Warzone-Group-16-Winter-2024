@@ -10,8 +10,25 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Map file writer.
+ */
 public class MapFileWriter implements Serializable {
 
+    /**
+     * Instantiates a new Map file writer.
+     */
+    public MapFileWriter() {
+    }
+
+    /**
+     * Parse map to file.
+     *
+     * @param p_currentState the p current state
+     * @param p_writer       the p writer
+     * @param p_mapFormat    the p map format
+     * @throws IOException the io exception
+     */
     public void parseMapToFile(CurrentState p_currentState, FileWriter p_writer, String p_mapFormat) throws IOException {
         if(p_currentState.getD_map().getD_mapContinents() != null && !p_currentState.getD_map().getD_mapContinents().isEmpty()){
             writeContinentMetaData(p_currentState, p_writer);
@@ -21,6 +38,13 @@ public class MapFileWriter implements Serializable {
         }
     }
 
+    /**
+     * Write country and border meta data.
+     *
+     * @param p_currentState the p current state
+     * @param p_writer       the p writer
+     * @throws IOException the io exception
+     */
     private void writeCountryAndBorderMetaData(CurrentState p_currentState, FileWriter p_writer) throws IOException {
         String l_countryMetadata = "";
         String l_borderMetadata = "";
@@ -49,6 +73,13 @@ public class MapFileWriter implements Serializable {
         }
     }
 
+    /**
+     * Write continent meta data.
+     *
+     * @param p_currentState the p current state
+     * @param p_writer       the p writer
+     * @throws IOException the io exception
+     */
     private void writeContinentMetaData(CurrentState p_currentState, FileWriter p_writer) throws IOException {
         p_writer.write(System.lineSeparator() + "[continents]" + System.lineSeparator());
         for(Continent l_eachContinent : p_currentState.getD_map().getD_mapContinents()){
