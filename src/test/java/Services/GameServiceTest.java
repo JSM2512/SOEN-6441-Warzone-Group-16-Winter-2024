@@ -36,21 +36,22 @@ public class GameServiceTest {
         d_map = new Map();
         d_mapName = "test.map";
         d_map = d_mapController.loadMap(d_currentState, d_mapName);
+        d_player1 = new Player("Player-1");
+        d_player2 = new Player("Player-2");
+        d_player3 = new Player("Player-3");
+
 
     }
     @Test
     public void testSaveGame() throws CommandValidationException, IOException, ClassNotFoundException {
         StartupPhase d_currentPhase =new StartupPhase(d_currentState,d_mainGameEngine);
-        d_player1 = new Player("Player-1");
-        d_player2 = new Player("Player-2");
+
         List<Player> d_player_list = new ArrayList<>();
         d_player_list.add(d_player1);
         d_player_list.add(d_player2);
         d_currentState.setD_players(d_player_list);
-        d_currentPhase.getD_currentState().setD_players(d_player_list);
         d_currentPhase.saveGame(new CommandHandler("savegame savedGame.txt"),d_player1);
-        new StartupPhase(new CurrentState(), new MainGameEngine());
-        Phase d_phase;
+        Phase d_phase  = new StartupPhase(new CurrentState(), new MainGameEngine());
         d_phase = GameService.loadGame("savedGame.txt");
         assertEquals(d_currentPhase.getD_currentState().getD_players().size(), d_phase.getD_currentState().getD_players().size());
     }
@@ -58,9 +59,6 @@ public class GameServiceTest {
     @Test
     public void loadGameTest() throws CommandValidationException, IOException, ClassNotFoundException {
         StartupPhase d_currentPhase =new StartupPhase(d_currentState,d_mainGameEngine);
-        d_player1 = new Player("Player-1");
-        d_player2 = new Player("Player-2");
-        d_player3 = new Player("Player-3");
         List<Player> d_player_list = new ArrayList<>();
         d_player_list.add(d_player1);
         d_player_list.add(d_player2);
@@ -68,8 +66,7 @@ public class GameServiceTest {
         d_currentState.setD_players(d_player_list);
         d_currentPhase.getD_currentState().setD_players(d_player_list);
         d_currentPhase.saveGame(new CommandHandler("savegame loadGame.txt"),d_player1);
-        new StartupPhase(new CurrentState(), new MainGameEngine());
-        Phase d_phase;
+        Phase d_phase = new StartupPhase(new CurrentState(), new MainGameEngine());
         d_phase = GameService.loadGame("loadGame.txt");
         assertEquals(d_currentPhase.getD_currentState().getD_players().size(), d_phase.getD_currentState().getD_players().size());
     }
