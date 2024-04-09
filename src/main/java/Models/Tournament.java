@@ -24,6 +24,12 @@ public class Tournament implements Serializable {
     List<CurrentState> d_currentStateList = new ArrayList<>();
 
     /**
+     * Instantiates a new Tournament.
+     */
+    public Tournament() {
+    }
+
+    /**
      * Gets d map controller.
      *
      * @return the d map controller

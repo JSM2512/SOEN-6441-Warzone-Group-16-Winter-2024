@@ -10,6 +10,12 @@ import java.io.*;
 public class GameService{
 
     /**
+     * Instantiates a new Game service.
+     */
+    public GameService() {
+    }
+
+    /**
      * Save game.
      *
      * @param p_currentPhase the p current phase

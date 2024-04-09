@@ -16,6 +16,12 @@ import java.util.List;
 public class MapFileWriter implements Serializable {
 
     /**
+     * Instantiates a new Map file writer.
+     */
+    public MapFileWriter() {
+    }
+
+    /**
      * Parse map to file.
      *
      * @param p_currentState the p current state

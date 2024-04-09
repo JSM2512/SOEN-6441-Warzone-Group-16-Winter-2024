@@ -14,6 +14,12 @@ import java.io.Serializable;
 public class ConquestMapFileWriter implements Serializable {
 
     /**
+     * Instantiates a new Conquest map file writer.
+     */
+    public ConquestMapFileWriter() {
+    }
+
+    /**
      * Parse map to file.
      *
      * @param p_currentState the p current state

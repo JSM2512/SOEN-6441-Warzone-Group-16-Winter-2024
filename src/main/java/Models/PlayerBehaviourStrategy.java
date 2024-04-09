@@ -19,6 +19,12 @@ public abstract class PlayerBehaviourStrategy implements Serializable {
     Player d_player;
 
     /**
+     * Instantiates a new Player behaviour strategy.
+     */
+    public PlayerBehaviourStrategy() {
+    }
+
+    /**
      * Gets player behaviour.
      *
      * @return the player behaviour

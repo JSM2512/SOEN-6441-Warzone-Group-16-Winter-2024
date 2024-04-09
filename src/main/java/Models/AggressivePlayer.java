@@ -15,6 +15,12 @@ public class AggressivePlayer extends PlayerBehaviourStrategy{
     ArrayList<Country> d_deployCountries = new ArrayList<>();
 
     /**
+     * Instantiates a new Aggressive player.
+     */
+    public AggressivePlayer() {
+    }
+
+    /**
      * Gets player behaviour.
      *
      * @return the player behaviour

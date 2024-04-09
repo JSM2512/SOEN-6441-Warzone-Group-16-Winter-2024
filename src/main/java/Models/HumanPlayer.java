@@ -8,6 +8,13 @@ import java.io.InputStreamReader;
  * The type Human player.
  */
 public class HumanPlayer extends PlayerBehaviourStrategy{
+
+    /**
+     * Instantiates a new Human player.
+     */
+    public HumanPlayer() {
+    }
+
     /**
      * Gets player behaviour.
      *

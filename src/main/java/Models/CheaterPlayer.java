@@ -14,6 +14,12 @@ import java.util.Random;
 public class CheaterPlayer extends PlayerBehaviourStrategy{
 
     /**
+     * Instantiates a new Cheater player.
+     */
+    public CheaterPlayer() {
+    }
+
+    /**
      * Gets player behaviour.
      *
      * @return the player behaviour

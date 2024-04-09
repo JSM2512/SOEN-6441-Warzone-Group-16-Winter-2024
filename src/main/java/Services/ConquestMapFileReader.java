@@ -13,6 +13,13 @@ import java.util.List;
  * The type Conquest map file reader.
  */
 public class ConquestMapFileReader implements Serializable {
+
+    /**
+     * Instantiates a new Conquest map file reader.
+     */
+    public ConquestMapFileReader() {
+    }
+
     /**
      * Read conquest file.
      *

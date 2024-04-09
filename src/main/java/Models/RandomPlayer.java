@@ -10,6 +10,12 @@ import java.util.Random;
 public class RandomPlayer extends PlayerBehaviourStrategy {
 
     /**
+     * Instantiates a new Random player.
+     */
+    public RandomPlayer() {
+    }
+
+    /**
      * The D deploy countries.
      */
     ArrayList<Country> d_deployCountries = new ArrayList<Country>();

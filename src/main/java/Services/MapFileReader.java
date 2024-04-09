@@ -14,6 +14,13 @@ import java.util.List;
  * The type Map file reader.
  */
 public class MapFileReader implements Serializable {
+
+    /**
+     * Instantiates a new Map file reader.
+     */
+    public MapFileReader() {
+    }
+
     /**
      * Parse map file.
      *

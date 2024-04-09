@@ -15,6 +15,12 @@ public class BenevolentPlayer extends PlayerBehaviourStrategy{
     ArrayList<Country> d_deployCountries = new ArrayList<>();
 
     /**
+     * Instantiates a new Benevolent player.
+     */
+    public BenevolentPlayer() {
+    }
+
+    /**
      * Gets player behaviour.
      *
      * @return the player behaviour
