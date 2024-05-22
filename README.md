@@ -18,6 +18,7 @@ WarZone-Game is a strategic risk-based game, developed in Java, where players co
 ### Prerequisites
 - Java JDK 8 or higher
 - Maven
+- JavaDoc
 
 ### Steps
 1. Clone the repository:
@@ -45,6 +46,7 @@ Detailed documentation can be found in the [documentation](documentation) folder
 - Game rules and objectives
 - Instructions on how to play
 - Developer notes and design decisions
+- JavaDoc is also encorporated in the [Javadoc](https://github.com/JSM2512/WarZone-Game/tree/main/javadoc) folder
 
 ## CI/CD Pipeline
 The project uses a Continuous Integration/Continuous Deployment (CI/CD) [pipeline](https://github.com/JSM2512/WarZone-Game/actions) to ensure code quality and facilitate seamless deployment. The pipeline includes:
