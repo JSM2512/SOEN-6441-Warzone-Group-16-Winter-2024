@@ -49,8 +49,8 @@ Detailed documentation can be found in the [documentation](documentation) folder
 ## Contributing
 Contributions are welcome! Please fork the repository and create a pull request with your changes. Ensure your code adheres to the project's coding standards and includes appropriate tests.
 
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+## Release
+This project is released in three parts. See the [RELEASE](RELEASE) file for more details.
 
 ## Authors
 - [JSM2512](https://github.com/JSM2512)
