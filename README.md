@@ -46,6 +46,12 @@ Detailed documentation can be found in the [documentation](documentation) folder
 - Instructions on how to play
 - Developer notes and design decisions
 
+## CI/CD Pipeline
+The project uses a Continuous Integration/Continuous Deployment (CI/CD) [pipeline](https://github.com/JSM2512/WarZone-Game/actions) to ensure code quality and facilitate seamless deployment. The pipeline includes:
+- **Automated Testing**: Ensures new changes do not break existing functionality.
+- **Build Automation**: Automatically builds the project with each commit.
+- **Deployment**: Deploys the latest version to a specified environment.
+
 ## Contributing
 Contributions are welcome! Please fork the repository and create a pull request with your changes. Ensure your code adheres to the project's coding standards and includes appropriate tests.
 
