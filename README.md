@@ -4,7 +4,7 @@
 WarZone-Game is a strategic board game developed in Java, where players compete to dominate territories and achieve global conquest. Inspired by the classic Risk board game, it emulates the original [WarZone](https://www.warzone.com/) game with unique enhancements, including a tournament mode.
 
 ## Features
-- Multiple game modes including single-player, multiplayer, and tournament mode.
+- Multiple game modes including multiplayer and tournament mode.
 - Save and load game functionality.
 - Detailed game logs for reviewing past moves.
 
