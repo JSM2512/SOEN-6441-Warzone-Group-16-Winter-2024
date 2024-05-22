@@ -50,7 +50,7 @@ Detailed documentation can be found in the [documentation](documentation) folder
 Contributions are welcome! Please fork the repository and create a pull request with your changes. Ensure your code adheres to the project's coding standards and includes appropriate tests.
 
 ## Release
-This project is released in three parts. See the [RELEASE](RELEASE) file for more details.
+This project is released in three parts. See the [RELEASE](https://github.com/JSM2512/WarZone-Game/releases) file for more details.
 
 ## Authors
 - [JSM2512](https://github.com/JSM2512)
